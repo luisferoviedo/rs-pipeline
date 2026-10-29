@@ -36,5 +36,6 @@ etiquetas_exclusion:
   E5: Tipo de publicación
 etiquetas_no_recuperados:
   sin_acceso: Sin acceso
+  duplicado: Duplicado detectado en la recuperación
   pdf_otro_documento: PDF de otro documento
   incompletos_ilegibles: Incompletos o ilegibles

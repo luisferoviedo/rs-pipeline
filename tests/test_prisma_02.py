@@ -36,7 +36,8 @@ def test_conteos_recalculados_igualan_al_json(resultado):
 
 def test_desglose_de_los_137_no_recuperados(resultado):
     assert resultado["desglose_no_recuperados"] == {
-        "sin_acceso": 120,
+        "sin_acceso": 119,
+        "duplicado": 1,
         "pdf_otro_documento": 15,
         "incompletos_ilegibles": 2,
     }
@@ -142,7 +143,9 @@ def test_diagrama_en_espanol_con_trazabilidad(params, resultado, tmp_path):
         "Registros excluidos (n = 671)",
         "E4 Tipo de estudio (sin datos empíricos de resultados) (n = 68)",
         "Informes no recuperados (n = 137)",
-        "Sin acceso (n = 120)",
+        "Identificación de estudios a través de bases de datos y repositorios",
+        "Sin acceso (n = 119)",
+        "Duplicado detectado en la recuperación (n = 1)",
         "PDF de otro documento (n = 15)",
         "Incompletos o ilegibles (n = 2)",
         "Informes excluidos (n = 94)",
@@ -150,6 +153,9 @@ def test_diagrama_en_espanol_con_trazabilidad(params, resultado, tmp_path):
         "Estudios incluidos (n = 198)",
     ]:
         assert texto in svg, texto
+    assert "nuevos estudios" not in svg
+    assert 'class="diagram-title"' not in svg  # sin título visible (APA 7)
+    assert "<title id=\"title\">Diagrama de flujo PRISMA 2020</title>" in svg
     assert "Records" not in svg
     assert "Reports" not in svg
     png = salidas["png"].read_bytes()

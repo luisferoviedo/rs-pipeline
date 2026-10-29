@@ -64,3 +64,14 @@ El diagrama usa solo la columna de bases de datos y repositorios. El rastreo de 
 - `PNGRenderer(scale=2)` recorta la imagen (agranda el dibujo pero no el lienzo). El PNG se rasteriza con `resvg` ampliando `width` y `height` del SVG. `resvg==0.2.0` ya venía instalado con prisma-flow y ahora se fija en `requirements.txt` porque se importa directamente.
 - Aviso esperado de prisma-flow: 198 estudios frente a 201 informes (un estudio puede tener varios informes; ver D12).
 - Nombre de salida: `Diagrama_PRISMA_2020_Eje3_<fecha del JSON de conteos>`. El archivo `.json` hermano guarda hashes de entradas y salidas, versiones y conteos.
+
+## D15. Duplicado separado en los no recuperados (cambio de especificación)
+Decidido por Luis Fer (28 oct 2026). Reemplaza el desglose de D4: el duplicado detectado tarde (R1042) deja de sumarse a "sin acceso". Desglose de los 137: sin acceso 119 (`obtenido=no`) + duplicado detectado en la recuperación 1 + PDF de otro documento 15 + incompletos o ilegibles 2. Total sin cambios. El test del desglose y el del texto del diagrama se actualizaron por este cambio de especificación, no para forzarlos a verde.
+
+## D16. Ajustes finales del diagrama
+- Sin título dentro de la imagen: en APA 7 el número y el título van fuera, en el Word. El SVG conserva un `<title>` interno (accesibilidad) en español.
+- Banda superior: "Identificación de estudios a través de bases de datos y repositorios" (revisión nueva, no actualización).
+
+## Deuda técnica
+- `prisma_02.alto_texto` llama a `SVGRenderer._max_chars` (método privado de prisma-flow) para calcular cuántas líneas ocupa cada texto y así dar altura a las cajas. Si prisma-flow cambia ese método, el cálculo puede fallar o desajustarse. Mitigación: versión fijada en 0.6.1 y un test que genera el diagrama completo. Alternativa si molesta: copiar la fórmula `(ancho - 28) / 6,1` en el propio script.
+- `rasterizar_png` usa `resvg` directamente porque `PNGRenderer(scale=...)` recorta la imagen (ver D14).
