@@ -24,6 +24,7 @@ reclasificaciones: config/reclasificaciones.yaml
 salidas:
   figuras: outputs/figuras
   procesados: data/processed
+  tablas: outputs/tablas
   nombre_base_diagrama: Diagrama_PRISMA_2020_Eje3
 
 # Grupos de fuentes del Registro de búsquedas (los nombres deben existir en el Registro)

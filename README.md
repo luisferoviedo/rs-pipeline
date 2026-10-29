@@ -45,6 +45,12 @@ Quita los 18 E4, aplica `config/categorias.yaml` y escribe en `data/processed/` 
 normalizada de 201 informes y un `.json` con ruta y hash de cada entrada. Las columnas originales se
 conservan; las normalizadas son nuevas (`*_norm`, columnas 0/1 y de detalle). Un valor sin mapear hace fallar el script.
 
+## Descriptivos de la matriz normalizada
+```
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.descriptivos_03
+```
+Lee la matriz de `data/processed/` (falla si cambió desde que se normalizó) y escribe en `outputs/tablas/` una tabla CSV con su `.json` de trazabilidad: año, quinquenio, idioma, disciplina, MMAT, dirección, herramientas, resultados y el cruce disciplina x herramienta. Base: 201 informes; 198 estudios donde se indica.
+
 ## Verificar
 ```
 .venv/bin/pytest            # tests contra los CSV reales (requiere RS_DRIVE_ROOT)

@@ -284,6 +284,10 @@ def resumir(salida: pd.DataFrame, nuevas: dict[str, list]) -> dict:
     return resumen
 
 
+def nombre_matriz(params: dict) -> str:
+    return f"{Path(params['archivos']['extraccion']).stem}_normalizada.csv"
+
+
 def normalizar(params: dict, carpeta: Path) -> dict:
     """Escribe la matriz normalizada y su archivo de trazabilidad en `carpeta`."""
     fuentes = preparar_tabla(params)
@@ -295,7 +299,7 @@ def normalizar(params: dict, carpeta: Path) -> dict:
     if len(salida) != len(tabla) or not salida[list(tabla.columns)].equals(tabla):
         fallar("La normalización cambió filas o columnas originales")
     carpeta.mkdir(parents=True, exist_ok=True)
-    ruta_csv = carpeta / f"{fuentes['rutas']['extraccion'].stem}_normalizada.csv"
+    ruta_csv = carpeta / nombre_matriz(params)
     salida.to_csv(ruta_csv, index=False, encoding="utf-8", lineterminator="\n")
     resumen = resumir(salida, nuevas)
     raiz = fuentes["raiz"]

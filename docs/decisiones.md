@@ -107,3 +107,10 @@ Las columnas originales no se tocan. Las normalizadas son nuevas: `disciplina_no
 - `data/processed/` está en `.gitignore`: la matriz normalizada es un derivado del Drive y se regenera con el script. Si más adelante se publica con los datos (CC BY 4.0), hay que revisar antes las columnas de citas textuales (`oe1_cita`, `oe2_criterios_candidatos`) y decidirlo.
 - Se ejecuta con `PYTHONPATH=src python -m rs_pipeline.normalizar_01` porque importa de `prisma_02`.
 - Resultado: 219 filas − 18 E4 = 201 informes; 58 columnas originales + 17 nuevas.
+
+## D24. Descriptivos (Paso C): decisiones técnicas provisionales
+Propuestas por el asistente al construir `descriptivos_03.py`; **pendientes de confirmación de Luis Fer**.
+- **Año:** la matriz no tiene columna de año. Se toma el primer "(AAAA)" de `cita_apa` (el año que verá el lector en la referencia). Cuatro informes difieren del año de la base de datos (elegibilidad): R0247 (APA 2024, base 2023), R0751 (2020 / 2021), R0804 (2020 / 2021) y R0872 (2025 / 2026). Los dos de 2020 caen fuera de la ventana de búsqueda 2021–2026. Cada discrepancia queda en `outputs/tablas/anio.json`.
+- **Quinquenio:** calendario (2020–2024 y 2025–2029).
+- **Base:** todas las tablas usan 201 informes. La base de 198 estudios se agrega (columnas `n_estudios` y `pct_estudios`) solo donde los informes del mismo estudio coinciden: disciplina, herramientas y el cruce disciplina × herramienta. Si alguno no coincide, el script falla. No se muestra base de estudios en año, idioma, MMAT, dirección ni resultados: idioma y año son del informe, y los tres pares difieren en año, MMAT, dirección y resultados.
+- **País y nivel:** sin tabla hasta que se apruebe su normalización (son texto libre con marcas `[F]`/`[I]`).

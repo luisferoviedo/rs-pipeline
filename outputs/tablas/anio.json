@@ -1,0 +1,49 @@
+{
+  "tabla": "anio",
+  "descripcion": "Informes por año de la referencia APA (cita_apa)",
+  "tipo": "única",
+  "base": "201 informes",
+  "suma_n_informes": 201,
+  "suma_n_informes_debe_ser_201": true,
+  "entrada": {
+    "matriz_normalizada": "data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv",
+    "sha256": "aafbc75b37442c25fb068ad92e62d314820de48d76a0135ec7945d83226d13cd",
+    "entradas_de_la_matriz": {
+      "04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv": "2a63562ed8ca36a36f33aefba4275bf7282f60eb2a3b170fa2f86bbb3ae0ceae",
+      "05_extraccion/Extraccion_datos_v2_2026-10-18.csv": "cff8902b3de4f2f4fa5846d79db7c5f43dd6f529c393e0511a1f9875b6a8ff7d",
+      "06_prisma/prisma_counts_2026-10-26.json": "ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5",
+      "config/categorias.yaml": "29de157f8a3d238ff30dfd4cec46a28c727c0c0dd217e3cd4ab512c593c9cb65"
+    }
+  },
+  "versiones": {
+    "pandas": "2.3.3",
+    "python": "3.13.7"
+  },
+  "salida": {
+    "archivo": "anio.csv",
+    "sha256": "7bef683e960b4f39dfe4cd1bf2b22ff9c2b9df83001906f827e6c09cdd034d52"
+  },
+  "fuente_del_anio": "primer '(AAAA)' de cita_apa",
+  "informes_con_anio_distinto_al_de_la_base_de_datos": [
+    {
+      "id": "R0247",
+      "anio_cita_apa": 2024,
+      "anio_base_de_datos": 2023
+    },
+    {
+      "id": "R0751",
+      "anio_cita_apa": 2020,
+      "anio_base_de_datos": 2021
+    },
+    {
+      "id": "R0804",
+      "anio_cita_apa": 2020,
+      "anio_base_de_datos": 2021
+    },
+    {
+      "id": "R0872",
+      "anio_cita_apa": 2025,
+      "anio_base_de_datos": 2026
+    }
+  ]
+}
