@@ -1,0 +1,165 @@
+# Procedimiento del pipeline rs-pipeline
+
+Este documento explica, bloque por bloque, qué hace cada paso del pipeline, con qué datos, bajo qué
+decisiones y con qué controles. Se añade una sección al cerrar cada bloque (regla de `CLAUDE.md`).
+El flujo completo está en [flujograma.mmd](flujograma.mmd) y las decisiones en [decisiones.md](decisiones.md).
+
+Reglas que valen para todos los bloques:
+- El Drive es **solo lectura**. Los scripts leen de ahí y escriben únicamente dentro del repositorio.
+- Los hashes de las entradas son los SHA-256 que registró cada script al cerrar el bloque. Si un archivo
+  del Drive cambia, el hash cambia y el `.json` de trazabilidad de la siguiente corrida lo mostrará.
+- Si falta un archivo, una columna o un ID, o un conteo no cuadra, el script **falla** con un mensaje claro
+  (código de salida 1) y no escribe resultados.
+- La ruta del Drive se indica con la variable `RS_DRIVE_ROOT` en `.env` (ver `.env.example`).
+
+---
+
+## Bloque 1 · Conteos PRISMA y diagrama (`prisma_02.py`)
+
+Cierre: commits `f9731c0` y `087cb2c` (28 oct 2026).
+
+### Objetivo del paso
+Recalcular desde los CSV los conteos de la revisión sistemática (identificados → cribados → buscados →
+evaluados → incluidos), compararlos con los conteos declarados en `prisma_counts_2026-10-26.json` y,
+solo si todo cuadra, dibujar el diagrama PRISMA 2020 en español (201 informes = 198 estudios).
+
+### Entradas
+| Archivo (en el Drive, salvo `config/`) | Versión | SHA-256 |
+|---|---|---|
+| `01_busquedas/Registro_busquedas_PRISMA_v3.md` | v3 · 2026-10-06 | `4bbffb6f3423697a094a6e414d3cbc3aad80cb231be8042ff950ced661e811c7` |
+| `02_cribado/Cribado_titulo_resumen_2026-10-06.csv` | 2026-10-06 | `81091c47afedde33efa460334c965ec2e97a0153b810557ff0c55b6bb88394c7` |
+| `03_recuperacion/Recuperacion_textos_completos_2026-10-10.csv` | 2026-10-10 | `d97a430406dac743887a3fbb8875dda24dedf019b783d006a43b6c81ac46f70f` |
+| `04_elegibilidad/Elegibilidad_texto_completo_v3_2026-10-26.csv` | v3 · 2026-10-26 | `c6b909bad0147bbe5b77b0324901bb769ee9f790e790366001715db3b92d4293` |
+| `04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv` | v4 · 2026-10-26 | `2a63562ed8ca36a36f33aefba4275bf7282f60eb2a3b170fa2f86bbb3ae0ceae` |
+| `05_extraccion/Extraccion_datos_v2_2026-10-18.csv` | v2 · 2026-10-18 | `cff8902b3de4f2f4fa5846d79db7c5f43dd6f529c393e0511a1f9875b6a8ff7d` |
+| `06_prisma/prisma_counts_2026-10-26.json` | 2026-10-26 | `ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5` |
+| `config/reclasificaciones.yaml` | repositorio | `4edfca04cc0134bac92d4c597d797ec39a5deadb9bf8dca27e6160b8143b7326` |
+| `03_recuperacion/artículos_pdf/_no_corresponde/` (15 PDF) | sin versión | un hash por PDF, en el `.json` de trazabilidad |
+
+### Proceso
+Qué hace el script, en lenguaje sencillo:
+1. Lee `RS_DRIVE_ROOT` de `.env` y abre los archivos del Drive en modo lectura. Calcula la huella (SHA-256) de cada uno.
+2. Aplica en memoria seis cambios de decisión del cribado (D→E2, `config/reclasificaciones.yaml`); el CSV del Drive no se toca.
+3. Cuenta los registros cribados, los excluidos por cada motivo (E1 a E5), los buscados en texto completo y los no recuperados.
+   Los 137 no recuperados se desglosan en sin acceso (119), duplicado detectado en la recuperación (1), PDF de otro documento (15) e incompletos o ilegibles (2).
+4. Cuenta los evaluados, los excluidos por motivo (sumando los 18 E4 de los casos dudosos) y los incluidos.
+5. Compara cada número con el JSON y comprueba que cada etapa suma con la siguiente.
+6. Agrupa los informes de la matriz de extracción en estudios con `estudio_compartido_con`: 201 informes son 198 estudios (3 pares).
+7. Comprueba que los 15 informes de "PDF de otro documento" tengan su PDF separado o sean `NO_CORRESPONDE`.
+8. Lee del Registro de búsquedas las fuentes (ERIC, SciELO, Scopus = 1.105; La Referencia, BDTD = 122) y comprueba que sumen 1.227.
+9. Si todo cuadra, arma el diagrama con `prisma-flow`, reemplaza los textos por su versión en español, ajusta las alturas y escribe SVG, PNG y el archivo de trazabilidad.
+
+Comando exacto (desde la raíz del repositorio):
+```
+.venv/bin/python src/rs_pipeline/prisma_02.py
+```
+
+### Decisiones aplicadas
+- [D1](decisiones.md#d1-fuente-de-verdad-de-los-conteos) · Fuente de verdad de los conteos
+- [D2](decisiones.md#d2-seis-reclasificaciones-d--e2) · Seis reclasificaciones D → E2
+- [D3](decisiones.md#d3-identificados-1227-y-duplicados-124) · Identificados (1227) y duplicados (124)
+- [D4](decisiones.md#d4-los-137-informes-no-recuperados) · Los 137 informes no recuperados
+- [D5](decisiones.md#d5-casos-dudosos) · Casos dudosos
+- [D6](decisiones.md#d6-herramientas-y-versiones) · Herramientas y versiones
+- [D7](decisiones.md#d7-entorno-p2) · Entorno (P2)
+- [D8](decisiones.md#d8-pip-audit) · pip-audit
+- [D9](decisiones.md#d9-variable-del-drive) · Variable del Drive
+- [D10](decisiones.md#d10-prisma_02py-p3) · prisma_02.py (P3)
+- [D11](decisiones.md#d11-pdf-de-otro-documento) · PDF de otro documento
+- [D12](decisiones.md#d12-estudios-198) · Estudios (198)
+- [D13](decisiones.md#d13-sin-columna-de-otros-métodos) · Sin columna de "otros métodos"
+- [D14](decisiones.md#d14-diagrama-p5) · Diagrama (P5)
+- [D15](decisiones.md#d15-duplicado-separado-en-los-no-recuperados-cambio-de-especificación) · Duplicado separado en los no recuperados (cambio de especificación)
+- [D16](decisiones.md#d16-ajustes-finales-del-diagrama) · Ajustes finales del diagrama
+
+### Controles
+Cuándo falla (cada caso termina con un mensaje que nombra el problema):
+- Falta un archivo, una columna o `RS_DRIVE_ROOT`, o la carpeta indicada no existe.
+- Hay IDs repetidos o un ID de recuperación, elegibilidad o dudosos que no está en la etapa anterior.
+- Una reclasificación apunta a un ID que no existe o cuya decisión actual no es la esperada.
+- Algún conteo calculado difiere del JSON, o alguna etapa no suma con la siguiente (el reporte lista cada diferencia y no se dibuja nada).
+- Los informes no son 198 estudios, falta el PDF de un "PDF de otro documento", o las fuentes del Registro no coinciden con `params.yaml` ni suman 1.227.
+
+Lo que **no** se verifica por script (dato declarado): los 1.227 identificados y los 124 duplicados, y la división en bases de datos y repositorios; vienen del Registro y del JSON ([D3](decisiones.md#d3-identificados-1227-y-duplicados-124)).
+
+Observación que no es falla: 9 registros figuran como D en el cribado y como I en la recuperación; no afecta ningún conteo ([D10](decisiones.md#d10-prisma_02py-p3)).
+
+Tests: `tests/test_prisma_02.py`, 17 pruebas contra los CSV reales: cada etapa suma con la siguiente, lo recalculado iguala al JSON,
+el desglose de los 137, los 198 estudios con 3 pares, los 15 PDF, la división de las fuentes, y los casos en que debe fallar
+(conteo alterado, reclasificación inconsistente, variable del Drive ausente, PDF sin respaldo, estudio compartido con informe ausente).
+```
+.venv/bin/pytest tests/test_prisma_02.py
+```
+
+### Salidas
+En `outputs/figuras/` (dentro del repositorio, en git):
+- `Diagrama_PRISMA_2020_Eje3_2026-10-26.svg` y `.png` (el PNG mide el doble que el SVG).
+- `Diagrama_PRISMA_2020_Eje3_2026-10-26.json`: ruta y hash de cada entrada y de cada salida, versiones, conteos y avisos.
+  Hash del SVG: `15bf82e57bd0cffa7491161ac68de995c316abaea5f4029e03bf588b049defcb`.
+  Hash del PNG: `e29bdb023a50e499e4c601ccbb03fbd6fa78d8c5c5c5b2bf0625d09ad0e9ea98`.
+
+El diagrama no lleva título: el número y el título van fuera de la imagen, en el Word (APA 7).
+
+---
+
+## Bloque 2 · Normalización de la matriz de extracción (`normalizar_01.py`)
+
+Cierre: commits `6c8478e` y `5d2af49` (29 oct 2026).
+
+### Objetivo del paso
+Dejar las columnas de texto libre de la matriz de extracción en categorías comparables (disciplina, categoría MMAT,
+dirección del efecto, tipo de herramienta y tipo de resultado), sin perder los valores originales, para poder
+hacer descriptivos y análisis sobre los 201 informes incluidos.
+
+### Entradas
+| Archivo | Versión | SHA-256 |
+|---|---|---|
+| `05_extraccion/Extraccion_datos_v2_2026-10-18.csv` | v2 · 2026-10-18 | `cff8902b3de4f2f4fa5846d79db7c5f43dd6f529c393e0511a1f9875b6a8ff7d` |
+| `04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv` | v4 · 2026-10-26 | `2a63562ed8ca36a36f33aefba4275bf7282f60eb2a3b170fa2f86bbb3ae0ceae` |
+| `06_prisma/prisma_counts_2026-10-26.json` | 2026-10-26 | `ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5` |
+| `config/categorias.yaml` | repositorio (D17–D22) | `29de157f8a3d238ff30dfd4cec46a28c727c0c0dd217e3cd4ab512c593c9cb65` |
+
+### Proceso
+Qué hace el script, en lenguaje sencillo:
+1. Lee la matriz de extracción v2 (219 filas) y los casos dudosos, y quita los 18 informes que se excluyeron por E4 en los dudosos. Quedan 201 informes.
+2. Comprueba que 201 es el número que declara `prisma_counts`.
+3. Para cada columna a normalizar mira el valor crudo en `config/categorias.yaml` y escribe la categoría aprobada en una columna nueva (`*_norm`).
+   Las columnas con varias etiquetas posibles (herramientas y resultados) se separan en columnas 0/1; el texto de "otro" se guarda en una columna de detalle.
+4. Las reglas de excepción aprobadas (resolución de problemas pasa a indagación/habilidades; conceptual autoinformado; covariables que no cuentan como resultado) se aplican y se cuenta cuántos casos tocan.
+5. Escribe la matriz con las 58 columnas originales sin tocar más las 17 nuevas, y un archivo de trazabilidad con ruta y hash de cada entrada.
+
+Comando exacto:
+```
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.normalizar_01
+```
+
+### Decisiones aplicadas
+- [D17](decisiones.md#d17-disciplina-9-valores--5-categorías) · Disciplina (9 valores → 5 categorías)
+- [D18](decisiones.md#d18-mmat-categoría-6-valores--5-categorías) · MMAT categoría (6 valores → 5 categorías)
+- [D19](decisiones.md#d19-dirección-del-efecto-11-valores--5-categorías) · Dirección del efecto (11 valores → 5 categorías)
+- [D20](decisiones.md#d20-tipo-de-herramienta-multi-etiqueta) · Tipo de herramienta: multi-etiqueta
+- [D21](decisiones.md#d21-tipo-de-resultado-multi-etiqueta-oe1_resultado_tipo) · Tipo de resultado: multi-etiqueta (oe1_resultado_tipo)
+- [D22](decisiones.md#d22-columnas-nuevas-originales-conservadas) · Columnas nuevas, originales conservadas
+- [D23](decisiones.md#d23-normalizar_01py-paso-b) · normalizar_01.py (Paso B)
+
+### Controles
+Cuándo falla:
+- Falta un archivo o una columna necesaria, o un E4 de los dudosos no está en la matriz.
+- No quedan exactamente los 201 informes que declara `prisma_counts`.
+- Un valor crudo no está en `config/categorias.yaml` (el mensaje lo nombra con su frecuencia, y no se escribe ningún archivo).
+- Un segmento de `oe1_resultado_tipo` tiene una etiqueta desconocida, los paréntesis no cuadran o una fila se queda sin etiqueta.
+- Las reglas de excepción no tocan exactamente los casos aprobados (3 reasignados, 3 autoinformados, 1 covariable).
+- Una columna nueva ya existía, o la normalización cambia filas o columnas originales.
+
+Tests: `tests/test_normalizar_01.py`, 11 pruebas contra la matriz real: se conservan las 201 filas y las columnas originales,
+ningún valor queda sin mapear, los conteos de cada categoría (por ejemplo disciplina 90/70/22/14/5 y 83 pre-post de un grupo),
+las columnas 0/1, las excepciones aprobadas, el hash de la fuente en el archivo de trazabilidad, y los casos en que debe fallar.
+```
+.venv/bin/pytest tests/test_normalizar_01.py
+```
+
+### Salidas
+En `data/processed/` (dentro del repositorio pero **fuera de git**, porque es un derivado del Drive que se regenera con el script):
+- `Extraccion_datos_v2_2026-10-18_normalizada.csv`: 201 filas, 75 columnas (58 originales y 17 nuevas).
+- `Extraccion_datos_v2_2026-10-18_normalizada.json`: trazabilidad (ruta y hash de las entradas, los 18 IDs excluidos, columnas nuevas, frecuencias).
+  Hash del CSV: `aafbc75b37442c25fb068ad92e62d314820de48d76a0135ec7945d83226d13cd`.

@@ -32,3 +32,8 @@
 ## Calidad
 - Ruff (reglas E, F, B, S, BLE, TRY, C901 con máx. 10) antes de cada commit. pip-audit cada vez que cambie requirements.txt y antes de cada push.
 - gitleaks en pre-commit.
+
+## Documentación
+- `docs/PROCEDIMIENTO.md`: al cerrar cada bloque, añade su sección con este formato: Objetivo del paso · Entradas (archivo, versión, hash) · Proceso (qué hace el script en lenguaje sencillo y el comando exacto para ejecutarlo) · Decisiones aplicadas (enlaces a los D-xx de `docs/decisiones.md`) · Controles (qué verifica, cuándo falla, tests) · Salidas (archivo y dónde queda).
+- `docs/flujograma.mmd` (Mermaid) y `docs/flujograma.svg`: flujograma tipo ingeniería del pipeline completo, con entradas (paralelogramos), procesos y scripts (rectángulos), decisiones y controles (rombos "¿cuadra?" → sí / no → falla), salidas (documentos) y la frontera Drive solo lectura / repositorio. Se actualizan al cerrar cada bloque.
+- El documento final de presentación del proceso se hace al cierre del proceso, no antes.

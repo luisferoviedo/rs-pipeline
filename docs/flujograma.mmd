@@ -1,0 +1,109 @@
+%% Flujograma del pipeline rs-pipeline (se actualiza al cerrar cada bloque).
+%% Estado: bloque 1 (PRISMA) y bloque 2 (normalización) cerrados; bloque 3 (descriptivos) en curso.
+%% Formas: paralelogramo = entrada; rectángulo = proceso/script; rombo = decisión o control;
+%%         documento = salida; estadio rojo = falla. Frontera: el Drive es SOLO LECTURA.
+flowchart TB
+
+  subgraph DRIVE["GOOGLE DRIVE — SOLO LECTURA (nada se escribe aquí)"]
+    direction TB
+    dB[/"01_busquedas<br/>Registro_busquedas_PRISMA_v3.md<br/>fuentes: 1.105 + 122 = 1.227 (declarado)"/]
+    dC[/"02_cribado<br/>Cribado_titulo_resumen_2026-10-06.csv<br/>1.103 registros"/]
+    dR[/"03_recuperacion<br/>Recuperacion_textos_completos_2026-10-10.csv<br/>432 informes"/]
+    dP[/"03_recuperacion/artículos_pdf/_no_corresponde<br/>15 PDF de otro documento"/]
+    dE[/"04_elegibilidad<br/>Elegibilidad v3 (307 filas)<br/>Casos dudosos v4 (121 filas)"/]
+    dX[/"05_extraccion<br/>Extraccion_datos_v2_2026-10-18.csv<br/>219 filas × 58 columnas"/]
+    dJ[/"06_prisma<br/>prisma_counts_2026-10-26.json<br/>conteos declarados"/]
+  end
+
+  subgraph REPO["REPOSITORIO rs-pipeline — aquí sí se escribe"]
+    direction TB
+
+    subgraph CFG["Configuración (en git)"]
+      direction LR
+      env[/".env<br/>RS_DRIVE_ROOT (fuera de git)"/]
+      cfgP[/"config/params.yaml<br/>config/reclasificaciones.yaml<br/>6 reclasificaciones D→E2"/]
+      cfgC[/"config/categorias.yaml<br/>mapeo aprobado D17–D22"/]
+    end
+
+    subgraph B1["BLOQUE 1 · Conteos PRISMA y diagrama — prisma_02.py"]
+      direction TB
+      p0["Lee CSV, JSON y Registro<br/>(solo lectura) y calcula hashes"]
+      k0{"¿Archivos, columnas<br/>e IDs completos y únicos?"}
+      p1["Aplica las 6 reclasificaciones<br/>y recalcula los conteos"]
+      k1{"¿Conteos de los CSV = JSON?<br/>1.103 → 432 → 295 → 201<br/>¿suma cada etapa?"}
+      k2{"¿201 informes = 198 estudios (3 pares)?<br/>¿15 PDF respaldados?<br/>¿fuentes suman 1.227?"}
+      p2["Construye el diagrama con prisma-flow<br/>(textos en español, sin título)"]
+      o1@{ shape: doc, label: "outputs/figuras/<br/>Diagrama_PRISMA_2020_Eje3_2026-10-26<br/>.svg · .png · .json (trazabilidad)" }
+    end
+
+    subgraph B2["BLOQUE 2 · Normalización de la matriz — normalizar_01.py"]
+      direction TB
+      n0["Lee matriz v2 y dudosos;<br/>quita los 18 E4 de los dudosos"]
+      m1{"¿Quedan 201 informes<br/>= prisma_counts?"}
+      n1["Aplica config/categorias.yaml<br/>columnas nuevas; originales intactas"]
+      m2{"¿Todo valor crudo está en el mapeo?<br/>¿las reglas de excepción tocan<br/>exactamente lo aprobado?"}
+      o2@{ shape: doc, label: "data/processed/ (fuera de git)<br/>Extraccion_datos_v2_2026-10-18_normalizada.csv + .json" }
+    end
+
+    subgraph B3["BLOQUE 3 · Descriptivos — descriptivos_03.py (EN CURSO: faltan país y nivel)"]
+      direction TB
+      q0["Lee la matriz normalizada<br/>y su registro de trazabilidad"]
+      r1{"¿El hash de la matriz es el registrado?<br/>¿198 estudios? ¿los informes de un estudio<br/>coinciden en lo que se cuenta por estudio?"}
+      q1["Calcula frecuencias: n y %<br/>base 201 informes; 198 estudios donde aplica"]
+      o3@{ shape: doc, label: "outputs/tablas/<br/>9 tablas .csv + .json<br/>(país y nivel pendientes)" }
+    end
+
+    f1(["FALLA<br/>mensaje claro y código 1<br/>no dibuja nada"])
+    f2(["FALLA<br/>mensaje claro y código 1<br/>no escribe la matriz"])
+    f3(["FALLA<br/>mensaje claro y código 1<br/>no escribe tablas"])
+  end
+
+  %% Entradas del bloque 1 (frontera: solo lectura)
+  dB --> p0
+  dC --> p0
+  dR --> p0
+  dP --> p0
+  dE --> p0
+  dX --> p0
+  dJ --> p0
+  env --> p0
+  cfgP --> p0
+
+  p0 --> k0
+  k0 -- "sí" --> p1
+  k0 -- "no" --> f1
+  p1 --> k1
+  k1 -- "sí" --> k2
+  k1 -- "no" --> f1
+  k2 -- "sí" --> p2
+  k2 -- "no" --> f1
+  p2 --> o1
+
+  %% Bloque 2
+  dX --> n0
+  dE --> n0
+  dJ --> n0
+  cfgC --> n0
+  env --> n0
+  n0 --> m1
+  m1 -- "sí" --> n1
+  m1 -- "no" --> f2
+  n1 --> m2
+  m2 -- "sí" --> o2
+  m2 -- "no" --> f2
+
+  %% Bloque 3
+  o2 --> q0
+  dE --> q0
+  dJ --> q0
+  q0 --> r1
+  r1 -- "sí" --> q1
+  r1 -- "no" --> f3
+  q1 --> o3
+
+  classDef drive fill:#e8f1fb,stroke:#2b6cb0,color:#1a365d
+  classDef falla fill:#fde8e8,stroke:#c0392b,color:#7b1d1d
+  classDef pendiente stroke-dasharray: 5 5
+  class dB,dC,dR,dP,dE,dX,dJ drive
+  class f1,f2,f3 falla
+  class q0,r1,q1,o3 pendiente
