@@ -176,7 +176,7 @@ En `data/processed/` (dentro del repositorio pero **fuera de git**, porque es un
 
 ## Bloque 3 · Descriptivos de la matriz (`descriptivos_03.py`)
 
-Cierre: el commit de este bloque figura en el historial de git (29 oct 2026). Flujograma actualizado ([D29](decisiones.md#d29-flujograma-en-svg)).
+Cierre: commits `647af66` y `0940c0e` (29 oct 2026). Flujograma actualizado ([D29](decisiones.md#d29-flujograma-en-svg)).
 
 ### Objetivo del paso
 Describir los 201 informes incluidos (año, idioma, país, nivel, disciplina, categoría MMAT, dirección del efecto,
