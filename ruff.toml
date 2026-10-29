@@ -1,0 +1,11 @@
+target-version = "py310"
+
+[lint]
+select = ["E", "F", "B", "S", "BLE", "TRY", "C901"]
+
+[lint.mccabe]
+max-complexity = 10
+
+[lint.per-file-ignores]
+# pytest usa `assert` para verificar; la regla S101 lo prohibiría en los tests.
+"tests/**" = ["S101"]

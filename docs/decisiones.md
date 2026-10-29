@@ -31,3 +31,9 @@ las filas con `sugerencia_automatica` que empieza por "Excluir E4" (17 `ok` + R0
   Dependencias de ejecución que trae: `pydantic>=2` y `resvg>=0.2.0`.
 - Python 3.13 y pandas 2.3.3 (no pandas 3 por ahora).
 - Script de PRISMA: `src/rs_pipeline/prisma_02.py`.
+
+## D7. Entorno (P2)
+- `pip` del venv actualizado a 26.2.2 (la 25.2 traía vulnerabilidades según pip-audit; no está en requirements.txt).
+- `requirements.txt` fija solo los paquetes directos; sus dependencias (numpy, pydantic, resvg, etc.) las resuelve pip.
+- Hooks de pre-commit locales (ruff del venv y gitleaks de brew) para no descargar segundas versiones.
+- `ruff.toml` ignora S101 (assert) solo en `tests/`.

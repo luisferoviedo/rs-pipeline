@@ -1,0 +1,15 @@
+# Hooks locales: usan el ruff fijado en requirements.txt (.venv) y el gitleaks de brew,
+# así no hay segundas versiones descargadas por pre-commit.
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff
+        entry: .venv/bin/ruff check
+        language: system
+        types: [python]
+      - id: gitleaks
+        name: gitleaks
+        entry: gitleaks git --pre-commit --staged --redact --verbose
+        language: system
+        pass_filenames: false

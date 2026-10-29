@@ -1,0 +1,7 @@
+pandas==2.3.3
+pyyaml==6.0.3
+pytest==9.2.0
+ruff==0.17.3
+prisma-flow==0.6.1
+pip-audit==2.10.1
+pre-commit==4.7.0
