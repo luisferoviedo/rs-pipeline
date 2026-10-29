@@ -75,3 +75,28 @@ Decidido por Luis Fer (28 oct 2026). Reemplaza el desglose de D4: el duplicado d
 ## Deuda técnica
 - `prisma_02.alto_texto` llama a `SVGRenderer._max_chars` (método privado de prisma-flow) para calcular cuántas líneas ocupa cada texto y así dar altura a las cajas. Si prisma-flow cambia ese método, el cálculo puede fallar o desajustarse. Mitigación: versión fijada en 0.6.1 y un test que genera el diagrama completo. Alternativa si molesta: copiar la fórmula `(ancho - 28) / 6,1` en el propio script.
 - `rasterizar_png` usa `resvg` directamente porque `PNGRenderer(scale=...)` recorta la imagen (ver D14).
+
+# Bloque: normalización de la matriz de extracción (29 oct 2026)
+Insumo: `05_extraccion/Extraccion_datos_v2_2026-10-18.csv` sin los 18 E4 de los dudosos (201 informes). Mapeo en `config/categorias.yaml`.
+
+## D17. Disciplina (9 valores → 5 categorías)
+física 90, química 70, biología 22, ciencias integradas 14, otra 5. Bioquímica va en química. Las integradas con matemáticas van en ciencias integradas. "Ciencias de la Tierra y ambientales" va en ciencias integradas (el área MEN es "Ciencias naturales y educación ambiental"); por eso "otra" queda en 5 informes.
+
+## D18. MMAT categoría (6 valores → 5 categorías)
+Se fusiona la categoría 3 (83 con "incluye pre-post de un grupo" + 26 sin la marca = 109). Columna nueva `pre_post_un_grupo` (0/1) = 1 en los 83 con la marca.
+
+## D19. Dirección del efecto (11 valores → 5 categorías)
+no comparativo 76, favorable a la simulación 63, mixto 50, sin diferencia 11, "otro (comparación dentro de la misma simulación)" 1. Los dos "paquete" quedan en favorable con `efecto_aislado` = 0; los otros 61 favorables tienen 1; vacío en el resto. "Mixto" con matiz queda en mixto. No hay valores "desfavorable" (aunque el protocolo lo prevé): si aparece uno, el script falla.
+
+## D20. Tipo de herramienta: multi-etiqueta
+Sin categoría "combinada". Una columna 0/1 por herramienta (`oe2_herr_simulacion_interactiva`, `_laboratorio_virtual`, `_movil`, `_realidad_virtual_aumentada`, `_otro`) y `oe2_herr_otro_detalle` con el texto de "otro". "Juego (otro)" cuenta como otro con detalle "juego". Las marcas `[F]` y `[I]` sí están documentadas en `_trabajo/extraccion/PROTOCOLO_EXTRACCION.md` (regla 1): `[F]` = lo dice el texto, `[I]` = inferencia razonable del extractor. Son marcas de procedencia, no categorías; se quitan de la etiqueta. Hay 1 valor con `[I]` ("simulación interactiva [I]") y 1 con `[F]` ("otro — [F] simulación narrativa…").
+
+## D21. Tipo de resultado: multi-etiqueta (oe1_resultado_tipo)
+Se conservan los nombres de la matriz: conceptual, indagación/habilidades, actitud/motivación, otro. Columnas 0/1 `oe1_res_conceptual`, `oe1_res_indagacion_habilidades`, `oe1_res_actitud_motivacion`, `oe1_res_otro`, más `oe1_res_otro_detalle` (texto de "otro", sin dividir).
+- Resolución de problemas va en indagación/habilidades en los 4 casos (3 que estaban en "otro" pasan a indagación; 1 ya estaba).
+- Conceptual autoinformado (3 informes: "autopercibido", "comprensión autoinformada") sigue siendo conceptual y activa `conceptual_autoinforme` = 1.
+- Las covariables no cuentan como resultado (1 informe: "compromiso y carga cognitiva como covariables"; su segmento de actitud/motivación no se cuenta).
+- Sin decisión expresa (queda como en la propuesta): "otro (percepción de aprendizaje; actitud/preferencia)" es solo "otro"; "potencial pedagógico por inspección" y "diferencias por género" siguen en "otro".
+
+## D22. Columnas nuevas, originales conservadas
+Las columnas originales no se tocan. Las normalizadas son nuevas: `disciplina_norm`, `mmat_categoria_norm`, `oe1_direccion_norm` y las 0/1 y de detalle de D18 a D21. Un valor crudo que no esté en `config/categorias.yaml` hace fallar el script.

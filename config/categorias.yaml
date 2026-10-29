@@ -1,0 +1,90 @@
+# Mapeo de normalización de la matriz de extracción (Paso A aprobado por Luis Fer, 29 oct 2026).
+# Fuente: Extraccion_datos_v2_2026-10-18.csv, 201 informes (sin los 18 E4 de Casos_dudosos v4).
+# Cada columna normalizada se agrega con otro nombre; las columnas originales se conservan.
+# Todo valor crudo que no esté aquí hace fallar el script (normalizar_01.py).
+# n = informes con ese valor crudo. Las decisiones están en docs/decisiones.md (D17 a D23).
+
+disciplina:
+  columna_salida: disciplina_norm
+  mapa:
+    "física": "física"  # n=90
+    "química": "química"  # n=69
+    "biología": "biología"  # n=22
+    "ciencias integradas": "ciencias integradas"  # n=11
+    "otra": "otra"  # n=5
+    "ciencias integradas (ciencias naturales / ciencias ambientales)": "ciencias integradas"  # n=1
+    "otra (ciencias de la Tierra y ambientales)": "ciencias integradas"  # n=1
+    "química (bioquímica)": "química"  # n=1
+    "ciencias integradas (biología, química, física y matemáticas)": "ciencias integradas"  # n=1
+
+mmat_categoria:
+  columna_salida: mmat_categoria_norm
+  columna_pre_post: pre_post_un_grupo
+  mapa:
+    "3 no aleatorizado (incluye pre-post de un grupo)": {categoria: "3 no aleatorizado", pre_post_un_grupo: 1}  # n=83
+    "5 métodos mixtos": {categoria: "5 métodos mixtos", pre_post_un_grupo: 0}  # n=40
+    "3 no aleatorizado": {categoria: "3 no aleatorizado", pre_post_un_grupo: 0}  # n=26
+    "2 ensayo aleatorizado": {categoria: "2 ensayo aleatorizado", pre_post_un_grupo: 0}  # n=19
+    "1 cualitativo": {categoria: "1 cualitativo", pre_post_un_grupo: 0}  # n=18
+    "4 cuantitativo descriptivo": {categoria: "4 cuantitativo descriptivo", pre_post_un_grupo: 0}  # n=15
+
+oe1_direccion:
+  columna_salida: oe1_direccion_norm
+  columna_efecto_aislado: efecto_aislado
+  # efecto_aislado: 1 = el efecto de la simulación se aísla; 0 = paquete (no se aísla); null = no aplica (vacío)
+  mapa:
+    "no comparativo (solo describe)": {categoria: "no comparativo", efecto_aislado: null}  # n=73
+    "favorable a la simulación": {categoria: "favorable a la simulación", efecto_aislado: 1}  # n=61
+    "mixto": {categoria: "mixto", efecto_aislado: null}  # n=49
+    "sin diferencia": {categoria: "sin diferencia", efecto_aislado: null}  # n=11
+    "favorable a la simulación (paquete combinado; efecto de la simulación no aislado)": {categoria: "favorable a la simulación", efecto_aislado: 0}  # n=1
+    "otro: compara dos formas de guía con la misma simulación; favorable a la simulación con avisos 'justo a tiempo'": {categoria: "otro (comparación dentro de la misma simulación)", efecto_aislado: null}  # n=1
+    "no comparativo (solo describe) — hay pre-post en porcentajes y correlaciones entre dimensiones, pero ninguna prueba inferencial entre grupos o momentos que respalde un efecto": {categoria: "no comparativo", efecto_aislado: null}  # n=1
+    "no comparativo (solo describe) — diagnóstico y evaluación final con instrumentos distintos, sin pruebas inferenciales; la mejora se infiere de proporciones": {categoria: "no comparativo", efecto_aislado: null}  # n=1
+    "no comparativo (solo describe) — pre-post en proporciones de aciertos sin prueba inferencial ni grupo comparación": {categoria: "no comparativo", efecto_aislado: null}  # n=1
+    "favorable a la simulación (paquete PjBL+LV contra enseñanza convencional con práctica; no aísla el efecto del laboratorio virtual)": {categoria: "favorable a la simulación", efecto_aislado: 0}  # n=1
+    "mixto (sin diferencia global; favorable al virtual solo con alto conocimiento previo)": {categoria: "mixto", efecto_aislado: null}  # n=1
+
+oe2_tipo_herramienta:
+  # Multi-etiqueta: una columna 0/1 por herramienta y oe2_herr_otro_detalle con el texto de 'otro'.
+  # Las marcas [F] y [I] son procedencia (PROTOCOLO_EXTRACCION.md, regla 1): [F] lo dice el texto,
+  # [I] es inferencia del extractor. Se quitan de la etiqueta; no son categorías.
+  columnas:
+    simulación interactiva: oe2_herr_simulacion_interactiva
+    laboratorio virtual: oe2_herr_laboratorio_virtual
+    móvil: oe2_herr_movil
+    realidad virtual/aumentada: oe2_herr_realidad_virtual_aumentada
+    otro: oe2_herr_otro
+  columna_detalle: oe2_herr_otro_detalle
+  mapa:
+    "simulación interactiva": {etiquetas: ["simulación interactiva"], detalle: ""}  # n=132
+    "laboratorio virtual": {etiquetas: ["laboratorio virtual"], detalle: ""}  # n=54
+    "otro": {etiquetas: ["otro"], detalle: ""}  # n=3
+    "móvil": {etiquetas: ["móvil"], detalle: ""}  # n=3
+    "realidad virtual/aumentada": {etiquetas: ["realidad virtual/aumentada"], detalle: ""}  # n=2
+    "otro — [F] simulación narrativa de baja fidelidad basada en casos (escenario con personaje animado) (p. 5–6)": {etiquetas: ["otro"], detalle: "simulación narrativa de baja fidelidad basada en casos (escenario con personaje animado) (p. 5–6)"}  # n=1
+    "simulación interactiva; realidad virtual/aumentada": {etiquetas: ["simulación interactiva", "realidad virtual/aumentada"], detalle: ""}  # n=1
+    "simulación interactiva; móvil; otro (análisis de video y laboratorio en casa)": {etiquetas: ["simulación interactiva", "móvil", "otro"], detalle: "análisis de video y laboratorio en casa"}  # n=1
+    "otro (manipulativo virtual de representación, no simulación de fenómeno)": {etiquetas: ["otro"], detalle: "manipulativo virtual de representación, no simulación de fenómeno"}  # n=1
+    "simulación interactiva; otro (visualizador molecular 3D)": {etiquetas: ["simulación interactiva", "otro"], detalle: "visualizador molecular 3D"}  # n=1
+    "simulación interactiva [I]": {etiquetas: ["simulación interactiva"], detalle: ""}  # n=1
+    "simulación interactiva; juego (otro)": {etiquetas: ["simulación interactiva", "otro"], detalle: "juego"}  # n=1
+
+oe1_resultado_tipo:
+  # El valor se divide en ';' fuera de paréntesis. Cada segmento se asigna por su prefijo (lo que
+  # va antes de '(' o ':'). Un prefijo desconocido hace fallar el script. Nombres tal como en la matriz.
+  separador: ";"
+  columnas:
+    conceptual: oe1_res_conceptual
+    indagación/habilidades: oe1_res_indagacion_habilidades
+    actitud/motivación: oe1_res_actitud_motivacion
+    otro: oe1_res_otro
+  columna_detalle: oe1_res_otro_detalle
+  columna_autoinforme: conceptual_autoinforme
+  # Un segmento 'otro' cuyo texto coincide con el patrón pasa a la etiqueta indicada (D21).
+  reasignar_otro:
+    - {patron: "resoluci[oó]n .*problemas", a: "indagación/habilidades", esperados: 3}
+  # Segmento 'conceptual' con calificador autoinformado: sigue siendo conceptual y conceptual_autoinforme = 1.
+  conceptual_autoinforme: {patron: "auto(percib|inform)", esperados: 3}
+  # Segmento cuyo calificador dice 'covariable': no cuenta como resultado.
+  no_cuenta_como_resultado: {patron: "covariable", esperados: 1}
