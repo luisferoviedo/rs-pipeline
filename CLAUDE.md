@@ -30,5 +30,5 @@
 - Ninguna llamada a la API sin que Luis Fer apruebe el lote y el costo estimado.
 
 ## Calidad
-- Ruff (reglas E, F, B, S, BLE, TRY, C901 con máx. 10) y pip-audit antes de cada commit.
+- Ruff (reglas E, F, B, S, BLE, TRY, C901 con máx. 10) antes de cada commit. pip-audit cada vez que cambie requirements.txt y antes de cada push.
 - gitleaks en pre-commit.

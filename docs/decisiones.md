@@ -37,3 +37,9 @@ las filas con `sugerencia_automatica` que empieza por "Excluir E4" (17 `ok` + R0
 - `requirements.txt` fija solo los paquetes directos; sus dependencias (numpy, pydantic, resvg, etc.) las resuelve pip.
 - Hooks de pre-commit locales (ruff del venv y gitleaks de brew) para no descargar segundas versiones.
 - `ruff.toml` ignora S101 (assert) solo en `tests/`.
+
+## D8. pip-audit
+Se cambia la regla de `CLAUDE.md`: pip-audit se corre cada vez que cambie `requirements.txt` y antes de cada push (no antes de cada commit ni como hook, porque depende de red).
+
+## D9. Variable del Drive
+`RS_DRIVE_ROOT` va en `.env` (ignorado por git; plantilla en `.env.example`). El script la lee con un lector mínimo propio, sin python-dotenv.
