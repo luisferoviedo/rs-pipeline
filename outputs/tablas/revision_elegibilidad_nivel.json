@@ -1,0 +1,34 @@
+{
+  "tabla": "revision_elegibilidad_nivel",
+  "descripcion": "Informes cuyo nivel (según el texto) toca la elegibilidad. Luis Fer decide en la columna decision_luisfer. No cambia el PRISMA ni excluye nada.",
+  "filas": 30,
+  "filas_por_nivel_norm": {
+    "universitario: 2.º año o superior": 13,
+    "primer año universitario": 9,
+    "universitario: año no reportado": 5,
+    "formación docente": 3
+  },
+  "fuente_del_fragmento": "campos contexto y alertas de la matriz de extracción",
+  "regla_3_de_elegibilidad": {
+    "texto_checkpoint": "3. 2.º año cercano a lo clínico: incluir (es ciencia).",
+    "fuente_checkpoint": "_trabajo/CHECKPOINT_Eje3.md, sección 'Reglas aprobadas 11 oct', línea 28",
+    "reglas_aprobadas_11_oct": "1. Cursos de ciencias en programas de formación docente: incluir. 2. Universitarios de 1.er año voluntarios: incluir. 3. 2.º año cercano a lo clínico: incluir (es ciencia). 4. Semestre no reportado con contenido introductorio: incluir.",
+    "texto_en_dudosos": "Revisar con regla 3 del 11 oct (2.º año cercano a lo introductorio = incluir)",
+    "fuente_en_dudosos": "04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv, columna sugerencia_automatica",
+    "nota": "Las dos redacciones difieren (clínico / introductorio). El Protocolo RS no está en el Drive en un formato que se pueda leer; confirmar contra el Protocolo."
+  },
+  "entrada": {
+    "matriz_normalizada": "data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv",
+    "sha256": "7acb689286a7b702fe0aae06b4467a8196ea604008fb339319aa38d3242ad5aa",
+    "entradas_de_la_matriz": {
+      "04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv": "2a63562ed8ca36a36f33aefba4275bf7282f60eb2a3b170fa2f86bbb3ae0ceae",
+      "05_extraccion/Extraccion_datos_v2_2026-10-18.csv": "cff8902b3de4f2f4fa5846d79db7c5f43dd6f529c393e0511a1f9875b6a8ff7d",
+      "06_prisma/prisma_counts_2026-10-26.json": "ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5",
+      "config/categorias.yaml": "3fa66e49aa9899f6989f3078cffd1994f3d98f8728cc2103ae580fc9a884378f"
+    }
+  },
+  "salida": {
+    "archivo": "revision_elegibilidad_nivel.csv",
+    "sha256": "da7b89c97098fa978de008b7d857d21225387d2cd17171a7bae22f014ff638e7"
+  }
+}

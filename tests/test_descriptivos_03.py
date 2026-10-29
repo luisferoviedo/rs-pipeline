@@ -9,8 +9,8 @@ import pytest
 from rs_pipeline import descriptivos_03, normalizar_01, prisma_02
 
 UNICAS = [
-    "anio", "anio_quinquenio", "idioma", "disciplina", "mmat_categoria",
-    "oe1_direccion",
+    "anio", "anio_quinquenio", "idioma", "pais", "nivel", "disciplina",
+    "mmat_categoria", "oe1_direccion",
 ]
 
 
@@ -51,7 +51,8 @@ def test_conteos_reales_de_cada_tabla(carpeta):
         "inglés": 159, "español": 35, "portugués": 7,
     }
     anio = leer(carpeta, "anio").set_index("anio")["n_informes"].to_dict()
-    assert anio == {2020: 2, 2021: 44, 2022: 31, 2023: 32, 2024: 36, 2025: 33, 2026: 23}
+    # año de la base de datos (D24); el año APA queda en cita_apa
+    assert anio == {2021: 46, 2022: 31, 2023: 33, 2024: 35, 2025: 32, 2026: 24}
     mmat = leer(carpeta, "mmat_categoria").set_index("categoria")
     assert mmat.loc["3 no aleatorizado", "n_pre_post_un_grupo"] == 83
     assert mmat["n_pre_post_un_grupo"].sum() == 83
@@ -80,7 +81,8 @@ def test_el_cruce_es_coherente_con_las_otras_tablas(carpeta):
 
 
 def test_cada_tabla_tiene_su_json_con_base_y_hashes(carpeta):
-    for nombre in [*UNICAS, "herramientas", "resultados", "disciplina_x_herramienta"]:
+    todas = [*UNICAS, "herramientas", "resultados", "disciplina_x_herramienta"]
+    for nombre in todas:
         traza = json.loads((carpeta / f"{nombre}.json").read_text(encoding="utf-8"))
         assert "201 informes" in traza["base"]
         assert traza["salida"]["sha256"] == prisma_02.sha256(carpeta / f"{nombre}.csv")
@@ -90,7 +92,7 @@ def test_cada_tabla_tiene_su_json_con_base_y_hashes(carpeta):
     traza = json.loads((carpeta / "disciplina.json").read_text(encoding="utf-8"))
     assert "198 estudios" in traza["base"]
     anio = json.loads((carpeta / "anio.json").read_text(encoding="utf-8"))
-    assert len(anio["informes_con_anio_distinto_al_de_la_base_de_datos"]) == 4
+    assert len(anio["informes_con_cita_apa_de_otro_anio"]) == 4
 
 
 def test_una_matriz_modificada_hace_fallar(params, tmp_path, monkeypatch):
@@ -125,3 +127,55 @@ def test_una_cita_sin_anio_hace_fallar():
     tabla = pd.DataFrame({"id": ["R1"], "cita_apa": ["Autor, A. (s. f.). Título."]})
     with pytest.raises(prisma_02.ErrorPipeline, match="R1"):
         descriptivos_03.anios_de_la_cita(tabla)
+
+
+def test_pais_y_nivel_suman_201_informes_y_198_estudios(carpeta):
+    for nombre in ("pais", "nivel", "disciplina"):
+        tabla = leer(carpeta, nombre)
+        assert tabla["n_informes"].sum() == 201
+        assert tabla["n_estudios"].sum() == 198
+    pais = leer(carpeta, "pais").set_index("pais")["n_informes"]
+    assert pais["Chipre"] == 1 and pais["varios países"] == 2
+
+
+def test_revision_de_elegibilidad_por_nivel(carpeta, params):
+    revision = pd.read_csv(
+        carpeta / "revision_elegibilidad_nivel.csv", dtype=str, keep_default_na=False
+    )
+    assert list(revision.columns) == [
+        "id", "cita_apa", "nivel_crudo", "nivel_norm", "fragmento_justificativo",
+        "motivo_revision", "decision_luisfer",
+    ]
+    assert len(revision) == 30
+    assert (revision["decision_luisfer"] == "").all()
+    assert (revision["fragmento_justificativo"] != "").all()
+    assert {"R0115", "R0186", "R0015", "R0450"} <= set(revision["id"])
+    traza = json.loads(
+        (carpeta / "revision_elegibilidad_nivel.json").read_text(encoding="utf-8")
+    )
+    regla = traza["regla_3_de_elegibilidad"]
+    esperado = "3. 2.º año cercano a lo clínico: incluir (es ciencia)."
+    assert regla["texto_checkpoint"] == esperado
+    assert "No cambia el PRISMA" in traza["descripcion"]
+
+
+def test_la_revision_no_cambia_el_prisma(params):
+    resultado = prisma_02.calcular(params)
+    assert not prisma_02.hay_diferencias(resultado)
+    assert resultado["calculado"]["incluidos_informes"] == 201
+
+
+def test_un_anio_fuera_de_la_ventana_hace_fallar(params, tmp_path):
+    ruta = tmp_path / "elegibilidad.csv"
+    ruta.write_text("id_revision,anio\nR1,2019\n", encoding="utf-8")
+    tabla = pd.DataFrame({"id": ["R1"]})
+    with pytest.raises(prisma_02.ErrorPipeline, match="R1"):
+        descriptivos_03.anios_de_la_base_de_datos(tabla, ruta, [2021, 2026])
+
+
+def test_un_anio_ilegible_hace_fallar(tmp_path):
+    ruta = tmp_path / "elegibilidad.csv"
+    ruta.write_text("id_revision,anio\nR1,s. f.\n", encoding="utf-8")
+    tabla = pd.DataFrame({"id": ["R1"]})
+    with pytest.raises(prisma_02.ErrorPipeline, match="ilegible"):
+        descriptivos_03.anios_de_la_base_de_datos(tabla, ruta, [2021, 2026])

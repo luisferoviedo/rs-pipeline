@@ -1,0 +1,26 @@
+{
+  "tabla": "pais",
+  "descripcion": "País donde se hizo el estudio (pais_norm)",
+  "tipo": "única",
+  "base": "201 informes (n_informes) y 198 estudios (n_estudios)",
+  "suma_n_informes": 201,
+  "suma_n_informes_debe_ser_201": true,
+  "entrada": {
+    "matriz_normalizada": "data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv",
+    "sha256": "7acb689286a7b702fe0aae06b4467a8196ea604008fb339319aa38d3242ad5aa",
+    "entradas_de_la_matriz": {
+      "04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv": "2a63562ed8ca36a36f33aefba4275bf7282f60eb2a3b170fa2f86bbb3ae0ceae",
+      "05_extraccion/Extraccion_datos_v2_2026-10-18.csv": "cff8902b3de4f2f4fa5846d79db7c5f43dd6f529c393e0511a1f9875b6a8ff7d",
+      "06_prisma/prisma_counts_2026-10-26.json": "ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5",
+      "config/categorias.yaml": "3fa66e49aa9899f6989f3078cffd1994f3d98f8728cc2103ae580fc9a884378f"
+    }
+  },
+  "versiones": {
+    "pandas": "2.3.3",
+    "python": "3.13.7"
+  },
+  "salida": {
+    "archivo": "pais.csv",
+    "sha256": "60894aadc9c9503ff4f8f11f31e64cbab78e9d546859b2437d4b07cb44f5a9a4"
+  }
+}

@@ -15,6 +15,18 @@ archivos:
 # PDF de otro documento ya separados por Luis Fer (el ID es el prefijo del nombre)
 carpeta_no_corresponde: 03_recuperacion/artículos_pdf/_no_corresponde
 
+# Ventana de búsqueda (años de la base de datos, D24)
+ventana_busqueda: [2021, 2026]
+
+# Regla 3 de elegibilidad, citada literalmente para la revisión de nivel (D28)
+regla_3_elegibilidad:
+  texto_checkpoint: "3. 2.º año cercano a lo clínico: incluir (es ciencia)."
+  fuente_checkpoint: "_trabajo/CHECKPOINT_Eje3.md, sección 'Reglas aprobadas 11 oct', línea 28"
+  reglas_aprobadas_11_oct: "1. Cursos de ciencias en programas de formación docente: incluir. 2. Universitarios de 1.er año voluntarios: incluir. 3. 2.º año cercano a lo clínico: incluir (es ciencia). 4. Semestre no reportado con contenido introductorio: incluir."
+  texto_en_dudosos: "Revisar con regla 3 del 11 oct (2.º año cercano a lo introductorio = incluir)"
+  fuente_en_dudosos: "04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv, columna sugerencia_automatica"
+  nota: "Las dos redacciones difieren (clínico / introductorio). El Protocolo RS no está en el Drive en un formato que se pueda leer; confirmar contra el Protocolo."
+
 # Mapeo de normalización de la matriz de extracción
 categorias: config/categorias.yaml
 

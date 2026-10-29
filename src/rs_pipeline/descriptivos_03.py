@@ -29,6 +29,12 @@ COLUMNAS_MATRIZ = [
     "cita_apa",
     "idioma",
     "estudio_compartido_con",
+    "pais_norm",
+    "nivel",
+    "nivel_norm",
+    "nivel_en_revision",
+    "contexto",
+    "alertas",
     "disciplina_norm",
     "mmat_categoria_norm",
     "pre_post_un_grupo",
@@ -68,6 +74,9 @@ def cargar_matriz(params: dict) -> dict:
         "registro": registro,
         "herramientas": categorias["oe2_tipo_herramienta"]["columnas"],
         "resultados": categorias["oe1_resultado_tipo"]["columnas"],
+        "categorias_en_revision": categorias["nivel"]["revision_elegibilidad"][
+            "categorias"
+        ],
     }
 
 
@@ -108,20 +117,35 @@ def anios_de_la_cita(tabla: pd.DataFrame) -> pd.Series:
     return extraido.astype(int)
 
 
-def discrepancias_de_anio(
-    tabla: pd.DataFrame, anios: pd.Series, ruta_elegibilidad: Path
-) -> list[dict]:
-    """Informes cuyo año APA difiere del año de la base de datos (elegibilidad)."""
+def anios_de_la_base_de_datos(
+    tabla: pd.DataFrame, ruta_elegibilidad: Path, ventana: list[int]
+) -> pd.Series:
+    """Año del registro buscado (elegibilidad). Debe caer en la ventana de búsqueda."""
     elegibilidad = prisma_02.leer_csv(
         ruta_elegibilidad, ["id_revision", "anio"], "id_revision"
     ).set_index("id_revision")["anio"]
     faltan = sorted(set(tabla["id"]) - set(elegibilidad.index))
     if faltan:
         fallar(f"Informes sin fila en elegibilidad: {faltan}")
+    anios = tabla["id"].map(elegibilidad)
+    malos = sorted(tabla.loc[~anios.str.fullmatch(r"\d{4}"), "id"])
+    if malos:
+        fallar(f"Año de la base de datos ilegible en: {malos}")
+    anios = anios.astype(int)
+    fuera = sorted(tabla.loc[(anios < ventana[0]) | (anios > ventana[1]), "id"])
+    if fuera:
+        fallar(f"Informes fuera de la ventana {ventana[0]}-{ventana[1]}: {fuera}")
+    return anios
+
+
+def discrepancias_de_anio(
+    tabla: pd.DataFrame, anios_base: pd.Series, anios_apa: pd.Series
+) -> list[dict]:
+    """Informes cuyo año APA difiere del año de la base de datos."""
     return [
-        {"id": i, "anio_cita_apa": int(a), "anio_base_de_datos": int(elegibilidad[i])}
-        for i, a in zip(tabla["id"], anios, strict=True)
-        if int(elegibilidad[i]) != a
+        {"id": i, "anio_base_de_datos": int(b), "anio_cita_apa": int(a)}
+        for i, b, a in zip(tabla["id"], anios_base, anios_apa, strict=True)
+        if a != b
     ]
 
 
@@ -231,17 +255,26 @@ def construir_tablas(datos: dict, estudios: pd.Series, anios: pd.Series) -> list
     mmat["n_pre_post_un_grupo"] = mmat["n_pre_post_un_grupo"].astype(int)
     return [
         elemento(
-            "anio", "Informes por año de la referencia APA (cita_apa)",
+            "anio", "Informes por año de la base de datos (registro buscado)",
             "única", BASE_INFORMES, tabla_unica(anios, "anio", por="etiqueta"),
         ),
         elemento(
-            "anio_quinquenio", "Informes por quinquenio calendario del año APA",
+            "anio_quinquenio",
+            "Informes por quinquenio calendario del año de la base de datos",
             "única", BASE_INFORMES,
             tabla_unica(anios.map(quinquenio), "quinquenio", por="etiqueta"),
         ),
         elemento(
             "idioma", "Informes por idioma del informe",
             "única", BASE_INFORMES, tabla_unica(t["idioma"], "idioma"),
+        ),
+        elemento(
+            "pais", "País donde se hizo el estudio (pais_norm)",
+            "única", ambas, tabla_unica(t["pais_norm"], "pais", estudios),
+        ),
+        elemento(
+            "nivel", "Nivel educativo según el texto del informe (nivel_norm)",
+            "única", ambas, tabla_unica(t["nivel_norm"], "nivel", estudios),
         ),
         elemento(
             "disciplina", "Disciplina normalizada (disciplina_norm)",
@@ -314,6 +347,66 @@ def escribir_tablas(
     return escritas
 
 
+def tabla_revision_nivel(datos: dict) -> pd.DataFrame:
+    """Informes cuyo nivel revisa Luis Fer. No cambia el PRISMA ni excluye nada."""
+    t = datos["tabla"]
+    revision = t[t["nivel_en_revision"] == "1"].copy()
+    orden = [*datos["categorias_en_revision"], "primer año universitario"]
+    revision["_orden"] = revision["nivel_norm"].map(orden.index)
+    revision = revision.sort_values(["_orden", "id"])
+
+    def fragmento(fila: pd.Series) -> str:
+        partes = [("Contexto", fila["contexto"]), ("Alertas", fila["alertas"])]
+        return " | ".join(f"{nombre}: {texto}" for nombre, texto in partes if texto)
+
+    motivos = [
+        f"Categoría: {categoria}"
+        if categoria in datos["categorias_en_revision"]
+        else "Primer año con aviso: el texto lo contradice o lo infiere"
+        for categoria in revision["nivel_norm"]
+    ]
+    return pd.DataFrame(
+        {
+            "id": revision["id"],
+            "cita_apa": revision["cita_apa"],
+            "nivel_crudo": revision["nivel"],
+            "nivel_norm": revision["nivel_norm"],
+            "fragmento_justificativo": revision.apply(fragmento, axis=1),
+            "motivo_revision": motivos,
+            "decision_luisfer": "",
+        }
+    ).reset_index(drop=True)
+
+
+def escribir_revision_nivel(
+    revision: pd.DataFrame, datos: dict, params: dict, carpeta: Path
+) -> Path:
+    ruta = carpeta / "revision_elegibilidad_nivel.csv"
+    revision.to_csv(ruta, index=False, encoding="utf-8", lineterminator="\n")
+    traza = {
+        "tabla": "revision_elegibilidad_nivel",
+        "descripcion": (
+            "Informes cuyo nivel (según el texto) toca la elegibilidad. "
+            "Luis Fer decide en la columna decision_luisfer. "
+            "No cambia el PRISMA ni excluye nada."
+        ),
+        "filas": len(revision),
+        "filas_por_nivel_norm": revision["nivel_norm"].value_counts().to_dict(),
+        "fuente_del_fragmento": "campos contexto y alertas de la matriz de extracción",
+        "regla_3_de_elegibilidad": params["regla_3_elegibilidad"],
+        "entrada": {
+            "matriz_normalizada": str(datos["ruta"].relative_to(RAIZ_REPO)),
+            "sha256": datos["sha256"],
+            "entradas_de_la_matriz": datos["registro"]["entradas_sha256"],
+        },
+        "salida": {"archivo": ruta.name, "sha256": prisma_02.sha256(ruta)},
+    }
+    ruta.with_suffix(".json").write_text(
+        json.dumps(traza, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    return ruta
+
+
 def generar(params: dict, carpeta: Path) -> dict:
     raiz = prisma_02.raiz_drive(params["drive_root_env"])
     declarado = prisma_02.leer_declarado(raiz / params["archivos"]["prisma_counts"])
@@ -328,21 +421,34 @@ def generar(params: dict, carpeta: Path) -> dict:
     exigir_atributo_de_estudio(
         tabla,
         estudios,
-        ["disciplina_norm", *datos["herramientas"].values()],
+        ["disciplina_norm", "pais_norm", "nivel_norm", *datos["herramientas"].values()],
     )
-    anios = anios_de_la_cita(tabla)
-    discrepancias = discrepancias_de_anio(
-        tabla, anios, raiz / params["archivos"]["elegibilidad"]
+    anios = anios_de_la_base_de_datos(
+        tabla, raiz / params["archivos"]["elegibilidad"], params["ventana_busqueda"]
     )
+    discrepancias = discrepancias_de_anio(tabla, anios, anios_de_la_cita(tabla))
     nota_anio = {
-        "fuente_del_anio": "primer '(AAAA)' de cita_apa",
-        "informes_con_anio_distinto_al_de_la_base_de_datos": discrepancias,
+        "fuente_del_anio": "año de la base de datos (registro buscado, elegibilidad)",
+        "ventana_de_busqueda": params["ventana_busqueda"],
+        "informes_con_cita_apa_de_otro_anio": discrepancias,
+        "nota": (
+            "el año APA queda en cita_apa; probable publicación en línea "
+            "anterior a la impresa (D24)"
+        ),
     }
     tablas = construir_tablas(datos, estudios, anios)
     rutas = escribir_tablas(
         tablas, datos, {"anio": nota_anio, "anio_quinquenio": nota_anio}, carpeta
     )
-    return {"tablas": tablas, "rutas": rutas, "discrepancias_anio": discrepancias}
+    revision = tabla_revision_nivel(datos)
+    ruta_revision = escribir_revision_nivel(revision, datos, params, carpeta)
+    return {
+        "tablas": tablas,
+        "rutas": rutas,
+        "discrepancias_anio": discrepancias,
+        "revision": revision,
+        "ruta_revision": ruta_revision,
+    }
 
 
 def reporte(resultado: dict) -> list[str]:
@@ -351,10 +457,16 @@ def reporte(resultado: dict) -> list[str]:
         suma = int(elemento["tabla"]["n_informes"].sum())
         detalle = f"suma {suma}" if elemento["tipo"] == "única" else elemento["tipo"]
         lineas.append(f"  {ruta.name:<32} {detalle:<22} base: {elemento['base']}")
-    lineas += ["", "== Año APA distinto al año de la base de datos =="]
     lineas += [
-        f"  {d['id']}: cita_apa {d['anio_cita_apa']} / "
-        f"base de datos {d['anio_base_de_datos']}"
+        "",
+        f"{resultado['ruta_revision'].name}: {len(resultado['revision'])} informes "
+        "para revisión de elegibilidad (sin cambios en PRISMA)",
+        "",
+        "== Año de la base de datos distinto al año APA (se usa el primero) ==",
+    ]
+    lineas += [
+        f"  {d['id']}: base de datos {d['anio_base_de_datos']} / "
+        f"cita_apa {d['anio_cita_apa']}"
         for d in resultado["discrepancias_anio"]
     ]
     return lineas
