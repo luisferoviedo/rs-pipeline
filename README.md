@@ -37,6 +37,14 @@ El diagrama no lleva título: el número y el título van fuera de la imagen (AP
 Los textos de E1 a E5, de los no recuperados y los grupos de fuentes se cambian en `config/params.yaml`.
 Las reclasificaciones del cribado están en `config/reclasificaciones.yaml`.
 
+## Normalizar la matriz de extracción
+```
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.normalizar_01
+```
+Quita los 18 E4, aplica `config/categorias.yaml` y escribe en `data/processed/` (fuera de git) la matriz
+normalizada de 201 informes y un `.json` con ruta y hash de cada entrada. Las columnas originales se
+conservan; las normalizadas son nuevas (`*_norm`, columnas 0/1 y de detalle). Un valor sin mapear hace fallar el script.
+
 ## Verificar
 ```
 .venv/bin/pytest            # tests contra los CSV reales (requiere RS_DRIVE_ROOT)

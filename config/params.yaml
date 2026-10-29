@@ -15,11 +15,15 @@ archivos:
 # PDF de otro documento ya separados por Luis Fer (el ID es el prefijo del nombre)
 carpeta_no_corresponde: 03_recuperacion/artículos_pdf/_no_corresponde
 
+# Mapeo de normalización de la matriz de extracción
+categorias: config/categorias.yaml
+
 # Reclasificaciones aplicadas sobre el CSV de cribado (el Drive no se toca)
 reclasificaciones: config/reclasificaciones.yaml
 
 salidas:
   figuras: outputs/figuras
+  procesados: data/processed
   nombre_base_diagrama: Diagrama_PRISMA_2020_Eje3
 
 # Grupos de fuentes del Registro de búsquedas (los nombres deben existir en el Registro)

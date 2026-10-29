@@ -100,3 +100,10 @@ Se conservan los nombres de la matriz: conceptual, indagación/habilidades, acti
 
 ## D22. Columnas nuevas, originales conservadas
 Las columnas originales no se tocan. Las normalizadas son nuevas: `disciplina_norm`, `mmat_categoria_norm`, `oe1_direccion_norm` y las 0/1 y de detalle de D18 a D21. Un valor crudo que no esté en `config/categorias.yaml` hace fallar el script.
+
+## D23. normalizar_01.py (Paso B)
+- Entradas: matriz v2 (Drive, solo lectura), dudosos v4 (para los 18 E4), `prisma_counts` (debe dar 201 informes) y `config/categorias.yaml`. La salida va a `data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv`, con un `.json` hermano que registra ruta y SHA-256 de cada entrada y de la salida.
+- Falla si falta un archivo o una columna, si un valor crudo no está en el mapeo, si una etiqueta de resultado no existe, si los paréntesis no cuadran o si las reglas de excepción de `oe1_resultado_tipo` no tocan exactamente los casos aprobados (3 reasignados, 3 autoinforme, 1 covariable).
+- `data/processed/` está en `.gitignore`: la matriz normalizada es un derivado del Drive y se regenera con el script. Si más adelante se publica con los datos (CC BY 4.0), hay que revisar antes las columnas de citas textuales (`oe1_cita`, `oe2_criterios_candidatos`) y decidirlo.
+- Se ejecuta con `PYTHONPATH=src python -m rs_pipeline.normalizar_01` porque importa de `prisma_02`.
+- Resultado: 219 filas − 18 E4 = 201 informes; 58 columnas originales + 17 nuevas.

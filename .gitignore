@@ -3,6 +3,7 @@
 
 # Datos y textos completos (nunca a git)
 data/raw/
+data/processed/
 *.pdf
 *.txt
 !requirements.txt
