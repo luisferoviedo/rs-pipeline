@@ -43,3 +43,8 @@ Se cambia la regla de `CLAUDE.md`: pip-audit se corre cada vez que cambie `requi
 
 ## D9. Variable del Drive
 `RS_DRIVE_ROOT` va en `.env` (ignorado por git; plantilla en `.env.example`). El script la lee con un lector mínimo propio, sin python-dotenv.
+
+## D10. prisma_02.py (P3)
+- Las reclasificaciones se validan: el ID debe existir y su decisión actual debe ser la de `de`; si no, el script falla.
+- Observación sin efecto en los conteos: 9 registros están como D en el cribado y como I en recuperación (I/D no entra en PRISMA). Solo se reporta.
+- `identificados`, `duplicados` e `incluidos_estudios` quedan como declarados, sin verificar. El CSV de extracción tiene `estudio_compartido_con`, por lo que el 198 podría verificarse más adelante si se aprueba.

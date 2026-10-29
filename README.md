@@ -12,3 +12,10 @@ Indica su ubicación con la variable de entorno `RS_DRIVE_ROOT` (carpeta `Cribad
 
 ## Licencia
 Código: MIT (ver `LICENSE`). Los textos completos no se publican.
+
+## Uso
+```
+# desde la raíz del repo, con el venv activo y RS_DRIVE_ROOT en .env
+python src/rs_pipeline/prisma_02.py
+pytest
+```
