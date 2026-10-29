@@ -57,7 +57,7 @@ def test_se_conservan_las_201_filas_y_las_originales(salida, fuente, resultado):
 
 def test_ningun_valor_sin_mapear_ni_columna_vacia(salida, resultado):
     nuevas = resultado["trazabilidad"]["columnas_nuevas"]
-    assert len(nuevas) == 17
+    assert len(nuevas) == 20
     for columna in nuevas:
         if columna.endswith("_norm"):
             assert (salida[columna] != "").all(), columna
@@ -153,3 +153,33 @@ def test_las_reglas_de_excepcion_deben_tocar_los_casos_esperados(reglas_resultad
 def test_parentesis_desbalanceados_hacen_fallar():
     with pytest.raises(prisma_02.ErrorPipeline, match="paréntesis"):
         normalizar_01.dividir_fuera_de_parentesis("conceptual) ; otro", ";")
+
+
+def test_pais_normalizado(salida):
+    paises = cuenta(salida, "pais_norm")
+    assert len(paises) == 51
+    assert paises["Colombia"] == 26 and paises["Estados Unidos"] == 25
+    assert paises["Turquía"] == 9
+    assert sum(paises.values()) == 201
+    # R1006: el artículo escribe "Nicosia, Turkey"; Nicosia está en Chipre (D26)
+    assert salida.loc[salida["id"] == "R1006", "pais_norm"].iloc[0] == "Chipre"
+    varios = salida.loc[salida["pais_norm"] == "varios países", "id"]
+    assert sorted(varios) == ["R0047", "R1091"]
+
+
+def test_nivel_segun_el_texto_y_marca_de_revision(salida):
+    assert cuenta(salida, "nivel_norm") == {
+        "media": 95, "secundaria básica": 46, "primer año universitario": 32,
+        "universitario: 2.º año o superior": 13, "mixto": 6,
+        "universitario: año no reportado": 5, "formación docente": 3,
+        "secundaria (sin precisar)": 1,
+    }
+    en_revision = salida[salida["nivel_en_revision"] == "1"]
+    assert len(en_revision) == 30
+    assert cuenta(en_revision, "nivel_norm") == {
+        "universitario: 2.º año o superior": 13, "primer año universitario": 9,
+        "universitario: año no reportado": 5, "formación docente": 3,
+    }
+    # el texto manda: R0115 dice "en realidad segundo año"
+    nivel = salida.set_index("id")["nivel_norm"]
+    assert nivel["R0115"] == "universitario: 2.º año o superior"

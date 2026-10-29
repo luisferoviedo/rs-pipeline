@@ -28,6 +28,8 @@ COLUMNAS_A_NORMALIZAR = [
     "oe1_direccion",
     "oe2_tipo_herramienta",
     "oe1_resultado_tipo",
+    "pais",
+    "nivel",
 ]
 COLUMNAS_NECESARIAS = ["id", *COLUMNAS_A_NORMALIZAR]
 PATRON_SEGMENTO = re.compile(r"^([^(:]+?)\s*(?::\s*(.+)|\((.+)\))?$", re.DOTALL)
@@ -112,6 +114,24 @@ def cols_direccion(tabla: pd.DataFrame, cfg: dict) -> dict[str, list]:
             "" if x["efecto_aislado"] is None else str(x["efecto_aislado"])
             for x in mapeado
         ],
+    }
+
+
+def cols_pais(tabla: pd.DataFrame, cfg: dict) -> dict[str, list]:
+    return {cfg["columna_salida"]: mapear(tabla["pais"], cfg["mapa"], "pais")}
+
+
+def cols_nivel(tabla: pd.DataFrame, cfg: dict) -> dict[str, list]:
+    """Categoría de nivel según el texto y marca de los informes que Luis Fer revisa."""
+    mapeado = mapear(tabla["nivel"], cfg["mapa"], "nivel")
+    revision = cfg["revision_elegibilidad"]
+    en_revision = [
+        str(int(x["categoria"] in revision["categorias"] or x["aviso"]))
+        for x in mapeado
+    ]
+    return {
+        cfg["columna_salida"]: [x["categoria"] for x in mapeado],
+        cfg["columna_en_revision"]: en_revision,
     }
 
 
@@ -262,6 +282,8 @@ def columnas_nuevas(tabla: pd.DataFrame, categorias: dict) -> dict[str, list]:
         (cols_direccion, "oe1_direccion"),
         (cols_herramienta, "oe2_tipo_herramienta"),
         (cols_resultado, "oe1_resultado_tipo"),
+        (cols_pais, "pais"),
+        (cols_nivel, "nivel"),
     ]:
         for nombre, valores in funcion(tabla, categorias[columna]).items():
             if nombre in nuevas or nombre in tabla.columns:
