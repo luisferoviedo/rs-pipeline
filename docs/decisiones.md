@@ -46,7 +46,7 @@ Se cambia la regla de `CLAUDE.md`: pip-audit se corre cada vez que cambie `requi
 
 ## D10. prisma_02.py (P3)
 - Las reclasificaciones se validan: el ID debe existir y su decisión actual debe ser la de `de`; si no, el script falla.
-- Observación sin efecto en los conteos: 9 registros están como D en el cribado y como I en recuperación (I/D no entra en PRISMA). Solo se reporta.
+- Observación sin efecto en los conteos: 9 registros están como D en el cribado y como I en recuperación (I/D no entra en PRISMA). Solo se reporta. Coincide con el Registro v3 ("se reclasificaron 15: 9 a I y 6 a E2"): los 6 a E2 están en `config/reclasificaciones.yaml` (D2) y los 9 a I solo cambian la etiqueta I/D.
 - `identificados` y `duplicados` quedan como declarados, sin verificar (ver D3). El 198 sí se verifica (D12).
 
 ## D11. PDF de otro documento
@@ -54,3 +54,13 @@ Todo informe contado como "PDF de otro documento" (15) debe ser `NO_CORRESPONDE`
 
 ## D12. Estudios (198)
 Se verifican por script con `estudio_compartido_con` de `Extraccion_datos_v2_2026-10-18.csv`, excluyendo los 18 E4 de los dudosos: 201 informes = 198 estudios con 3 pares (R0177+R0188, R0844+R0930, R0990+R1031). Los IDs de extracción deben ser iguales a los INCLUIDOS de elegibilidad (219). Si no cuadra, falla.
+
+## D13. Sin columna de "otros métodos"
+El diagrama usa solo la columna de bases de datos y repositorios. El rastreo de referencias no agregó estudios a esta versión, así que no se dibuja la columna de otros métodos (sitios web, organizaciones, citas).
+
+## D14. Diagrama (P5)
+- Se construye con `prisma-flow` 0.6.1: `new_review(...).validate()` y `to_layout()`; luego se reemplazan los textos de cada caja por ID, en español, y se recalculan las posiciones para cajas más altas (desgloses E1–E5 y de los no recuperados). Las etiquetas de E1–E5 y de los no recuperados están en `config/params.yaml`.
+- Identificación: 1.105 bases de datos (ERIC 707 + SciELO 53 + Scopus 345) y 122 repositorios de tesis (La Referencia 85 + BDTD 37). Se leen de la línea "Total identificado" del Registro v3 (dato declarado) y deben sumar los 1.227 del JSON.
+- `PNGRenderer(scale=2)` recorta la imagen (agranda el dibujo pero no el lienzo). El PNG se rasteriza con `resvg` ampliando `width` y `height` del SVG. `resvg==0.2.0` ya venía instalado con prisma-flow y ahora se fija en `requirements.txt` porque se importa directamente.
+- Aviso esperado de prisma-flow: 198 estudios frente a 201 informes (un estudio puede tener varios informes; ver D12).
+- Nombre de salida: `Diagrama_PRISMA_2020_Eje3_<fecha del JSON de conteos>`. El archivo `.json` hermano guarda hashes de entradas y salidas, versiones y conteos.

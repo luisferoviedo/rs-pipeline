@@ -5,3 +5,4 @@ ruff==0.17.3
 prisma-flow==0.6.1
 pip-audit==2.10.1
 pre-commit==4.7.0
+resvg==0.2.0

@@ -1,5 +1,7 @@
 """Tests de prisma_02: números reales contra los CSV del Drive (RS_DRIVE_ROOT)."""
 
+import json
+
 import pandas as pd
 import pytest
 
@@ -107,3 +109,69 @@ def test_estudio_compartido_con_un_informe_ausente_falla():
     )
     with pytest.raises(prisma_02.ErrorPipeline, match="R0777"):
         prisma_02.contar_estudios(extraccion, set())
+
+
+def test_registro_agrupa_1227_en_1105_bases_y_122_repositorios(resultado):
+    grupos = resultado["identificacion"]["grupos"]
+    assert grupos["bases_de_datos"]["n"] == 1105
+    assert grupos["repositorios_de_tesis"]["n"] == 122
+    assert resultado["identificacion"]["total_registro"] == 1227
+    assert resultado["calculado"]["identificados_por_registro"] == 1227
+
+
+def test_registro_con_total_que_no_suma_falla():
+    registro = "**Total identificado:** ERIC 707 · Scopus 345 = **1.000**"
+    with pytest.raises(prisma_02.ErrorPipeline, match="no suma"):
+        prisma_02.fuentes_del_registro(registro)
+
+
+def test_fuente_que_no_esta_en_el_registro_falla():
+    registro = "**Total identificado:** ERIC 707 · Scopus 345 = **1.052**"
+    grupos = {"bases_de_datos": ["ERIC", "Scopus"], "repositorios_de_tesis": ["BDTD"]}
+    with pytest.raises(prisma_02.ErrorPipeline, match="BDTD"):
+        prisma_02.verificar_identificacion(registro, grupos)
+
+
+def test_diagrama_en_espanol_con_trazabilidad(params, resultado, tmp_path):
+    salidas = prisma_02.generar_diagrama(resultado, params, tmp_path)
+    svg = salidas["svg"].read_text(encoding="utf-8")
+    for texto in [
+        "Registros identificados en:",
+        "Bases de datos (n = 1.105)",
+        "Repositorios de tesis (n = 122)",
+        "Registros excluidos (n = 671)",
+        "E4 Tipo de estudio (sin datos empíricos de resultados) (n = 68)",
+        "Informes no recuperados (n = 137)",
+        "Sin acceso (n = 120)",
+        "PDF de otro documento (n = 15)",
+        "Incompletos o ilegibles (n = 2)",
+        "Informes excluidos (n = 94)",
+        "Informes incluidos (n = 201)",
+        "Estudios incluidos (n = 198)",
+    ]:
+        assert texto in svg, texto
+    assert "Records" not in svg
+    assert "Reports" not in svg
+    png = salidas["png"].read_bytes()
+    ancho, alto = int.from_bytes(png[16:20], "big"), int.from_bytes(png[20:24], "big")
+    assert f'width="{ancho / 2:g}" height="{alto / 2:g}"' in svg
+
+
+def test_trazabilidad_registra_entradas_y_hashes(params, resultado, tmp_path):
+    salidas = prisma_02.generar_diagrama(resultado, params, tmp_path)
+    traza = json.loads(salidas["json"].read_text(encoding="utf-8"))
+    assert traza["conteos_calculados"]["incluidos_estudios"] == 198
+    assert "config/reclasificaciones.yaml" in traza["entradas_sha256"]
+    entradas = traza["entradas_sha256"]
+    assert any(ruta.endswith("prisma_counts_2026-10-26.json") for ruta in entradas)
+    for ext in ("svg", "png"):
+        archivo = salidas[ext]
+        assert traza["salidas_sha256"][archivo.name] == prisma_02.sha256(archivo)
+
+
+def test_no_se_genera_diagrama_si_hay_diferencias(params, resultado, tmp_path):
+    alterado = dict(resultado)
+    alterado["filas"] = [("cribados", 1102, 1103)]
+    with pytest.raises(prisma_02.ErrorPipeline, match="No se genera"):
+        prisma_02.generar_diagrama(alterado, params, tmp_path)
+    assert not list(tmp_path.iterdir())

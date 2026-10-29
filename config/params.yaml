@@ -10,6 +10,7 @@ archivos:
   dudosos: 04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv
   extraccion: 05_extraccion/Extraccion_datos_v2_2026-10-18.csv
   prisma_counts: 06_prisma/prisma_counts_2026-10-26.json
+  registro_busquedas: 01_busquedas/Registro_busquedas_PRISMA_v3.md
 
 # PDF de otro documento ya separados por Luis Fer (el ID es el prefijo del nombre)
 carpeta_no_corresponde: 03_recuperacion/artículos_pdf/_no_corresponde
@@ -19,3 +20,21 @@ reclasificaciones: config/reclasificaciones.yaml
 
 salidas:
   figuras: outputs/figuras
+  nombre_base_diagrama: Diagrama_PRISMA_2020_Eje3
+
+# Grupos de fuentes del Registro de búsquedas (los nombres deben existir en el Registro)
+fuentes_identificacion:
+  bases_de_datos: [ERIC, SciELO, Scopus]
+  repositorios_de_tesis: [La Referencia, BDTD]
+
+# Textos de las cajas del diagrama (decididos por Luis Fer, 28 oct 2026)
+etiquetas_exclusion:
+  E1: Población
+  E2: Intervención
+  E3: Disciplina
+  E4: Tipo de estudio (sin datos empíricos de resultados)
+  E5: Tipo de publicación
+etiquetas_no_recuperados:
+  sin_acceso: Sin acceso
+  pdf_otro_documento: PDF de otro documento
+  incompletos_ilegibles: Incompletos o ilegibles
