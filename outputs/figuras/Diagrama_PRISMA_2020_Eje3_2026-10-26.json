@@ -57,7 +57,8 @@
     "identificados_por_registro": 1227
   },
   "desglose_no_recuperados": {
-    "sin_acceso": 120,
+    "sin_acceso": 119,
+    "duplicado": 1,
     "pdf_otro_documento": 15,
     "incompletos_ilegibles": 2
   },
@@ -103,7 +104,7 @@
     "studies_included does not equal total reports assessed minus total reports excluded; this may be valid because one study can have multiple reports. Expected: 201 Found: 198"
   ],
   "salidas_sha256": {
-    "Diagrama_PRISMA_2020_Eje3_2026-10-26.svg": "b325b99a17aed675bf08f163730b107d5153f38b1aef42d5ed48e0ed21755dc6",
-    "Diagrama_PRISMA_2020_Eje3_2026-10-26.png": "e20039f058d88a27c06f8f3ba8b4837619a74605fa6e3d71a664121d9d97f051"
+    "Diagrama_PRISMA_2020_Eje3_2026-10-26.svg": "15bf82e57bd0cffa7491161ac68de995c316abaea5f4029e03bf588b049defcb",
+    "Diagrama_PRISMA_2020_Eje3_2026-10-26.png": "e29bdb023a50e499e4c601ccbb03fbd6fa78d8c5c5c5b2bf0625d09ad0e9ea98"
   }
 }
