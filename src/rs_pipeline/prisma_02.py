@@ -9,6 +9,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -30,6 +31,7 @@ COLUMNAS = {
     "recuperacion": ["id_revision", "decision_cribado", "obtenido"],
     "elegibilidad": ["id_revision", "decision", "codigo"],
     "dudosos": ["id", "sugerencia_automatica", "decision_luisfer"],
+    "extraccion": ["id", "estudio_compartido_con"],
 }
 CLAVES_ESCALARES = [
     "cribados",
@@ -39,6 +41,7 @@ CLAVES_ESCALARES = [
     "evaluados",
     "excluidos_texto_completo",
     "incluidos_informes",
+    "incluidos_estudios",
 ]
 CLAVES_MOTIVOS = ["excluidos_cribado_motivos", "excluidos_texto_completo_motivos"]
 CLAVES_DECLARADAS = [
@@ -46,7 +49,6 @@ CLAVES_DECLARADAS = [
     *CLAVES_MOTIVOS,
     "identificados",
     "duplicados",
-    "incluidos_estudios",
 ]
 
 
@@ -139,6 +141,31 @@ def cargar_params() -> dict:
     return yaml.safe_load(ruta.read_text(encoding="utf-8"))
 
 
+def leer_declarado(ruta: Path) -> dict:
+    if not ruta.is_file():
+        fallar(f"No existe el archivo: {ruta}")
+    declarado = json.loads(ruta.read_text(encoding="utf-8"))
+    faltan = [c for c in CLAVES_DECLARADAS if c not in declarado]
+    if faltan:
+        fallar(f"{ruta.name}: faltan las claves {faltan}")
+    return declarado
+
+
+def leer_pdfs_no_corresponde(carpeta: Path) -> dict[str, Path]:
+    """PDF de otro documento ya separados: {id_revision: ruta}."""
+    if not carpeta.is_dir():
+        fallar(f"No existe la carpeta: {carpeta}")
+    pdfs: dict[str, Path] = {}
+    for ruta in sorted(carpeta.glob("*.pdf")):
+        id_revision = ruta.name.split("_", 1)[0]
+        if not re.fullmatch(r"R\d{4}", id_revision):
+            fallar(f"_no_corresponde: el nombre no empieza con un ID: {ruta.name}")
+        if id_revision in pdfs:
+            fallar(f"_no_corresponde: hay dos PDF para {id_revision}")
+        pdfs[id_revision] = ruta
+    return pdfs
+
+
 def cargar_entradas(params: dict) -> dict:
     raiz = raiz_drive(params["drive_root_env"])
     rutas = {nombre: raiz / rel for nombre, rel in params["archivos"].items()}
@@ -157,20 +184,20 @@ def cargar_entradas(params: dict) -> dict:
     )
     dudosos = leer_csv(rutas["dudosos"], COLUMNAS["dudosos"], "id")
     exigir_valores(dudosos["decision_luisfer"], DUDOSOS_VALIDOS, "dudosos.decision")
-    if not rutas["prisma_counts"].is_file():
-        fallar(f"No existe el archivo: {rutas['prisma_counts']}")
-    declarado = json.loads(rutas["prisma_counts"].read_text(encoding="utf-8"))
-    faltan = [c for c in CLAVES_DECLARADAS if c not in declarado]
-    if faltan:
-        fallar(f"prisma_counts: faltan las claves {faltan}")
+    extraccion = leer_csv(rutas["extraccion"], COLUMNAS["extraccion"], "id")
+    pdfs = leer_pdfs_no_corresponde(raiz / params["carpeta_no_corresponde"])
+    declarado = leer_declarado(rutas["prisma_counts"])
     hashes = {
-        str(ruta.relative_to(raiz)): sha256(ruta) for ruta in rutas.values()
+        str(ruta.relative_to(raiz)): sha256(ruta)
+        for ruta in [*rutas.values(), *pdfs.values()]
     } | {params["reclasificaciones"]: sha256(ruta_reclas)}
     return {
         "cribado": aplicar_reclasificaciones(cribado, ruta_reclas),
         "recuperacion": recuperacion,
         "elegibilidad": elegibilidad,
         "dudosos": dudosos,
+        "extraccion": extraccion,
+        "pdfs_no_corresponde": set(pdfs),
         "declarado": declarado,
         "hashes": hashes,
     }
@@ -201,6 +228,13 @@ def validar_ids(entradas: dict) -> None:
     incluidos = set(
         elegibilidad.loc[elegibilidad["decision"] == "INCLUIDO", "id_revision"]
     )
+    ids_extraccion = set(entradas["extraccion"]["id"])
+    if ids_extraccion != incluidos:
+        fallar(
+            "Extracción e INCLUIDOS de elegibilidad no tienen los mismos IDs. "
+            f"Solo en extracción: {sorted(ids_extraccion - incluidos)}. "
+            f"Solo en elegibilidad: {sorted(incluidos - ids_extraccion)}"
+        )
     if not set(dudosos["id"]) <= incluidos:
         fallar(
             "Dudosos que no están INCLUIDOS en elegibilidad: "
@@ -274,6 +308,49 @@ def contar_elegibilidad(elegibilidad: pd.DataFrame, dudosos: pd.DataFrame) -> di
     }
 
 
+def verificar_pdfs_otro_documento(
+    elegibilidad: pd.DataFrame, ids_sin_fila: list[str], pdfs: set[str]
+) -> list[str]:
+    """D11: todo 'PDF de otro documento' es NO_CORRESPONDE o tiene su PDF separado.
+
+    Devuelve los PDF de la carpeta que no se cuentan como tales (observación).
+    """
+    no_corresponde = set(
+        elegibilidad.loc[elegibilidad["decision"] == "NO_CORRESPONDE", "id_revision"]
+    )
+    contados = no_corresponde | set(ids_sin_fila)
+    sin_respaldo = sorted(contados - no_corresponde - pdfs)
+    if sin_respaldo:
+        fallar(
+            "Contados como 'PDF de otro documento' sin NO_CORRESPONDE ni PDF en "
+            f"_no_corresponde/: {sin_respaldo}"
+        )
+    return sorted(pdfs - contados)
+
+
+def contar_estudios(extraccion: pd.DataFrame, ids_excluidos: set[str]) -> dict:
+    """Agrupa los informes incluidos que comparten estudio (estudio_compartido_con)."""
+    informes = extraccion[~extraccion["id"].isin(ids_excluidos)]
+    ids = set(informes["id"])
+    grupos = {i: {i} for i in ids}
+    for id_, otro in zip(
+        informes["id"], informes["estudio_compartido_con"].str.strip(), strict=True
+    ):
+        if not otro:
+            continue
+        if otro not in ids:
+            fallar(f"{id_}: estudio_compartido_con '{otro}' no es un informe incluido")
+        union = grupos[id_] | grupos[otro]
+        for miembro in union:
+            grupos[miembro] = union
+    estudios = {frozenset(g) for g in grupos.values()}
+    return {
+        "informes": len(ids),
+        "incluidos_estudios": len(estudios),
+        "pares": sorted(sorted(g) for g in estudios if len(g) > 1),
+    }
+
+
 def contrastar_decision_cribado(
     cribado: pd.DataFrame, recuperacion: pd.DataFrame
 ) -> dict:
@@ -298,18 +375,29 @@ def calcular(params: dict | None = None) -> dict:
         entradas["recuperacion"], entradas["elegibilidad"]
     )
     calculado["no_recuperados"] = sum(desglose.values())
+    pdfs_sin_contar = verificar_pdfs_otro_documento(
+        entradas["elegibilidad"],
+        ids["sin_fila_con_pdf"],
+        entradas["pdfs_no_corresponde"],
+    )
+    ids_e4 = set(dudosos_e4(entradas["dudosos"])["id"])
+    estudios = contar_estudios(entradas["extraccion"], ids_e4)
+    calculado["incluidos_estudios"] = estudios["incluidos_estudios"]
+    calculado["informes_extraccion"] = estudios["informes"]
     declarado = entradas["declarado"]
     return {
         "calculado": calculado,
         "declarado": declarado,
         "desglose_no_recuperados": desglose,
         "ids": ids,
+        "pares_estudio": estudios["pares"],
         "filas": filas_comparacion(calculado, declarado),
         "cascada": cascada(calculado, declarado),
         "observaciones": {
             "cribado_vs_recuperacion_I_D": contrastar_decision_cribado(
                 entradas["cribado"], entradas["recuperacion"]
-            )
+            ),
+            "pdf_en_no_corresponde_sin_contar": pdfs_sin_contar,
         },
         "hashes": entradas["hashes"],
     }
@@ -347,8 +435,10 @@ def cascada(calculado: dict, declarado: dict) -> list[tuple]:
         ("suma motivos texto completo = excluidos texto completo",
          sum(c["excluidos_texto_completo_motivos"].values()),
          c["excluidos_texto_completo"]),
+        ("informes en extracción (sin E4) = incluidos (informes)",
+         c["informes_extraccion"], c["incluidos_informes"]),
         ("incluidos (estudios) <= incluidos (informes)",
-         True, d["incluidos_estudios"] <= c["incluidos_informes"]),
+         True, c["incluidos_estudios"] <= c["incluidos_informes"]),
     ]
 
 
@@ -376,8 +466,13 @@ def reporte(resultado: dict) -> list[str]:
     lineas += [
         "",
         "== Declarados en el JSON, NO verificados por script ==",
-        f"  identificados={d['identificados']}  duplicados={d['duplicados']}  "
-        f"incluidos_estudios={d['incluidos_estudios']}",
+        f"  identificados={d['identificados']}  duplicados={d['duplicados']}",
+        "",
+        "== Estudios: informes que comparten estudio ==",
+        f"  {resultado['calculado']['informes_extraccion']} informes -> "
+        f"{resultado['calculado']['incluidos_estudios']} estudios; "
+        f"{len(resultado['pares_estudio'])} pares: "
+        f"{'; '.join(' + '.join(par) for par in resultado['pares_estudio'])}",
         "",
         "== Desglose de los no recuperados ==",
     ]

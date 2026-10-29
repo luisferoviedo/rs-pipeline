@@ -8,7 +8,11 @@ archivos:
   recuperacion: 03_recuperacion/Recuperacion_textos_completos_2026-10-10.csv
   elegibilidad: 04_elegibilidad/Elegibilidad_texto_completo_v3_2026-10-26.csv
   dudosos: 04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv
+  extraccion: 05_extraccion/Extraccion_datos_v2_2026-10-18.csv
   prisma_counts: 06_prisma/prisma_counts_2026-10-26.json
+
+# PDF de otro documento ya separados por Luis Fer (el ID es el prefijo del nombre)
+carpeta_no_corresponde: 03_recuperacion/artículos_pdf/_no_corresponde
 
 # Reclasificaciones aplicadas sobre el CSV de cribado (el Drive no se toca)
 reclasificaciones: config/reclasificaciones.yaml

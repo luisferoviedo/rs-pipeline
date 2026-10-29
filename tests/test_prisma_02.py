@@ -75,3 +75,35 @@ def test_ruta_del_drive_inexistente_falla(monkeypatch, tmp_path):
     monkeypatch.setenv("RS_DRIVE_ROOT", str(tmp_path / "no_existe"))
     with pytest.raises(prisma_02.ErrorPipeline, match="no existe"):
         prisma_02.raiz_drive("RS_DRIVE_ROOT")
+
+
+def test_201_informes_son_198_estudios_con_3_pares(resultado):
+    assert resultado["calculado"]["informes_extraccion"] == 201
+    assert resultado["calculado"]["incluidos_estudios"] == 198
+    assert resultado["pares_estudio"] == [
+        ["R0177", "R0188"],
+        ["R0844", "R0930"],
+        ["R0990", "R1031"],
+    ]
+
+
+def test_los_15_pdf_de_otro_documento_estan_respaldados(entradas, resultado):
+    ids = resultado["ids"]["sin_fila_con_pdf"]
+    assert set(ids) <= entradas["pdfs_no_corresponde"]
+    assert len(entradas["pdfs_no_corresponde"]) == 15
+
+
+def test_pdf_de_otro_documento_sin_respaldo_falla():
+    elegibilidad = pd.DataFrame(
+        {"id_revision": ["R0001"], "decision": ["NO_CORRESPONDE"]}
+    )
+    with pytest.raises(prisma_02.ErrorPipeline, match="R0999"):
+        prisma_02.verificar_pdfs_otro_documento(elegibilidad, ["R0999"], {"R0001"})
+
+
+def test_estudio_compartido_con_un_informe_ausente_falla():
+    extraccion = pd.DataFrame(
+        {"id": ["R0001", "R0002"], "estudio_compartido_con": ["R0777", ""]}
+    )
+    with pytest.raises(prisma_02.ErrorPipeline, match="R0777"):
+        prisma_02.contar_estudios(extraccion, set())
