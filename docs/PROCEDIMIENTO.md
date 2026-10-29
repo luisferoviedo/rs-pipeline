@@ -104,12 +104,12 @@ El diagrama no lleva título: el número y el título van fuera de la imagen, en
 
 ## Bloque 2 · Normalización de la matriz de extracción (`normalizar_01.py`)
 
-Cierre: commits `6c8478e` y `5d2af49` (29 oct 2026).
+Cierre: commits `6c8478e` y `5d2af49` (29 oct 2026). Ampliado el 29 oct con país y nivel (D25 a D27).
 
 ### Objetivo del paso
 Dejar las columnas de texto libre de la matriz de extracción en categorías comparables (disciplina, categoría MMAT,
-dirección del efecto, tipo de herramienta y tipo de resultado), sin perder los valores originales, para poder
-hacer descriptivos y análisis sobre los 201 informes incluidos.
+dirección del efecto, tipo de herramienta, tipo de resultado, país y nivel educativo), sin perder los valores
+originales, para poder hacer descriptivos y análisis sobre los 201 informes incluidos.
 
 ### Entradas
 | Archivo | Versión | SHA-256 |
@@ -117,7 +117,7 @@ hacer descriptivos y análisis sobre los 201 informes incluidos.
 | `05_extraccion/Extraccion_datos_v2_2026-10-18.csv` | v2 · 2026-10-18 | `cff8902b3de4f2f4fa5846d79db7c5f43dd6f529c393e0511a1f9875b6a8ff7d` |
 | `04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv` | v4 · 2026-10-26 | `2a63562ed8ca36a36f33aefba4275bf7282f60eb2a3b170fa2f86bbb3ae0ceae` |
 | `06_prisma/prisma_counts_2026-10-26.json` | 2026-10-26 | `ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5` |
-| `config/categorias.yaml` | repositorio (D17–D22) | `29de157f8a3d238ff30dfd4cec46a28c727c0c0dd217e3cd4ab512c593c9cb65` |
+| `config/categorias.yaml` | repositorio (D17–D22, D25–D27) | `3fa66e49aa9899f6989f3078cffd1994f3d98f8728cc2103ae580fc9a884378f` |
 
 ### Proceso
 Qué hace el script, en lenguaje sencillo:
@@ -125,8 +125,10 @@ Qué hace el script, en lenguaje sencillo:
 2. Comprueba que 201 es el número que declara `prisma_counts`.
 3. Para cada columna a normalizar mira el valor crudo en `config/categorias.yaml` y escribe la categoría aprobada en una columna nueva (`*_norm`).
    Las columnas con varias etiquetas posibles (herramientas y resultados) se separan en columnas 0/1; el texto de "otro" se guarda en una columna de detalle.
-4. Las reglas de excepción aprobadas (resolución de problemas pasa a indagación/habilidades; conceptual autoinformado; covariables que no cuentan como resultado) se aplican y se cuenta cuántos casos tocan.
-5. Escribe la matriz con las 58 columnas originales sin tocar más las 17 nuevas, y un archivo de trazabilidad con ruta y hash de cada entrada.
+4. El **país** es el país donde se hizo el estudio según el texto (51 categorías, con "varios países" y "Chipre" para R1006).
+   El **nivel** sigue lo que dice el texto del informe y no la etiqueta de la extracción (8 categorías); una columna marca los 30 informes cuyo nivel toca la elegibilidad.
+5. Las reglas de excepción aprobadas (resolución de problemas pasa a indagación/habilidades; conceptual autoinformado; covariables que no cuentan como resultado) se aplican y se cuenta cuántos casos tocan.
+6. Escribe la matriz con las 58 columnas originales sin tocar más las 20 nuevas, y un archivo de trazabilidad con ruta y hash de cada entrada.
 
 Comando exacto:
 ```
@@ -141,25 +143,110 @@ PYTHONPATH=src .venv/bin/python -m rs_pipeline.normalizar_01
 - [D21](decisiones.md#d21-tipo-de-resultado-multi-etiqueta-oe1_resultado_tipo) · Tipo de resultado: multi-etiqueta (oe1_resultado_tipo)
 - [D22](decisiones.md#d22-columnas-nuevas-originales-conservadas) · Columnas nuevas, originales conservadas
 - [D23](decisiones.md#d23-normalizar_01py-paso-b) · normalizar_01.py (Paso B)
+- [D25](decisiones.md#d25-país-51-categorías) · País (51 categorías)
+- [D26](decisiones.md#d26-r1006--chipre) · R1006 → Chipre
+- [D27](decisiones.md#d27-nivel-según-el-texto-del-informe-8-categorías) · Nivel según el texto del informe (8 categorías)
 
 ### Controles
 Cuándo falla:
 - Falta un archivo o una columna necesaria, o un E4 de los dudosos no está en la matriz.
 - No quedan exactamente los 201 informes que declara `prisma_counts`.
-- Un valor crudo no está en `config/categorias.yaml` (el mensaje lo nombra con su frecuencia, y no se escribe ningún archivo).
+- Un valor crudo no está en `config/categorias.yaml` (el mensaje lo nombra con su frecuencia, y no se escribe ningún archivo). Vale también para país y nivel.
 - Un segmento de `oe1_resultado_tipo` tiene una etiqueta desconocida, los paréntesis no cuadran o una fila se queda sin etiqueta.
 - Las reglas de excepción no tocan exactamente los casos aprobados (3 reasignados, 3 autoinformados, 1 covariable).
 - Una columna nueva ya existía, o la normalización cambia filas o columnas originales.
 
-Tests: `tests/test_normalizar_01.py`, 11 pruebas contra la matriz real: se conservan las 201 filas y las columnas originales,
-ningún valor queda sin mapear, los conteos de cada categoría (por ejemplo disciplina 90/70/22/14/5 y 83 pre-post de un grupo),
-las columnas 0/1, las excepciones aprobadas, el hash de la fuente en el archivo de trazabilidad, y los casos en que debe fallar.
+El nivel **no cambia el PRISMA ni excluye nada**: `prisma_02.py` sigue dando 201 informes = 198 estudios.
+
+Tests: `tests/test_normalizar_01.py`, 13 pruebas contra la matriz real: se conservan las 201 filas y las columnas originales,
+ningún valor queda sin mapear, los conteos de cada categoría (por ejemplo disciplina 90/70/22/14/5, 83 pre-post de un grupo,
+51 países, 8 niveles y 30 informes en revisión), las columnas 0/1, las excepciones aprobadas, el hash de la fuente
+en el archivo de trazabilidad, y los casos en que debe fallar.
 ```
 .venv/bin/pytest tests/test_normalizar_01.py
 ```
 
 ### Salidas
 En `data/processed/` (dentro del repositorio pero **fuera de git**, porque es un derivado del Drive que se regenera con el script):
-- `Extraccion_datos_v2_2026-10-18_normalizada.csv`: 201 filas, 75 columnas (58 originales y 17 nuevas).
+- `Extraccion_datos_v2_2026-10-18_normalizada.csv`: 201 filas, 78 columnas (58 originales y 20 nuevas).
 - `Extraccion_datos_v2_2026-10-18_normalizada.json`: trazabilidad (ruta y hash de las entradas, los 18 IDs excluidos, columnas nuevas, frecuencias).
-  Hash del CSV: `aafbc75b37442c25fb068ad92e62d314820de48d76a0135ec7945d83226d13cd`.
+  Hash del CSV: `7acb689286a7b702fe0aae06b4467a8196ea604008fb339319aa38d3242ad5aa`.
+
+---
+
+## Bloque 3 · Descriptivos de la matriz (`descriptivos_03.py`)
+
+Cierre: el commit de este bloque figura en el historial de git (29 oct 2026). Flujograma actualizado ([D29](decisiones.md#d29-flujograma-en-svg)).
+
+### Objetivo del paso
+Describir los 201 informes incluidos (año, idioma, país, nivel, disciplina, categoría MMAT, dirección del efecto,
+herramientas, resultados y el cruce disciplina × herramienta) con n y %, e indicar dónde la base es de 198 estudios.
+Además, listar los informes cuyo nivel educativo toca la elegibilidad, para que Luis Fer decida después.
+
+### Entradas
+| Archivo | Versión | SHA-256 |
+|---|---|---|
+| `data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv` | salida del bloque 2 | `7acb689286a7b702fe0aae06b4467a8196ea604008fb339319aa38d3242ad5aa` |
+| `04_elegibilidad/Elegibilidad_texto_completo_v3_2026-10-26.csv` | v3 · 2026-10-26 (año de la base de datos) | `c6b909bad0147bbe5b77b0324901bb769ee9f790e790366001715db3b92d4293` |
+| `06_prisma/prisma_counts_2026-10-26.json` | 2026-10-26 | `ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5` |
+| `config/categorias.yaml` | repositorio (viaja en la matriz) | `3fa66e49aa9899f6989f3078cffd1994f3d98f8728cc2103ae580fc9a884378f` |
+
+### Proceso
+Qué hace el script, en lenguaje sencillo:
+1. Lee la matriz normalizada de `data/processed/` y comprueba que su huella (SHA-256) es la que registró `normalizar_01`: si alguien la tocó, se detiene.
+2. Comprueba que hay 201 informes (como declara `prisma_counts`) y los agrupa en 198 estudios con `estudio_compartido_con` (3 pares).
+3. Comprueba que los informes de un mismo estudio coinciden en lo que se cuenta por estudio: disciplina, país, nivel y herramientas.
+4. Toma el **año de la base de datos** (el registro buscado, en elegibilidad) y comprueba que cae en la ventana 2021–2026.
+   El año APA queda en `cita_apa`; los 4 informes donde difieren se anotan en `anio.json`.
+5. Calcula las frecuencias (n y %) de cada tabla. Las tablas de disciplina, país, nivel, herramientas y cruce agregan la base de 198 estudios.
+6. Arma `revision_elegibilidad_nivel.csv` con los 30 informes cuyo nivel toca la elegibilidad. La columna `decision_luisfer` queda vacía.
+
+Comando exacto:
+```
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.descriptivos_03
+```
+
+### Decisiones aplicadas
+- [D24](decisiones.md#d24-año-de-los-descriptivos-el-de-la-base-de-datos) · Año de los descriptivos: el de la base de datos
+- [D25](decisiones.md#d25-país-51-categorías) · País (51 categorías)
+- [D26](decisiones.md#d26-r1006--chipre) · R1006 → Chipre
+- [D27](decisiones.md#d27-nivel-según-el-texto-del-informe-8-categorías) · Nivel según el texto del informe (8 categorías)
+- [D28](decisiones.md#d28-revisión-de-elegibilidad-por-nivel) · Revisión de elegibilidad por nivel
+
+La **regla 3** de elegibilidad, tal como está escrita en `_trabajo/CHECKPOINT_Eje3.md` (línea 28):
+*"3. 2.º año cercano a lo clínico: incluir (es ciencia)."* En los casos dudosos aparece como
+*"Revisar con regla 3 del 11 oct (2.º año cercano a lo introductorio = incluir)"*. Las dos redacciones difieren;
+conviene confirmarla contra el Protocolo RS.
+
+### Controles
+Cuándo falla:
+- Falta la matriz normalizada o su registro, o la matriz cambió desde que se normalizó.
+- No hay 201 informes ni 198 estudios; un `estudio_compartido_con` no es recíproco; o los informes de un estudio no coinciden en disciplina, país, nivel o herramientas.
+- Un año de la base de datos no se puede leer o cae fuera de 2021–2026; falta un informe en elegibilidad; o `cita_apa` no trae año.
+
+Cada tabla de categoría única debe sumar 201 (lo verifica el test y queda en su `.json`); las de multi-etiqueta no suman 201 porque un informe puede estar en varias filas.
+Cada tabla con su `.json`: base, hash de la matriz y de las entradas originales, hash de la salida.
+
+Tests: `tests/test_descriptivos_03.py`, 21 pruebas: cada tabla de categoría única suma 201; las de estudio suman 198;
+conteos reales (idioma, año, MMAT, herramientas, resultados); el cruce es coherente con las demás tablas; país y nivel;
+el archivo de revisión (30 filas, columnas exactas, `decision_luisfer` vacía, regla 3 citada); el PRISMA sigue igual;
+y los casos en que debe fallar (matriz modificada, estudio con informes distintos, socio no recíproco, año fuera de la ventana o ilegible).
+```
+.venv/bin/pytest tests/test_descriptivos_03.py
+```
+
+### Salidas
+En `outputs/tablas/` (en git; son frecuencias, sin textos completos), cada una con su `.json`:
+
+| Archivo | Contenido | Base |
+|---|---|---|
+| `anio.csv`, `anio_quinquenio.csv` | informes por año (de la base de datos) y por quinquenio | 201 informes |
+| `idioma.csv` | idioma del informe | 201 informes |
+| `pais.csv`, `nivel.csv` | país del estudio y nivel según el texto | 201 informes y 198 estudios |
+| `disciplina.csv` | disciplina normalizada | 201 informes y 198 estudios |
+| `mmat_categoria.csv` | categoría MMAT y cuántos son pre-post de un grupo | 201 informes |
+| `oe1_direccion.csv` | dirección del efecto | 201 informes |
+| `herramientas.csv` | tipo de herramienta (multi-etiqueta) | 201 informes y 198 estudios |
+| `resultados.csv` | tipo de resultado (multi-etiqueta) | 201 informes |
+| `disciplina_x_herramienta.csv` | cruce, % por fila | 201 informes y 198 estudios |
+| `revision_elegibilidad_nivel.csv` | 30 informes para revisión de Luis Fer; no cambia el PRISMA | por informe |

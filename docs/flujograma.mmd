@@ -1,5 +1,5 @@
 %% Flujograma del pipeline rs-pipeline (se actualiza al cerrar cada bloque).
-%% Estado: bloque 1 (PRISMA) y bloque 2 (normalización) cerrados; bloque 3 (descriptivos) en curso.
+%% Estado: bloques 1 (PRISMA), 2 (normalización) y 3 (descriptivos) cerrados.
 %% Formas: paralelogramo = entrada; rectángulo = proceso/script; rombo = decisión o control;
 %%         documento = salida; estadio rojo = falla. Frontera: el Drive es SOLO LECTURA.
 flowchart TB
@@ -10,7 +10,7 @@ flowchart TB
     dC[/"02_cribado<br/>Cribado_titulo_resumen_2026-10-06.csv<br/>1.103 registros"/]
     dR[/"03_recuperacion<br/>Recuperacion_textos_completos_2026-10-10.csv<br/>432 informes"/]
     dP[/"03_recuperacion/artículos_pdf/_no_corresponde<br/>15 PDF de otro documento"/]
-    dE[/"04_elegibilidad<br/>Elegibilidad v3 (307 filas)<br/>Casos dudosos v4 (121 filas)"/]
+    dE[/"04_elegibilidad<br/>Elegibilidad v3 (307 filas, con año)<br/>Casos dudosos v4 (121 filas)"/]
     dX[/"05_extraccion<br/>Extraccion_datos_v2_2026-10-18.csv<br/>219 filas × 58 columnas"/]
     dJ[/"06_prisma<br/>prisma_counts_2026-10-26.json<br/>conteos declarados"/]
   end
@@ -22,7 +22,7 @@ flowchart TB
       direction LR
       env[/".env<br/>RS_DRIVE_ROOT (fuera de git)"/]
       cfgP[/"config/params.yaml<br/>config/reclasificaciones.yaml<br/>6 reclasificaciones D→E2"/]
-      cfgC[/"config/categorias.yaml<br/>mapeo aprobado D17–D22"/]
+      cfgC[/"config/categorias.yaml<br/>mapeo aprobado D17–D28<br/>(país y nivel incluidos)"/]
     end
 
     subgraph B1["BLOQUE 1 · Conteos PRISMA y diagrama — prisma_02.py"]
@@ -40,17 +40,19 @@ flowchart TB
       direction TB
       n0["Lee matriz v2 y dudosos;<br/>quita los 18 E4 de los dudosos"]
       m1{"¿Quedan 201 informes<br/>= prisma_counts?"}
-      n1["Aplica config/categorias.yaml<br/>columnas nuevas; originales intactas"]
+      n1["Aplica config/categorias.yaml<br/>20 columnas nuevas; originales intactas<br/>(nivel según el texto del informe)"]
       m2{"¿Todo valor crudo está en el mapeo?<br/>¿las reglas de excepción tocan<br/>exactamente lo aprobado?"}
-      o2@{ shape: doc, label: "data/processed/ (fuera de git)<br/>Extraccion_datos_v2_2026-10-18_normalizada.csv + .json" }
+      o2@{ shape: doc, label: "data/processed/ (fuera de git)<br/>Extraccion_datos_v2_2026-10-18_normalizada.csv + .json<br/>78 columnas" }
     end
 
-    subgraph B3["BLOQUE 3 · Descriptivos — descriptivos_03.py (EN CURSO: faltan país y nivel)"]
+    subgraph B3["BLOQUE 3 · Descriptivos — descriptivos_03.py"]
       direction TB
-      q0["Lee la matriz normalizada<br/>y su registro de trazabilidad"]
-      r1{"¿El hash de la matriz es el registrado?<br/>¿198 estudios? ¿los informes de un estudio<br/>coinciden en lo que se cuenta por estudio?"}
+      q0["Lee la matriz normalizada, su registro<br/>y el año de la base de datos (elegibilidad)"]
+      r1{"¿Hash de la matriz = el registrado?<br/>¿198 estudios? ¿mismo atributo en los informes<br/>de un estudio? ¿año en la ventana 2021–2026?"}
       q1["Calcula frecuencias: n y %<br/>base 201 informes; 198 estudios donde aplica"]
-      o3@{ shape: doc, label: "outputs/tablas/<br/>9 tablas .csv + .json<br/>(país y nivel pendientes)" }
+      q2["Lista los 30 informes cuyo nivel<br/>toca la elegibilidad (no cambia PRISMA)"]
+      o3@{ shape: doc, label: "outputs/tablas/<br/>11 tablas .csv + .json" }
+      o4@{ shape: doc, label: "outputs/tablas/revision_elegibilidad_nivel.csv<br/>30 informes; decision_luisfer vacía<br/>decide Luis Fer" }
     end
 
     f1(["FALLA<br/>mensaje claro y código 1<br/>no dibuja nada"])
@@ -96,14 +98,15 @@ flowchart TB
   o2 --> q0
   dE --> q0
   dJ --> q0
+  cfgP --> q0
   q0 --> r1
   r1 -- "sí" --> q1
   r1 -- "no" --> f3
   q1 --> o3
+  q1 --> q2
+  q2 --> o4
 
   classDef drive fill:#e8f1fb,stroke:#2b6cb0,color:#1a365d
   classDef falla fill:#fde8e8,stroke:#c0392b,color:#7b1d1d
-  classDef pendiente stroke-dasharray: 5 5
   class dB,dC,dR,dP,dE,dX,dJ drive
   class f1,f2,f3 falla
-  class q0,r1,q1,o3 pendiente
