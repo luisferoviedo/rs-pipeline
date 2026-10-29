@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="910" height="774" viewBox="0 0 910 774" role="img" aria-labelledby="title desc">
+<title id="title">Diagrama de flujo PRISMA 2020</title>
+<desc id="desc">Diagrama de flujo de estilo PRISMA 2020 generado con prisma-flow.</desc>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="6"
+          refX="7.5" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" />
+  </marker>
+</defs>
+<style>
+  svg { background: #ffffff; color: #111827; }
+  .diagram-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-anchor: middle;
+    fill: #111111;
+  }
+  .node rect {
+    fill: #ffffff;
+    stroke: #111111;
+    stroke-width: 1.15;
+    rx: 0;
+    ry: 0;
+  }
+  .node.header.process-header rect {
+    fill: #fbbf24;
+    stroke: #b45309;
+    stroke-width: 1.1;
+    rx: 6;
+    ry: 6;
+  }
+  .node.header.stage-label rect {
+    fill: #9dc3e6;
+    stroke: #1f4e79;
+    stroke-width: 1.1;
+    rx: 5;
+    ry: 5;
+  }
+  .node.exclusion rect { fill: #ffffff; }
+  .node text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    fill: #111111;
+  }
+  .node.header.process-header text {
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .node.header.stage-label text {
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .node.note text {
+    font-size: 10px;
+  }
+  .node.note.source text {
+    font-size: 9.5px;
+    font-style: italic;
+  }
+  .node.note.source-link text {
+    fill: #1d4ed8;
+    font-size: 10px;
+    text-decoration: underline;
+  }
+  .edge {
+    fill: none;
+    stroke: #111111;
+    stroke-width: 1.2;
+    marker-end: url(#arrowhead);
+  }
+  marker polygon { fill: #111111; }
+</style>
+<text class="diagram-title" x="455" y="42">
+  <tspan x="455" dy="0">Diagrama de flujo PRISMA 2020</tspan>
+</text>
+<g class="edges">
+<path id="identified_to_removed" class="edge" d="M 380 162 L 440 162" marker-end="url(#arrowhead)" />
+<path id="identified_to_screened" class="edge" d="M 240 212 L 240 252" marker-end="url(#arrowhead)" />
+<path id="screened_to_reports_sought" class="edge" d="M 240 366 L 240 406" marker-end="url(#arrowhead)" />
+<path id="screened_to_records_excluded" class="edge" d="M 380 309 L 440 309" marker-end="url(#arrowhead)" />
+<path id="reports_sought_to_reports_assessed" class="edge" d="M 240 492 L 240 532" marker-end="url(#arrowhead)" />
+<path id="reports_sought_to_not_retrieved" class="edge" d="M 380 449 L 440 449" marker-end="url(#arrowhead)" />
+<path id="reports_assessed_to_included" class="edge" d="M 240 646 L 240 686" marker-end="url(#arrowhead)" />
+<path id="reports_assessed_to_reports_excluded" class="edge" d="M 380 589 L 440 589" marker-end="url(#arrowhead)" />
+</g>
+<g class="nodes">
+<g id="databases_registers_header" class="node header process-header">
+  <rect x="100" y="62" width="770" height="32" />
+  <text x="485" y="78" text-anchor="middle">
+    <tspan x="485" dy="0">Identificación de nuevos estudios a través de bases de datos y repositorios</tspan>
+  </text>
+</g>
+<g id="identification_label" class="node header stage-label">
+  <rect x="38" y="112" width="34" height="100" />
+  <text x="55" y="162" text-anchor="middle" transform="rotate(-90 55 162)">Identificación</text>
+</g>
+<g id="screening_label" class="node header stage-label">
+  <rect x="38" y="252" width="34" height="394" />
+  <text x="55" y="449" text-anchor="middle" transform="rotate(-90 55 449)">Cribado</text>
+</g>
+<g id="included_label" class="node header stage-label">
+  <rect x="38" y="686" width="34" height="66" />
+  <text x="55" y="719" text-anchor="middle" transform="rotate(-90 55 719)">Incluidos</text>
+</g>
+<g id="identified" class="node stage">
+  <rect x="100" y="112" width="280" height="100" />
+  <text x="114" y="134" text-anchor="start">
+    <tspan x="114" dy="0">Registros identificados en:</tspan>
+    <tspan x="114" dy="14">Bases de datos (n = 1.105)</tspan>
+    <tspan x="114" dy="14">ERIC, SciELO, Scopus</tspan>
+    <tspan x="114" dy="14">Repositorios de tesis (n = 122)</tspan>
+    <tspan x="114" dy="14">La Referencia, BDTD</tspan>
+  </text>
+</g>
+<g id="removed" class="node stage">
+  <rect x="440" y="112" width="430" height="100" />
+  <text x="454" y="155" text-anchor="start">
+    <tspan x="454" dy="0">Registros eliminados antes del cribado:</tspan>
+    <tspan x="454" dy="14">Registros duplicados (n = 124)</tspan>
+  </text>
+</g>
+<g id="screened" class="node stage">
+  <rect x="100" y="252" width="280" height="114" />
+  <text x="114" y="302" text-anchor="start">
+    <tspan x="114" dy="0">Registros cribados</tspan>
+    <tspan x="114" dy="14">(n = 1.103)</tspan>
+  </text>
+</g>
+<g id="records_excluded" class="node exclusion">
+  <rect x="440" y="252" width="430" height="114" />
+  <text x="454" y="274" text-anchor="start">
+    <tspan x="454" dy="0">Registros excluidos (n = 671)</tspan>
+    <tspan x="454" dy="14">E1 Población (n = 127)</tspan>
+    <tspan x="454" dy="14">E2 Intervención (n = 347)</tspan>
+    <tspan x="454" dy="14">E3 Disciplina (n = 92)</tspan>
+    <tspan x="454" dy="14">E4 Tipo de estudio (sin datos empíricos de resultados) (n = 68)</tspan>
+    <tspan x="454" dy="14">E5 Tipo de publicación (n = 37)</tspan>
+  </text>
+</g>
+<g id="reports_sought" class="node stage">
+  <rect x="100" y="406" width="280" height="86" />
+  <text x="114" y="442" text-anchor="start">
+    <tspan x="114" dy="0">Informes buscados para su recuperación</tspan>
+    <tspan x="114" dy="14">(n = 432)</tspan>
+  </text>
+</g>
+<g id="reports_not_retrieved" class="node exclusion">
+  <rect x="440" y="406" width="430" height="86" />
+  <text x="454" y="428" text-anchor="start">
+    <tspan x="454" dy="0">Informes no recuperados (n = 137)</tspan>
+    <tspan x="454" dy="14">Sin acceso (n = 120)</tspan>
+    <tspan x="454" dy="14">PDF de otro documento (n = 15)</tspan>
+    <tspan x="454" dy="14">Incompletos o ilegibles (n = 2)</tspan>
+  </text>
+</g>
+<g id="reports_assessed" class="node stage">
+  <rect x="100" y="532" width="280" height="114" />
+  <text x="114" y="575" text-anchor="start">
+    <tspan x="114" dy="0">Informes evaluados para determinar su</tspan>
+    <tspan x="114" dy="14">elegibilidad</tspan>
+    <tspan x="114" dy="14">(n = 295)</tspan>
+  </text>
+</g>
+<g id="reports_excluded" class="node exclusion">
+  <rect x="440" y="532" width="430" height="114" />
+  <text x="454" y="554" text-anchor="start">
+    <tspan x="454" dy="0">Informes excluidos (n = 94)</tspan>
+    <tspan x="454" dy="14">E1 Población (n = 28)</tspan>
+    <tspan x="454" dy="14">E2 Intervención (n = 20)</tspan>
+    <tspan x="454" dy="14">E3 Disciplina (n = 2)</tspan>
+    <tspan x="454" dy="14">E4 Tipo de estudio (sin datos empíricos de resultados) (n = 42)</tspan>
+    <tspan x="454" dy="14">E5 Tipo de publicación (n = 2)</tspan>
+  </text>
+</g>
+<g id="included" class="node stage">
+  <rect x="100" y="686" width="280" height="66" />
+  <text x="114" y="712" text-anchor="start">
+    <tspan x="114" dy="0">Informes incluidos (n = 201)</tspan>
+    <tspan x="114" dy="14">Estudios incluidos (n = 198)</tspan>
+  </text>
+</g>
+</g>
+</svg>
