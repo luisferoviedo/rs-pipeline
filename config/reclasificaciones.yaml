@@ -1,0 +1,24 @@
+# Cambios de decisión posteriores al cribado del 06 oct que no se actualizaron
+# en Cribado_titulo_resumen_2026-10-06.csv. El script los aplica en memoria;
+# el CSV del Drive no se modifica. Cualquier otra diferencia debe fallar.
+reclasificaciones:
+  - id_revision: R0843
+    de: D
+    a: E2
+  - id_revision: R0907
+    de: D
+    a: E2
+  - id_revision: R0945
+    de: D
+    a: E2
+  - id_revision: R0980
+    de: D
+    a: E2
+  - id_revision: R1020
+    de: D
+    a: E2
+  - id_revision: R1067
+    de: D
+    a: E2
+motivo: "no es simulación tras verificación; reclasificado antes de recuperación"
+decidido_por: Luis Fer

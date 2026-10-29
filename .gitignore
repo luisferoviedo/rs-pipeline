@@ -1,0 +1,20 @@
+# Secretos
+.env
+
+# Datos y textos completos (nunca a git)
+data/raw/
+*.pdf
+*.txt
+!requirements.txt
+tesis_txt/
+textos_completos/
+
+# Entorno y caches
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+
+# Registro de llamadas a la API (contiene respuestas crudas)
+logs/
