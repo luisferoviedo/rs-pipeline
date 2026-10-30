@@ -42,19 +42,19 @@ flowchart TB
     subgraph B2["BLOQUE 2 · Normalización de la matriz — normalizar_01.py"]
       direction TB
       n0["Lee matriz v2 y dudosos;<br/>quita los 18 E4 de los dudosos"]
-      m1{"¿Quedan 201 informes<br/>= prisma_counts?"}
-      n1["Aplica config/categorias.yaml<br/>21 columnas nuevas (con nivel_dudoso); originales intactas<br/>(nivel según el texto del informe)"]
+      m1{"¿201 − exclusiones de nivel = 196<br/>= prisma_counts vigente?"}
+      n1["Aplica config/categorias.yaml<br/>23 columnas nuevas (nivel_dudoso, excluido_nivel);<br/>originales intactas; los 5 excluidos se marcan, no se borran<br/>(nivel según el texto del informe)"]
       m2{"¿Todo valor crudo está en el mapeo?<br/>¿las reglas de excepción tocan<br/>exactamente lo aprobado?"}
-      o2@{ shape: doc, label: "data/processed/ (fuera de git)<br/>Extraccion_datos_v2_2026-10-18_normalizada.csv + .json<br/>79 columnas" }
+      o2@{ shape: doc, label: "data/processed/ (fuera de git)<br/>Extraccion_datos_v2_2026-10-18_normalizada.csv + .json<br/>81 columnas · 201 filas (196 incluidas)" }
     end
 
     subgraph B3["BLOQUE 3 · Descriptivos — descriptivos_03.py"]
       direction TB
-      q0["Lee la matriz normalizada, su registro<br/>y el año de la base de datos (elegibilidad)"]
-      r1{"¿Hash de la matriz = el registrado?<br/>¿198 estudios? ¿mismo atributo en los informes<br/>de un estudio? ¿año en la ventana 2021–2026?"}
-      q1["Calcula frecuencias: n y %<br/>base 201 informes; 198 estudios donde aplica"]
+      q0["Lee la matriz normalizada, su registro<br/>y el año de la base de datos (elegibilidad);<br/>filtra los 5 excluidos por nivel"]
+      r1{"¿Hash de la matriz = el registrado?<br/>¿193 estudios? ¿mismo atributo en los informes<br/>de un estudio? ¿año en la ventana 2021–2026?"}
+      q1["Calcula frecuencias: n y %<br/>base 196 informes; 193 estudios donde aplica"]
       q2["Lista los 32 informes cuyo nivel toca<br/>la elegibilidad, con la decisión de Luis Fer"]
-      o3@{ shape: doc, label: "outputs/tablas/<br/>11 tablas .csv + .json" }
+      o3@{ shape: doc, label: "outputs/tablas/<br/>11 tablas .csv + .json<br/>(196 informes · 193 estudios)" }
       o4@{ shape: doc, label: "outputs/tablas/revision_elegibilidad_nivel.csv<br/>LOCAL, no versionado (D30); .json sí<br/>32 informes; decision_luisfer completa (D33)<br/>27 incluir · 4 E1 · 1 E3" }
     end
 
@@ -92,7 +92,8 @@ flowchart TB
   %% Bloque 2
   dX --> n0
   dE --> n0
-  dJ --> n0
+  cfgV --> n0
+  cfgE --> n0
   cfgC --> n0
   env --> n0
   n0 --> m1
@@ -105,7 +106,7 @@ flowchart TB
   %% Bloque 3
   o2 --> q0
   dE --> q0
-  dJ --> q0
+  cfgV --> q0
   cfgP --> q0
   q0 --> r1
   r1 -- "sí" --> q1

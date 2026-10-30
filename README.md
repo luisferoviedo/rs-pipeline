@@ -46,14 +46,14 @@ Las reclasificaciones del cribado están en `config/reclasificaciones.yaml`.
 PYTHONPATH=src .venv/bin/python -m rs_pipeline.normalizar_01
 ```
 Quita los 18 E4, aplica `config/categorias.yaml` y escribe en `data/processed/` (fuera de git) la matriz
-normalizada de 201 informes y un `.json` con ruta y hash de cada entrada. Las columnas originales se
+normalizada de 201 filas (los 5 excluidos por nivel se marcan en `excluido_nivel`, no se borran; D34) y un `.json` con ruta y hash de cada entrada. Las columnas originales se
 conservan; las normalizadas son nuevas (`*_norm`, columnas 0/1 y de detalle). Un valor sin mapear hace fallar el script.
 
 ## Descriptivos de la matriz normalizada
 ```
 PYTHONPATH=src .venv/bin/python -m rs_pipeline.descriptivos_03
 ```
-Lee la matriz de `data/processed/` (falla si cambió desde que se normalizó) y escribe en `outputs/tablas/` una tabla CSV con su `.json` de trazabilidad: año (de la base de datos), quinquenio, idioma, país, nivel, disciplina, MMAT, dirección, herramientas, resultados y el cruce disciplina x herramienta. Base: 201 informes; 198 estudios donde se indica.
+Lee la matriz de `data/processed/` (falla si cambió desde que se normalizó) y escribe en `outputs/tablas/` una tabla CSV con su `.json` de trazabilidad: año (de la base de datos), quinquenio, idioma, país, nivel, disciplina, MMAT, dirección, herramientas, resultados y el cruce disciplina x herramienta. Base: 196 informes; 193 estudios donde se indica (los conteos salen de `config/prisma_counts_2026-10-29.json`, D34).
 También escribe `revision_elegibilidad_nivel.csv` (salida local, no versionada porque trae fragmentos de los artículos; solo se versiona su `.json`, D30): los 32 informes cuyo nivel toca la elegibilidad, con las decisiones de Luis Fer en `decision_luisfer` (D33). No cambia el PRISMA por sí solo: las exclusiones salen de `config/exclusiones_nivel.yaml`.
 
 ## Flujograma y procedimiento
