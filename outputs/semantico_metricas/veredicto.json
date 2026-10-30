@@ -1,0 +1,62 @@
+{
+  "criterios": {
+    "prueba1/principal": {
+      "ari_entre_semillas": "cumple",
+      "pct_sin_tema": "cumple",
+      "npmi_real_mayor_que_azar": "cumple",
+      "tiempo_embeddings_mps": "cumple",
+      "mezcla_de_idiomas": "no cumple",
+      "temas_de_un_documento": "no cumple",
+      "interpretabilidad": "pendiente (hoja a ciegas de Luis Fer)"
+    },
+    "prueba1/control": {
+      "ari_entre_semillas": "cumple",
+      "pct_sin_tema": "cumple",
+      "npmi_real_mayor_que_azar": "cumple",
+      "tiempo_embeddings_mps": "cumple",
+      "mezcla_de_idiomas": "intermedio",
+      "temas_de_un_documento": "no cumple",
+      "interpretabilidad": "pendiente (hoja a ciegas de Luis Fer)"
+    },
+    "prueba2a/principal": {
+      "ari_entre_semillas": "cumple",
+      "pct_sin_tema": "cumple",
+      "npmi_real_mayor_que_azar": "cumple",
+      "interpretabilidad": "pendiente (hoja a ciegas de Luis Fer)"
+    },
+    "prueba2a/control": {
+      "ari_entre_semillas": "cumple",
+      "pct_sin_tema": "cumple",
+      "npmi_real_mayor_que_azar": "cumple",
+      "interpretabilidad": "pendiente (hoja a ciegas de Luis Fer)"
+    },
+    "prueba2b/principal": {
+      "ari_entre_semillas": "cumple",
+      "pct_sin_tema": "cumple",
+      "npmi_real_mayor_que_azar": "cumple",
+      "interpretabilidad": "pendiente (hoja a ciegas de Luis Fer)"
+    },
+    "prueba2b/control": {
+      "ari_entre_semillas": "cumple",
+      "pct_sin_tema": "cumple",
+      "npmi_real_mayor_que_azar": "cumple",
+      "interpretabilidad": "pendiente (hoja a ciegas de Luis Fer)"
+    }
+  },
+  "no_cumple": [
+    "prueba1/principal: mezcla_de_idiomas",
+    "prueba1/principal: temas_de_un_documento",
+    "prueba1/control: temas_de_un_documento"
+  ],
+  "hoja_a_ciegas": {
+    "temas_en_la_hoja": 138,
+    "por_prueba_y_modelo": {
+      "P1/control": 4,
+      "P1/principal": 7,
+      "P2a/control": 54,
+      "P2a/principal": 30,
+      "P2b/control": 23,
+      "P2b/principal": 20
+    }
+  }
+}

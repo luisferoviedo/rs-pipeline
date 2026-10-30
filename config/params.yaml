@@ -78,3 +78,51 @@ semantico:
       revision: e8f8c211226b894fcb81acc59f3b34ba3efd5f42
       prefijo: ""
       palabras_por_trozo: 90
+  stopwords: config/stopwords_semantico.yaml   # unión es/en/pt; incluye estudiante/estudio/resultados
+  semillas: [1, 2, 3, 4, 5]                    # semillas de UMAP (HDBSCAN es determinista)
+  semilla_azar: 2026                           # línea base de coherencia: asignaciones barajadas
+  semilla_codigos: 2026                        # códigos de la hoja de calificación a ciegas
+  umap: {n_neighbors: 15, n_components: 5, min_dist: 0.0, metric: cosine}
+  min_topic_size: 10
+  palabras_clave: 10
+  # Prueba 1 (mecánica): trozos del texto completo de 10 informes, aprobados el 29 oct 2026
+  prueba1:
+    informes: [R0998, R0045, R0578, R0527, R1085, R0755, R0711, R0730, R0713, R0922]
+    ruta_textos: _trabajo/ext/txt                # en el Drive, solo lectura
+    minimo_ultimo_trozo: 0.4                     # el último trozo corto se une al anterior
+    maximo_oracion_veces_trozo: 3                # una "oración" más larga no es prosa: se descarta
+    proporcion_alfabetica_minima: 0.6            # trozos con muchas cifras (tablas) se descartan
+    minimo_pct_idioma: 10                        # un tema "mezcla idiomas" si 2+ idiomas pasan de este %
+    umbral_dominancia: 0.7                       # tema "de un documento": >70 % de sus trozos de un informe
+  # Prueba 2 (principal): fichas de los 196 informes (sin los excluido_nivel)
+  prueba2:
+    minimo_palabras: 5                           # fichas más cortas ("no reporta") se descartan
+    separador_criterios: " || "                  # oe2_criterios_candidatos: un criterio por unidad
+    umbral_dominancia: 0.7
+    campos:
+      oe1: [oe1_hallazgo]
+      oe2: [oe2_herramienta, oe2_andamiaje, oe2_retroalimentacion, oe2_interactividad,
+            oe2_dispositivo, oe2_conectividad, oe2_idioma_accesibilidad, oe2_costo_licencia,
+            oe2_usabilidad_calidad, oe2_criterios_candidatos]
+      oe4: [oe4_momento, oe4_secuencia, oe4_organizacion, oe4_rol_docente, oe4_steam,
+            oe4_barreras, oe4_comunidades_aprendizaje]
+    # oe2_tipo_herramienta no entra: son 3 etiquetas repetidas (ya normalizadas) y formarían temas triviales
+    campos_excluidos: [oe2_tipo_herramienta]
+  # Umbrales "sigue / no sigue" aprobados el 29 oct 2026
+  umbrales:
+    tiempo_embeddings_s: 300          # los 10 informes, por modelo, en MPS
+    ari_semillas_sigue: 0.6
+    ari_semillas_no_sigue: 0.4
+    outliers_sigue_pct: 40
+    outliers_no_sigue_pct: 60
+    mezcla_idiomas_sigue_pct: 50      # solo Prueba 1
+    temas_de_un_documento_no_util_pct: 50   # solo Prueba 1
+    interpretables_sigue_pct: 60      # lo califica Luis Fer en la hoja a ciegas
+    interpretables_no_sigue_pct: 40
+    minimo_temas_interpretables: 3
+  hoja_ciega:
+    fragmentos: 3
+    palabras_por_fragmento: 60
+    max_temas_por_corrida: null       # null = todos los temas de la corrida elegida
+  salidas_metricas: outputs/semantico_metricas   # solo números: va a git
+

@@ -1,0 +1,3220 @@
+{
+  "script": "src/rs_pipeline/semantico_04.py",
+  "python": "3.13.7",
+  "versiones": {
+    "bertopic": "0.17.4",
+    "sentence-transformers": "6.2.0",
+    "torch": "2.15.0",
+    "umap-learn": "0.5.12",
+    "hdbscan": "0.8.44",
+    "transformers": "5.22.0",
+    "numpy": "2.5.4",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.9.1"
+  },
+  "modelos": {
+    "principal": {
+      "corridas": [
+        {
+          "semilla": 1,
+          "n_unidades": 3608,
+          "n_temas": 29,
+          "pct_sin_tema": 12.250554323725057,
+          "npmi_real": 0.05643613677348601,
+          "npmi_azar": -0.08114448465533161,
+          "segundos_ajuste": 23.7904526659986,
+          "tamanos_temas": [
+            680,
+            354,
+            186,
+            186,
+            168,
+            163,
+            151,
+            131,
+            121,
+            118,
+            109,
+            101,
+            91,
+            77,
+            73,
+            65,
+            63,
+            57,
+            46,
+            46,
+            33,
+            31,
+            27,
+            22,
+            19,
+            14,
+            13,
+            11,
+            10
+          ],
+          "dominados_por_disciplina": {
+            "n_temas": 29,
+            "n_dominados": 0,
+            "pct_dominados": 0.0
+          },
+          "dominados_por_nivel": {
+            "n_temas": 29,
+            "n_dominados": 0,
+            "pct_dominados": 0.0
+          },
+          "dominados_por_oe": {
+            "n_temas": 29,
+            "n_dominados": 28,
+            "pct_dominados": 96.55172413793103
+          },
+          "ari_tema_vs_oe": {
+            "valor": 0.14300468667004126,
+            "n_usadas": 3166,
+            "fraccion_usada": 0.8774944567627494
+          }
+        },
+        {
+          "semilla": 2,
+          "n_unidades": 3608,
+          "n_temas": 30,
+          "pct_sin_tema": 10.005543237250555,
+          "npmi_real": 0.01924314068120921,
+          "npmi_azar": -0.11440698362607869,
+          "segundos_ajuste": 23.7132238750346,
+          "tamanos_temas": [
+            678,
+            354,
+            187,
+            185,
+            168,
+            164,
+            151,
+            131,
+            127,
+            123,
+            115,
+            114,
+            90,
+            90,
+            89,
+            72,
+            67,
+            60,
+            48,
+            47,
+            36,
+            29,
+            27,
+            19,
+            17,
+            14,
+            13,
+            11,
+            11,
+            10
+          ],
+          "dominados_por_disciplina": {
+            "n_temas": 30,
+            "n_dominados": 1,
+            "pct_dominados": 3.3333333333333335
+          },
+          "dominados_por_nivel": {
+            "n_temas": 30,
+            "n_dominados": 1,
+            "pct_dominados": 3.3333333333333335
+          },
+          "dominados_por_oe": {
+            "n_temas": 30,
+            "n_dominados": 29,
+            "pct_dominados": 96.66666666666667
+          },
+          "ari_tema_vs_oe": {
+            "valor": 0.13538534443597444,
+            "n_usadas": 3247,
+            "fraccion_usada": 0.8999445676274944
+          }
+        },
+        {
+          "semilla": 3,
+          "n_unidades": 3608,
+          "n_temas": 30,
+          "pct_sin_tema": 10.78159645232816,
+          "npmi_real": 0.03596440440850897,
+          "npmi_azar": -0.07544535193242198,
+          "segundos_ajuste": 23.73894441599259,
+          "tamanos_temas": [
+            681,
+            350,
+            189,
+            186,
+            167,
+            163,
+            148,
+            132,
+            131,
+            122,
+            114,
+            110,
+            98,
+            88,
+            71,
+            69,
+            59,
+            47,
+            46,
+            42,
+            31,
+            31,
+            27,
+            22,
+            20,
+            18,
+            16,
+            15,
+            13,
+            13
+          ],
+          "dominados_por_disciplina": {
+            "n_temas": 30,
+            "n_dominados": 1,
+            "pct_dominados": 3.3333333333333335
+          },
+          "dominados_por_nivel": {
+            "n_temas": 30,
+            "n_dominados": 0,
+            "pct_dominados": 0.0
+          },
+          "dominados_por_oe": {
+            "n_temas": 30,
+            "n_dominados": 28,
+            "pct_dominados": 93.33333333333333
+          },
+          "ari_tema_vs_oe": {
+            "valor": 0.13632417617433665,
+            "n_usadas": 3219,
+            "fraccion_usada": 0.8921840354767184
+          }
+        },
+        {
+          "semilla": 4,
+          "n_unidades": 3608,
+          "n_temas": 30,
+          "pct_sin_tema": 9.950110864745012,
+          "npmi_real": 0.04442621237246993,
+          "npmi_azar": -0.061445314319156674,
+          "segundos_ajuste": 23.898975499963854,
+          "tamanos_temas": [
+            680,
+            348,
+            186,
+            186,
+            163,
+            163,
+            150,
+            131,
+            130,
+            123,
+            116,
+            108,
+            91,
+            90,
+            88,
+            74,
+            73,
+            60,
+            47,
+            41,
+            34,
+            27,
+            25,
+            21,
+            21,
+            18,
+            17,
+            14,
+            12,
+            12
+          ],
+          "dominados_por_disciplina": {
+            "n_temas": 30,
+            "n_dominados": 2,
+            "pct_dominados": 6.666666666666667
+          },
+          "dominados_por_nivel": {
+            "n_temas": 30,
+            "n_dominados": 0,
+            "pct_dominados": 0.0
+          },
+          "dominados_por_oe": {
+            "n_temas": 30,
+            "n_dominados": 29,
+            "pct_dominados": 96.66666666666667
+          },
+          "ari_tema_vs_oe": {
+            "valor": 0.13405117578587092,
+            "n_usadas": 3249,
+            "fraccion_usada": 0.9004988913525499
+          }
+        },
+        {
+          "semilla": 5,
+          "n_unidades": 3608,
+          "n_temas": 31,
+          "pct_sin_tema": 10.393569844789358,
+          "npmi_real": 0.037679473396590904,
+          "npmi_azar": -0.11226181301327956,
+          "segundos_ajuste": 23.91900491702836,
+          "tamanos_temas": [
+            679,
+            352,
+            187,
+            186,
+            172,
+            162,
+            150,
+            131,
+            129,
+            121,
+            117,
+            111,
+            108,
+            80,
+            71,
+            65,
+            62,
+            49,
+            47,
+            45,
+            29,
+            27,
+            21,
+            21,
+            20,
+            20,
+            17,
+            16,
+            13,
+            13,
+            12
+          ],
+          "dominados_por_disciplina": {
+            "n_temas": 31,
+            "n_dominados": 0,
+            "pct_dominados": 0.0
+          },
+          "dominados_por_nivel": {
+            "n_temas": 31,
+            "n_dominados": 0,
+            "pct_dominados": 0.0
+          },
+          "dominados_por_oe": {
+            "n_temas": 31,
+            "n_dominados": 29,
+            "pct_dominados": 93.54838709677419
+          },
+          "ari_tema_vs_oe": {
+            "valor": 0.1358951976758935,
+            "n_usadas": 3233,
+            "fraccion_usada": 0.8960643015521065
+          }
+        }
+      ],
+      "ari_entre_semillas": {
+        "pares": [
+          {
+            "semillas": [
+              1,
+              2
+            ],
+            "valor": 0.9936992853691441,
+            "n_usadas": 3116,
+            "fraccion_usada": 0.8636363636363636
+          },
+          {
+            "semillas": [
+              1,
+              3
+            ],
+            "valor": 0.9932212173834917,
+            "n_usadas": 3082,
+            "fraccion_usada": 0.8542128603104213
+          },
+          {
+            "semillas": [
+              1,
+              4
+            ],
+            "valor": 0.9928920702545672,
+            "n_usadas": 3111,
+            "fraccion_usada": 0.8622505543237251
+          },
+          {
+            "semillas": [
+              1,
+              5
+            ],
+            "valor": 0.9929744595376875,
+            "n_usadas": 3109,
+            "fraccion_usada": 0.8616962305986696
+          },
+          {
+            "semillas": [
+              2,
+              3
+            ],
+            "valor": 0.9944453612068396,
+            "n_usadas": 3152,
+            "fraccion_usada": 0.8736141906873615
+          },
+          {
+            "semillas": [
+              2,
+              4
+            ],
+            "valor": 0.9951711456916738,
+            "n_usadas": 3179,
+            "fraccion_usada": 0.8810975609756098
+          },
+          {
+            "semillas": [
+              2,
+              5
+            ],
+            "valor": 0.9938622115001845,
+            "n_usadas": 3164,
+            "fraccion_usada": 0.876940133037694
+          },
+          {
+            "semillas": [
+              3,
+              4
+            ],
+            "valor": 0.9980580259301562,
+            "n_usadas": 3166,
+            "fraccion_usada": 0.8774944567627494
+          },
+          {
+            "semillas": [
+              3,
+              5
+            ],
+            "valor": 0.9938470646941249,
+            "n_usadas": 3147,
+            "fraccion_usada": 0.8722283813747228
+          },
+          {
+            "semillas": [
+              4,
+              5
+            ],
+            "valor": 0.9932381188411165,
+            "n_usadas": 3155,
+            "fraccion_usada": 0.8744456762749445
+          }
+        ],
+        "media": 0.9941408960408985,
+        "minimo": 0.9928920702545672,
+        "fraccion_usada_media": 0.8697616407982262
+      },
+      "semilla_medoide": 3,
+      "medias": {
+        "n_temas": 30.0,
+        "pct_sin_tema": 10.676274944567629,
+        "npmi_real": 0.038749873526453,
+        "npmi_azar": -0.0889407895092537,
+        "corridas_con_npmi_real_mayor": 5,
+        "ari_semillas_media": 0.9941408960408985
+      },
+      "detalle_por_tema_semilla_medoide": [
+        {
+          "tema": 0,
+          "n_unidades": 681,
+          "n_informes": 196,
+          "pct_informe_mas_frecuente": 1.3215859030837005,
+          "reparto_disciplina": {
+            "química": 226,
+            "física": 312,
+            "biología": 74,
+            "ciencias integradas": 51,
+            "otra": 18
+          },
+          "reparto_nivel": {
+            "media": 324,
+            "universitario: año no reportado": 19,
+            "secundaria básica": 161,
+            "primer año universitario": 108,
+            "formación docente": 7,
+            "universitario: 2.º año o superior": 38,
+            "mixto": 23,
+            "secundaria (sin precisar)": 1
+          },
+          "reparto_oe": {
+            "oe1": 5,
+            "oe2": 670,
+            "oe4": 6
+          }
+        },
+        {
+          "tema": 1,
+          "n_unidades": 350,
+          "n_informes": 189,
+          "pct_informe_mas_frecuente": 0.8571428571428571,
+          "reparto_disciplina": {
+            "física": 162,
+            "química": 112,
+            "biología": 42,
+            "otra": 8,
+            "ciencias integradas": 26
+          },
+          "reparto_nivel": {
+            "media": 166,
+            "secundaria básica": 81,
+            "primer año universitario": 59,
+            "formación docente": 3,
+            "universitario: 2.º año o superior": 19,
+            "mixto": 11,
+            "universitario: año no reportado": 10,
+            "secundaria (sin precisar)": 1
+          },
+          "reparto_oe": {
+            "oe2": 174,
+            "oe4": 176
+          }
+        },
+        {
+          "tema": 2,
+          "n_unidades": 189,
+          "n_informes": 178,
+          "pct_informe_mas_frecuente": 1.5873015873015872,
+          "reparto_disciplina": {
+            "química": 65,
+            "física": 87,
+            "ciencias integradas": 12,
+            "biología": 20,
+            "otra": 5
+          },
+          "reparto_nivel": {
+            "media": 94,
+            "secundaria básica": 41,
+            "primer año universitario": 32,
+            "formación docente": 2,
+            "universitario: 2.º año o superior": 9,
+            "mixto": 6,
+            "universitario: año no reportado": 4,
+            "secundaria (sin precisar)": 1
+          },
+          "reparto_oe": {
+            "oe1": 1,
+            "oe2": 187,
+            "oe4": 1
+          }
+        },
+        {
+          "tema": 3,
+          "n_unidades": 186,
+          "n_informes": 185,
+          "pct_informe_mas_frecuente": 1.075268817204301,
+          "reparto_disciplina": {
+            "física": 83,
+            "química": 64,
+            "ciencias integradas": 13,
+            "biología": 21,
+            "otra": 5
+          },
+          "reparto_nivel": {
+            "media": 90,
+            "secundaria básica": 45,
+            "primer año universitario": 30,
+            "formación docente": 2,
+            "universitario: 2.º año o superior": 9,
+            "mixto": 5,
+            "universitario: año no reportado": 5
+          },
+          "reparto_oe": {
+            "oe4": 186
+          }
+        },
+        {
+          "tema": 4,
+          "n_unidades": 167,
+          "n_informes": 149,
+          "pct_informe_mas_frecuente": 1.7964071856287425,
+          "reparto_disciplina": {
+            "química": 60,
+            "física": 76,
+            "biología": 18,
+            "ciencias integradas": 11,
+            "otra": 2
+          },
+          "reparto_nivel": {
+            "media": 94,
+            "secundaria básica": 36,
+            "primer año universitario": 19,
+            "universitario: 2.º año o superior": 7,
+            "formación docente": 2,
+            "mixto": 5,
+            "universitario: año no reportado": 4
+          },
+          "reparto_oe": {
+            "oe2": 17,
+            "oe4": 150
+          }
+        },
+        {
+          "tema": 5,
+          "n_unidades": 163,
+          "n_informes": 162,
+          "pct_informe_mas_frecuente": 1.2269938650306749,
+          "reparto_disciplina": {
+            "física": 77,
+            "química": 58,
+            "otra": 3,
+            "biología": 13,
+            "ciencias integradas": 12
+          },
+          "reparto_nivel": {
+            "secundaria básica": 40,
+            "media": 81,
+            "primer año universitario": 26,
+            "formación docente": 1,
+            "universitario: 2.º año o superior": 6,
+            "mixto": 5,
+            "universitario: año no reportado": 4
+          },
+          "reparto_oe": {
+            "oe4": 163
+          }
+        },
+        {
+          "tema": 6,
+          "n_unidades": 148,
+          "n_informes": 102,
+          "pct_informe_mas_frecuente": 2.7027027027027026,
+          "reparto_disciplina": {
+            "ciencias integradas": 8,
+            "química": 52,
+            "física": 72,
+            "otra": 5,
+            "biología": 11
+          },
+          "reparto_nivel": {
+            "secundaria básica": 29,
+            "media": 81,
+            "primer año universitario": 28,
+            "formación docente": 2,
+            "universitario: 2.º año o superior": 5,
+            "mixto": 1,
+            "secundaria (sin precisar)": 1,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe2": 147,
+            "oe4": 1
+          }
+        },
+        {
+          "tema": 7,
+          "n_unidades": 132,
+          "n_informes": 84,
+          "pct_informe_mas_frecuente": 3.0303030303030303,
+          "reparto_disciplina": {
+            "física": 44,
+            "química": 47,
+            "biología": 16,
+            "otra": 5,
+            "ciencias integradas": 20
+          },
+          "reparto_nivel": {
+            "secundaria básica": 39,
+            "media": 61,
+            "primer año universitario": 18,
+            "universitario: 2.º año o superior": 2,
+            "mixto": 8,
+            "formación docente": 1,
+            "secundaria (sin precisar)": 1,
+            "universitario: año no reportado": 2
+          },
+          "reparto_oe": {
+            "oe2": 95,
+            "oe4": 37
+          }
+        },
+        {
+          "tema": 8,
+          "n_unidades": 131,
+          "n_informes": 131,
+          "pct_informe_mas_frecuente": 0.7633587786259542,
+          "reparto_disciplina": {
+            "física": 64,
+            "química": 39,
+            "ciencias integradas": 11,
+            "otra": 5,
+            "biología": 12
+          },
+          "reparto_nivel": {
+            "media": 63,
+            "secundaria básica": 31,
+            "primer año universitario": 20,
+            "formación docente": 1,
+            "universitario: 2.º año o superior": 7,
+            "mixto": 5,
+            "universitario: año no reportado": 4
+          },
+          "reparto_oe": {
+            "oe4": 131
+          }
+        },
+        {
+          "tema": 9,
+          "n_unidades": 122,
+          "n_informes": 117,
+          "pct_informe_mas_frecuente": 1.639344262295082,
+          "reparto_disciplina": {
+            "física": 53,
+            "química": 45,
+            "ciencias integradas": 12,
+            "biología": 12
+          },
+          "reparto_nivel": {
+            "universitario: año no reportado": 3,
+            "media": 62,
+            "primer año universitario": 15,
+            "secundaria básica": 32,
+            "universitario: 2.º año o superior": 7,
+            "mixto": 3
+          },
+          "reparto_oe": {
+            "oe2": 119,
+            "oe4": 3
+          }
+        },
+        {
+          "tema": 10,
+          "n_unidades": 114,
+          "n_informes": 114,
+          "pct_informe_mas_frecuente": 0.8771929824561403,
+          "reparto_disciplina": {
+            "física": 39,
+            "química": 44,
+            "biología": 19,
+            "ciencias integradas": 10,
+            "otra": 2
+          },
+          "reparto_nivel": {
+            "secundaria básica": 31,
+            "media": 54,
+            "primer año universitario": 15,
+            "universitario: 2.º año o superior": 7,
+            "mixto": 4,
+            "formación docente": 1,
+            "universitario: año no reportado": 2
+          },
+          "reparto_oe": {
+            "oe1": 114
+          }
+        },
+        {
+          "tema": 11,
+          "n_unidades": 110,
+          "n_informes": 106,
+          "pct_informe_mas_frecuente": 1.8181818181818181,
+          "reparto_disciplina": {
+            "ciencias integradas": 10,
+            "física": 51,
+            "química": 37,
+            "biología": 8,
+            "otra": 4
+          },
+          "reparto_nivel": {
+            "media": 52,
+            "secundaria básica": 29,
+            "primer año universitario": 15,
+            "universitario: 2.º año o superior": 6,
+            "mixto": 4,
+            "formación docente": 1,
+            "universitario: año no reportado": 3
+          },
+          "reparto_oe": {
+            "oe2": 107,
+            "oe4": 3
+          }
+        },
+        {
+          "tema": 12,
+          "n_unidades": 98,
+          "n_informes": 93,
+          "pct_informe_mas_frecuente": 2.0408163265306123,
+          "reparto_disciplina": {
+            "física": 38,
+            "química": 36,
+            "biología": 13,
+            "ciencias integradas": 8,
+            "otra": 3
+          },
+          "reparto_nivel": {
+            "primer año universitario": 17,
+            "secundaria básica": 18,
+            "media": 49,
+            "universitario: 2.º año o superior": 8,
+            "mixto": 3,
+            "universitario: año no reportado": 3
+          },
+          "reparto_oe": {
+            "oe2": 98
+          }
+        },
+        {
+          "tema": 13,
+          "n_unidades": 88,
+          "n_informes": 85,
+          "pct_informe_mas_frecuente": 2.272727272727273,
+          "reparto_disciplina": {
+            "física": 41,
+            "química": 31,
+            "ciencias integradas": 8,
+            "biología": 6,
+            "otra": 2
+          },
+          "reparto_nivel": {
+            "secundaria básica": 18,
+            "universitario: 2.º año o superior": 5,
+            "media": 47,
+            "primer año universitario": 10,
+            "universitario: año no reportado": 5,
+            "mixto": 3
+          },
+          "reparto_oe": {
+            "oe1": 2,
+            "oe2": 83,
+            "oe4": 3
+          }
+        },
+        {
+          "tema": 14,
+          "n_unidades": 71,
+          "n_informes": 71,
+          "pct_informe_mas_frecuente": 1.408450704225352,
+          "reparto_disciplina": {
+            "química": 26,
+            "física": 33,
+            "biología": 6,
+            "otra": 1,
+            "ciencias integradas": 5
+          },
+          "reparto_nivel": {
+            "media": 39,
+            "secundaria básica": 17,
+            "primer año universitario": 10,
+            "universitario: 2.º año o superior": 4,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe4": 71
+          }
+        },
+        {
+          "tema": 15,
+          "n_unidades": 69,
+          "n_informes": 68,
+          "pct_informe_mas_frecuente": 2.898550724637681,
+          "reparto_disciplina": {
+            "química": 26,
+            "física": 32,
+            "otra": 1,
+            "biología": 6,
+            "ciencias integradas": 4
+          },
+          "reparto_nivel": {
+            "media": 34,
+            "secundaria básica": 17,
+            "primer año universitario": 14,
+            "formación docente": 1,
+            "mixto": 2,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe4": 69
+          }
+        },
+        {
+          "tema": 16,
+          "n_unidades": 59,
+          "n_informes": 57,
+          "pct_informe_mas_frecuente": 3.389830508474576,
+          "reparto_disciplina": {
+            "física": 30,
+            "química": 14,
+            "biología": 10,
+            "ciencias integradas": 4,
+            "otra": 1
+          },
+          "reparto_nivel": {
+            "media": 30,
+            "primer año universitario": 9,
+            "formación docente": 2,
+            "universitario: 2.º año o superior": 5,
+            "secundaria básica": 9,
+            "mixto": 2,
+            "universitario: año no reportado": 2
+          },
+          "reparto_oe": {
+            "oe2": 59
+          }
+        },
+        {
+          "tema": 17,
+          "n_unidades": 47,
+          "n_informes": 46,
+          "pct_informe_mas_frecuente": 4.25531914893617,
+          "reparto_disciplina": {
+            "física": 33,
+            "química": 11,
+            "ciencias integradas": 2,
+            "otra": 1
+          },
+          "reparto_nivel": {
+            "media": 24,
+            "secundaria básica": 10,
+            "primer año universitario": 11,
+            "formación docente": 1,
+            "secundaria (sin precisar)": 1
+          },
+          "reparto_oe": {
+            "oe1": 45,
+            "oe2": 2
+          }
+        },
+        {
+          "tema": 18,
+          "n_unidades": 46,
+          "n_informes": 46,
+          "pct_informe_mas_frecuente": 2.1739130434782608,
+          "reparto_disciplina": {
+            "física": 20,
+            "química": 14,
+            "biología": 8,
+            "otra": 1,
+            "ciencias integradas": 3
+          },
+          "reparto_nivel": {
+            "formación docente": 2,
+            "media": 22,
+            "universitario: 2.º año o superior": 4,
+            "primer año universitario": 8,
+            "secundaria básica": 9,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe2": 46
+          }
+        },
+        {
+          "tema": 19,
+          "n_unidades": 42,
+          "n_informes": 41,
+          "pct_informe_mas_frecuente": 4.761904761904762,
+          "reparto_disciplina": {
+            "física": 19,
+            "química": 15,
+            "biología": 5,
+            "otra": 1,
+            "ciencias integradas": 2
+          },
+          "reparto_nivel": {
+            "media": 21,
+            "primer año universitario": 10,
+            "secundaria básica": 7,
+            "formación docente": 1,
+            "universitario: año no reportado": 2,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe1": 1,
+            "oe2": 41
+          }
+        },
+        {
+          "tema": 20,
+          "n_unidades": 31,
+          "n_informes": 30,
+          "pct_informe_mas_frecuente": 6.451612903225806,
+          "reparto_disciplina": {
+            "física": 12,
+            "química": 11,
+            "biología": 7,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "secundaria básica": 13,
+            "media": 12,
+            "universitario: 2.º año o superior": 2,
+            "primer año universitario": 2,
+            "universitario: año no reportado": 2
+          },
+          "reparto_oe": {
+            "oe2": 2,
+            "oe4": 29
+          }
+        },
+        {
+          "tema": 21,
+          "n_unidades": 31,
+          "n_informes": 28,
+          "pct_informe_mas_frecuente": 6.451612903225806,
+          "reparto_disciplina": {
+            "química": 12,
+            "física": 15,
+            "ciencias integradas": 3,
+            "biología": 1
+          },
+          "reparto_nivel": {
+            "secundaria básica": 9,
+            "media": 19,
+            "primer año universitario": 3
+          },
+          "reparto_oe": {
+            "oe2": 3,
+            "oe4": 28
+          }
+        },
+        {
+          "tema": 22,
+          "n_unidades": 27,
+          "n_informes": 27,
+          "pct_informe_mas_frecuente": 3.7037037037037037,
+          "reparto_disciplina": {
+            "física": 13,
+            "biología": 4,
+            "química": 7,
+            "ciencias integradas": 3
+          },
+          "reparto_nivel": {
+            "secundaria básica": 5,
+            "media": 11,
+            "primer año universitario": 6,
+            "universitario: 2.º año o superior": 3,
+            "universitario: año no reportado": 1,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe4": 27
+          }
+        },
+        {
+          "tema": 23,
+          "n_unidades": 22,
+          "n_informes": 22,
+          "pct_informe_mas_frecuente": 4.545454545454546,
+          "reparto_disciplina": {
+            "física": 7,
+            "biología": 4,
+            "química": 7,
+            "otra": 2,
+            "ciencias integradas": 2
+          },
+          "reparto_nivel": {
+            "secundaria básica": 5,
+            "universitario: 2.º año o superior": 4,
+            "primer año universitario": 3,
+            "media": 6,
+            "formación docente": 1,
+            "mixto": 3
+          },
+          "reparto_oe": {
+            "oe2": 19,
+            "oe4": 3
+          }
+        },
+        {
+          "tema": 24,
+          "n_unidades": 20,
+          "n_informes": 18,
+          "pct_informe_mas_frecuente": 10.0,
+          "reparto_disciplina": {
+            "física": 10,
+            "biología": 3,
+            "química": 4,
+            "otra": 1,
+            "ciencias integradas": 2
+          },
+          "reparto_nivel": {
+            "media": 9,
+            "primer año universitario": 2,
+            "secundaria básica": 5,
+            "universitario: 2.º año o superior": 2,
+            "universitario: año no reportado": 1,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe1": 2,
+            "oe2": 18
+          }
+        },
+        {
+          "tema": 25,
+          "n_unidades": 18,
+          "n_informes": 18,
+          "pct_informe_mas_frecuente": 5.555555555555555,
+          "reparto_disciplina": {
+            "física": 9,
+            "otra": 1,
+            "química": 6,
+            "ciencias integradas": 2
+          },
+          "reparto_nivel": {
+            "media": 10,
+            "primer año universitario": 4,
+            "secundaria básica": 2,
+            "mixto": 2
+          },
+          "reparto_oe": {
+            "oe4": 18
+          }
+        },
+        {
+          "tema": 26,
+          "n_unidades": 16,
+          "n_informes": 15,
+          "pct_informe_mas_frecuente": 12.5,
+          "reparto_disciplina": {
+            "física": 5,
+            "química": 4,
+            "biología": 4,
+            "otra": 2,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "media": 4,
+            "secundaria básica": 5,
+            "universitario: 2.º año o superior": 3,
+            "mixto": 1,
+            "primer año universitario": 3
+          },
+          "reparto_oe": {
+            "oe2": 16
+          }
+        },
+        {
+          "tema": 27,
+          "n_unidades": 15,
+          "n_informes": 15,
+          "pct_informe_mas_frecuente": 6.666666666666667,
+          "reparto_disciplina": {
+            "biología": 1,
+            "química": 8,
+            "física": 5,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "secundaria básica": 4,
+            "media": 10,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe2": 10,
+            "oe4": 5
+          }
+        },
+        {
+          "tema": 28,
+          "n_unidades": 13,
+          "n_informes": 12,
+          "pct_informe_mas_frecuente": 15.384615384615385,
+          "reparto_disciplina": {
+            "física": 9,
+            "química": 4
+          },
+          "reparto_nivel": {
+            "primer año universitario": 4,
+            "media": 5,
+            "secundaria básica": 4
+          },
+          "reparto_oe": {
+            "oe2": 13
+          }
+        },
+        {
+          "tema": 29,
+          "n_unidades": 13,
+          "n_informes": 12,
+          "pct_informe_mas_frecuente": 15.384615384615385,
+          "reparto_disciplina": {
+            "física": 3,
+            "química": 7,
+            "ciencias integradas": 2,
+            "biología": 1
+          },
+          "reparto_nivel": {
+            "primer año universitario": 1,
+            "universitario: 2.º año o superior": 2,
+            "media": 7,
+            "mixto": 1,
+            "universitario: año no reportado": 1,
+            "secundaria básica": 1
+          },
+          "reparto_oe": {
+            "oe2": 13
+          }
+        }
+      ]
+    },
+    "control": {
+      "corridas": [
+        {
+          "semilla": 1,
+          "n_unidades": 3608,
+          "n_temas": 50,
+          "pct_sin_tema": 31.65188470066519,
+          "npmi_real": 0.05797313159278809,
+          "npmi_azar": -0.3574042353028556,
+          "segundos_ajuste": 20.009957166970707,
+          "tamanos_temas": [
+            305,
+            164,
+            143,
+            140,
+            140,
+            129,
+            126,
+            125,
+            98,
+            70,
+            67,
+            64,
+            58,
+            57,
+            48,
+            47,
+            41,
+            37,
+            32,
+            28,
+            27,
+            27,
+            26,
+            25,
+            25,
+            25,
+            24,
+            23,
+            23,
+            23,
+            22,
+            18,
+            18,
+            18,
+            18,
+            17,
+            17,
+            17,
+            17,
+            16,
+            15,
+            14,
+            13,
+            12,
+            12,
+            12,
+            12,
+            11,
+            10,
+            10
+          ],
+          "dominados_por_disciplina": {
+            "n_temas": 50,
+            "n_dominados": 4,
+            "pct_dominados": 8.0
+          },
+          "dominados_por_nivel": {
+            "n_temas": 50,
+            "n_dominados": 3,
+            "pct_dominados": 6.0
+          },
+          "dominados_por_oe": {
+            "n_temas": 50,
+            "n_dominados": 46,
+            "pct_dominados": 92.0
+          },
+          "ari_tema_vs_oe": {
+            "valor": 0.08284151426184373,
+            "n_usadas": 2466,
+            "fraccion_usada": 0.6834811529933481
+          }
+        },
+        {
+          "semilla": 2,
+          "n_unidades": 3608,
+          "n_temas": 51,
+          "pct_sin_tema": 33.61973392461197,
+          "npmi_real": 0.07114851189005607,
+          "npmi_azar": -0.35157689797798286,
+          "segundos_ajuste": 19.93611820897786,
+          "tamanos_temas": [
+            158,
+            154,
+            144,
+            144,
+            139,
+            138,
+            126,
+            115,
+            110,
+            96,
+            91,
+            81,
+            69,
+            57,
+            47,
+            47,
+            46,
+            39,
+            36,
+            31,
+            29,
+            28,
+            28,
+            25,
+            25,
+            24,
+            24,
+            23,
+            18,
+            18,
+            18,
+            18,
+            17,
+            16,
+            15,
+            15,
+            14,
+            14,
+            14,
+            14,
+            14,
+            14,
+            13,
+            13,
+            12,
+            12,
+            11,
+            11,
+            10,
+            10,
+            10
+          ],
+          "dominados_por_disciplina": {
+            "n_temas": 51,
+            "n_dominados": 7,
+            "pct_dominados": 13.72549019607843
+          },
+          "dominados_por_nivel": {
+            "n_temas": 51,
+            "n_dominados": 5,
+            "pct_dominados": 9.803921568627452
+          },
+          "dominados_por_oe": {
+            "n_temas": 51,
+            "n_dominados": 47,
+            "pct_dominados": 92.15686274509804
+          },
+          "ari_tema_vs_oe": {
+            "valor": 0.06634309649674888,
+            "n_usadas": 2395,
+            "fraccion_usada": 0.6638026607538803
+          }
+        },
+        {
+          "semilla": 3,
+          "n_unidades": 3608,
+          "n_temas": 51,
+          "pct_sin_tema": 31.70731707317073,
+          "npmi_real": 0.06824368125127409,
+          "npmi_azar": -0.3126336734232587,
+          "segundos_ajuste": 19.951219292008318,
+          "tamanos_temas": [
+            164,
+            159,
+            152,
+            143,
+            143,
+            140,
+            126,
+            118,
+            98,
+            88,
+            69,
+            59,
+            57,
+            56,
+            54,
+            49,
+            49,
+            47,
+            45,
+            41,
+            37,
+            37,
+            32,
+            32,
+            30,
+            28,
+            27,
+            25,
+            24,
+            23,
+            22,
+            22,
+            21,
+            19,
+            18,
+            17,
+            16,
+            16,
+            15,
+            14,
+            14,
+            14,
+            14,
+            13,
+            13,
+            11,
+            11,
+            11,
+            11,
+            10,
+            10
+          ],
+          "dominados_por_disciplina": {
+            "n_temas": 51,
+            "n_dominados": 9,
+            "pct_dominados": 17.647058823529413
+          },
+          "dominados_por_nivel": {
+            "n_temas": 51,
+            "n_dominados": 4,
+            "pct_dominados": 7.8431372549019605
+          },
+          "dominados_por_oe": {
+            "n_temas": 51,
+            "n_dominados": 47,
+            "pct_dominados": 92.15686274509804
+          },
+          "ari_tema_vs_oe": {
+            "valor": 0.06090748331363348,
+            "n_usadas": 2464,
+            "fraccion_usada": 0.6829268292682927
+          }
+        },
+        {
+          "semilla": 4,
+          "n_unidades": 3608,
+          "n_temas": 54,
+          "pct_sin_tema": 32.26164079822617,
+          "npmi_real": 0.02482879875133082,
+          "npmi_azar": -0.3619803109431498,
+          "segundos_ajuste": 19.972086624999065,
+          "tamanos_temas": [
+            302,
+            156,
+            151,
+            142,
+            142,
+            122,
+            107,
+            97,
+            93,
+            63,
+            61,
+            61,
+            59,
+            57,
+            47,
+            43,
+            42,
+            40,
+            35,
+            35,
+            33,
+            29,
+            27,
+            27,
+            26,
+            25,
+            22,
+            22,
+            21,
+            21,
+            19,
+            18,
+            18,
+            17,
+            17,
+            17,
+            16,
+            16,
+            15,
+            15,
+            14,
+            14,
+            14,
+            14,
+            12,
+            12,
+            12,
+            12,
+            11,
+            11,
+            11,
+            11,
+            10,
+            10
+          ],
+          "dominados_por_disciplina": {
+            "n_temas": 54,
+            "n_dominados": 9,
+            "pct_dominados": 16.666666666666668
+          },
+          "dominados_por_nivel": {
+            "n_temas": 54,
+            "n_dominados": 7,
+            "pct_dominados": 12.962962962962964
+          },
+          "dominados_por_oe": {
+            "n_temas": 54,
+            "n_dominados": 51,
+            "pct_dominados": 94.44444444444444
+          },
+          "ari_tema_vs_oe": {
+            "valor": 0.07987117718178516,
+            "n_usadas": 2444,
+            "fraccion_usada": 0.6773835920177383
+          }
+        },
+        {
+          "semilla": 5,
+          "n_unidades": 3608,
+          "n_temas": 35,
+          "pct_sin_tema": 23.364745011086473,
+          "npmi_real": 0.045814971691706965,
+          "npmi_azar": -0.16820481245915705,
+          "segundos_ajuste": 19.809688790992368,
+          "tamanos_temas": [
+            722,
+            302,
+            160,
+            142,
+            142,
+            133,
+            99,
+            96,
+            83,
+            69,
+            67,
+            63,
+            61,
+            61,
+            59,
+            55,
+            48,
+            45,
+            40,
+            32,
+            29,
+            27,
+            24,
+            24,
+            21,
+            19,
+            19,
+            19,
+            17,
+            17,
+            16,
+            16,
+            14,
+            13,
+            11
+          ],
+          "dominados_por_disciplina": {
+            "n_temas": 35,
+            "n_dominados": 4,
+            "pct_dominados": 11.428571428571429
+          },
+          "dominados_por_nivel": {
+            "n_temas": 35,
+            "n_dominados": 2,
+            "pct_dominados": 5.714285714285714
+          },
+          "dominados_por_oe": {
+            "n_temas": 35,
+            "n_dominados": 33,
+            "pct_dominados": 94.28571428571429
+          },
+          "ari_tema_vs_oe": {
+            "valor": 0.1605719192012202,
+            "n_usadas": 2765,
+            "fraccion_usada": 0.7663525498891353
+          }
+        }
+      ],
+      "ari_entre_semillas": {
+        "pares": [
+          {
+            "semillas": [
+              1,
+              2
+            ],
+            "valor": 0.9186521223369749,
+            "n_usadas": 2230,
+            "fraccion_usada": 0.6180709534368071
+          },
+          {
+            "semillas": [
+              1,
+              3
+            ],
+            "valor": 0.9129834075238952,
+            "n_usadas": 2211,
+            "fraccion_usada": 0.6128048780487805
+          },
+          {
+            "semillas": [
+              1,
+              4
+            ],
+            "valor": 0.9767723332704752,
+            "n_usadas": 2254,
+            "fraccion_usada": 0.6247228381374723
+          },
+          {
+            "semillas": [
+              1,
+              5
+            ],
+            "valor": 0.7167058359276355,
+            "n_usadas": 2301,
+            "fraccion_usada": 0.6377494456762749
+          },
+          {
+            "semillas": [
+              2,
+              3
+            ],
+            "valor": 0.9560344898818978,
+            "n_usadas": 2217,
+            "fraccion_usada": 0.6144678492239468
+          },
+          {
+            "semillas": [
+              2,
+              4
+            ],
+            "valor": 0.8982853657418327,
+            "n_usadas": 2198,
+            "fraccion_usada": 0.6092017738359202
+          },
+          {
+            "semillas": [
+              2,
+              5
+            ],
+            "valor": 0.6444557325690963,
+            "n_usadas": 2229,
+            "fraccion_usada": 0.6177937915742794
+          },
+          {
+            "semillas": [
+              3,
+              4
+            ],
+            "valor": 0.9357660117567157,
+            "n_usadas": 2238,
+            "fraccion_usada": 0.6202882483370288
+          },
+          {
+            "semillas": [
+              3,
+              5
+            ],
+            "valor": 0.6602435654591163,
+            "n_usadas": 2248,
+            "fraccion_usada": 0.623059866962306
+          },
+          {
+            "semillas": [
+              4,
+              5
+            ],
+            "valor": 0.7596270285665571,
+            "n_usadas": 2283,
+            "fraccion_usada": 0.6327605321507761
+          }
+        ],
+        "media": 0.8379525893034195,
+        "minimo": 0.6444557325690963,
+        "fraccion_usada_media": 0.6210920177383592
+      },
+      "semilla_medoide": 4,
+      "medias": {
+        "n_temas": 48.2,
+        "pct_sin_tema": 30.52106430155211,
+        "npmi_real": 0.05360181903543121,
+        "npmi_azar": -0.3103599860212808,
+        "corridas_con_npmi_real_mayor": 5,
+        "ari_semillas_media": 0.8379525893034195
+      },
+      "detalle_por_tema_semilla_medoide": [
+        {
+          "tema": 0,
+          "n_unidades": 302,
+          "n_informes": 173,
+          "pct_informe_mas_frecuente": 1.6556291390728477,
+          "reparto_disciplina": {
+            "otra": 9,
+            "química": 103,
+            "física": 141,
+            "biología": 27,
+            "ciencias integradas": 22
+          },
+          "reparto_nivel": {
+            "secundaria básica": 82,
+            "media": 153,
+            "primer año universitario": 44,
+            "formación docente": 2,
+            "mixto": 7,
+            "universitario: 2.º año o superior": 10,
+            "universitario: año no reportado": 4
+          },
+          "reparto_oe": {
+            "oe1": 2,
+            "oe2": 14,
+            "oe4": 286
+          }
+        },
+        {
+          "tema": 1,
+          "n_unidades": 156,
+          "n_informes": 137,
+          "pct_informe_mas_frecuente": 1.9230769230769231,
+          "reparto_disciplina": {
+            "química": 57,
+            "física": 70,
+            "biología": 15,
+            "ciencias integradas": 13,
+            "otra": 1
+          },
+          "reparto_nivel": {
+            "media": 85,
+            "universitario: año no reportado": 4,
+            "universitario: 2.º año o superior": 7,
+            "secundaria básica": 36,
+            "primer año universitario": 18,
+            "formación docente": 1,
+            "mixto": 5
+          },
+          "reparto_oe": {
+            "oe2": 22,
+            "oe4": 134
+          }
+        },
+        {
+          "tema": 2,
+          "n_unidades": 151,
+          "n_informes": 140,
+          "pct_informe_mas_frecuente": 1.3245033112582782,
+          "reparto_disciplina": {
+            "física": 69,
+            "química": 49,
+            "ciencias integradas": 9,
+            "biología": 18,
+            "otra": 6
+          },
+          "reparto_nivel": {
+            "media": 82,
+            "secundaria básica": 21,
+            "primer año universitario": 28,
+            "formación docente": 1,
+            "universitario: 2.º año o superior": 10,
+            "mixto": 5,
+            "universitario: año no reportado": 3,
+            "secundaria (sin precisar)": 1
+          },
+          "reparto_oe": {
+            "oe1": 135,
+            "oe2": 14,
+            "oe4": 2
+          }
+        },
+        {
+          "tema": 3,
+          "n_unidades": 142,
+          "n_informes": 127,
+          "pct_informe_mas_frecuente": 2.112676056338028,
+          "reparto_disciplina": {
+            "física": 60,
+            "ciencias integradas": 14,
+            "química": 53,
+            "biología": 14,
+            "otra": 1
+          },
+          "reparto_nivel": {
+            "media": 73,
+            "secundaria básica": 39,
+            "primer año universitario": 18,
+            "universitario: 2.º año o superior": 5,
+            "formación docente": 1,
+            "mixto": 4,
+            "universitario: año no reportado": 2
+          },
+          "reparto_oe": {
+            "oe2": 133,
+            "oe4": 9
+          }
+        },
+        {
+          "tema": 4,
+          "n_unidades": 142,
+          "n_informes": 132,
+          "pct_informe_mas_frecuente": 1.408450704225352,
+          "reparto_disciplina": {
+            "biología": 18,
+            "física": 66,
+            "química": 51,
+            "ciencias integradas": 6,
+            "otra": 1
+          },
+          "reparto_nivel": {
+            "primer año universitario": 31,
+            "secundaria básica": 30,
+            "universitario: año no reportado": 5,
+            "media": 63,
+            "formación docente": 2,
+            "universitario: 2.º año o superior": 9,
+            "mixto": 2
+          },
+          "reparto_oe": {
+            "oe2": 9,
+            "oe4": 133
+          }
+        },
+        {
+          "tema": 5,
+          "n_unidades": 122,
+          "n_informes": 114,
+          "pct_informe_mas_frecuente": 1.639344262295082,
+          "reparto_disciplina": {
+            "física": 55,
+            "química": 41,
+            "ciencias integradas": 6,
+            "biología": 17,
+            "otra": 3
+          },
+          "reparto_nivel": {
+            "media": 58,
+            "secundaria básica": 27,
+            "primer año universitario": 19,
+            "formación docente": 1,
+            "universitario: 2.º año o superior": 9,
+            "universitario: año no reportado": 5,
+            "mixto": 3
+          },
+          "reparto_oe": {
+            "oe2": 115,
+            "oe4": 7
+          }
+        },
+        {
+          "tema": 6,
+          "n_unidades": 107,
+          "n_informes": 96,
+          "pct_informe_mas_frecuente": 2.803738317757009,
+          "reparto_disciplina": {
+            "ciencias integradas": 11,
+            "química": 34,
+            "física": 45,
+            "biología": 13,
+            "otra": 4
+          },
+          "reparto_nivel": {
+            "mixto": 4,
+            "media": 45,
+            "secundaria básica": 31,
+            "primer año universitario": 16,
+            "formación docente": 2,
+            "universitario: 2.º año o superior": 5,
+            "universitario: año no reportado": 4
+          },
+          "reparto_oe": {
+            "oe1": 1,
+            "oe2": 98,
+            "oe4": 8
+          }
+        },
+        {
+          "tema": 7,
+          "n_unidades": 97,
+          "n_informes": 93,
+          "pct_informe_mas_frecuente": 2.0618556701030926,
+          "reparto_disciplina": {
+            "física": 44,
+            "química": 29,
+            "biología": 13,
+            "otra": 4,
+            "ciencias integradas": 7
+          },
+          "reparto_nivel": {
+            "media": 52,
+            "secundaria básica": 17,
+            "primer año universitario": 15,
+            "formación docente": 2,
+            "universitario: 2.º año o superior": 6,
+            "mixto": 3,
+            "universitario: año no reportado": 2
+          },
+          "reparto_oe": {
+            "oe2": 97
+          }
+        },
+        {
+          "tema": 8,
+          "n_unidades": 93,
+          "n_informes": 75,
+          "pct_informe_mas_frecuente": 4.301075268817204,
+          "reparto_disciplina": {
+            "física": 47,
+            "química": 27,
+            "otra": 5,
+            "biología": 8,
+            "ciencias integradas": 6
+          },
+          "reparto_nivel": {
+            "secundaria básica": 27,
+            "primer año universitario": 14,
+            "formación docente": 1,
+            "media": 42,
+            "universitario: 2.º año o superior": 3,
+            "universitario: año no reportado": 3,
+            "mixto": 3
+          },
+          "reparto_oe": {
+            "oe2": 66,
+            "oe4": 27
+          }
+        },
+        {
+          "tema": 9,
+          "n_unidades": 63,
+          "n_informes": 63,
+          "pct_informe_mas_frecuente": 1.5873015873015872,
+          "reparto_disciplina": {
+            "química": 19,
+            "física": 31,
+            "ciencias integradas": 5,
+            "biología": 5,
+            "otra": 3
+          },
+          "reparto_nivel": {
+            "secundaria (sin precisar)": 1,
+            "secundaria básica": 20,
+            "media": 31,
+            "primer año universitario": 6,
+            "formación docente": 1,
+            "universitario: 2.º año o superior": 2,
+            "universitario: año no reportado": 1,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe4": 63
+          }
+        },
+        {
+          "tema": 10,
+          "n_unidades": 61,
+          "n_informes": 53,
+          "pct_informe_mas_frecuente": 3.278688524590164,
+          "reparto_disciplina": {
+            "física": 15,
+            "química": 43,
+            "ciencias integradas": 3
+          },
+          "reparto_nivel": {
+            "secundaria básica": 12,
+            "media": 37,
+            "primer año universitario": 10,
+            "universitario: 2.º año o superior": 1,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe1": 1,
+            "oe2": 57,
+            "oe4": 3
+          }
+        },
+        {
+          "tema": 11,
+          "n_unidades": 61,
+          "n_informes": 58,
+          "pct_informe_mas_frecuente": 3.278688524590164,
+          "reparto_disciplina": {
+            "física": 34,
+            "ciencias integradas": 5,
+            "química": 17,
+            "biología": 4,
+            "otra": 1
+          },
+          "reparto_nivel": {
+            "media": 39,
+            "secundaria básica": 10,
+            "primer año universitario": 6,
+            "universitario: 2.º año o superior": 3,
+            "mixto": 2,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe2": 61
+          }
+        },
+        {
+          "tema": 12,
+          "n_unidades": 59,
+          "n_informes": 58,
+          "pct_informe_mas_frecuente": 3.389830508474576,
+          "reparto_disciplina": {
+            "física": 25,
+            "química": 17,
+            "biología": 8,
+            "ciencias integradas": 7,
+            "otra": 2
+          },
+          "reparto_nivel": {
+            "primer año universitario": 11,
+            "secundaria básica": 16,
+            "media": 23,
+            "universitario: 2.º año o superior": 5,
+            "universitario: año no reportado": 2,
+            "mixto": 2
+          },
+          "reparto_oe": {
+            "oe2": 59
+          }
+        },
+        {
+          "tema": 13,
+          "n_unidades": 57,
+          "n_informes": 55,
+          "pct_informe_mas_frecuente": 3.508771929824561,
+          "reparto_disciplina": {
+            "física": 29,
+            "química": 15,
+            "ciencias integradas": 4,
+            "biología": 8,
+            "otra": 1
+          },
+          "reparto_nivel": {
+            "primer año universitario": 12,
+            "secundaria básica": 12,
+            "media": 24,
+            "universitario: 2.º año o superior": 4,
+            "mixto": 1,
+            "formación docente": 1,
+            "universitario: año no reportado": 2,
+            "secundaria (sin precisar)": 1
+          },
+          "reparto_oe": {
+            "oe2": 1,
+            "oe4": 56
+          }
+        },
+        {
+          "tema": 14,
+          "n_unidades": 47,
+          "n_informes": 43,
+          "pct_informe_mas_frecuente": 6.382978723404255,
+          "reparto_disciplina": {
+            "física": 21,
+            "química": 17,
+            "ciencias integradas": 4,
+            "biología": 5
+          },
+          "reparto_nivel": {
+            "secundaria básica": 22,
+            "media": 16,
+            "primer año universitario": 6,
+            "formación docente": 2,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe1": 42,
+            "oe2": 3,
+            "oe4": 2
+          }
+        },
+        {
+          "tema": 15,
+          "n_unidades": 43,
+          "n_informes": 41,
+          "pct_informe_mas_frecuente": 4.651162790697675,
+          "reparto_disciplina": {
+            "física": 20,
+            "química": 16,
+            "otra": 1,
+            "ciencias integradas": 2,
+            "biología": 4
+          },
+          "reparto_nivel": {
+            "secundaria básica": 7,
+            "media": 21,
+            "primer año universitario": 8,
+            "formación docente": 1,
+            "universitario: 2.º año o superior": 3,
+            "universitario: año no reportado": 2,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe2": 41,
+            "oe4": 2
+          }
+        },
+        {
+          "tema": 16,
+          "n_unidades": 42,
+          "n_informes": 42,
+          "pct_informe_mas_frecuente": 2.380952380952381,
+          "reparto_disciplina": {
+            "química": 17,
+            "física": 19,
+            "biología": 5,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "primer año universitario": 12,
+            "media": 18,
+            "universitario: 2.º año o superior": 3,
+            "secundaria básica": 6,
+            "universitario: año no reportado": 2,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe4": 42
+          }
+        },
+        {
+          "tema": 17,
+          "n_unidades": 40,
+          "n_informes": 40,
+          "pct_informe_mas_frecuente": 2.5,
+          "reparto_disciplina": {
+            "biología": 9,
+            "química": 8,
+            "física": 20,
+            "otra": 1,
+            "ciencias integradas": 2
+          },
+          "reparto_nivel": {
+            "primer año universitario": 4,
+            "media": 19,
+            "secundaria básica": 13,
+            "universitario: 2.º año o superior": 3,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe2": 2,
+            "oe4": 38
+          }
+        },
+        {
+          "tema": 18,
+          "n_unidades": 35,
+          "n_informes": 27,
+          "pct_informe_mas_frecuente": 11.428571428571429,
+          "reparto_disciplina": {
+            "química": 17,
+            "biología": 3,
+            "física": 9,
+            "ciencias integradas": 5,
+            "otra": 1
+          },
+          "reparto_nivel": {
+            "primer año universitario": 11,
+            "media": 12,
+            "secundaria básica": 7,
+            "mixto": 2,
+            "universitario: 2.º año o superior": 1,
+            "formación docente": 1,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe2": 24,
+            "oe4": 11
+          }
+        },
+        {
+          "tema": 19,
+          "n_unidades": 35,
+          "n_informes": 33,
+          "pct_informe_mas_frecuente": 5.714285714285714,
+          "reparto_disciplina": {
+            "biología": 3,
+            "ciencias integradas": 6,
+            "física": 12,
+            "otra": 1,
+            "química": 13
+          },
+          "reparto_nivel": {
+            "secundaria básica": 12,
+            "primer año universitario": 7,
+            "formación docente": 2,
+            "media": 10,
+            "universitario: 2.º año o superior": 2,
+            "mixto": 1,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe2": 30,
+            "oe4": 5
+          }
+        },
+        {
+          "tema": 20,
+          "n_unidades": 33,
+          "n_informes": 32,
+          "pct_informe_mas_frecuente": 6.0606060606060606,
+          "reparto_disciplina": {
+            "física": 16,
+            "química": 14,
+            "ciencias integradas": 2,
+            "biología": 1
+          },
+          "reparto_nivel": {
+            "universitario: año no reportado": 1,
+            "secundaria básica": 9,
+            "media": 18,
+            "primer año universitario": 5
+          },
+          "reparto_oe": {
+            "oe2": 33
+          }
+        },
+        {
+          "tema": 21,
+          "n_unidades": 29,
+          "n_informes": 25,
+          "pct_informe_mas_frecuente": 10.344827586206897,
+          "reparto_disciplina": {
+            "física": 19,
+            "química": 8,
+            "biología": 2
+          },
+          "reparto_nivel": {
+            "secundaria básica": 9,
+            "primer año universitario": 5,
+            "media": 15
+          },
+          "reparto_oe": {
+            "oe2": 15,
+            "oe4": 14
+          }
+        },
+        {
+          "tema": 22,
+          "n_unidades": 27,
+          "n_informes": 24,
+          "pct_informe_mas_frecuente": 7.407407407407407,
+          "reparto_disciplina": {
+            "biología": 3,
+            "química": 8,
+            "física": 11,
+            "otra": 3,
+            "ciencias integradas": 2
+          },
+          "reparto_nivel": {
+            "media": 13,
+            "primer año universitario": 6,
+            "universitario: 2.º año o superior": 3,
+            "secundaria básica": 4,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe2": 26,
+            "oe4": 1
+          }
+        },
+        {
+          "tema": 23,
+          "n_unidades": 27,
+          "n_informes": 27,
+          "pct_informe_mas_frecuente": 3.7037037037037037,
+          "reparto_disciplina": {
+            "física": 6,
+            "química": 17,
+            "biología": 3,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "media": 17,
+            "primer año universitario": 2,
+            "secundaria básica": 6,
+            "mixto": 1,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe2": 27
+          }
+        },
+        {
+          "tema": 24,
+          "n_unidades": 26,
+          "n_informes": 25,
+          "pct_informe_mas_frecuente": 7.6923076923076925,
+          "reparto_disciplina": {
+            "física": 16,
+            "química": 9,
+            "biología": 1
+          },
+          "reparto_nivel": {
+            "media": 16,
+            "secundaria básica": 4,
+            "formación docente": 1,
+            "primer año universitario": 4,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe2": 26
+          }
+        },
+        {
+          "tema": 25,
+          "n_unidades": 25,
+          "n_informes": 25,
+          "pct_informe_mas_frecuente": 4.0,
+          "reparto_disciplina": {
+            "química": 8,
+            "ciencias integradas": 2,
+            "física": 11,
+            "biología": 3,
+            "otra": 1
+          },
+          "reparto_nivel": {
+            "secundaria básica": 6,
+            "mixto": 1,
+            "media": 12,
+            "primer año universitario": 4,
+            "formación docente": 1,
+            "universitario: año no reportado": 1
+          },
+          "reparto_oe": {
+            "oe2": 25
+          }
+        },
+        {
+          "tema": 26,
+          "n_unidades": 22,
+          "n_informes": 21,
+          "pct_informe_mas_frecuente": 9.090909090909092,
+          "reparto_disciplina": {
+            "química": 5,
+            "física": 11,
+            "biología": 5,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "media": 10,
+            "primer año universitario": 6,
+            "universitario: 2.º año o superior": 4,
+            "secundaria básica": 2
+          },
+          "reparto_oe": {
+            "oe2": 22
+          }
+        },
+        {
+          "tema": 27,
+          "n_unidades": 22,
+          "n_informes": 22,
+          "pct_informe_mas_frecuente": 4.545454545454546,
+          "reparto_disciplina": {
+            "química": 8,
+            "ciencias integradas": 3,
+            "física": 10,
+            "otra": 1
+          },
+          "reparto_nivel": {
+            "media": 9,
+            "primer año universitario": 7,
+            "formación docente": 1,
+            "secundaria básica": 3,
+            "universitario: año no reportado": 1,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe1": 1,
+            "oe2": 21
+          }
+        },
+        {
+          "tema": 28,
+          "n_unidades": 21,
+          "n_informes": 20,
+          "pct_informe_mas_frecuente": 9.523809523809524,
+          "reparto_disciplina": {
+            "física": 10,
+            "química": 10,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "media": 16,
+            "secundaria básica": 2,
+            "primer año universitario": 2,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe2": 21
+          }
+        },
+        {
+          "tema": 29,
+          "n_unidades": 21,
+          "n_informes": 17,
+          "pct_informe_mas_frecuente": 14.285714285714286,
+          "reparto_disciplina": {
+            "ciencias integradas": 4,
+            "física": 14,
+            "química": 3
+          },
+          "reparto_nivel": {
+            "mixto": 3,
+            "secundaria básica": 7,
+            "primer año universitario": 2,
+            "media": 8,
+            "universitario: 2.º año o superior": 1
+          },
+          "reparto_oe": {
+            "oe2": 17,
+            "oe4": 4
+          }
+        },
+        {
+          "tema": 30,
+          "n_unidades": 19,
+          "n_informes": 18,
+          "pct_informe_mas_frecuente": 10.526315789473685,
+          "reparto_disciplina": {
+            "química": 13,
+            "física": 4,
+            "ciencias integradas": 2
+          },
+          "reparto_nivel": {
+            "media": 11,
+            "secundaria básica": 2,
+            "primer año universitario": 4,
+            "mixto": 1,
+            "universitario: 2.º año o superior": 1
+          },
+          "reparto_oe": {
+            "oe2": 14,
+            "oe4": 5
+          }
+        },
+        {
+          "tema": 31,
+          "n_unidades": 18,
+          "n_informes": 18,
+          "pct_informe_mas_frecuente": 5.555555555555555,
+          "reparto_disciplina": {
+            "física": 8,
+            "química": 5,
+            "biología": 4,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "secundaria básica": 5,
+            "media": 10,
+            "primer año universitario": 2,
+            "universitario: 2.º año o superior": 1
+          },
+          "reparto_oe": {
+            "oe2": 18
+          }
+        },
+        {
+          "tema": 32,
+          "n_unidades": 18,
+          "n_informes": 17,
+          "pct_informe_mas_frecuente": 11.11111111111111,
+          "reparto_disciplina": {
+            "física": 13,
+            "química": 2,
+            "otra": 1,
+            "biología": 1,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "media": 8,
+            "universitario: 2.º año o superior": 1,
+            "formación docente": 1,
+            "primer año universitario": 3,
+            "secundaria básica": 5
+          },
+          "reparto_oe": {
+            "oe2": 18
+          }
+        },
+        {
+          "tema": 33,
+          "n_unidades": 17,
+          "n_informes": 16,
+          "pct_informe_mas_frecuente": 11.764705882352942,
+          "reparto_disciplina": {
+            "física": 7,
+            "química": 7,
+            "biología": 1,
+            "ciencias integradas": 2
+          },
+          "reparto_nivel": {
+            "media": 14,
+            "secundaria básica": 2,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe2": 16,
+            "oe4": 1
+          }
+        },
+        {
+          "tema": 34,
+          "n_unidades": 17,
+          "n_informes": 16,
+          "pct_informe_mas_frecuente": 11.764705882352942,
+          "reparto_disciplina": {
+            "ciencias integradas": 3,
+            "biología": 3,
+            "física": 5,
+            "química": 4,
+            "otra": 2
+          },
+          "reparto_nivel": {
+            "media": 8,
+            "universitario: 2.º año o superior": 2,
+            "secundaria básica": 4,
+            "primer año universitario": 2,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe2": 17
+          }
+        },
+        {
+          "tema": 35,
+          "n_unidades": 17,
+          "n_informes": 16,
+          "pct_informe_mas_frecuente": 11.764705882352942,
+          "reparto_disciplina": {
+            "física": 10,
+            "ciencias integradas": 2,
+            "química": 3,
+            "biología": 2
+          },
+          "reparto_nivel": {
+            "media": 11,
+            "secundaria básica": 4,
+            "primer año universitario": 2
+          },
+          "reparto_oe": {
+            "oe2": 17
+          }
+        },
+        {
+          "tema": 36,
+          "n_unidades": 16,
+          "n_informes": 16,
+          "pct_informe_mas_frecuente": 6.25,
+          "reparto_disciplina": {
+            "física": 14,
+            "química": 2
+          },
+          "reparto_nivel": {
+            "secundaria básica": 7,
+            "media": 6,
+            "primer año universitario": 3
+          },
+          "reparto_oe": {
+            "oe2": 15,
+            "oe4": 1
+          }
+        },
+        {
+          "tema": 37,
+          "n_unidades": 16,
+          "n_informes": 14,
+          "pct_informe_mas_frecuente": 12.5,
+          "reparto_disciplina": {
+            "física": 10,
+            "ciencias integradas": 3,
+            "química": 1,
+            "biología": 2
+          },
+          "reparto_nivel": {
+            "media": 4,
+            "secundaria básica": 7,
+            "universitario: 2.º año o superior": 1,
+            "universitario: año no reportado": 2,
+            "primer año universitario": 2
+          },
+          "reparto_oe": {
+            "oe2": 16
+          }
+        },
+        {
+          "tema": 38,
+          "n_unidades": 15,
+          "n_informes": 14,
+          "pct_informe_mas_frecuente": 13.333333333333334,
+          "reparto_disciplina": {
+            "física": 7,
+            "química": 8
+          },
+          "reparto_nivel": {
+            "media": 9,
+            "secundaria básica": 3,
+            "primer año universitario": 3
+          },
+          "reparto_oe": {
+            "oe2": 13,
+            "oe4": 2
+          }
+        },
+        {
+          "tema": 39,
+          "n_unidades": 15,
+          "n_informes": 15,
+          "pct_informe_mas_frecuente": 6.666666666666667,
+          "reparto_disciplina": {
+            "física": 11,
+            "química": 2,
+            "ciencias integradas": 1,
+            "biología": 1
+          },
+          "reparto_nivel": {
+            "primer año universitario": 2,
+            "media": 8,
+            "secundaria básica": 4,
+            "formación docente": 1
+          },
+          "reparto_oe": {
+            "oe2": 15
+          }
+        },
+        {
+          "tema": 40,
+          "n_unidades": 14,
+          "n_informes": 6,
+          "pct_informe_mas_frecuente": 21.428571428571427,
+          "reparto_disciplina": {
+            "física": 7,
+            "química": 7
+          },
+          "reparto_nivel": {
+            "media": 14
+          },
+          "reparto_oe": {
+            "oe2": 4,
+            "oe4": 10
+          }
+        },
+        {
+          "tema": 41,
+          "n_unidades": 14,
+          "n_informes": 13,
+          "pct_informe_mas_frecuente": 14.285714285714286,
+          "reparto_disciplina": {
+            "química": 7,
+            "ciencias integradas": 1,
+            "física": 5,
+            "otra": 1
+          },
+          "reparto_nivel": {
+            "universitario: 2.º año o superior": 2,
+            "secundaria básica": 4,
+            "universitario: año no reportado": 1,
+            "primer año universitario": 3,
+            "media": 4
+          },
+          "reparto_oe": {
+            "oe2": 13,
+            "oe4": 1
+          }
+        },
+        {
+          "tema": 42,
+          "n_unidades": 14,
+          "n_informes": 11,
+          "pct_informe_mas_frecuente": 14.285714285714286,
+          "reparto_disciplina": {
+            "física": 10,
+            "química": 3,
+            "biología": 1
+          },
+          "reparto_nivel": {
+            "media": 10,
+            "secundaria básica": 1,
+            "primer año universitario": 3
+          },
+          "reparto_oe": {
+            "oe2": 9,
+            "oe4": 5
+          }
+        },
+        {
+          "tema": 43,
+          "n_unidades": 14,
+          "n_informes": 13,
+          "pct_informe_mas_frecuente": 14.285714285714286,
+          "reparto_disciplina": {
+            "química": 11,
+            "física": 2,
+            "biología": 1
+          },
+          "reparto_nivel": {
+            "media": 10,
+            "secundaria básica": 2,
+            "universitario: 2.º año o superior": 1,
+            "primer año universitario": 1
+          },
+          "reparto_oe": {
+            "oe2": 14
+          }
+        },
+        {
+          "tema": 44,
+          "n_unidades": 12,
+          "n_informes": 11,
+          "pct_informe_mas_frecuente": 16.666666666666668,
+          "reparto_disciplina": {
+            "física": 7,
+            "biología": 2,
+            "química": 2,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "secundaria básica": 9,
+            "primer año universitario": 1,
+            "media": 1,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe1": 1,
+            "oe2": 11
+          }
+        },
+        {
+          "tema": 45,
+          "n_unidades": 12,
+          "n_informes": 12,
+          "pct_informe_mas_frecuente": 8.333333333333334,
+          "reparto_disciplina": {
+            "biología": 5,
+            "química": 5,
+            "física": 1,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "media": 6,
+            "universitario: 2.º año o superior": 3,
+            "mixto": 1,
+            "secundaria básica": 1,
+            "primer año universitario": 1
+          },
+          "reparto_oe": {
+            "oe2": 12
+          }
+        },
+        {
+          "tema": 46,
+          "n_unidades": 12,
+          "n_informes": 7,
+          "pct_informe_mas_frecuente": 25.0,
+          "reparto_disciplina": {
+            "física": 12
+          },
+          "reparto_nivel": {
+            "media": 5,
+            "secundaria básica": 4,
+            "formación docente": 3
+          },
+          "reparto_oe": {
+            "oe2": 10,
+            "oe4": 2
+          }
+        },
+        {
+          "tema": 47,
+          "n_unidades": 12,
+          "n_informes": 12,
+          "pct_informe_mas_frecuente": 8.333333333333334,
+          "reparto_disciplina": {
+            "física": 6,
+            "química": 2,
+            "biología": 3,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "media": 3,
+            "secundaria básica": 4,
+            "primer año universitario": 3,
+            "universitario: 2.º año o superior": 1,
+            "mixto": 1
+          },
+          "reparto_oe": {
+            "oe2": 12
+          }
+        },
+        {
+          "tema": 48,
+          "n_unidades": 11,
+          "n_informes": 9,
+          "pct_informe_mas_frecuente": 27.272727272727273,
+          "reparto_disciplina": {
+            "física": 6,
+            "química": 1,
+            "otra": 4
+          },
+          "reparto_nivel": {
+            "primer año universitario": 1,
+            "media": 2,
+            "universitario: año no reportado": 1,
+            "secundaria básica": 4,
+            "mixto": 3
+          },
+          "reparto_oe": {
+            "oe2": 9,
+            "oe4": 2
+          }
+        },
+        {
+          "tema": 49,
+          "n_unidades": 11,
+          "n_informes": 10,
+          "pct_informe_mas_frecuente": 18.181818181818183,
+          "reparto_disciplina": {
+            "física": 10,
+            "química": 1
+          },
+          "reparto_nivel": {
+            "secundaria básica": 4,
+            "media": 5,
+            "universitario: 2.º año o superior": 1,
+            "primer año universitario": 1
+          },
+          "reparto_oe": {
+            "oe2": 11
+          }
+        },
+        {
+          "tema": 50,
+          "n_unidades": 11,
+          "n_informes": 11,
+          "pct_informe_mas_frecuente": 9.090909090909092,
+          "reparto_disciplina": {
+            "física": 3,
+            "química": 6,
+            "ciencias integradas": 1,
+            "biología": 1
+          },
+          "reparto_nivel": {
+            "secundaria básica": 3,
+            "media": 8
+          },
+          "reparto_oe": {
+            "oe4": 11
+          }
+        },
+        {
+          "tema": 51,
+          "n_unidades": 11,
+          "n_informes": 11,
+          "pct_informe_mas_frecuente": 9.090909090909092,
+          "reparto_disciplina": {
+            "física": 8,
+            "química": 2,
+            "biología": 1
+          },
+          "reparto_nivel": {
+            "secundaria básica": 2,
+            "primer año universitario": 3,
+            "media": 5,
+            "universitario: 2.º año o superior": 1
+          },
+          "reparto_oe": {
+            "oe4": 11
+          }
+        },
+        {
+          "tema": 52,
+          "n_unidades": 10,
+          "n_informes": 10,
+          "pct_informe_mas_frecuente": 10.0,
+          "reparto_disciplina": {
+            "física": 7,
+            "química": 2,
+            "ciencias integradas": 1
+          },
+          "reparto_nivel": {
+            "formación docente": 1,
+            "media": 6,
+            "secundaria básica": 3
+          },
+          "reparto_oe": {
+            "oe2": 10
+          }
+        },
+        {
+          "tema": 53,
+          "n_unidades": 10,
+          "n_informes": 9,
+          "pct_informe_mas_frecuente": 20.0,
+          "reparto_disciplina": {
+            "química": 5,
+            "otra": 1,
+            "ciencias integradas": 1,
+            "física": 2,
+            "biología": 1
+          },
+          "reparto_nivel": {
+            "media": 5,
+            "secundaria básica": 4,
+            "primer año universitario": 1
+          },
+          "reparto_oe": {
+            "oe2": 2,
+            "oe4": 8
+          }
+        }
+      ]
+    }
+  },
+  "entradas_sha256": {
+    "matriz_normalizada": "047840986e236173c915a1ce80a8d7decf690f49f64c3cbae7514b87d7b6bc85",
+    "params.yaml": "07ca0d6c5cbe9f6fa420019c1f78339478c028b64266b016700deb5438bb0922",
+    "prisma_counts_vigente": "af536e2c2ea7530b725436a0abfa1738a6e4a2fe9df95779f3bbd714034320c1",
+    "stopwords": "1677087a5c705bb0d8be175a84e7459be4cd4c9b2c8d955c2387dfc427c46774",
+    "requirements_semantico": "8a99295016c92eb9cb10616d059ea111b016ec896882f0f63740deb100454554"
+  },
+  "parametros": {
+    "semillas": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "umap": {
+      "n_neighbors": 15,
+      "n_components": 5,
+      "min_dist": 0.0,
+      "metric": "cosine"
+    },
+    "min_topic_size": 10,
+    "palabras_clave": 10,
+    "umbrales": {
+      "tiempo_embeddings_s": 300,
+      "ari_semillas_sigue": 0.6,
+      "ari_semillas_no_sigue": 0.4,
+      "outliers_sigue_pct": 40,
+      "outliers_no_sigue_pct": 60,
+      "mezcla_idiomas_sigue_pct": 50,
+      "temas_de_un_documento_no_util_pct": 50,
+      "interpretables_sigue_pct": 60,
+      "interpretables_no_sigue_pct": 40,
+      "minimo_temas_interpretables": 3
+    },
+    "semilla_azar": 2026,
+    "semilla_codigos": 2026
+  },
+  "prueba": "prueba2a",
+  "unidades": {
+    "principal": 3608,
+    "control": 3608
+  },
+  "acuerdo_entre_modelos": {
+    "unidad_de_comparacion": "unidades de ficha",
+    "media": 0.48071108193875517,
+    "minimo": 0.39544583802976896,
+    "maximo": 0.6980666660180087,
+    "fraccion_usada_media": 0.6301330376940133,
+    "pares": [
+      {
+        "semillas": [
+          1,
+          1
+        ],
+        "valor": 0.4135345632322778,
+        "n_usadas": 2201,
+        "fraccion_usada": 0.6100332594235033
+      },
+      {
+        "semillas": [
+          1,
+          2
+        ],
+        "valor": 0.4481580652790493,
+        "n_usadas": 2144,
+        "fraccion_usada": 0.5942350332594235
+      },
+      {
+        "semillas": [
+          1,
+          3
+        ],
+        "valor": 0.45692655753009,
+        "n_usadas": 2226,
+        "fraccion_usada": 0.6169623059866962
+      },
+      {
+        "semillas": [
+          1,
+          4
+        ],
+        "valor": 0.4309484193060042,
+        "n_usadas": 2182,
+        "fraccion_usada": 0.6047671840354767
+      },
+      {
+        "semillas": [
+          1,
+          5
+        ],
+        "valor": 0.6980666660180087,
+        "n_usadas": 2495,
+        "fraccion_usada": 0.6915188470066519
+      },
+      {
+        "semillas": [
+          2,
+          1
+        ],
+        "valor": 0.40210761624039637,
+        "n_usadas": 2242,
+        "fraccion_usada": 0.6213968957871396
+      },
+      {
+        "semillas": [
+          2,
+          2
+        ],
+        "valor": 0.43744123822247166,
+        "n_usadas": 2185,
+        "fraccion_usada": 0.6055986696230599
+      },
+      {
+        "semillas": [
+          2,
+          3
+        ],
+        "valor": 0.4503890744696243,
+        "n_usadas": 2256,
+        "fraccion_usada": 0.6252771618625277
+      },
+      {
+        "semillas": [
+          2,
+          4
+        ],
+        "valor": 0.42093618948502187,
+        "n_usadas": 2220,
+        "fraccion_usada": 0.61529933481153
+      },
+      {
+        "semillas": [
+          2,
+          5
+        ],
+        "valor": 0.6923811989827587,
+        "n_usadas": 2532,
+        "fraccion_usada": 0.7017738359201774
+      },
+      {
+        "semillas": [
+          3,
+          1
+        ],
+        "valor": 0.39544583802976896,
+        "n_usadas": 2215,
+        "fraccion_usada": 0.6139135254988913
+      },
+      {
+        "semillas": [
+          3,
+          2
+        ],
+        "valor": 0.4311197122588812,
+        "n_usadas": 2162,
+        "fraccion_usada": 0.5992239467849224
+      },
+      {
+        "semillas": [
+          3,
+          3
+        ],
+        "valor": 0.4426706703593804,
+        "n_usadas": 2235,
+        "fraccion_usada": 0.6194567627494457
+      },
+      {
+        "semillas": [
+          3,
+          4
+        ],
+        "valor": 0.41401648513119144,
+        "n_usadas": 2200,
+        "fraccion_usada": 0.6097560975609756
+      },
+      {
+        "semillas": [
+          3,
+          5
+        ],
+        "valor": 0.6968320663605578,
+        "n_usadas": 2510,
+        "fraccion_usada": 0.6956762749445676
+      },
+      {
+        "semillas": [
+          4,
+          1
+        ],
+        "valor": 0.3999559467844125,
+        "n_usadas": 2240,
+        "fraccion_usada": 0.6208425720620843
+      },
+      {
+        "semillas": [
+          4,
+          2
+        ],
+        "valor": 0.435680641513461,
+        "n_usadas": 2183,
+        "fraccion_usada": 0.6050443458980045
+      },
+      {
+        "semillas": [
+          4,
+          3
+        ],
+        "valor": 0.44795369508977834,
+        "n_usadas": 2252,
+        "fraccion_usada": 0.6241685144124168
+      },
+      {
+        "semillas": [
+          4,
+          4
+        ],
+        "valor": 0.41870723156756606,
+        "n_usadas": 2220,
+        "fraccion_usada": 0.61529933481153
+      },
+      {
+        "semillas": [
+          4,
+          5
+        ],
+        "valor": 0.6915045786929762,
+        "n_usadas": 2534,
+        "fraccion_usada": 0.7023281596452328
+      },
+      {
+        "semillas": [
+          5,
+          1
+        ],
+        "valor": 0.3987598420728711,
+        "n_usadas": 2230,
+        "fraccion_usada": 0.6180709534368071
+      },
+      {
+        "semillas": [
+          5,
+          2
+        ],
+        "valor": 0.43378097209246685,
+        "n_usadas": 2176,
+        "fraccion_usada": 0.6031042128603105
+      },
+      {
+        "semillas": [
+          5,
+          3
+        ],
+        "valor": 0.4458735580421637,
+        "n_usadas": 2255,
+        "fraccion_usada": 0.625
+      },
+      {
+        "semillas": [
+          5,
+          4
+        ],
+        "valor": 0.4182308246246875,
+        "n_usadas": 2214,
+        "fraccion_usada": 0.6136363636363636
+      },
+      {
+        "semillas": [
+          5,
+          5
+        ],
+        "valor": 0.6963553970830142,
+        "n_usadas": 2529,
+        "fraccion_usada": 0.7009423503325942
+      }
+    ]
+  },
+  "fichas_descartadas_por_campo": {
+    "oe1_hallazgo": 0,
+    "oe2_herramienta": 4,
+    "oe2_andamiaje": 5,
+    "oe2_retroalimentacion": 17,
+    "oe2_interactividad": 2,
+    "oe2_dispositivo": 34,
+    "oe2_conectividad": 28,
+    "oe2_idioma_accesibilidad": 72,
+    "oe2_costo_licencia": 65,
+    "oe2_usabilidad_calidad": 23,
+    "oe2_criterios_candidatos": 0,
+    "oe4_momento": 1,
+    "oe4_secuencia": 7,
+    "oe4_organizacion": 50,
+    "oe4_rol_docente": 12,
+    "oe4_steam": 49,
+    "oe4_barreras": 3,
+    "oe4_comunidades_aprendizaje": 14
+  },
+  "embeddings": {
+    "principal": {
+      "unidades_prueba1": 408,
+      "unidades_fichas": 3608,
+      "segundos_prueba1_mps": 59.635556792025454,
+      "segundos_prueba1_cpu": 45.9247771659866,
+      "segundos_fichas_mps": 50.74781220802106,
+      "coseno_mps_cpu_medio": 1.0,
+      "pct_trozos_truncados": 0.24509803921568626,
+      "max_seq_length": 512,
+      "dimension": 768,
+      "ram_maxima_mb": 1281.261568
+    },
+    "control": {
+      "unidades_prueba1": 624,
+      "unidades_fichas": 3608,
+      "segundos_prueba1_mps": 7.899874041962903,
+      "segundos_prueba1_cpu": 9.21185537497513,
+      "segundos_fichas_mps": 14.116004915966187,
+      "coseno_mps_cpu_medio": 1.0,
+      "pct_trozos_truncados": 92.78846153846155,
+      "max_seq_length": 128,
+      "dimension": 384,
+      "ram_maxima_mb": 1309.835264
+    }
+  }
+}

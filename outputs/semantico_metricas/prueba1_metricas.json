@@ -1,0 +1,1157 @@
+{
+  "script": "src/rs_pipeline/semantico_04.py",
+  "python": "3.13.7",
+  "versiones": {
+    "bertopic": "0.17.4",
+    "sentence-transformers": "6.2.0",
+    "torch": "2.15.0",
+    "umap-learn": "0.5.12",
+    "hdbscan": "0.8.44",
+    "transformers": "5.22.0",
+    "numpy": "2.5.4",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.9.1"
+  },
+  "modelos": {
+    "principal": {
+      "corridas": [
+        {
+          "semilla": 1,
+          "n_unidades": 408,
+          "n_temas": 7,
+          "pct_sin_tema": 0.0,
+          "npmi_real": 0.3377784604562075,
+          "npmi_azar": 0.12532165269748172,
+          "segundos_ajuste": 9.439230167015921,
+          "tamanos_temas": [
+            103,
+            88,
+            65,
+            47,
+            37,
+            36,
+            32
+          ],
+          "mezcla_idiomas": {
+            "n_temas": 7,
+            "n_mezclan": 0,
+            "pct_mezclan": 0.0
+          },
+          "temas_de_un_documento": {
+            "n_temas": 7,
+            "n_dominados": 5,
+            "pct_dominados": 71.42857142857143
+          }
+        },
+        {
+          "semilla": 2,
+          "n_unidades": 408,
+          "n_temas": 7,
+          "pct_sin_tema": 0.0,
+          "npmi_real": 0.3377784604562075,
+          "npmi_azar": 0.07860914353158754,
+          "segundos_ajuste": 1.01115137495799,
+          "tamanos_temas": [
+            103,
+            87,
+            65,
+            47,
+            37,
+            36,
+            33
+          ],
+          "mezcla_idiomas": {
+            "n_temas": 7,
+            "n_mezclan": 0,
+            "pct_mezclan": 0.0
+          },
+          "temas_de_un_documento": {
+            "n_temas": 7,
+            "n_dominados": 5,
+            "pct_dominados": 71.42857142857143
+          }
+        },
+        {
+          "semilla": 3,
+          "n_unidades": 408,
+          "n_temas": 7,
+          "pct_sin_tema": 0.0,
+          "npmi_real": 0.3377784604562075,
+          "npmi_azar": 0.0833062439157809,
+          "segundos_ajuste": 1.0143897919915617,
+          "tamanos_temas": [
+            103,
+            88,
+            64,
+            47,
+            37,
+            36,
+            33
+          ],
+          "mezcla_idiomas": {
+            "n_temas": 7,
+            "n_mezclan": 0,
+            "pct_mezclan": 0.0
+          },
+          "temas_de_un_documento": {
+            "n_temas": 7,
+            "n_dominados": 5,
+            "pct_dominados": 71.42857142857143
+          }
+        },
+        {
+          "semilla": 4,
+          "n_unidades": 408,
+          "n_temas": 7,
+          "pct_sin_tema": 0.0,
+          "npmi_real": 0.3377784604562075,
+          "npmi_azar": 0.09455075449722251,
+          "segundos_ajuste": 1.0105037500034086,
+          "tamanos_temas": [
+            103,
+            88,
+            64,
+            47,
+            37,
+            36,
+            33
+          ],
+          "mezcla_idiomas": {
+            "n_temas": 7,
+            "n_mezclan": 0,
+            "pct_mezclan": 0.0
+          },
+          "temas_de_un_documento": {
+            "n_temas": 7,
+            "n_dominados": 5,
+            "pct_dominados": 71.42857142857143
+          }
+        },
+        {
+          "semilla": 5,
+          "n_unidades": 408,
+          "n_temas": 7,
+          "pct_sin_tema": 0.0,
+          "npmi_real": 0.3377784604562075,
+          "npmi_azar": 0.053978325351329716,
+          "segundos_ajuste": 1.0099045420065522,
+          "tamanos_temas": [
+            103,
+            88,
+            64,
+            47,
+            37,
+            36,
+            33
+          ],
+          "mezcla_idiomas": {
+            "n_temas": 7,
+            "n_mezclan": 0,
+            "pct_mezclan": 0.0
+          },
+          "temas_de_un_documento": {
+            "n_temas": 7,
+            "n_dominados": 5,
+            "pct_dominados": 71.42857142857143
+          }
+        }
+      ],
+      "ari_entre_semillas": {
+        "pares": [
+          {
+            "semillas": [
+              1,
+              2
+            ],
+            "valor": 0.9893933759505799,
+            "n_usadas": 408,
+            "fraccion_usada": 1.0
+          },
+          {
+            "semillas": [
+              1,
+              3
+            ],
+            "valor": 0.9958802807951745,
+            "n_usadas": 408,
+            "fraccion_usada": 1.0
+          },
+          {
+            "semillas": [
+              1,
+              4
+            ],
+            "valor": 0.9958802807951745,
+            "n_usadas": 408,
+            "fraccion_usada": 1.0
+          },
+          {
+            "semillas": [
+              1,
+              5
+            ],
+            "valor": 0.9958802807951745,
+            "n_usadas": 408,
+            "fraccion_usada": 1.0
+          },
+          {
+            "semillas": [
+              2,
+              3
+            ],
+            "valor": 0.9935098732760602,
+            "n_usadas": 408,
+            "fraccion_usada": 1.0
+          },
+          {
+            "semillas": [
+              2,
+              4
+            ],
+            "valor": 0.9935098732760602,
+            "n_usadas": 408,
+            "fraccion_usada": 1.0
+          },
+          {
+            "semillas": [
+              2,
+              5
+            ],
+            "valor": 0.9935098732760602,
+            "n_usadas": 408,
+            "fraccion_usada": 1.0
+          },
+          {
+            "semillas": [
+              3,
+              4
+            ],
+            "valor": 1.0,
+            "n_usadas": 408,
+            "fraccion_usada": 1.0
+          },
+          {
+            "semillas": [
+              3,
+              5
+            ],
+            "valor": 1.0,
+            "n_usadas": 408,
+            "fraccion_usada": 1.0
+          },
+          {
+            "semillas": [
+              4,
+              5
+            ],
+            "valor": 1.0,
+            "n_usadas": 408,
+            "fraccion_usada": 1.0
+          }
+        ],
+        "media": 0.9957563838164283,
+        "minimo": 0.9893933759505799,
+        "fraccion_usada_media": 1.0
+      },
+      "semilla_medoide": 3,
+      "medias": {
+        "n_temas": 7.0,
+        "pct_sin_tema": 0.0,
+        "npmi_real": 0.3377784604562075,
+        "npmi_azar": 0.08715322399868049,
+        "corridas_con_npmi_real_mayor": 5,
+        "ari_semillas_media": 0.9957563838164283
+      },
+      "detalle_por_tema_semilla_medoide": [
+        {
+          "tema": 0,
+          "n_unidades": 103,
+          "n_informes": 3,
+          "pct_informe_mas_frecuente": 49.51456310679612,
+          "reparto_idioma": {
+            "español": 103
+          }
+        },
+        {
+          "tema": 1,
+          "n_unidades": 88,
+          "n_informes": 3,
+          "pct_informe_mas_frecuente": 62.5,
+          "reparto_idioma": {
+            "inglés": 88
+          }
+        },
+        {
+          "tema": 2,
+          "n_unidades": 64,
+          "n_informes": 1,
+          "pct_informe_mas_frecuente": 100.0,
+          "reparto_idioma": {
+            "inglés": 64
+          }
+        },
+        {
+          "tema": 3,
+          "n_unidades": 47,
+          "n_informes": 1,
+          "pct_informe_mas_frecuente": 100.0,
+          "reparto_idioma": {
+            "portugués": 47
+          }
+        },
+        {
+          "tema": 4,
+          "n_unidades": 37,
+          "n_informes": 1,
+          "pct_informe_mas_frecuente": 100.0,
+          "reparto_idioma": {
+            "portugués": 37
+          }
+        },
+        {
+          "tema": 5,
+          "n_unidades": 36,
+          "n_informes": 3,
+          "pct_informe_mas_frecuente": 91.66666666666667,
+          "reparto_idioma": {
+            "inglés": 36
+          }
+        },
+        {
+          "tema": 6,
+          "n_unidades": 33,
+          "n_informes": 1,
+          "pct_informe_mas_frecuente": 100.0,
+          "reparto_idioma": {
+            "inglés": 33
+          }
+        }
+      ]
+    },
+    "control": {
+      "corridas": [
+        {
+          "semilla": 1,
+          "n_unidades": 624,
+          "n_temas": 4,
+          "pct_sin_tema": 1.282051282051282,
+          "npmi_real": 0.3309838328008521,
+          "npmi_azar": 0.007935869966144916,
+          "segundos_ajuste": 1.5723162090289406,
+          "tamanos_temas": [
+            473,
+            85,
+            41,
+            17
+          ],
+          "mezcla_idiomas": {
+            "n_temas": 4,
+            "n_mezclan": 2,
+            "pct_mezclan": 50.0
+          },
+          "temas_de_un_documento": {
+            "n_temas": 4,
+            "n_dominados": 3,
+            "pct_dominados": 75.0
+          }
+        },
+        {
+          "semilla": 2,
+          "n_unidades": 624,
+          "n_temas": 3,
+          "pct_sin_tema": 0.0,
+          "npmi_real": 0.20396662806424123,
+          "npmi_azar": 0.008820797537225861,
+          "segundos_ajuste": 1.5784808329772204,
+          "tamanos_temas": [
+            497,
+            86,
+            41
+          ],
+          "mezcla_idiomas": {
+            "n_temas": 3,
+            "n_mezclan": 1,
+            "pct_mezclan": 33.333333333333336
+          },
+          "temas_de_un_documento": {
+            "n_temas": 3,
+            "n_dominados": 2,
+            "pct_dominados": 66.66666666666667
+          }
+        },
+        {
+          "semilla": 3,
+          "n_unidades": 624,
+          "n_temas": 4,
+          "pct_sin_tema": 0.9615384615384616,
+          "npmi_real": 0.3309838328008521,
+          "npmi_azar": 0.0027326331396835806,
+          "segundos_ajuste": 1.5971875420073047,
+          "tamanos_temas": [
+            475,
+            85,
+            41,
+            17
+          ],
+          "mezcla_idiomas": {
+            "n_temas": 4,
+            "n_mezclan": 2,
+            "pct_mezclan": 50.0
+          },
+          "temas_de_un_documento": {
+            "n_temas": 4,
+            "n_dominados": 3,
+            "pct_dominados": 75.0
+          }
+        },
+        {
+          "semilla": 4,
+          "n_unidades": 624,
+          "n_temas": 4,
+          "pct_sin_tema": 1.1217948717948718,
+          "npmi_real": 0.3309838328008521,
+          "npmi_azar": 0.03791088002308165,
+          "segundos_ajuste": 1.5812413749517873,
+          "tamanos_temas": [
+            473,
+            86,
+            41,
+            17
+          ],
+          "mezcla_idiomas": {
+            "n_temas": 4,
+            "n_mezclan": 2,
+            "pct_mezclan": 50.0
+          },
+          "temas_de_un_documento": {
+            "n_temas": 4,
+            "n_dominados": 3,
+            "pct_dominados": 75.0
+          }
+        },
+        {
+          "semilla": 5,
+          "n_unidades": 624,
+          "n_temas": 5,
+          "pct_sin_tema": 2.8846153846153846,
+          "npmi_real": 0.3625605736098751,
+          "npmi_azar": 0.02253675376546995,
+          "segundos_ajuste": 1.576342458021827,
+          "tamanos_temas": [
+            471,
+            46,
+            41,
+            31,
+            17
+          ],
+          "mezcla_idiomas": {
+            "n_temas": 5,
+            "n_mezclan": 2,
+            "pct_mezclan": 40.0
+          },
+          "temas_de_un_documento": {
+            "n_temas": 5,
+            "n_dominados": 4,
+            "pct_dominados": 80.0
+          }
+        }
+      ],
+      "ari_entre_semillas": {
+        "pares": [
+          {
+            "semillas": [
+              1,
+              2
+            ],
+            "valor": 0.9026275615165743,
+            "n_usadas": 616,
+            "fraccion_usada": 0.9871794871794872
+          },
+          {
+            "semillas": [
+              1,
+              3
+            ],
+            "valor": 1.0,
+            "n_usadas": 610,
+            "fraccion_usada": 0.9775641025641025
+          },
+          {
+            "semillas": [
+              1,
+              4
+            ],
+            "valor": 0.9937640504005815,
+            "n_usadas": 609,
+            "fraccion_usada": 0.9759615384615384
+          },
+          {
+            "semillas": [
+              1,
+              5
+            ],
+            "valor": 0.9832887145284047,
+            "n_usadas": 602,
+            "fraccion_usada": 0.9647435897435898
+          },
+          {
+            "semillas": [
+              2,
+              3
+            ],
+            "valor": 0.9027437715478986,
+            "n_usadas": 618,
+            "fraccion_usada": 0.9903846153846154
+          },
+          {
+            "semillas": [
+              2,
+              4
+            ],
+            "valor": 0.9091235025157901,
+            "n_usadas": 617,
+            "fraccion_usada": 0.9887820512820513
+          },
+          {
+            "semillas": [
+              2,
+              5
+            ],
+            "valor": 0.8821046017986016,
+            "n_usadas": 606,
+            "fraccion_usada": 0.9711538461538461
+          },
+          {
+            "semillas": [
+              3,
+              4
+            ],
+            "valor": 0.9938131929358551,
+            "n_usadas": 617,
+            "fraccion_usada": 0.9887820512820513
+          },
+          {
+            "semillas": [
+              3,
+              5
+            ],
+            "valor": 0.9834739032089389,
+            "n_usadas": 606,
+            "fraccion_usada": 0.9711538461538461
+          },
+          {
+            "semillas": [
+              4,
+              5
+            ],
+            "valor": 0.9771070458957531,
+            "n_usadas": 605,
+            "fraccion_usada": 0.969551282051282
+          }
+        ],
+        "media": 0.9528046344348399,
+        "minimo": 0.8821046017986016,
+        "fraccion_usada_media": 0.9785256410256411
+      },
+      "semilla_medoide": 3,
+      "medias": {
+        "n_temas": 4.0,
+        "pct_sin_tema": 1.25,
+        "npmi_real": 0.31189574001533454,
+        "npmi_azar": 0.015987386886321193,
+        "corridas_con_npmi_real_mayor": 5,
+        "ari_semillas_media": 0.9528046344348399
+      },
+      "detalle_por_tema_semilla_medoide": [
+        {
+          "tema": 0,
+          "n_unidades": 475,
+          "n_informes": 10,
+          "pct_informe_mas_frecuente": 17.05263157894737,
+          "reparto_idioma": {
+            "inglés": 206,
+            "español": 156,
+            "portugués": 113
+          }
+        },
+        {
+          "tema": 1,
+          "n_unidades": 85,
+          "n_informes": 2,
+          "pct_informe_mas_frecuente": 98.82352941176471,
+          "reparto_idioma": {
+            "inglés": 85
+          }
+        },
+        {
+          "tema": 2,
+          "n_unidades": 41,
+          "n_informes": 1,
+          "pct_informe_mas_frecuente": 100.0,
+          "reparto_idioma": {
+            "inglés": 41
+          }
+        },
+        {
+          "tema": 3,
+          "n_unidades": 17,
+          "n_informes": 2,
+          "pct_informe_mas_frecuente": 88.23529411764706,
+          "reparto_idioma": {
+            "inglés": 2,
+            "portugués": 15
+          }
+        }
+      ]
+    }
+  },
+  "entradas_sha256": {
+    "matriz_normalizada": "047840986e236173c915a1ce80a8d7decf690f49f64c3cbae7514b87d7b6bc85",
+    "params.yaml": "07ca0d6c5cbe9f6fa420019c1f78339478c028b64266b016700deb5438bb0922",
+    "prisma_counts_vigente": "af536e2c2ea7530b725436a0abfa1738a6e4a2fe9df95779f3bbd714034320c1",
+    "stopwords": "1677087a5c705bb0d8be175a84e7459be4cd4c9b2c8d955c2387dfc427c46774",
+    "requirements_semantico": "8a99295016c92eb9cb10616d059ea111b016ec896882f0f63740deb100454554"
+  },
+  "parametros": {
+    "semillas": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "umap": {
+      "n_neighbors": 15,
+      "n_components": 5,
+      "min_dist": 0.0,
+      "metric": "cosine"
+    },
+    "min_topic_size": 10,
+    "palabras_clave": 10,
+    "umbrales": {
+      "tiempo_embeddings_s": 300,
+      "ari_semillas_sigue": 0.6,
+      "ari_semillas_no_sigue": 0.4,
+      "outliers_sigue_pct": 40,
+      "outliers_no_sigue_pct": 60,
+      "mezcla_idiomas_sigue_pct": 50,
+      "temas_de_un_documento_no_util_pct": 50,
+      "interpretables_sigue_pct": 60,
+      "interpretables_no_sigue_pct": 40,
+      "minimo_temas_interpretables": 3
+    },
+    "semilla_azar": 2026,
+    "semilla_codigos": 2026
+  },
+  "prueba": "prueba1",
+  "unidades": {
+    "principal": 408,
+    "control": 624
+  },
+  "acuerdo_entre_modelos": {
+    "unidad_de_comparacion": "oraciones",
+    "media": 0.17727971574431733,
+    "minimo": 0.15190794718832776,
+    "maximo": 0.1924479006766456,
+    "fraccion_usada_media": 0.9840996991834982,
+    "pares": [
+      {
+        "semillas": [
+          1,
+          1
+        ],
+        "valor": 0.17960828536867604,
+        "n_usadas": 2288,
+        "fraccion_usada": 0.9832402234636871
+      },
+      {
+        "semillas": [
+          1,
+          2
+        ],
+        "valor": 0.17112453484250928,
+        "n_usadas": 2327,
+        "fraccion_usada": 1.0
+      },
+      {
+        "semillas": [
+          1,
+          3
+        ],
+        "valor": 0.1886140542504099,
+        "n_usadas": 2295,
+        "fraccion_usada": 0.9862483884830253
+      },
+      {
+        "semillas": [
+          1,
+          4
+        ],
+        "valor": 0.19079473208272757,
+        "n_usadas": 2292,
+        "fraccion_usada": 0.984959174903309
+      },
+      {
+        "semillas": [
+          1,
+          5
+        ],
+        "valor": 0.15212075108894962,
+        "n_usadas": 2248,
+        "fraccion_usada": 0.9660507090674688
+      },
+      {
+        "semillas": [
+          2,
+          1
+        ],
+        "valor": 0.1812030103170295,
+        "n_usadas": 2288,
+        "fraccion_usada": 0.9832402234636871
+      },
+      {
+        "semillas": [
+          2,
+          2
+        ],
+        "valor": 0.17272590899678028,
+        "n_usadas": 2327,
+        "fraccion_usada": 1.0
+      },
+      {
+        "semillas": [
+          2,
+          3
+        ],
+        "valor": 0.19024219132448061,
+        "n_usadas": 2295,
+        "fraccion_usada": 0.9862483884830253
+      },
+      {
+        "semillas": [
+          2,
+          4
+        ],
+        "valor": 0.1924479006766456,
+        "n_usadas": 2292,
+        "fraccion_usada": 0.984959174903309
+      },
+      {
+        "semillas": [
+          2,
+          5
+        ],
+        "valor": 0.15190794718832776,
+        "n_usadas": 2248,
+        "fraccion_usada": 0.9660507090674688
+      },
+      {
+        "semillas": [
+          3,
+          1
+        ],
+        "valor": 0.1805907098404587,
+        "n_usadas": 2288,
+        "fraccion_usada": 0.9832402234636871
+      },
+      {
+        "semillas": [
+          3,
+          2
+        ],
+        "valor": 0.17212436383335686,
+        "n_usadas": 2327,
+        "fraccion_usada": 1.0
+      },
+      {
+        "semillas": [
+          3,
+          3
+        ],
+        "valor": 0.18958220382884727,
+        "n_usadas": 2295,
+        "fraccion_usada": 0.9862483884830253
+      },
+      {
+        "semillas": [
+          3,
+          4
+        ],
+        "valor": 0.1917833272473989,
+        "n_usadas": 2292,
+        "fraccion_usada": 0.984959174903309
+      },
+      {
+        "semillas": [
+          3,
+          5
+        ],
+        "valor": 0.15298725440707056,
+        "n_usadas": 2248,
+        "fraccion_usada": 0.9660507090674688
+      },
+      {
+        "semillas": [
+          4,
+          1
+        ],
+        "valor": 0.1805907098404587,
+        "n_usadas": 2288,
+        "fraccion_usada": 0.9832402234636871
+      },
+      {
+        "semillas": [
+          4,
+          2
+        ],
+        "valor": 0.17212436383335686,
+        "n_usadas": 2327,
+        "fraccion_usada": 1.0
+      },
+      {
+        "semillas": [
+          4,
+          3
+        ],
+        "valor": 0.18958220382884727,
+        "n_usadas": 2295,
+        "fraccion_usada": 0.9862483884830253
+      },
+      {
+        "semillas": [
+          4,
+          4
+        ],
+        "valor": 0.1917833272473989,
+        "n_usadas": 2292,
+        "fraccion_usada": 0.984959174903309
+      },
+      {
+        "semillas": [
+          4,
+          5
+        ],
+        "valor": 0.15298725440707056,
+        "n_usadas": 2248,
+        "fraccion_usada": 0.9660507090674688
+      },
+      {
+        "semillas": [
+          5,
+          1
+        ],
+        "valor": 0.1805907098404587,
+        "n_usadas": 2288,
+        "fraccion_usada": 0.9832402234636871
+      },
+      {
+        "semillas": [
+          5,
+          2
+        ],
+        "valor": 0.17212436383335686,
+        "n_usadas": 2327,
+        "fraccion_usada": 1.0
+      },
+      {
+        "semillas": [
+          5,
+          3
+        ],
+        "valor": 0.18958220382884727,
+        "n_usadas": 2295,
+        "fraccion_usada": 0.9862483884830253
+      },
+      {
+        "semillas": [
+          5,
+          4
+        ],
+        "valor": 0.1917833272473989,
+        "n_usadas": 2292,
+        "fraccion_usada": 0.984959174903309
+      },
+      {
+        "semillas": [
+          5,
+          5
+        ],
+        "valor": 0.15298725440707056,
+        "n_usadas": 2248,
+        "fraccion_usada": 0.9660507090674688
+      }
+    ]
+  },
+  "estadisticas_por_informe": {
+    "principal": {
+      "R0998": {
+        "lineas": 572,
+        "lineas_cuerpo": 571,
+        "lineas_conservadas": 496,
+        "corte_referencias": "marcador",
+        "oraciones": 179,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 32,
+        "trozos": 32,
+        "sha256_texto": "abfcd911202cdbe70553a8e50250d3ebb40da674fbcc861641afedbbee0e9210",
+        "idioma": "inglés"
+      },
+      "R0045": {
+        "lineas": 754,
+        "lineas_cuerpo": 671,
+        "lineas_conservadas": 485,
+        "corte_referencias": "encabezado",
+        "oraciones": 215,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 35,
+        "trozos": 35,
+        "sha256_texto": "7046d09aa38a534ae0cd394377ed79bf1d470e3754c599e6d06b8e89ac8f7ef9",
+        "idioma": "inglés"
+      },
+      "R0578": {
+        "lineas": 708,
+        "lineas_cuerpo": 707,
+        "lineas_conservadas": 635,
+        "corte_referencias": "marcador",
+        "oraciones": 200,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 33,
+        "trozos": 33,
+        "sha256_texto": "af162262942b1799e498b955790fcb3cd8787f630275a61841e8c26e232bb519",
+        "idioma": "inglés"
+      },
+      "R0527": {
+        "lineas": 982,
+        "lineas_cuerpo": 981,
+        "lineas_conservadas": 861,
+        "corte_referencias": "marcador",
+        "oraciones": 429,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 64,
+        "trozos": 64,
+        "sha256_texto": "be7c886e7dd1e32a91a64511d328f59cb5b6a08a826c8f1ff382070278a03ec1",
+        "idioma": "inglés"
+      },
+      "R1085": {
+        "lineas": 924,
+        "lineas_cuerpo": 923,
+        "lineas_conservadas": 808,
+        "corte_referencias": "marcador",
+        "oraciones": 369,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 57,
+        "trozos": 57,
+        "sha256_texto": "d9bf4ee3062cb1bd338d4e9df48562627658959d50b685a846672dcdc9f49920",
+        "idioma": "inglés"
+      },
+      "R0755": {
+        "lineas": 1075,
+        "lineas_cuerpo": 1074,
+        "lineas_conservadas": 777,
+        "corte_referencias": "marcador",
+        "oraciones": 209,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 51,
+        "trozos": 51,
+        "sha256_texto": "cb5cf16840bbc83f7c00a1181810a5d2cdb0cc87b1d27c1f651e85091d54472c",
+        "idioma": "español"
+      },
+      "R0711": {
+        "lineas": 463,
+        "lineas_cuerpo": 462,
+        "lineas_conservadas": 389,
+        "corte_referencias": "marcador",
+        "oraciones": 216,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 36,
+        "trozos": 36,
+        "sha256_texto": "31720d89e53385bac20b2f3c4f0a55dab4084809edf3829816e9f874bb25b040",
+        "idioma": "español"
+      },
+      "R0730": {
+        "lineas": 741,
+        "lineas_cuerpo": 740,
+        "lineas_conservadas": 338,
+        "corte_referencias": "marcador",
+        "oraciones": 65,
+        "oraciones_descartadas_largas": 1,
+        "trozos_antes_de_filtrar": 16,
+        "trozos": 16,
+        "sha256_texto": "bdd9281cea87d675e69c9a37bf408af94063850b4951295dc09d375c5dc4f605",
+        "idioma": "español"
+      },
+      "R0713": {
+        "lineas": 906,
+        "lineas_cuerpo": 709,
+        "lineas_conservadas": 465,
+        "corte_referencias": "encabezado",
+        "oraciones": 176,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 37,
+        "trozos": 37,
+        "sha256_texto": "fe1cdd1d85b0a76206f3449fc5ef37a43191d9f438ac3326903281632ea14cad",
+        "idioma": "portugués"
+      },
+      "R0922": {
+        "lineas": 1213,
+        "lineas_cuerpo": 1212,
+        "lineas_conservadas": 1067,
+        "corte_referencias": "marcador",
+        "oraciones": 270,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 47,
+        "trozos": 47,
+        "sha256_texto": "019d35be4d30454e27c8563cb9bc53809d1a96760f09958c33e42db1435bb28e",
+        "idioma": "portugués"
+      }
+    },
+    "control": {
+      "R0998": {
+        "lineas": 572,
+        "lineas_cuerpo": 571,
+        "lineas_conservadas": 496,
+        "corte_referencias": "marcador",
+        "oraciones": 179,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 50,
+        "trozos": 50,
+        "sha256_texto": "abfcd911202cdbe70553a8e50250d3ebb40da674fbcc861641afedbbee0e9210",
+        "idioma": "inglés"
+      },
+      "R0045": {
+        "lineas": 754,
+        "lineas_cuerpo": 671,
+        "lineas_conservadas": 485,
+        "corte_referencias": "encabezado",
+        "oraciones": 215,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 55,
+        "trozos": 55,
+        "sha256_texto": "7046d09aa38a534ae0cd394377ed79bf1d470e3754c599e6d06b8e89ac8f7ef9",
+        "idioma": "inglés"
+      },
+      "R0578": {
+        "lineas": 708,
+        "lineas_cuerpo": 707,
+        "lineas_conservadas": 635,
+        "corte_referencias": "marcador",
+        "oraciones": 200,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 50,
+        "trozos": 50,
+        "sha256_texto": "af162262942b1799e498b955790fcb3cd8787f630275a61841e8c26e232bb519",
+        "idioma": "inglés"
+      },
+      "R0527": {
+        "lineas": 982,
+        "lineas_cuerpo": 981,
+        "lineas_conservadas": 861,
+        "corte_referencias": "marcador",
+        "oraciones": 429,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 99,
+        "trozos": 99,
+        "sha256_texto": "be7c886e7dd1e32a91a64511d328f59cb5b6a08a826c8f1ff382070278a03ec1",
+        "idioma": "inglés"
+      },
+      "R1085": {
+        "lineas": 924,
+        "lineas_cuerpo": 923,
+        "lineas_conservadas": 808,
+        "corte_referencias": "marcador",
+        "oraciones": 369,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 85,
+        "trozos": 85,
+        "sha256_texto": "d9bf4ee3062cb1bd338d4e9df48562627658959d50b685a846672dcdc9f49920",
+        "idioma": "inglés"
+      },
+      "R0755": {
+        "lineas": 1075,
+        "lineas_cuerpo": 1074,
+        "lineas_conservadas": 777,
+        "corte_referencias": "marcador",
+        "oraciones": 209,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 75,
+        "trozos": 75,
+        "sha256_texto": "cb5cf16840bbc83f7c00a1181810a5d2cdb0cc87b1d27c1f651e85091d54472c",
+        "idioma": "español"
+      },
+      "R0711": {
+        "lineas": 463,
+        "lineas_cuerpo": 462,
+        "lineas_conservadas": 389,
+        "corte_referencias": "marcador",
+        "oraciones": 216,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 56,
+        "trozos": 56,
+        "sha256_texto": "31720d89e53385bac20b2f3c4f0a55dab4084809edf3829816e9f874bb25b040",
+        "idioma": "español"
+      },
+      "R0730": {
+        "lineas": 741,
+        "lineas_cuerpo": 740,
+        "lineas_conservadas": 338,
+        "corte_referencias": "marcador",
+        "oraciones": 65,
+        "oraciones_descartadas_largas": 1,
+        "trozos_antes_de_filtrar": 26,
+        "trozos": 26,
+        "sha256_texto": "bdd9281cea87d675e69c9a37bf408af94063850b4951295dc09d375c5dc4f605",
+        "idioma": "español"
+      },
+      "R0713": {
+        "lineas": 906,
+        "lineas_cuerpo": 709,
+        "lineas_conservadas": 465,
+        "corte_referencias": "encabezado",
+        "oraciones": 176,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 56,
+        "trozos": 56,
+        "sha256_texto": "fe1cdd1d85b0a76206f3449fc5ef37a43191d9f438ac3326903281632ea14cad",
+        "idioma": "portugués"
+      },
+      "R0922": {
+        "lineas": 1213,
+        "lineas_cuerpo": 1212,
+        "lineas_conservadas": 1067,
+        "corte_referencias": "marcador",
+        "oraciones": 270,
+        "oraciones_descartadas_largas": 0,
+        "trozos_antes_de_filtrar": 72,
+        "trozos": 72,
+        "sha256_texto": "019d35be4d30454e27c8563cb9bc53809d1a96760f09958c33e42db1435bb28e",
+        "idioma": "portugués"
+      }
+    }
+  },
+  "embeddings": {
+    "principal": {
+      "unidades_prueba1": 408,
+      "unidades_fichas": 3608,
+      "segundos_prueba1_mps": 59.635556792025454,
+      "segundos_prueba1_cpu": 45.9247771659866,
+      "segundos_fichas_mps": 50.74781220802106,
+      "coseno_mps_cpu_medio": 1.0,
+      "pct_trozos_truncados": 0.24509803921568626,
+      "max_seq_length": 512,
+      "dimension": 768,
+      "ram_maxima_mb": 1281.261568
+    },
+    "control": {
+      "unidades_prueba1": 624,
+      "unidades_fichas": 3608,
+      "segundos_prueba1_mps": 7.899874041962903,
+      "segundos_prueba1_cpu": 9.21185537497513,
+      "segundos_fichas_mps": 14.116004915966187,
+      "coseno_mps_cpu_medio": 1.0,
+      "pct_trozos_truncados": 92.78846153846155,
+      "max_seq_length": 128,
+      "dimension": 384,
+      "ram_maxima_mb": 1309.835264
+    }
+  }
+}

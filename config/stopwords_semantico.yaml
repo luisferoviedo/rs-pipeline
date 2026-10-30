@@ -1,0 +1,19 @@
+# Palabras vacías para las palabras clave de los temas (mini-sprint semántico).
+# Se usa la unión de los tres idiomas del corpus. Sin apóstrofos, para que cuadren con el tokenizador.
+es: [a, al, algo, algunas, algunos, ante, antes, como, con, contra, cual, cuando, de, del, desde, donde,
+     durante, e, el, ella, ellas, ellos, en, entre, era, eran, es, esa, esas, ese, eso, esos, esta, estaba,
+     estaban, estan, estas, este, esto, estos, fue, fueron, ha, han, hasta, hay, la, las, le, les, lo, los,
+     mas, me, mi, mismo, muy, ni, no, nos, nuestro, o, otra, otras, otro, otros, para, pero, por, porque,
+     que, quien, se, sea, segun, ser, si, sin, sobre, solo, son, su, sus, tambien, tanto, te, tiene, tienen,
+     todo, todos, tras, tu, un, una, uno, unos, y, ya, lo, esa, estudio, estudiantes, resultados]
+en: [a, about, above, after, again, all, also, am, an, and, any, are, as, at, be, because, been, before,
+     being, between, both, but, by, can, could, did, do, does, doing, during, each, few, for, from, further,
+     had, has, have, having, he, her, here, hers, him, his, how, if, in, into, is, it, its, may, might, more,
+     most, no, nor, not, of, on, once, only, or, other, our, out, over, own, same, she, should, so, some,
+     such, than, that, the, their, them, then, there, these, they, this, those, through, to, too, under,
+     until, up, very, was, we, were, what, when, where, which, while, who, whom, why, will, with, would,
+     you, your, students, study, results]
+pt: [a, ao, aos, as, com, como, da, das, de, dela, dele, deles, do, dos, e, ela, elas, ele, eles, em, entre,
+     era, foi, foram, ha, isso, isto, ja, mais, mas, me, mesmo, muito, na, nas, nao, nem, no, nos, num,
+     numa, o, os, ou, para, pela, pelas, pelo, pelos, por, qual, quando, que, quem, se, sem, ser, seu,
+     seus, so, sua, suas, tambem, tem, tinha, um, uma, uns, umas, ao, alunos, estudo, resultados]
