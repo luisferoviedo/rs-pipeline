@@ -176,7 +176,7 @@ En `data/processed/` (dentro del repositorio pero **fuera de git**, porque es un
 
 ## Bloque 3 · Descriptivos de la matriz (`descriptivos_03.py`)
 
-Cierre: commits `647af66` y `0940c0e` (29 oct 2026). Flujograma actualizado ([D29](decisiones.md#d29-flujograma-en-svg)).
+Cierre: commits `2e74602` y `af2f11e` (29 oct 2026; hashes tras la reescritura del historial de [D30](decisiones.md#d30-salidas-con-texto-de-los-artículos-no-se-versionan)). Flujograma actualizado ([D29](decisiones.md#d29-flujograma-en-svg)).
 
 ### Objetivo del paso
 Describir los 201 informes incluidos (año, idioma, país, nivel, disciplina, categoría MMAT, dirección del efecto,
@@ -199,7 +199,7 @@ Qué hace el script, en lenguaje sencillo:
 4. Toma el **año de la base de datos** (el registro buscado, en elegibilidad) y comprueba que cae en la ventana 2021–2026.
    El año APA queda en `cita_apa`; los 4 informes donde difieren se anotan en `anio.json`.
 5. Calcula las frecuencias (n y %) de cada tabla. Las tablas de disciplina, país, nivel, herramientas y cruce agregan la base de 198 estudios.
-6. Arma `revision_elegibilidad_nivel.csv` con los 30 informes cuyo nivel toca la elegibilidad. La columna `decision_luisfer` queda vacía.
+6. Arma `revision_elegibilidad_nivel.csv` con los 30 informes cuyo nivel toca la elegibilidad. La columna `decision_luisfer` queda vacía. Este CSV trae fragmentos de la extracción de los artículos: queda solo en tu disco (no se versiona, D30); en git va su `.json`.
 
 Comando exacto:
 ```
@@ -249,4 +249,4 @@ En `outputs/tablas/` (en git; son frecuencias, sin textos completos), cada una c
 | `herramientas.csv` | tipo de herramienta (multi-etiqueta) | 201 informes y 198 estudios |
 | `resultados.csv` | tipo de resultado (multi-etiqueta) | 201 informes |
 | `disciplina_x_herramienta.csv` | cruce, % por fila | 201 informes y 198 estudios |
-| `revision_elegibilidad_nivel.csv` | 30 informes para revisión de Luis Fer; no cambia el PRISMA | por informe |
+| `revision_elegibilidad_nivel.csv` (local, no versionado; `.json` sí) | 30 informes para revisión de Luis Fer; no cambia el PRISMA | por informe |

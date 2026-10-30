@@ -50,7 +50,7 @@ conservan; las normalizadas son nuevas (`*_norm`, columnas 0/1 y de detalle). Un
 PYTHONPATH=src .venv/bin/python -m rs_pipeline.descriptivos_03
 ```
 Lee la matriz de `data/processed/` (falla si cambió desde que se normalizó) y escribe en `outputs/tablas/` una tabla CSV con su `.json` de trazabilidad: año (de la base de datos), quinquenio, idioma, país, nivel, disciplina, MMAT, dirección, herramientas, resultados y el cruce disciplina x herramienta. Base: 201 informes; 198 estudios donde se indica.
-También escribe `revision_elegibilidad_nivel.csv`: los 30 informes cuyo nivel toca la elegibilidad, con la columna `decision_luisfer` vacía. No cambia el PRISMA ni excluye nada.
+También escribe `revision_elegibilidad_nivel.csv` (salida local, no versionada porque trae fragmentos de los artículos; solo se versiona su `.json`, D30): los 30 informes cuyo nivel toca la elegibilidad, con la columna `decision_luisfer` vacía. No cambia el PRISMA ni excluye nada.
 
 ## Flujograma y procedimiento
 - `docs/PROCEDIMIENTO.md`: qué hace cada bloque, con qué datos, decisiones y controles.

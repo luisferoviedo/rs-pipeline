@@ -10,6 +10,9 @@ data/processed/
 tesis_txt/
 textos_completos/
 
+# Salidas con texto de los artículos (citas, fragmentos): solo locales (D30)
+outputs/tablas/revision_elegibilidad_nivel.csv
+
 # Entorno y caches
 .venv/
 __pycache__/
