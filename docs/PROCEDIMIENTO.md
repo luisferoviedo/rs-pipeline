@@ -213,10 +213,8 @@ PYTHONPATH=src .venv/bin/python -m rs_pipeline.descriptivos_03
 - [D27](decisiones.md#d27-nivel-según-el-texto-del-informe-8-categorías) · Nivel según el texto del informe (8 categorías)
 - [D28](decisiones.md#d28-revisión-de-elegibilidad-por-nivel) · Revisión de elegibilidad por nivel
 
-La **regla 3** de elegibilidad, tal como está escrita en `_trabajo/CHECKPOINT_Eje3.md` (línea 28):
-*"3. 2.º año cercano a lo clínico: incluir (es ciencia)."* En los casos dudosos aparece como
-*"Revisar con regla 3 del 11 oct (2.º año cercano a lo introductorio = incluir)"*. Las dos redacciones difieren;
-conviene confirmarla contra el Protocolo RS.
+La **regla 3** de elegibilidad, confirmada por Luis Fer el 29 oct 2026 ([D31](decisiones.md#d31-regla-3-de-elegibilidad-confirmada)):
+*"Se incluyen los estudios con estudiantes de 2.º año universitario cuando el curso es todavía de ciencia básica o introductoria (p. ej., química general II, física para ciencias de la salud). Se excluyen los cursos avanzados o profesionalizantes (E1, población)."*
 
 ### Controles
 Cuándo falla:

@@ -154,8 +154,11 @@ def test_revision_de_elegibilidad_por_nivel(carpeta, params):
         (carpeta / "revision_elegibilidad_nivel.json").read_text(encoding="utf-8")
     )
     regla = traza["regla_3_de_elegibilidad"]
-    esperado = "3. 2.º año cercano a lo clínico: incluir (es ciencia)."
-    assert regla["texto_checkpoint"] == esperado
+    assert regla["texto"].startswith(
+        "Se incluyen los estudios con estudiantes de 2.º año universitario"
+    )
+    assert regla["texto"].endswith("(E1, población).")
+    assert "clínico" not in regla["texto"]
     assert "No cambia el PRISMA" in traza["descripcion"]
 
 
