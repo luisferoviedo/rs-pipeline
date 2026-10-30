@@ -58,3 +58,23 @@ etiquetas_no_recuperados:
   duplicado: Duplicado detectado en la recuperación
   pdf_otro_documento: PDF de otro documento
   incompletos_ilegibles: Incompletos o ilegibles
+
+# Mini-sprint semántico (BERTopic). Venv aparte; todo local, sin llamadas a la API.
+# Las salidas con fragmentos o palabras de los artículos van a una carpeta ignorada por git.
+semantico:
+  venv: .venv-semantico
+  requirements: requirements-semantico.txt
+  salidas: outputs/semantico
+  # Revisión (commit) fijada de cada modelo de Hugging Face; la caché queda fuera del repo.
+  # No usar modelos más grandes (e5-large o similares): el límite es la RAM (8 GB).
+  modelos:
+    principal:
+      id: intfloat/multilingual-e5-base
+      revision: d128750597153bb5987e10b1c3493a34e5a4502a
+      prefijo: "passage: "
+      palabras_por_trozo: 150
+    control:
+      id: sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2
+      revision: e8f8c211226b894fcb81acc59f3b34ba3efd5f42
+      prefijo: ""
+      palabras_por_trozo: 90

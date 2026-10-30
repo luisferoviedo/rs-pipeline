@@ -7,6 +7,7 @@ data/processed/
 *.pdf
 *.txt
 !requirements.txt
+!requirements-semantico.txt
 tesis_txt/
 textos_completos/
 
@@ -15,6 +16,7 @@ outputs/tablas/revision_elegibilidad_nivel.csv
 
 # Entorno y caches
 .venv/
+.venv-semantico/
 __pycache__/
 .pytest_cache/
 .ruff_cache/
@@ -22,3 +24,6 @@ __pycache__/
 
 # Registro de llamadas a la API (contiene respuestas crudas)
 logs/
+
+# Salidas del mini-sprint semántico: traen fragmentos y palabras de los artículos (solo local)
+outputs/semantico/
