@@ -5,10 +5,12 @@
 - Explica cada decisión no obvia en lenguaje sencillo. Luis Fer debe poder explicar cada línea.
 - Implementa SOLO lo pedido. Nada de abstracciones, clases base o refactors no solicitados.
 - Commits con trailer: `Assisted-by: Claude Code`.
+- Push a origin al cerrar cada bloque.
 
 ## Datos
 - La carpeta del Google Drive es SOLO LECTURA. Nunca escribir, mover ni borrar ahí sin aprobación explícita.
 - Nunca subir a git textos completos, PDF ni data/raw/.
+- Los outputs con texto de los artículos (citas, fragmentos) no se versionan: van a `.gitignore`.
 - Cada salida registra de qué archivo y versión viene (ruta + hash).
 
 ## Errores
