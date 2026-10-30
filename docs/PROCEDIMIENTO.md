@@ -21,7 +21,7 @@ Cierre: commits `f9731c0` y `087cb2c` (28 oct 2026).
 ### Objetivo del paso
 Recalcular desde los CSV los conteos de la revisión sistemática (identificados → cribados → buscados →
 evaluados → incluidos), compararlos con los conteos declarados en `prisma_counts_2026-10-26.json` y,
-solo si todo cuadra, dibujar el diagrama PRISMA 2020 en español (201 informes = 198 estudios).
+solo si todo cuadra, dibujar el diagrama PRISMA 2020 en español (al cerrar el bloque: 201 informes = 198 estudios; tras las exclusiones de nivel del [Bloque 4](#bloque-4--exclusiones-por-nivel-de-la-población-prisma_02py---derivar-counts): 196 = 193).
 
 ### Entradas
 | Archivo (en el Drive, salvo `config/`) | Versión | SHA-256 |
@@ -117,7 +117,7 @@ originales, para poder hacer descriptivos y análisis sobre los 201 informes inc
 | `05_extraccion/Extraccion_datos_v2_2026-10-18.csv` | v2 · 2026-10-18 | `cff8902b3de4f2f4fa5846d79db7c5f43dd6f529c393e0511a1f9875b6a8ff7d` |
 | `04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv` | v4 · 2026-10-26 | `2a63562ed8ca36a36f33aefba4275bf7282f60eb2a3b170fa2f86bbb3ae0ceae` |
 | `06_prisma/prisma_counts_2026-10-26.json` | 2026-10-26 | `ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5` |
-| `config/categorias.yaml` | repositorio (D17–D22, D25–D27) | `3fa66e49aa9899f6989f3078cffd1994f3d98f8728cc2103ae580fc9a884378f` |
+| `config/categorias.yaml` | repositorio (D17–D22, D25–D27) | `cc4c790a59c4da994965eace66f959191b67f4d05f2cd11d26379666c59137d0` |
 
 ### Proceso
 Qué hace el script, en lenguaje sencillo:
@@ -126,7 +126,7 @@ Qué hace el script, en lenguaje sencillo:
 3. Para cada columna a normalizar mira el valor crudo en `config/categorias.yaml` y escribe la categoría aprobada en una columna nueva (`*_norm`).
    Las columnas con varias etiquetas posibles (herramientas y resultados) se separan en columnas 0/1; el texto de "otro" se guarda en una columna de detalle.
 4. El **país** es el país donde se hizo el estudio según el texto (51 categorías, con "varios países" y "Chipre" para R1006).
-   El **nivel** sigue lo que dice el texto del informe y no la etiqueta de la extracción (8 categorías); una columna marca los 30 informes cuyo nivel toca la elegibilidad.
+   El **nivel** sigue lo que dice el texto del informe y no la etiqueta de la extracción (8 categorías); una columna marca los informes cuyo nivel toca la elegibilidad (30 al cerrar el bloque; 32 desde el Bloque 4) y otra, `nivel_dudoso`, los 6 de decisión incierta.
 5. Las reglas de excepción aprobadas (resolución de problemas pasa a indagación/habilidades; conceptual autoinformado; covariables que no cuentan como resultado) se aplican y se cuenta cuántos casos tocan.
 6. Escribe la matriz con las 58 columnas originales sin tocar más las 20 nuevas, y un archivo de trazabilidad con ruta y hash de cada entrada.
 
@@ -156,11 +156,11 @@ Cuándo falla:
 - Las reglas de excepción no tocan exactamente los casos aprobados (3 reasignados, 3 autoinformados, 1 covariable).
 - Una columna nueva ya existía, o la normalización cambia filas o columnas originales.
 
-El nivel **no cambia el PRISMA ni excluye nada**: `prisma_02.py` sigue dando 201 informes = 198 estudios.
+El nivel **no cambia el PRISMA ni excluye nada** por sí mismo: al cerrar este bloque `prisma_02.py` daba 201 informes = 198 estudios. Las exclusiones se aplican después, desde `config/exclusiones_nivel.yaml` (Bloque 4).
 
 Tests: `tests/test_normalizar_01.py`, 13 pruebas contra la matriz real: se conservan las 201 filas y las columnas originales,
 ningún valor queda sin mapear, los conteos de cada categoría (por ejemplo disciplina 90/70/22/14/5, 83 pre-post de un grupo,
-51 países, 8 niveles y 30 informes en revisión), las columnas 0/1, las excepciones aprobadas, el hash de la fuente
+51 países, 8 niveles y 32 informes en revisión), las columnas 0/1, las excepciones aprobadas, el hash de la fuente
 en el archivo de trazabilidad, y los casos en que debe fallar.
 ```
 .venv/bin/pytest tests/test_normalizar_01.py
@@ -168,9 +168,9 @@ en el archivo de trazabilidad, y los casos en que debe fallar.
 
 ### Salidas
 En `data/processed/` (dentro del repositorio pero **fuera de git**, porque es un derivado del Drive que se regenera con el script):
-- `Extraccion_datos_v2_2026-10-18_normalizada.csv`: 201 filas, 78 columnas (58 originales y 20 nuevas).
+- `Extraccion_datos_v2_2026-10-18_normalizada.csv`: 201 filas, 79 columnas (58 originales y 21 nuevas, con `nivel_dudoso` desde el Bloque 4).
 - `Extraccion_datos_v2_2026-10-18_normalizada.json`: trazabilidad (ruta y hash de las entradas, los 18 IDs excluidos, columnas nuevas, frecuencias).
-  Hash del CSV: `7acb689286a7b702fe0aae06b4467a8196ea604008fb339319aa38d3242ad5aa`.
+  Hash del CSV: `2a8c043f75d66e06f3e3adb4e5842bbf03f8811e78230e51fb34478006a672d6`.
 
 ---
 
@@ -186,10 +186,10 @@ Además, listar los informes cuyo nivel educativo toca la elegibilidad, para que
 ### Entradas
 | Archivo | Versión | SHA-256 |
 |---|---|---|
-| `data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv` | salida del bloque 2 | `7acb689286a7b702fe0aae06b4467a8196ea604008fb339319aa38d3242ad5aa` |
+| `data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv` | salida del bloque 2 | `2a8c043f75d66e06f3e3adb4e5842bbf03f8811e78230e51fb34478006a672d6` |
 | `04_elegibilidad/Elegibilidad_texto_completo_v3_2026-10-26.csv` | v3 · 2026-10-26 (año de la base de datos) | `c6b909bad0147bbe5b77b0324901bb769ee9f790e790366001715db3b92d4293` |
 | `06_prisma/prisma_counts_2026-10-26.json` | 2026-10-26 | `ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5` |
-| `config/categorias.yaml` | repositorio (viaja en la matriz) | `3fa66e49aa9899f6989f3078cffd1994f3d98f8728cc2103ae580fc9a884378f` |
+| `config/categorias.yaml` | repositorio (viaja en la matriz) | `cc4c790a59c4da994965eace66f959191b67f4d05f2cd11d26379666c59137d0` |
 
 ### Proceso
 Qué hace el script, en lenguaje sencillo:
@@ -199,7 +199,7 @@ Qué hace el script, en lenguaje sencillo:
 4. Toma el **año de la base de datos** (el registro buscado, en elegibilidad) y comprueba que cae en la ventana 2021–2026.
    El año APA queda en `cita_apa`; los 4 informes donde difieren se anotan en `anio.json`.
 5. Calcula las frecuencias (n y %) de cada tabla. Las tablas de disciplina, país, nivel, herramientas y cruce agregan la base de 198 estudios.
-6. Arma `revision_elegibilidad_nivel.csv` con los 30 informes cuyo nivel toca la elegibilidad. La columna `decision_luisfer` queda vacía. Este CSV trae fragmentos de la extracción de los artículos: queda solo en tu disco (no se versiona, D30); en git va su `.json`.
+6. Arma `revision_elegibilidad_nivel.csv` con los 32 informes cuyo nivel toca la elegibilidad. La columna `decision_luisfer` trae las decisiones de Luis Fer (D33): `incluir` salvo los 5 de `exclusiones_nivel.yaml`. Este CSV trae fragmentos de la extracción de los artículos: queda solo en tu disco (no se versiona, D30); en git va su `.json`.
 
 Comando exacto:
 ```
@@ -227,7 +227,7 @@ Cada tabla con su `.json`: base, hash de la matriz y de las entradas originales,
 
 Tests: `tests/test_descriptivos_03.py`, 21 pruebas: cada tabla de categoría única suma 201; las de estudio suman 198;
 conteos reales (idioma, año, MMAT, herramientas, resultados); el cruce es coherente con las demás tablas; país y nivel;
-el archivo de revisión (30 filas, columnas exactas, `decision_luisfer` vacía, regla 3 citada); el PRISMA sigue igual;
+el archivo de revisión (32 filas, columnas exactas, 27 incluir / 4 excluir E1 / 1 excluir E3, regla 3 citada); el PRISMA recalculado da 196 informes;
 y los casos en que debe fallar (matriz modificada, estudio con informes distintos, socio no recíproco, año fuera de la ventana o ilegible).
 ```
 .venv/bin/pytest tests/test_descriptivos_03.py
@@ -247,4 +247,66 @@ En `outputs/tablas/` (en git; son frecuencias, sin textos completos), cada una c
 | `herramientas.csv` | tipo de herramienta (multi-etiqueta) | 201 informes y 198 estudios |
 | `resultados.csv` | tipo de resultado (multi-etiqueta) | 201 informes |
 | `disciplina_x_herramienta.csv` | cruce, % por fila | 201 informes y 198 estudios |
-| `revision_elegibilidad_nivel.csv` (local, no versionado; `.json` sí) | 30 informes para revisión de Luis Fer; no cambia el PRISMA | por informe |
+| `revision_elegibilidad_nivel.csv` (local, no versionado; `.json` sí) | 32 informes con la decisión de Luis Fer (D33); no cambia el PRISMA por sí solo | por informe |
+
+## Bloque 4 · Exclusiones por nivel de la población (`prisma_02.py --derivar-counts`)
+
+Cierre: 29 oct 2026 (los commits están en el historial de git, mensaje «Exclusiones por nivel…»). Flujograma actualizado.
+
+### Objetivo del paso
+Aplicar al PRISMA las decisiones de Luis Fer sobre la revisión de elegibilidad por nivel: 5 informes pasan de incluidos a excluidos
+(4 por E1 población y 1 por E3 disciplina), sin tocar el Drive, y marcar con `nivel_dudoso` los 6 informes de decisión incierta
+para el análisis de sensibilidad.
+
+### Entradas
+| Archivo | Versión | SHA-256 |
+|---|---|---|
+| `config/exclusiones_nivel.yaml` | repositorio · 2026-10-29 | `c25c9a9509f44478988c167dfbdb507f1c86b249d75b486ce1dc5182cb3285a2` |
+| `06_prisma/prisma_counts_2026-10-26.json` (Drive, solo lectura) | 2026-10-26 (base) | `ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5` |
+| `05_extraccion/Extraccion_datos_v2_2026-10-18.csv` (Drive) | v2 · 2026-10-18 | el hash de cada corrida queda en el `.json` del diagrama |
+| `config/categorias.yaml` | repositorio (`ids_dudosos`, `ids_adicionales`) | `cc4c790a59c4da994965eace66f959191b67f4d05f2cd11d26379666c59137d0` |
+| Los demás CSV del Drive del Bloque 1 | sin cambios | ver Bloque 1 |
+
+### Proceso
+Qué hace, en lenguaje sencillo:
+1. `--derivar-counts` toma los conteos del 26 oct (Drive), suma las 5 exclusiones (informes incluidos −5, excluidos +5, E1 +4, E3 +1) y calcula cuántos estudios desaparecen (un informe de un par solo se excluye junto con su pareja).
+   Escribe `config/prisma_counts_2026-10-29.json` en el repo; el del Drive no se modifica ni se sobrescribe.
+2. `prisma_02.py` sin opciones recalcula todo desde los CSV, aplica las 5 exclusiones en memoria y lo contrasta con la versión nueva. Solo si todo cuadra dibuja el diagrama.
+3. `normalizar_01.py` agrega `nivel_dudoso` y los 2 informes añadidos a la revisión; `descriptivos_03.py` completa `decision_luisfer` (32 filas).
+
+Comandos exactos:
+```
+.venv/bin/python src/rs_pipeline/prisma_02.py --derivar-counts
+.venv/bin/python src/rs_pipeline/prisma_02.py
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.normalizar_01
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.descriptivos_03
+```
+
+### Decisiones aplicadas
+- [D31](decisiones.md#d31-regla-3-de-elegibilidad-confirmada) · Regla 3 de elegibilidad confirmada
+- [D32](decisiones.md#d32-criterio-para-formación-docente) · Criterio para formación docente
+- [D33](decisiones.md#d33-decisiones-de-la-revisión-de-elegibilidad-por-nivel) · Decisiones de la revisión por nivel (27 incluir · 4 E1 · 1 E3)
+
+### Controles
+Cuándo falla:
+- Una exclusión no es un informe INCLUIDO en elegibilidad, ya es un E4 de dudosos, tiene un código fuera de E1–E5, un ID repetido o campos faltantes.
+- Se excluye un informe de un par de estudio sin su pareja.
+- Las exclusiones tienen fechas distintas, falta `prisma_counts_2026-10-29.json`, o el recálculo desde los CSV no coincide con él (o la cascada no suma): no se dibuja nada.
+- Un ID de `ids_dudosos` o `ids_adicionales` no está en la matriz.
+
+Tests: `tests/test_prisma_02.py` (23 pruebas; las nuevas verifican las 5 exclusiones, que ninguna comparte estudio, 196/193/99 y E1 = 32 / E3 = 3,
+y los fallos esperados), `tests/test_normalizar_01.py` (`nivel_dudoso` = 6 IDs, 32 en revisión) y `tests/test_descriptivos_03.py` (32 filas y decisiones).
+```
+.venv/bin/pytest
+```
+
+### Salidas
+| Archivo | Contenido | Dónde |
+|---|---|---|
+| `config/exclusiones_nivel.yaml` | las 5 exclusiones (id, código, motivo, decidido_por, fecha) | git |
+| `config/prisma_counts_2026-10-29.json` | conteos vigentes: 196 informes, 193 estudios, 99 excluidos | git |
+| `outputs/figuras/Diagrama_PRISMA_2020_Eje3_2026-10-29.{svg,png,json}` | diagrama PRISMA 2020 actualizado (el del 26 oct queda como versión anterior) | git |
+| `revision_elegibilidad_nivel.csv` | 32 informes con `decision_luisfer` | local, no versionado (D30) |
+| matriz normalizada (79 columnas, con `nivel_dudoso`) | | `data/processed/`, fuera de git |
+
+**Pendiente de decisión:** las tablas del Bloque 3 siguen sobre los 201 informes; falta decidir si pasan a 196 informes y 193 estudios.

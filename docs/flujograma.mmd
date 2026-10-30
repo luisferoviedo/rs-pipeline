@@ -1,5 +1,5 @@
 %% Flujograma del pipeline rs-pipeline (se actualiza al cerrar cada bloque).
-%% Estado: bloques 1 (PRISMA), 2 (normalización) y 3 (descriptivos) cerrados.
+%% Estado: bloques 1 (PRISMA), 2 (normalización), 3 (descriptivos) y 4 (exclusiones por nivel) cerrados.
 %% Formas: paralelogramo = entrada; rectángulo = proceso/script; rombo = decisión o control;
 %%         documento = salida; estadio rojo = falla. Frontera: el Drive es SOLO LECTURA.
 flowchart TB
@@ -12,7 +12,7 @@ flowchart TB
     dP[/"03_recuperacion/artículos_pdf/_no_corresponde<br/>15 PDF de otro documento"/]
     dE[/"04_elegibilidad<br/>Elegibilidad v3 (307 filas, con año)<br/>Casos dudosos v4 (121 filas)"/]
     dX[/"05_extraccion<br/>Extraccion_datos_v2_2026-10-18.csv<br/>219 filas × 58 columnas"/]
-    dJ[/"06_prisma<br/>prisma_counts_2026-10-26.json<br/>conteos declarados"/]
+    dJ[/"06_prisma<br/>prisma_counts_2026-10-26.json<br/>conteos base (201 informes)"/]
   end
 
   subgraph REPO["REPOSITORIO rs-pipeline — aquí sí se escribe"]
@@ -22,16 +22,19 @@ flowchart TB
       direction LR
       env[/".env<br/>RS_DRIVE_ROOT (fuera de git)"/]
       cfgP[/"config/params.yaml<br/>config/reclasificaciones.yaml<br/>6 reclasificaciones D→E2"/]
-      cfgC[/"config/categorias.yaml<br/>mapeo aprobado D17–D28<br/>(país y nivel incluidos)"/]
+      cfgC[/"config/categorias.yaml<br/>mapeo aprobado D17–D33<br/>(país, nivel, nivel_dudoso)"/]
+      cfgE[/"config/exclusiones_nivel.yaml<br/>5 exclusiones (4 E1, 1 E3) D33"/]
+      cfgV[/"config/prisma_counts_2026-10-29.json<br/>196 informes · 193 estudios<br/>(en el repo; el del Drive no se toca)"/]
     end
 
     subgraph B1["BLOQUE 1 · Conteos PRISMA y diagrama — prisma_02.py"]
       direction TB
       p0["Lee CSV, JSON y Registro<br/>(solo lectura) y calcula hashes"]
       k0{"¿Archivos, columnas<br/>e IDs completos y únicos?"}
-      p1["Aplica las 6 reclasificaciones<br/>y recalcula los conteos"]
-      k1{"¿Conteos de los CSV = JSON?<br/>1.103 → 432 → 295 → 201<br/>¿suma cada etapa?"}
-      k2{"¿201 informes = 198 estudios (3 pares)?<br/>¿15 PDF respaldados?<br/>¿fuentes suman 1.227?"}
+      dv["prisma_02 --derivar-counts<br/>base del Drive + 5 exclusiones<br/>→ versión nueva en el repo"]
+      p1["Aplica las 6 reclasificaciones y las<br/>5 exclusiones de nivel; recalcula los conteos"]
+      k1{"¿Conteos de los CSV = JSON?<br/>1.103 → 432 → 295 → 196<br/>¿suma cada etapa?"}
+      k2{"¿196 informes = 193 estudios (3 pares)?<br/>¿ninguna exclusión rompe un par?<br/>¿15 PDF respaldados?<br/>¿fuentes suman 1.227?"}
       p2["Construye el diagrama con prisma-flow<br/>(textos en español, sin título)"]
       o1@{ shape: doc, label: "outputs/figuras/<br/>Diagrama_PRISMA_2020_Eje3_2026-10-26<br/>.svg · .png · .json (trazabilidad)" }
     end
@@ -40,9 +43,9 @@ flowchart TB
       direction TB
       n0["Lee matriz v2 y dudosos;<br/>quita los 18 E4 de los dudosos"]
       m1{"¿Quedan 201 informes<br/>= prisma_counts?"}
-      n1["Aplica config/categorias.yaml<br/>20 columnas nuevas; originales intactas<br/>(nivel según el texto del informe)"]
+      n1["Aplica config/categorias.yaml<br/>21 columnas nuevas (con nivel_dudoso); originales intactas<br/>(nivel según el texto del informe)"]
       m2{"¿Todo valor crudo está en el mapeo?<br/>¿las reglas de excepción tocan<br/>exactamente lo aprobado?"}
-      o2@{ shape: doc, label: "data/processed/ (fuera de git)<br/>Extraccion_datos_v2_2026-10-18_normalizada.csv + .json<br/>78 columnas" }
+      o2@{ shape: doc, label: "data/processed/ (fuera de git)<br/>Extraccion_datos_v2_2026-10-18_normalizada.csv + .json<br/>79 columnas" }
     end
 
     subgraph B3["BLOQUE 3 · Descriptivos — descriptivos_03.py"]
@@ -50,9 +53,9 @@ flowchart TB
       q0["Lee la matriz normalizada, su registro<br/>y el año de la base de datos (elegibilidad)"]
       r1{"¿Hash de la matriz = el registrado?<br/>¿198 estudios? ¿mismo atributo en los informes<br/>de un estudio? ¿año en la ventana 2021–2026?"}
       q1["Calcula frecuencias: n y %<br/>base 201 informes; 198 estudios donde aplica"]
-      q2["Lista los 30 informes cuyo nivel<br/>toca la elegibilidad (no cambia PRISMA)"]
+      q2["Lista los 32 informes cuyo nivel toca<br/>la elegibilidad, con la decisión de Luis Fer"]
       o3@{ shape: doc, label: "outputs/tablas/<br/>11 tablas .csv + .json" }
-      o4@{ shape: doc, label: "outputs/tablas/revision_elegibilidad_nivel.csv<br/>LOCAL, no versionado (D30); .json sí<br/>30 informes; decision_luisfer vacía<br/>decide Luis Fer" }
+      o4@{ shape: doc, label: "outputs/tablas/revision_elegibilidad_nivel.csv<br/>LOCAL, no versionado (D30); .json sí<br/>32 informes; decision_luisfer completa (D33)<br/>27 incluir · 4 E1 · 1 E3" }
     end
 
     f1(["FALLA<br/>mensaje claro y código 1<br/>no dibuja nada"])
@@ -67,7 +70,12 @@ flowchart TB
   dP --> p0
   dE --> p0
   dX --> p0
-  dJ --> p0
+  dJ --> dv
+  dX --> dv
+  cfgE --> dv
+  dv --> cfgV
+  cfgV --> p0
+  cfgE --> p1
   env --> p0
   cfgP --> p0
 
