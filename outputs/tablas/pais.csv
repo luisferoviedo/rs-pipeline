@@ -1,27 +1,25 @@
 pais,n_informes,pct_informes,n_estudios,pct_estudios
-Colombia,26,12.9,26,13.1
-Estados Unidos,25,12.4,25,12.6
-Indonesia,14,7.0,14,7.1
-Etiopía,9,4.5,7,3.5
-Turquía,9,4.5,9,4.5
-Brasil,8,4.0,8,4.0
-Sudáfrica,8,4.0,8,4.0
-Taiwán,8,4.0,8,4.0
-Ruanda,7,3.5,7,3.5
-China,6,3.0,6,3.0
-Marruecos,6,3.0,5,2.5
-Australia,5,2.5,5,2.5
-Alemania,4,2.0,4,2.0
-Ecuador,4,2.0,4,2.0
-Filipinas,4,2.0,4,2.0
-Grecia,4,2.0,4,2.0
-España,3,1.5,3,1.5
-Malasia,3,1.5,3,1.5
-México,3,1.5,3,1.5
-Argentina,2,1.0,2,1.0
+Colombia,26,13.3,26,13.5
+Estados Unidos,24,12.2,24,12.4
+Indonesia,13,6.6,13,6.7
+Etiopía,9,4.6,7,3.6
+Turquía,9,4.6,9,4.7
+Sudáfrica,8,4.1,8,4.1
+Taiwán,8,4.1,8,4.1
+Brasil,7,3.6,7,3.6
+Ruanda,7,3.6,7,3.6
+China,6,3.1,6,3.1
+Marruecos,6,3.1,5,2.6
+Australia,5,2.6,5,2.6
+Alemania,4,2.0,4,2.1
+Ecuador,4,2.0,4,2.1
+Filipinas,4,2.0,4,2.1
+Grecia,4,2.0,4,2.1
+España,3,1.5,3,1.6
+Malasia,3,1.5,3,1.6
+México,3,1.5,3,1.6
 Bután,2,1.0,2,1.0
 Canadá,2,1.0,2,1.0
-India,2,1.0,2,1.0
 Kazajistán,2,1.0,2,1.0
 Nigeria,2,1.0,2,1.0
 Países Bajos,2,1.0,2,1.0
@@ -32,6 +30,7 @@ Tailandia,2,1.0,2,1.0
 Tanzania,2,1.0,2,1.0
 varios países,2,1.0,2,1.0
 Arabia Saudita,1,0.5,1,0.5
+Argentina,1,0.5,1,0.5
 Chile,1,0.5,1,0.5
 Chipre,1,0.5,1,0.5
 Croacia,1,0.5,1,0.5
@@ -39,6 +38,7 @@ Dinamarca,1,0.5,1,0.5
 Emiratos Árabes Unidos,1,0.5,1,0.5
 Estonia,1,0.5,1,0.5
 Hong Kong,1,0.5,1,0.5
+India,1,0.5,1,0.5
 Italia,1,0.5,1,0.5
 Kirguistán,1,0.5,1,0.5
 Laos,1,0.5,1,0.5

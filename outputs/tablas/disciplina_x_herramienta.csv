@@ -1,26 +1,26 @@
 disciplina,herramienta,n_informes,pct_fila_informes,n_estudios,pct_fila_estudios,base_disciplina_informes,base_disciplina_estudios
-biología,simulación interactiva,7,31.8,7,31.8,22,22
-biología,laboratorio virtual,12,54.5,12,54.5,22,22
-biología,móvil,1,4.5,1,4.5,22,22
-biología,realidad virtual/aumentada,1,4.5,1,4.5,22,22
-biología,otro,1,4.5,1,4.5,22,22
+biología,simulación interactiva,7,33.3,7,33.3,21,21
+biología,laboratorio virtual,11,52.4,11,52.4,21,21
+biología,móvil,1,4.8,1,4.8,21,21
+biología,realidad virtual/aumentada,1,4.8,1,4.8,21,21
+biología,otro,1,4.8,1,4.8,21,21
 ciencias integradas,simulación interactiva,7,50.0,7,50.0,14,14
 ciencias integradas,laboratorio virtual,6,42.9,6,42.9,14,14
 ciencias integradas,móvil,0,0.0,0,0.0,14,14
 ciencias integradas,realidad virtual/aumentada,0,0.0,0,0.0,14,14
 ciencias integradas,otro,1,7.1,1,7.1,14,14
-física,simulación interactiva,73,81.1,72,80.9,90,89
-física,laboratorio virtual,13,14.4,13,14.6,90,89
-física,móvil,3,3.3,3,3.4,90,89
-física,realidad virtual/aumentada,1,1.1,1,1.1,90,89
-física,otro,4,4.4,4,4.5,90,89
+física,simulación interactiva,71,80.7,70,80.5,88,87
+física,laboratorio virtual,13,14.8,13,14.9,88,87
+física,móvil,3,3.4,3,3.4,88,87
+física,realidad virtual/aumentada,0,0.0,0,0.0,88,87
+física,otro,4,4.5,4,4.6,88,87
 otra,simulación interactiva,4,80.0,4,80.0,5,5
 otra,laboratorio virtual,1,20.0,1,20.0,5,5
 otra,móvil,0,0.0,0,0.0,5,5
 otra,realidad virtual/aumentada,0,0.0,0,0.0,5,5
 otra,otro,0,0.0,0,0.0,5,5
-química,simulación interactiva,46,65.7,44,64.7,70,68
-química,laboratorio virtual,22,31.4,22,32.4,70,68
-química,móvil,0,0.0,0,0.0,70,68
-química,realidad virtual/aumentada,1,1.4,1,1.5,70,68
-química,otro,2,2.9,2,2.9,70,68
+química,simulación interactiva,45,66.2,43,65.2,68,66
+química,laboratorio virtual,21,30.9,21,31.8,68,66
+química,móvil,0,0.0,0,0.0,68,66
+química,realidad virtual/aumentada,1,1.5,1,1.5,68,66
+química,otro,1,1.5,1,1.5,68,66

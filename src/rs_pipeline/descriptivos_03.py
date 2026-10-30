@@ -2,8 +2,8 @@
 
 Lee la matriz de data/processed/ (la que escribió normalizar_01), comprueba que no
 cambió desde que se normalizó y escribe tablas de frecuencias en outputs/tablas/, cada
-una con su .json de trazabilidad. Base: 201 informes. Las tablas de atributos que son
-del estudio (disciplina, herramientas) muestran además la base de 198 estudios.
+una con su .json de trazabilidad. Base: 196 informes. Las tablas de atributos que son
+del estudio (disciplina, herramientas) muestran además la base de 193 estudios.
 Falla (código 1) si falta un archivo o una columna, si la matriz cambió, si un año no
 se puede leer o si los informes de un mismo estudio no coinciden en un atributo
 contado por estudio.
@@ -22,8 +22,8 @@ from rs_pipeline import normalizar_01, prisma_02
 from rs_pipeline.prisma_02 import ErrorPipeline, fallar
 
 RAIZ_REPO = prisma_02.RAIZ_REPO
-BASE_INFORMES = "201 informes"
-BASE_ESTUDIOS = "198 estudios"
+BASE_INFORMES = "196 informes"
+BASE_ESTUDIOS = "193 estudios"
 COLUMNAS_MATRIZ = [
     "id",
     "cita_apa",
@@ -33,6 +33,7 @@ COLUMNAS_MATRIZ = [
     "nivel",
     "nivel_norm",
     "nivel_en_revision",
+    "excluido_nivel",
     "contexto",
     "alertas",
     "disciplina_norm",
@@ -67,8 +68,11 @@ def cargar_matriz(params: dict) -> dict:
     faltan = [c for c in [*COLUMNAS_MATRIZ, *columnas_0_1] if c not in tabla.columns]
     if faltan:
         fallar(f"La matriz normalizada no tiene las columnas {faltan}")
+    if not set(tabla["excluido_nivel"]) <= {"0", "1"}:
+        fallar("excluido_nivel debe ser 0 o 1")
     return {
-        "tabla": tabla,
+        "tabla": tabla[tabla["excluido_nivel"] == "0"].reset_index(drop=True),
+        "tabla_completa": tabla,
         "ruta": ruta,
         "sha256": hash_actual,
         "registro": registro,
@@ -337,7 +341,7 @@ def escribir_tablas(
             "tipo": elemento["tipo"],
             "base": elemento["base"],
             "suma_n_informes": suma,
-            "suma_n_informes_debe_ser_201": elemento["tipo"] == "única",
+            "suma_n_informes_debe_ser_la_base": elemento["tipo"] == "única",
             "entrada": {
                 "matriz_normalizada": str(datos["ruta"].relative_to(RAIZ_REPO)),
                 "sha256": datos["sha256"],
@@ -357,8 +361,8 @@ def escribir_tablas(
 
 
 def tabla_revision_nivel(datos: dict) -> pd.DataFrame:
-    """Informes cuyo nivel revisa Luis Fer. No cambia el PRISMA ni excluye nada."""
-    t = datos["tabla"]
+    """Informes cuyo nivel revisó Luis Fer (incluye los 5 que se excluyeron, D33)."""
+    t = datos["tabla_completa"]
     revision = t[t["nivel_en_revision"] == "1"].copy()
     orden = [*datos["categorias_en_revision"], "primer año universitario", "mixto"]
     revision["_orden"] = revision["nivel_norm"].map(orden.index)
@@ -426,14 +430,18 @@ def escribir_revision_nivel(
 
 def generar(params: dict, carpeta: Path) -> dict:
     raiz = prisma_02.raiz_drive(params["drive_root_env"])
-    declarado = prisma_02.leer_declarado(raiz / params["archivos"]["prisma_counts"])
+    declarado = prisma_02.leer_declarado(RAIZ_REPO / params["prisma_counts_vigente"])
     datos = cargar_matriz(params)
     tabla = datos["tabla"]
     if len(tabla) != declarado["incluidos_informes"]:
         fallar(
-            f"La matriz tiene {len(tabla)} informes y prisma_counts declara "
-            f"{declarado['incluidos_informes']}"
+            f"La matriz tiene {len(tabla)} informes incluidos y prisma_counts "
+            f"declara {declarado['incluidos_informes']}"
         )
+    bases = (declarado["incluidos_informes"], declarado["incluidos_estudios"])
+    esperadas = (f"{bases[0]} informes", f"{bases[1]} estudios")
+    if (BASE_INFORMES, BASE_ESTUDIOS) != esperadas:
+        fallar(f"Las bases del script no son las de prisma_counts: {bases}")
     estudios = asignar_estudios(tabla, declarado["incluidos_estudios"])
     exigir_atributo_de_estudio(
         tabla,

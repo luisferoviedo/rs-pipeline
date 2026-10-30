@@ -2,17 +2,18 @@
   "tabla": "idioma",
   "descripcion": "Informes por idioma del informe",
   "tipo": "única",
-  "base": "201 informes",
-  "suma_n_informes": 201,
-  "suma_n_informes_debe_ser_201": true,
+  "base": "196 informes",
+  "suma_n_informes": 196,
+  "suma_n_informes_debe_ser_la_base": true,
   "entrada": {
     "matriz_normalizada": "data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv",
-    "sha256": "2a8c043f75d66e06f3e3adb4e5842bbf03f8811e78230e51fb34478006a672d6",
+    "sha256": "047840986e236173c915a1ce80a8d7decf690f49f64c3cbae7514b87d7b6bc85",
     "entradas_de_la_matriz": {
       "04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv": "2a63562ed8ca36a36f33aefba4275bf7282f60eb2a3b170fa2f86bbb3ae0ceae",
       "05_extraccion/Extraccion_datos_v2_2026-10-18.csv": "cff8902b3de4f2f4fa5846d79db7c5f43dd6f529c393e0511a1f9875b6a8ff7d",
-      "06_prisma/prisma_counts_2026-10-26.json": "ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5",
-      "config/categorias.yaml": "cc4c790a59c4da994965eace66f959191b67f4d05f2cd11d26379666c59137d0"
+      "config/categorias.yaml": "cc4c790a59c4da994965eace66f959191b67f4d05f2cd11d26379666c59137d0",
+      "config/exclusiones_nivel.yaml": "c25c9a9509f44478988c167dfbdb507f1c86b249d75b486ce1dc5182cb3285a2",
+      "config/prisma_counts_2026-10-29.json": "af536e2c2ea7530b725436a0abfa1738a6e4a2fe9df95779f3bbd714034320c1"
     }
   },
   "versiones": {
@@ -21,6 +22,6 @@
   },
   "salida": {
     "archivo": "idioma.csv",
-    "sha256": "17ff60bd389823f93f2604f117f65c262636746f51a8d15acc68ab937e1cbf17"
+    "sha256": "78832dd8903a338664aa8e4a7e35112ea4f48ffe693e7265f836e704eb461982"
   }
 }

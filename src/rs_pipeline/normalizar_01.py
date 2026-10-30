@@ -2,9 +2,11 @@
 
 Lee la matriz v2 del Drive (solo lectura), quita los 18 E4 de los dudosos, aplica
 config/categorias.yaml y escribe la matriz normalizada en data/processed/ con un
-archivo hermano que registra la ruta y el hash de cada entrada. Falla (código 1) si
-falta un archivo o una columna, si un valor crudo no está en el mapeo o si no quedan
-los 201 informes.
+archivo hermano que registra la ruta y el hash de cada entrada. Los informes que
+Luis Fer excluyó por nivel (config/exclusiones_nivel.yaml) NO se borran: llevan
+excluido_nivel = 1 y su código. Falla (código 1) si falta un archivo o una columna, si
+un valor crudo no está en el mapeo o si los informes incluidos no son los de
+config/prisma_counts_2026-10-29.json (fuente de verdad del PRISMA, D34).
 """
 
 from __future__ import annotations
@@ -60,7 +62,7 @@ def mapear(serie: pd.Series, mapa: dict, nombre: str) -> list:
 
 
 def preparar_tabla(params: dict) -> dict:
-    """Lee la matriz y los dudosos, quita los 18 E4 y comprueba las 201 filas."""
+    """Lee la matriz, quita los 18 E4 y comprueba que 201 - exclusiones = PRISMA."""
     raiz = prisma_02.raiz_drive(params["drive_root_env"])
     rutas = {nombre: raiz / rel for nombre, rel in params["archivos"].items()}
     matriz = prisma_02.leer_csv(rutas["extraccion"], COLUMNAS_NECESARIAS, "id")
@@ -75,15 +77,22 @@ def preparar_tabla(params: dict) -> dict:
     if ausentes:
         fallar(f"E4 de los dudosos que no están en la matriz: {ausentes}")
     tabla = matriz[~matriz["id"].isin(ids_e4)].reset_index(drop=True)
-    declarado = prisma_02.leer_declarado(rutas["prisma_counts"])
-    if len(tabla) != declarado["incluidos_informes"]:
+    declarado = prisma_02.leer_declarado(RAIZ_REPO / params["prisma_counts_vigente"])
+    exclusiones = prisma_02.cargar_exclusiones_nivel(
+        RAIZ_REPO / params["exclusiones_nivel"]
+    )
+    ausentes = sorted({f["id"] for f in exclusiones} - set(tabla["id"]))
+    if ausentes:
+        fallar(f"Exclusiones de nivel que no están en la matriz: {ausentes}")
+    if len(tabla) - len(exclusiones) != declarado["incluidos_informes"]:
         fallar(
-            f"Quedan {len(tabla)} informes y prisma_counts declara "
-            f"{declarado['incluidos_informes']}"
+            f"Quedan {len(tabla)} informes, {len(exclusiones)} excluidos por nivel, y "
+            f"prisma_counts declara {declarado['incluidos_informes']} incluidos"
         )
     return {
         "raiz": raiz,
         "rutas": rutas,
+        "exclusiones": exclusiones,
         "tabla": tabla,
         "filas_matriz": len(matriz),
         "ids_e4": ids_e4,
@@ -284,8 +293,19 @@ def cols_resultado(tabla: pd.DataFrame, cfg: dict) -> dict[str, list]:
 # --- Salida ----------------------------------------------------------------------
 
 
-def columnas_nuevas(tabla: pd.DataFrame, categorias: dict) -> dict[str, list]:
-    nuevas: dict[str, list] = {}
+def cols_exclusion(tabla: pd.DataFrame, exclusiones: list[dict]) -> dict[str, list]:
+    """Marca (sin borrar) los informes excluidos por nivel y su código (D34)."""
+    codigos = {f["id"]: f["codigo"] for f in exclusiones}
+    return {
+        "excluido_nivel": [str(int(i in codigos)) for i in tabla["id"]],
+        "excluido_nivel_codigo": [codigos.get(i, "") for i in tabla["id"]],
+    }
+
+
+def columnas_nuevas(
+    tabla: pd.DataFrame, categorias: dict, exclusiones: list[dict]
+) -> dict[str, list]:
+    nuevas: dict[str, list] = cols_exclusion(tabla, exclusiones)
     for funcion, columna in [
         (cols_disciplina, "disciplina"),
         (cols_mmat, "mmat_categoria"),
@@ -309,6 +329,8 @@ def resumir(salida: pd.DataFrame, nuevas: dict[str, list]) -> dict:
         valores = set(salida[nombre])
         if nombre.endswith("_norm"):
             resumen[nombre] = salida[nombre].value_counts().to_dict()
+        elif nombre == "excluido_nivel_codigo":
+            resumen[nombre] = salida[nombre].value_counts().to_dict()
         elif valores <= {"0", "1"}:
             resumen[nombre] = int((salida[nombre] == "1").sum())
         elif valores <= {"0", "1", ""}:
@@ -326,7 +348,7 @@ def normalizar(params: dict, carpeta: Path) -> dict:
     ruta_categorias = RAIZ_REPO / params["categorias"]
     categorias = cargar_categorias(ruta_categorias)
     tabla = fuentes["tabla"]
-    nuevas = columnas_nuevas(tabla, categorias)
+    nuevas = columnas_nuevas(tabla, categorias, fuentes["exclusiones"])
     salida = pd.concat([tabla, pd.DataFrame(nuevas)], axis=1)
     if len(salida) != len(tabla) or not salida[list(tabla.columns)].equals(tabla):
         fallar("La normalización cambió filas o columnas originales")
@@ -338,8 +360,16 @@ def normalizar(params: dict, carpeta: Path) -> dict:
     entradas = {
         str(ruta.relative_to(raiz)): prisma_02.sha256(ruta)
         for nombre, ruta in fuentes["rutas"].items()
-        if nombre in ("extraccion", "dudosos", "prisma_counts")
-    } | {params["categorias"]: prisma_02.sha256(ruta_categorias)}
+        if nombre in ("extraccion", "dudosos")
+    } | {
+        params["categorias"]: prisma_02.sha256(ruta_categorias),
+        params["exclusiones_nivel"]: prisma_02.sha256(
+            RAIZ_REPO / params["exclusiones_nivel"]
+        ),
+        params["prisma_counts_vigente"]: prisma_02.sha256(
+            RAIZ_REPO / params["prisma_counts_vigente"]
+        ),
+    }
     ruta_json = ruta_csv.with_suffix(".json")
     trazabilidad = {
         "script": "src/rs_pipeline/normalizar_01.py",
@@ -347,6 +377,7 @@ def normalizar(params: dict, carpeta: Path) -> dict:
         "entradas_sha256": entradas,
         "filas_matriz_fuente": fuentes["filas_matriz"],
         "ids_excluidos_e4": fuentes["ids_e4"],
+        "ids_excluidos_nivel": sorted(f["id"] for f in fuentes["exclusiones"]),
         "filas_salida": len(salida),
         "columnas_originales": len(tabla.columns),
         "columnas_nuevas": list(nuevas),
@@ -367,7 +398,9 @@ def reporte(resultado: dict) -> list[str]:
     lineas += [
         "",
         f"Filas: {t['filas_matriz_fuente']} en la matriz - "
-        f"{len(t['ids_excluidos_e4'])} E4 = {t['filas_salida']} informes",
+        f"{len(t['ids_excluidos_e4'])} E4 = {t['filas_salida']} informes; "
+        f"{len(t['ids_excluidos_nivel'])} excluidos por nivel (marcados, no borrados) "
+        f"= {t['filas_salida'] - len(t['ids_excluidos_nivel'])} incluidos",
         f"Columnas: {t['columnas_originales']} originales + "
         f"{len(t['columnas_nuevas'])} nuevas",
         "",

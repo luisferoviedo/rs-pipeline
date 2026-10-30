@@ -34,38 +34,39 @@ def leer(carpeta, nombre):
 
 
 @pytest.mark.parametrize("nombre", UNICAS)
-def test_cada_tabla_de_categoria_unica_suma_201(carpeta, nombre):
+def test_cada_tabla_de_categoria_unica_suma_196(carpeta, nombre):
     tabla = leer(carpeta, nombre)
-    assert tabla["n_informes"].sum() == 201
-    assert abs(tabla["pct_informes"].sum() - 100) < 0.5
+    assert tabla["n_informes"].sum() == 196
+    # cada porcentaje se redondea a 1 decimal: el error máximo es 0,05 por fila
+    assert abs(tabla["pct_informes"].sum() - 100) <= 0.05 * len(tabla)
 
 
-def test_las_tablas_de_estudio_suman_198(carpeta):
+def test_las_tablas_de_estudio_suman_193(carpeta):
     disciplina = leer(carpeta, "disciplina")
-    assert disciplina["n_estudios"].sum() == 198
+    assert disciplina["n_estudios"].sum() == 193
     assert disciplina["n_informes"].sum() - disciplina["n_estudios"].sum() == 3
 
 
 def test_conteos_reales_de_cada_tabla(carpeta):
     assert leer(carpeta, "idioma").set_index("idioma")["n_informes"].to_dict() == {
-        "inglés": 159, "español": 35, "portugués": 7,
+        "inglés": 155, "español": 34, "portugués": 7,
     }
     anio = leer(carpeta, "anio").set_index("anio")["n_informes"].to_dict()
     # año de la base de datos (D24); el año APA queda en cita_apa
-    assert anio == {2021: 46, 2022: 31, 2023: 33, 2024: 35, 2025: 32, 2026: 24}
+    assert anio == {2021: 46, 2022: 31, 2023: 33, 2024: 33, 2025: 31, 2026: 22}
     mmat = leer(carpeta, "mmat_categoria").set_index("categoria")
-    assert mmat.loc["3 no aleatorizado", "n_pre_post_un_grupo"] == 83
-    assert mmat["n_pre_post_un_grupo"].sum() == 83
+    assert mmat.loc["3 no aleatorizado", "n_pre_post_un_grupo"] == 82
+    assert mmat["n_pre_post_un_grupo"].sum() == 82
     herramientas = leer(carpeta, "herramientas").set_index("herramienta")
     assert herramientas["n_informes"].to_dict() == {
-        "simulación interactiva": 137, "laboratorio virtual": 54, "móvil": 4,
-        "realidad virtual/aumentada": 3, "otro": 8,
+        "simulación interactiva": 134, "laboratorio virtual": 52, "móvil": 4,
+        "realidad virtual/aumentada": 2, "otro": 7,
     }
-    assert herramientas.loc["simulación interactiva", "n_estudios"] == 134
+    assert herramientas.loc["simulación interactiva", "n_estudios"] == 131
     resultados = leer(carpeta, "resultados").set_index("resultado")["n_informes"]
     assert resultados.to_dict() == {
-        "conceptual": 160, "indagación/habilidades": 71,
-        "actitud/motivación": 120, "otro": 31,
+        "conceptual": 155, "indagación/habilidades": 69,
+        "actitud/motivación": 116, "otro": 30,
     }
 
 
@@ -84,13 +85,13 @@ def test_cada_tabla_tiene_su_json_con_base_y_hashes(carpeta):
     todas = [*UNICAS, "herramientas", "resultados", "disciplina_x_herramienta"]
     for nombre in todas:
         traza = json.loads((carpeta / f"{nombre}.json").read_text(encoding="utf-8"))
-        assert "201 informes" in traza["base"]
+        assert "196 informes" in traza["base"]
         assert traza["salida"]["sha256"] == prisma_02.sha256(carpeta / f"{nombre}.csv")
         assert len(traza["entrada"]["sha256"]) == 64
         entradas = traza["entrada"]["entradas_de_la_matriz"]
         assert any("Extraccion_datos_v2" in ruta for ruta in entradas)
     traza = json.loads((carpeta / "disciplina.json").read_text(encoding="utf-8"))
-    assert "198 estudios" in traza["base"]
+    assert "193 estudios" in traza["base"]
     anio = json.loads((carpeta / "anio.json").read_text(encoding="utf-8"))
     assert len(anio["informes_con_cita_apa_de_otro_anio"]) == 4
 
@@ -129,11 +130,11 @@ def test_una_cita_sin_anio_hace_fallar():
         descriptivos_03.anios_de_la_cita(tabla)
 
 
-def test_pais_y_nivel_suman_201_informes_y_198_estudios(carpeta):
+def test_pais_y_nivel_suman_196_informes_y_193_estudios(carpeta):
     for nombre in ("pais", "nivel", "disciplina"):
         tabla = leer(carpeta, nombre)
-        assert tabla["n_informes"].sum() == 201
-        assert tabla["n_estudios"].sum() == 198
+        assert tabla["n_informes"].sum() == 196
+        assert tabla["n_estudios"].sum() == 193
     pais = leer(carpeta, "pais").set_index("pais")["n_informes"]
     assert pais["Chipre"] == 1 and pais["varios países"] == 2
 
@@ -189,3 +190,20 @@ def test_un_anio_ilegible_hace_fallar(tmp_path):
     tabla = pd.DataFrame({"id": ["R1"]})
     with pytest.raises(prisma_02.ErrorPipeline, match="ilegible"):
         descriptivos_03.anios_de_la_base_de_datos(tabla, ruta, [2021, 2026])
+
+
+def test_nivel_sin_los_excluidos_por_nivel(carpeta):
+    nivel = leer(carpeta, "nivel").set_index("nivel")["n_informes"].to_dict()
+    assert nivel == {
+        "media": 95, "secundaria básica": 46, "primer año universitario": 31,
+        "universitario: 2.º año o superior": 10, "mixto": 6,
+        "universitario: año no reportado": 5, "formación docente": 2,
+        "secundaria (sin precisar)": 1,
+    }
+
+
+def test_la_base_viene_de_prisma_counts_vigente(carpeta):
+    traza = json.loads((carpeta / "nivel.json").read_text(encoding="utf-8"))
+    entradas = traza["entrada"]["entradas_de_la_matriz"]
+    assert "config/prisma_counts_2026-10-29.json" in entradas
+    assert "config/exclusiones_nivel.yaml" in entradas

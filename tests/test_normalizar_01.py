@@ -57,7 +57,7 @@ def test_se_conservan_las_201_filas_y_las_originales(salida, fuente, resultado):
 
 def test_ningun_valor_sin_mapear_ni_columna_vacia(salida, resultado):
     nuevas = resultado["trazabilidad"]["columnas_nuevas"]
-    assert len(nuevas) == 21
+    assert len(nuevas) == 23
     for columna in nuevas:
         if columna.endswith("_norm"):
             assert (salida[columna] != "").all(), columna
@@ -186,3 +186,16 @@ def test_nivel_segun_el_texto_y_marca_de_revision(salida):
     # el texto manda: R0115 dice "en realidad segundo año"
     nivel = salida.set_index("id")["nivel_norm"]
     assert nivel["R0115"] == "universitario: 2.º año o superior"
+
+
+def test_los_excluidos_por_nivel_se_marcan_y_no_se_borran(salida, resultado):
+    assert len(salida) == 201
+    marcados = salida[salida["excluido_nivel"] == "1"].set_index("id")
+    assert marcados["excluido_nivel_codigo"].to_dict() == {
+        "R0186": "E1", "R0295": "E3", "R0720": "E1", "R0877": "E1", "R0935": "E1",
+    }
+    incluidos = salida[salida["excluido_nivel"] == "0"]
+    assert (incluidos["excluido_nivel_codigo"] == "").all()
+    assert (salida["excluido_nivel"] == "0").sum() == 196
+    traza = resultado["trazabilidad"]
+    assert "config/prisma_counts_2026-10-29.json" in traza["entradas_sha256"]
