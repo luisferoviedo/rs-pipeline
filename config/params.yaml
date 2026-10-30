@@ -9,8 +9,13 @@ archivos:
   elegibilidad: 04_elegibilidad/Elegibilidad_texto_completo_v3_2026-10-26.csv
   dudosos: 04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv
   extraccion: 05_extraccion/Extraccion_datos_v2_2026-10-18.csv
-  prisma_counts: 06_prisma/prisma_counts_2026-10-26.json
+  prisma_counts: 06_prisma/prisma_counts_2026-10-26.json   # versión base (Drive, solo lectura)
   registro_busquedas: 01_busquedas/Registro_busquedas_PRISMA_v3.md
+
+# Exclusiones de elegibilidad por nivel (D33) y la versión vigente de prisma_counts,
+# que se escribe en el repo con `prisma_02 --derivar-counts` (el Drive no se toca).
+exclusiones_nivel: config/exclusiones_nivel.yaml
+prisma_counts_vigente: config/prisma_counts_2026-10-29.json
 
 # PDF de otro documento ya separados por Luis Fer (el ID es el prefijo del nombre)
 carpeta_no_corresponde: 03_recuperacion/artículos_pdf/_no_corresponde

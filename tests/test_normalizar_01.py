@@ -57,7 +57,7 @@ def test_se_conservan_las_201_filas_y_las_originales(salida, fuente, resultado):
 
 def test_ningun_valor_sin_mapear_ni_columna_vacia(salida, resultado):
     nuevas = resultado["trazabilidad"]["columnas_nuevas"]
-    assert len(nuevas) == 20
+    assert len(nuevas) == 21
     for columna in nuevas:
         if columna.endswith("_norm"):
             assert (salida[columna] != "").all(), columna
@@ -175,11 +175,14 @@ def test_nivel_segun_el_texto_y_marca_de_revision(salida):
         "secundaria (sin precisar)": 1,
     }
     en_revision = salida[salida["nivel_en_revision"] == "1"]
-    assert len(en_revision) == 30
+    assert len(en_revision) == 32
     assert cuenta(en_revision, "nivel_norm") == {
         "universitario: 2.º año o superior": 13, "primer año universitario": 9,
-        "universitario: año no reportado": 5, "formación docente": 3,
+        "universitario: año no reportado": 5, "formación docente": 3, "mixto": 2,
     }
+    assert {"R0263", "R0416"} <= set(en_revision["id"])
+    dudosos = set(salida.loc[salida["nivel_dudoso"] == "1", "id"])
+    assert dudosos == {"R0280", "R0064", "R0453", "R0597", "R0870", "R0416"}
     # el texto manda: R0115 dice "en realidad segundo año"
     nivel = salida.set_index("id")["nivel_norm"]
     assert nivel["R0115"] == "universitario: 2.º año o superior"

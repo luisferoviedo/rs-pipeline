@@ -77,6 +77,15 @@ def cargar_matriz(params: dict) -> dict:
         "categorias_en_revision": categorias["nivel"]["revision_elegibilidad"][
             "categorias"
         ],
+        "ids_adicionales": categorias["nivel"]["revision_elegibilidad"][
+            "ids_adicionales"
+        ],
+        "exclusiones": {
+            fila["id"]: f"excluir {fila['codigo']}"
+            for fila in prisma_02.cargar_exclusiones_nivel(
+                RAIZ_REPO / params["exclusiones_nivel"]
+            )
+        },
     }
 
 
@@ -351,20 +360,25 @@ def tabla_revision_nivel(datos: dict) -> pd.DataFrame:
     """Informes cuyo nivel revisa Luis Fer. No cambia el PRISMA ni excluye nada."""
     t = datos["tabla"]
     revision = t[t["nivel_en_revision"] == "1"].copy()
-    orden = [*datos["categorias_en_revision"], "primer año universitario"]
+    orden = [*datos["categorias_en_revision"], "primer año universitario", "mixto"]
     revision["_orden"] = revision["nivel_norm"].map(orden.index)
     revision = revision.sort_values(["_orden", "id"])
+    sin_fila = sorted(set(datos["exclusiones"]) - set(revision["id"]))
+    if sin_fila:
+        fallar(f"Exclusiones de nivel que no están en la revisión: {sin_fila}")
 
     def fragmento(fila: pd.Series) -> str:
         partes = [("Contexto", fila["contexto"]), ("Alertas", fila["alertas"])]
         return " | ".join(f"{nombre}: {texto}" for nombre, texto in partes if texto)
 
-    motivos = [
-        f"Categoría: {categoria}"
-        if categoria in datos["categorias_en_revision"]
-        else "Primer año con aviso: el texto lo contradice o lo infiere"
-        for categoria in revision["nivel_norm"]
-    ]
+    def motivo(fila: pd.Series) -> str:
+        if fila["nivel_norm"] in datos["categorias_en_revision"]:
+            return f"Categoría: {fila['nivel_norm']}"
+        if fila["id"] in datos["ids_adicionales"]:
+            return "Añadido por Luis Fer: nivel mixto con estudiantes de pregrado"
+        return "Primer año con aviso: el texto lo contradice o lo infiere"
+
+    motivos = revision.apply(motivo, axis=1)
     return pd.DataFrame(
         {
             "id": revision["id"],
@@ -373,7 +387,9 @@ def tabla_revision_nivel(datos: dict) -> pd.DataFrame:
             "nivel_norm": revision["nivel_norm"],
             "fragmento_justificativo": revision.apply(fragmento, axis=1),
             "motivo_revision": motivos,
-            "decision_luisfer": "",
+            "decision_luisfer": [
+                datos["exclusiones"].get(id_, "incluir") for id_ in revision["id"]
+            ],
         }
     ).reset_index(drop=True)
 
@@ -387,8 +403,9 @@ def escribir_revision_nivel(
         "tabla": "revision_elegibilidad_nivel",
         "descripcion": (
             "Informes cuyo nivel (según el texto) toca la elegibilidad. "
-            "Luis Fer decide en la columna decision_luisfer. "
-            "No cambia el PRISMA ni excluye nada."
+            "decision_luisfer: decisiones de Luis Fer del 29 oct 2026 (D33). "
+            "No cambia el PRISMA: las exclusiones las aplica prisma_02.py desde "
+            "config/exclusiones_nivel.yaml."
         ),
         "filas": len(revision),
         "filas_por_nivel_norm": revision["nivel_norm"].value_counts().to_dict(),

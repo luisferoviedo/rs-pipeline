@@ -146,8 +146,15 @@ def test_revision_de_elegibilidad_por_nivel(carpeta, params):
         "id", "cita_apa", "nivel_crudo", "nivel_norm", "fragmento_justificativo",
         "motivo_revision", "decision_luisfer",
     ]
-    assert len(revision) == 30
-    assert (revision["decision_luisfer"] == "").all()
+    assert len(revision) == 32
+    decision = revision.set_index("id")["decision_luisfer"]
+    assert decision.value_counts().to_dict() == {
+        "incluir": 27, "excluir E1": 4, "excluir E3": 1
+    }
+    assert decision["R0295"] == "excluir E3"
+    assert {i for i in decision.index if decision[i] == "excluir E1"} == {
+        "R0186", "R0720", "R0877", "R0935"
+    }
     assert (revision["fragmento_justificativo"] != "").all()
     assert {"R0115", "R0186", "R0015", "R0450"} <= set(revision["id"])
     traza = json.loads(
@@ -165,7 +172,7 @@ def test_revision_de_elegibilidad_por_nivel(carpeta, params):
 def test_la_revision_no_cambia_el_prisma(params):
     resultado = prisma_02.calcular(params)
     assert not prisma_02.hay_diferencias(resultado)
-    assert resultado["calculado"]["incluidos_informes"] == 201
+    assert resultado["calculado"]["incluidos_informes"] == 196
 
 
 def test_un_anio_fuera_de_la_ventana_hace_fallar(params, tmp_path):

@@ -1,0 +1,49 @@
+{
+  "fecha": "2026-10-29",
+  "fuentes": {
+    "elegibilidad": "04_elegibilidad/Elegibilidad_texto_completo_v3_2026-10-26.csv",
+    "dudosos": "04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv",
+    "extraccion": "05_extraccion/Extraccion_datos_v2_2026-10-18.csv"
+  },
+  "identificados": 1227,
+  "duplicados": 124,
+  "cribados": 1103,
+  "excluidos_cribado": 671,
+  "excluidos_cribado_motivos": {
+    "E1": 127,
+    "E2": 347,
+    "E3": 92,
+    "E4": 68,
+    "E5": 37
+  },
+  "buscados_texto_completo": 432,
+  "no_recuperados": 137,
+  "evaluados": 295,
+  "excluidos_texto_completo": 99,
+  "excluidos_texto_completo_motivos": {
+    "E1": 32,
+    "E2": 20,
+    "E3": 3,
+    "E4": 42,
+    "E5": 2
+  },
+  "nota_E4": "24 en elegibilidad (11 oct) + 18 de casos dudosos (24 oct)",
+  "incluidos_informes": 196,
+  "incluidos_estudios": 193,
+  "pendiente_verificar_por_script": "desglose de los 137 no recuperados (incluye 10 NO_CORRESPONDE y 2 NO_RECUPERADO de elegibilidad)",
+  "version_base": {
+    "archivo": "06_prisma/prisma_counts_2026-10-26.json",
+    "sha256": "ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5"
+  },
+  "exclusiones_nivel": {
+    "archivo": "config/exclusiones_nivel.yaml",
+    "sha256": "c25c9a9509f44478988c167dfbdb507f1c86b249d75b486ce1dc5182cb3285a2",
+    "ids": [
+      "R0186",
+      "R0295",
+      "R0720",
+      "R0877",
+      "R0935"
+    ]
+  }
+}

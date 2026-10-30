@@ -1,0 +1,112 @@
+{
+  "fecha_de_los_conteos": "2026-10-29",
+  "versiones": {
+    "prisma-flow": "0.6.1",
+    "pandas": "2.3.3",
+    "python": "3.13.7"
+  },
+  "entradas_sha256": {
+    "02_cribado/Cribado_titulo_resumen_2026-10-06.csv": "81091c47afedde33efa460334c965ec2e97a0153b810557ff0c55b6bb88394c7",
+    "03_recuperacion/Recuperacion_textos_completos_2026-10-10.csv": "d97a430406dac743887a3fbb8875dda24dedf019b783d006a43b6c81ac46f70f",
+    "04_elegibilidad/Elegibilidad_texto_completo_v3_2026-10-26.csv": "c6b909bad0147bbe5b77b0324901bb769ee9f790e790366001715db3b92d4293",
+    "04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv": "2a63562ed8ca36a36f33aefba4275bf7282f60eb2a3b170fa2f86bbb3ae0ceae",
+    "05_extraccion/Extraccion_datos_v2_2026-10-18.csv": "cff8902b3de4f2f4fa5846d79db7c5f43dd6f529c393e0511a1f9875b6a8ff7d",
+    "06_prisma/prisma_counts_2026-10-26.json": "ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5",
+    "01_busquedas/Registro_busquedas_PRISMA_v3.md": "4bbffb6f3423697a094a6e414d3cbc3aad80cb231be8042ff950ced661e811c7",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0008_2025_Enhancing_Physics_Learning_Achievement_Motivation_and_Inquiry_Skills_in.pdf": "f03dbd68cc5784a7ec7ba349cffce1959816f6b23d3614f5805a07d686b7494d",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0011_2021_Virtual_Laboratories_in_Physics_Education.pdf": "4a202221e67d4baa5db2e7f8d99b776694164b03026dcf85cc8c272b6ae6dc41",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0051_2024_Enhancing_Critical_Thinking_Skills_through_STEM_Problem_Based_Contextual.pdf": "e62e3a8b8b19c93d018d0a2c3dfb1baab48b692db617948609432930a7286767",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0058_2023_Tutorials_PhET_A_Simple_and_Efficient_Active_Learning_Approach.pdf": "c77d2bde2401b11eec94f1cd40c9f8644d7250371f4fa206c56e9fcf99be0963",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0717_2024_El_Steam_en_la_comunidad_universitaria_deportiva.pdf": "0011b09eebab1dd8a59aafc8ce16d9b4cef2837f8e23e80e73178eb5bf633d2c",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0819_2023_Laboratorio_virtual_nas_aulas_de_ciencias_e_biologia.pdf": "9038dfc599a27aa6a577034af0db3abbbb2a4882c934ef10be62edc350d720ac",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0890_2026_Integrating_Computational_Thinking_into_Science_Instruction_A_Design_based_Approach.pdf": "2296475d5c1e017f8bf14ad16f1bf9f0e80c91b1a823c28fe6e28b1a4577151b",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0904_2025_Enhancing_conceptual_understanding_in_physics_effects_of_4_modes_application.pdf": "79c196f9d861b78c33c1d0f058405adb71272cf5628d96807d36517fcf0ff8d4",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0905_2025_Improving_problem_solving_skills_through_the_physics_education_technology_assisted.pdf": "a5eea10163088a372dee3f84b7995972ca82aaba18e1808801646ac85be349fc",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0934_2024_Enhancing_secondary_school_students_attitudes_toward_physics_by_using_computer.pdf": "b60f94fdbc0aee78ff8a1a25b9477c71cc46c3dcbf972132bac50736b83a7154",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0941_2024_STEM_activities_for_heat_transfer_learning_Integrating_simulation_mathematical_modeling.pdf": "edb967e4778dd583a13c253bf559e564de49b7e79dfda8e9a1b86c6e557c4649",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R0973_2024_Promoting_Students_Learning_Independence_and_Achievement_Through_the_Use_of.pdf": "f3c74c69e89ca3fefa4d8dcdb474c8dd2803aa91f256e7ce499deea2358f7f6c",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R1021_2022_Teaching_Physics_to_Students_With_Intellectual_Disabilities_Using_Digital_Learning.pdf": "ed66323d03c953619cd3844d1bf7d76648423a2b96528e80da12c9a5b631fa07",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R1053_2022_Students_Acquisition_of_Science_Process_Skills_in_Chemistry_through_Computer.pdf": "579caaba15e39ed740062122ff45027aeef84ae173b0da18428e238e67ecba41",
+    "03_recuperacion/artículos_pdf/_no_corresponde/R1090_2021_Supporting_middle_school_students_science_talk_A_comparison_of_physical.pdf": "ed413615bcaeb0a9d4e0316971e1ebe9f6e460562af51ffc2d779beba4996186",
+    "config/reclasificaciones.yaml": "4edfca04cc0134bac92d4c597d797ec39a5deadb9bf8dca27e6160b8143b7326",
+    "config/exclusiones_nivel.yaml": "c25c9a9509f44478988c167dfbdb507f1c86b249d75b486ce1dc5182cb3285a2",
+    "config/prisma_counts_2026-10-29.json": "af536e2c2ea7530b725436a0abfa1738a6e4a2fe9df95779f3bbd714034320c1"
+  },
+  "conteos_calculados": {
+    "cribados": 1103,
+    "excluidos_cribado": 671,
+    "excluidos_cribado_motivos": {
+      "E1": 127,
+      "E2": 347,
+      "E3": 92,
+      "E4": 68,
+      "E5": 37
+    },
+    "buscados_texto_completo": 432,
+    "evaluados": 295,
+    "excluidos_texto_completo": 99,
+    "excluidos_texto_completo_motivos": {
+      "E1": 32,
+      "E2": 20,
+      "E3": 3,
+      "E4": 42,
+      "E5": 2
+    },
+    "incluidos_informes": 196,
+    "no_recuperados": 137,
+    "incluidos_estudios": 193,
+    "informes_extraccion": 196,
+    "identificados_por_registro": 1227
+  },
+  "desglose_no_recuperados": {
+    "sin_acceso": 119,
+    "duplicado": 1,
+    "pdf_otro_documento": 15,
+    "incompletos_ilegibles": 2
+  },
+  "identificacion_registro_declarado": {
+    "total_registro": 1227,
+    "grupos": {
+      "bases_de_datos": {
+        "n": 1105,
+        "fuentes": [
+          "ERIC",
+          "SciELO",
+          "Scopus"
+        ]
+      },
+      "repositorios_de_tesis": {
+        "n": 122,
+        "fuentes": [
+          "La Referencia",
+          "BDTD"
+        ]
+      }
+    }
+  },
+  "declarados_no_verificados": {
+    "identificados": 1227,
+    "duplicados": 124
+  },
+  "pares_estudio": [
+    [
+      "R0177",
+      "R0188"
+    ],
+    [
+      "R0844",
+      "R0930"
+    ],
+    [
+      "R0990",
+      "R1031"
+    ]
+  ],
+  "avisos_prisma_flow": [
+    "studies_included does not equal total reports assessed minus total reports excluded; this may be valid because one study can have multiple reports. Expected: 196 Found: 193"
+  ],
+  "salidas_sha256": {
+    "Diagrama_PRISMA_2020_Eje3_2026-10-29.svg": "95e4b9d7ffc7c81aa2be5381320c2309c173b2527366b1ae25db333f565ebe8b",
+    "Diagrama_PRISMA_2020_Eje3_2026-10-29.png": "1e6d44892a79774525ae4547e9eb9518c984b00f7885fffe4063833c3171d8d2"
+  }
+}

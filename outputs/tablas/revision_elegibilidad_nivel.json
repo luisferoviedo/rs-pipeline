@@ -1,12 +1,13 @@
 {
   "tabla": "revision_elegibilidad_nivel",
-  "descripcion": "Informes cuyo nivel (según el texto) toca la elegibilidad. Luis Fer decide en la columna decision_luisfer. No cambia el PRISMA ni excluye nada.",
-  "filas": 30,
+  "descripcion": "Informes cuyo nivel (según el texto) toca la elegibilidad. decision_luisfer: decisiones de Luis Fer del 29 oct 2026 (D33). No cambia el PRISMA: las exclusiones las aplica prisma_02.py desde config/exclusiones_nivel.yaml.",
+  "filas": 32,
   "filas_por_nivel_norm": {
     "universitario: 2.º año o superior": 13,
     "primer año universitario": 9,
     "universitario: año no reportado": 5,
-    "formación docente": 3
+    "formación docente": 3,
+    "mixto": 2
   },
   "fuente_del_fragmento": "campos contexto y alertas de la matriz de extracción",
   "regla_3_de_elegibilidad": {
@@ -16,16 +17,16 @@
   },
   "entrada": {
     "matriz_normalizada": "data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv",
-    "sha256": "7acb689286a7b702fe0aae06b4467a8196ea604008fb339319aa38d3242ad5aa",
+    "sha256": "2a8c043f75d66e06f3e3adb4e5842bbf03f8811e78230e51fb34478006a672d6",
     "entradas_de_la_matriz": {
       "04_elegibilidad/Casos_dudosos_elegibilidad_v4_decididos_2026-10-26.csv": "2a63562ed8ca36a36f33aefba4275bf7282f60eb2a3b170fa2f86bbb3ae0ceae",
       "05_extraccion/Extraccion_datos_v2_2026-10-18.csv": "cff8902b3de4f2f4fa5846d79db7c5f43dd6f529c393e0511a1f9875b6a8ff7d",
       "06_prisma/prisma_counts_2026-10-26.json": "ee8d7b5282c0d4d108362319f8a3b352020e1be991eec4239ce0fa4209780af5",
-      "config/categorias.yaml": "3fa66e49aa9899f6989f3078cffd1994f3d98f8728cc2103ae580fc9a884378f"
+      "config/categorias.yaml": "cc4c790a59c4da994965eace66f959191b67f4d05f2cd11d26379666c59137d0"
     }
   },
   "salida": {
     "archivo": "revision_elegibilidad_nivel.csv",
-    "sha256": "da7b89c97098fa978de008b7d857d21225387d2cd17171a7bae22f014ff638e7"
+    "sha256": "b2cff5917bb1a2ff3e8c3d6854952b74deb9a5dd30e64f35b882e6da703e5c1a"
   }
 }

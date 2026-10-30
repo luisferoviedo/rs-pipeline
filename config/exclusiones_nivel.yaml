@@ -1,0 +1,31 @@
+# Exclusiones de elegibilidad por nivel de la población (revisión de nivel, D32 y D33).
+# Decididas por Luis Fer el 29 oct 2026. El script prisma_02.py las aplica en memoria
+# sobre los CSV del Drive (que no se tocan): pasan de incluidos a excluidos con este código.
+# Criterio de formación docente (D32): se incluye si aprenden contenido científico en un curso
+# básico o introductorio; se excluye (E1) si el resultado medido es su competencia para enseñar.
+exclusiones:
+  - id: R0720
+    codigo: E1
+    motivo: "Química Inorgánica II, curso intermedio-avanzado de licenciatura (formación docente a distancia)"
+    decidido_por: Luis Fer
+    fecha: "2026-10-29"
+  - id: R0935
+    codigo: E1
+    motivo: "Física térmica en carrera de física, 4.º–5.º semestre; curso de carrera, no introductorio (regla 3)"
+    decidido_por: Luis Fer
+    fecha: "2026-10-29"
+  - id: R0877
+    codigo: E1
+    motivo: "Separation Chemistry en Educación Química; curso de carrera y posible formación docente (D32)"
+    decidido_por: Luis Fer
+    fecha: "2026-10-29"
+  - id: R0186
+    codigo: E1
+    motivo: "Microbiología clínica nivel 200, farmacia preclínica; curso profesionalizante (regla 3)"
+    decidido_por: Luis Fer
+    fecha: "2026-10-29"
+  - id: R0295
+    codigo: E3
+    motivo: "Seminario de introducción a realidad virtual en ingeniería en computación; no es una disciplina de ciencias"
+    decidido_por: Luis Fer
+    fecha: "2026-10-29"

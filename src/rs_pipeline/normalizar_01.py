@@ -125,13 +125,23 @@ def cols_nivel(tabla: pd.DataFrame, cfg: dict) -> dict[str, list]:
     """Categoría de nivel según el texto y marca de los informes que Luis Fer revisa."""
     mapeado = mapear(tabla["nivel"], cfg["mapa"], "nivel")
     revision = cfg["revision_elegibilidad"]
+    ids = list(tabla["id"])
+    de_la_config = set(revision["ids_adicionales"]) | set(cfg["ids_dudosos"])
+    desconocidos = sorted(de_la_config - set(ids))
+    if desconocidos:
+        fallar(f"nivel: IDs de categorias.yaml fuera de la matriz: {desconocidos}")
     en_revision = [
-        str(int(x["categoria"] in revision["categorias"] or x["aviso"]))
-        for x in mapeado
+        str(int(
+            x["categoria"] in revision["categorias"]
+            or x["aviso"]
+            or id_ in revision["ids_adicionales"]
+        ))
+        for x, id_ in zip(mapeado, ids, strict=True)
     ]
     return {
         cfg["columna_salida"]: [x["categoria"] for x in mapeado],
         cfg["columna_en_revision"]: en_revision,
+        cfg["columna_dudoso"]: [str(int(id_ in cfg["ids_dudosos"])) for id_ in ids],
     }
 
 

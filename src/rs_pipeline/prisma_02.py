@@ -6,6 +6,7 @@ con código 1 si algún conteo no cuadra o si falta algún archivo, columna o ID
 
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import os
@@ -32,6 +33,7 @@ DECISIONES_ELEGIBILIDAD = {"INCLUIDO", "EXCLUIDO", "NO_CORRESPONDE", "NO_RECUPER
 OBTENIDO_VALIDOS = {"sí", "no", "duplicado"}
 DUDOSOS_VALIDOS = {"ok", "excluir"}
 PREFIJO_E4_DUDOSOS = "Excluir E4"
+CLAVES_EXCLUSION = {"id", "codigo", "motivo", "decidido_por", "fecha"}
 
 COLUMNAS = {
     "cribado": ["id_revision", "decision"],
@@ -187,6 +189,25 @@ def leer_declarado(ruta: Path) -> dict:
     return declarado
 
 
+def cargar_exclusiones_nivel(ruta: Path) -> list[dict]:
+    """Exclusiones decididas por Luis Fer tras el texto completo (D33)."""
+    if not ruta.is_file():
+        fallar(f"No existe el archivo: {ruta}")
+    filas = yaml.safe_load(ruta.read_text(encoding="utf-8"))["exclusiones"]
+    for fila in filas:
+        if set(fila) != CLAVES_EXCLUSION:
+            fallar(
+                f"{ruta.name}: {fila.get('id')} debe tener {sorted(CLAVES_EXCLUSION)}"
+            )
+        if fila["codigo"] not in CODIGOS_EXCLUSION:
+            fallar(f"{ruta.name}: {fila['id']} tiene código inválido {fila['codigo']}")
+    ids = [fila["id"] for fila in filas]
+    repetidos = sorted({i for i in ids if ids.count(i) > 1})
+    if repetidos:
+        fallar(f"{ruta.name}: IDs repetidos {repetidos}")
+    return filas
+
+
 def leer_pdfs_no_corresponde(carpeta: Path) -> dict[str, Path]:
     """PDF de otro documento ya separados: {id_revision: ruta}."""
     if not carpeta.is_dir():
@@ -223,11 +244,18 @@ def cargar_entradas(params: dict) -> dict:
     extraccion = leer_csv(rutas["extraccion"], COLUMNAS["extraccion"], "id")
     pdfs = leer_pdfs_no_corresponde(raiz / params["carpeta_no_corresponde"])
     registro = leer_texto(rutas["registro_busquedas"])
-    declarado = leer_declarado(rutas["prisma_counts"])
+    ruta_vigente = RAIZ_REPO / params["prisma_counts_vigente"]
+    ruta_nivel = RAIZ_REPO / params["exclusiones_nivel"]
+    declarado = leer_declarado(ruta_vigente)
+    exclusiones_nivel = cargar_exclusiones_nivel(ruta_nivel)
     hashes = {
         str(ruta.relative_to(raiz)): sha256(ruta)
         for ruta in [*rutas.values(), *pdfs.values()]
-    } | {params["reclasificaciones"]: sha256(ruta_reclas)}
+    } | {
+        params["reclasificaciones"]: sha256(ruta_reclas),
+        params["exclusiones_nivel"]: sha256(ruta_nivel),
+        params["prisma_counts_vigente"]: sha256(ruta_vigente),
+    }
     return {
         "cribado": aplicar_reclasificaciones(cribado, ruta_reclas),
         "recuperacion": recuperacion,
@@ -237,6 +265,7 @@ def cargar_entradas(params: dict) -> dict:
         "registro": registro,
         "pdfs_no_corresponde": set(pdfs),
         "declarado": declarado,
+        "exclusiones_nivel": exclusiones_nivel,
         "hashes": hashes,
     }
 
@@ -367,6 +396,33 @@ def verificar_pdfs_otro_documento(
     return sorted(pdfs - contados)
 
 
+def aplicar_exclusiones_nivel(
+    calculado: dict,
+    exclusiones: list[dict],
+    elegibilidad: pd.DataFrame,
+    ids_e4: set[str],
+) -> dict:
+    """Pasa de incluidos a excluidos los informes de exclusiones_nivel.yaml (D33).
+
+    Cada uno debe estar INCLUIDO en elegibilidad y no ser ya un E4 de dudosos.
+    """
+    incluidos = set(
+        elegibilidad.loc[elegibilidad["decision"] == "INCLUIDO", "id_revision"]
+    )
+    ids = {fila["id"] for fila in exclusiones}
+    no_incluidos = sorted((ids - incluidos) | (ids & ids_e4))
+    if no_incluidos:
+        fallar(f"Exclusiones de nivel que no son informes incluidos: {no_incluidos}")
+    motivos = dict(calculado["excluidos_texto_completo_motivos"])
+    for fila in exclusiones:
+        motivos[fila["codigo"]] += 1
+    return calculado | {
+        "excluidos_texto_completo": calculado["excluidos_texto_completo"] + len(ids),
+        "excluidos_texto_completo_motivos": motivos,
+        "incluidos_informes": calculado["incluidos_informes"] - len(ids),
+    }
+
+
 def contar_estudios(extraccion: pd.DataFrame, ids_excluidos: set[str]) -> dict:
     """Agrupa los informes incluidos que comparten estudio (estudio_compartido_con)."""
     informes = extraccion[~extraccion["id"].isin(ids_excluidos)]
@@ -457,6 +513,10 @@ def calcular(params: dict | None = None) -> dict:
     validar_ids(entradas)
     calculado = contar_cribado(entradas["cribado"])
     calculado |= contar_elegibilidad(entradas["elegibilidad"], entradas["dudosos"])
+    ids_e4 = set(dudosos_e4(entradas["dudosos"])["id"])
+    calculado = aplicar_exclusiones_nivel(
+        calculado, entradas["exclusiones_nivel"], entradas["elegibilidad"], ids_e4
+    )
     desglose, ids = desglosar_no_recuperados(
         entradas["recuperacion"], entradas["elegibilidad"]
     )
@@ -466,8 +526,8 @@ def calcular(params: dict | None = None) -> dict:
         ids["sin_fila_con_pdf"],
         entradas["pdfs_no_corresponde"],
     )
-    ids_e4 = set(dudosos_e4(entradas["dudosos"])["id"])
-    estudios = contar_estudios(entradas["extraccion"], ids_e4)
+    ids_nivel = {fila["id"] for fila in entradas["exclusiones_nivel"]}
+    estudios = contar_estudios(entradas["extraccion"], ids_e4 | ids_nivel)
     calculado["incluidos_estudios"] = estudios["incluidos_estudios"]
     calculado["informes_extraccion"] = estudios["informes"]
     identificacion = verificar_identificacion(
@@ -530,7 +590,7 @@ def cascada(calculado: dict, declarado: dict) -> list[tuple]:
         ("suma motivos texto completo = excluidos texto completo",
          sum(c["excluidos_texto_completo_motivos"].values()),
          c["excluidos_texto_completo"]),
-        ("informes en extracción (sin E4) = incluidos (informes)",
+        ("informes en extracción (sin E4 ni exclusiones de nivel) = incluidos",
          c["informes_extraccion"], c["incluidos_informes"]),
         ("incluidos (estudios) <= incluidos (informes)",
          True, c["incluidos_estudios"] <= c["incluidos_informes"]),
@@ -761,6 +821,62 @@ def generar_diagrama(resultado: dict, params: dict, carpeta: Path) -> dict:
     return {**rutas, "avisos": avisos}
 
 
+# --- Nueva versión de prisma_counts (D33) -----------------------------------------
+
+
+def estudios_quitados(extraccion: pd.DataFrame, ids: set[str]) -> int:
+    """Estudios que desaparecen al excluir estos informes (una pareja cuenta uno)."""
+    socios = extraccion["estudio_compartido_con"].str.strip()
+    pareja = dict(zip(extraccion["id"], socios, strict=True))
+    estudios = set()
+    for id_ in ids:
+        otro = pareja[id_]
+        if otro and otro not in ids:
+            fallar(f"{id_} comparte estudio con {otro}, que no se excluye")
+        estudios.add(frozenset({id_, otro} - {""}))
+    return len(estudios)
+
+
+def derivar_counts(params: dict) -> Path:
+    """Escribe en el repo prisma_counts + exclusiones de nivel (el Drive no se toca).
+
+    Parte del JSON del Drive (base) y suma las exclusiones; no usa los CSV, así que
+    luego `main` puede contrastar el resultado con el recálculo desde los CSV.
+    """
+    raiz = raiz_drive(params["drive_root_env"])
+    ruta_base = raiz / params["archivos"]["prisma_counts"]
+    ruta_nivel = RAIZ_REPO / params["exclusiones_nivel"]
+    base = leer_declarado(ruta_base)
+    exclusiones = cargar_exclusiones_nivel(ruta_nivel)
+    fechas = {fila["fecha"] for fila in exclusiones}
+    if len(fechas) != 1:
+        fallar(f"Las exclusiones de nivel deben tener una sola fecha: {sorted(fechas)}")
+    extraccion = leer_csv(
+        raiz / params["archivos"]["extraccion"], COLUMNAS["extraccion"], "id"
+    )
+    ids = {fila["id"] for fila in exclusiones}
+    nuevo = copy.deepcopy(base)
+    nuevo["fecha"] = fechas.pop()
+    for fila in exclusiones:
+        nuevo["excluidos_texto_completo_motivos"][fila["codigo"]] += 1
+    nuevo["excluidos_texto_completo"] += len(ids)
+    nuevo["incluidos_informes"] -= len(ids)
+    nuevo["incluidos_estudios"] -= estudios_quitados(extraccion, ids)
+    nuevo["version_base"] = {
+        "archivo": params["archivos"]["prisma_counts"],
+        "sha256": sha256(ruta_base),
+    }
+    nuevo["exclusiones_nivel"] = {
+        "archivo": params["exclusiones_nivel"],
+        "sha256": sha256(ruta_nivel),
+        "ids": sorted(ids),
+    }
+    ruta = RAIZ_REPO / params["prisma_counts_vigente"]
+    texto = json.dumps(nuevo, ensure_ascii=False, indent=2) + "\n"
+    ruta.write_text(texto, encoding="utf-8")
+    return ruta
+
+
 # --- Reporte -------------------------------------------------------------------
 
 
@@ -820,6 +936,9 @@ def reporte(resultado: dict) -> list[str]:
 def main() -> int:
     try:
         params = cargar_params()
+        if "--derivar-counts" in sys.argv:
+            print(f"Escrito: {derivar_counts(params)}")
+            return 0
         resultado = calcular(params)
         print("\n".join(reporte(resultado)))
         if hay_diferencias(resultado):

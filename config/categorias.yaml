@@ -305,6 +305,11 @@ nivel:
   revision_elegibilidad:
     categorias: ["universitario: 2.º año o superior", "formación docente", "universitario: año no reportado"]
     incluir_con_aviso: true   # además, los 'primer año universitario' con aviso: true
+    # Añadidos por Luis Fer el 29 oct 2026: nivel 'mixto' con estudiantes de pregrado (D33).
+    ids_adicionales: ["R0263", "R0416"]
+  # nivel_dudoso = 1: la decisión de nivel fue incierta; sirve para el análisis de sensibilidad (D33).
+  columna_dudoso: nivel_dudoso
+  ids_dudosos: ["R0280", "R0064", "R0453", "R0597", "R0870", "R0416"]
   mapa:
     "[F] media": {categoria: "media", aviso: false}  # n=19
     "[F] primer año universitario": {categoria: "primer año universitario", aviso: false}  # n=10

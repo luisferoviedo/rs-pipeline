@@ -80,9 +80,9 @@ def test_ruta_del_drive_inexistente_falla(monkeypatch, tmp_path):
         prisma_02.raiz_drive("RS_DRIVE_ROOT")
 
 
-def test_201_informes_son_198_estudios_con_3_pares(resultado):
-    assert resultado["calculado"]["informes_extraccion"] == 201
-    assert resultado["calculado"]["incluidos_estudios"] == 198
+def test_196_informes_son_193_estudios_con_3_pares(resultado):
+    assert resultado["calculado"]["informes_extraccion"] == 196
+    assert resultado["calculado"]["incluidos_estudios"] == 193
     assert resultado["pares_estudio"] == [
         ["R0177", "R0188"],
         ["R0844", "R0930"],
@@ -148,9 +148,11 @@ def test_diagrama_en_espanol_con_trazabilidad(params, resultado, tmp_path):
         "Duplicado detectado en la recuperación (n = 1)",
         "PDF de otro documento (n = 15)",
         "Incompletos o ilegibles (n = 2)",
-        "Informes excluidos (n = 94)",
-        "Informes incluidos (n = 201)",
-        "Estudios incluidos (n = 198)",
+        "Informes excluidos (n = 99)",
+        "E1 Población (n = 32)",
+        "E3 Disciplina (n = 3)",
+        "Informes incluidos (n = 196)",
+        "Estudios incluidos (n = 193)",
     ]:
         assert texto in svg, texto
     assert "nuevos estudios" not in svg
@@ -166,10 +168,12 @@ def test_diagrama_en_espanol_con_trazabilidad(params, resultado, tmp_path):
 def test_trazabilidad_registra_entradas_y_hashes(params, resultado, tmp_path):
     salidas = prisma_02.generar_diagrama(resultado, params, tmp_path)
     traza = json.loads(salidas["json"].read_text(encoding="utf-8"))
-    assert traza["conteos_calculados"]["incluidos_estudios"] == 198
+    assert traza["conteos_calculados"]["incluidos_estudios"] == 193
     assert "config/reclasificaciones.yaml" in traza["entradas_sha256"]
     entradas = traza["entradas_sha256"]
     assert any(ruta.endswith("prisma_counts_2026-10-26.json") for ruta in entradas)
+    assert "config/exclusiones_nivel.yaml" in entradas
+    assert "config/prisma_counts_2026-10-29.json" in entradas
     for ext in ("svg", "png"):
         archivo = salidas[ext]
         assert traza["salidas_sha256"][archivo.name] == prisma_02.sha256(archivo)
@@ -181,3 +185,59 @@ def test_no_se_genera_diagrama_si_hay_diferencias(params, resultado, tmp_path):
     with pytest.raises(prisma_02.ErrorPipeline, match="No se genera"):
         prisma_02.generar_diagrama(alterado, params, tmp_path)
     assert not list(tmp_path.iterdir())
+
+
+EXCLUIDOS_NIVEL = {
+    "R0186": "E1", "R0295": "E3", "R0720": "E1", "R0877": "E1", "R0935": "E1",
+}
+
+
+def test_exclusiones_de_nivel_son_las_5_decididas(entradas):
+    filas = entradas["exclusiones_nivel"]
+    assert {f["id"]: f["codigo"] for f in filas} == EXCLUIDOS_NIVEL
+    assert {f["decidido_por"] for f in filas} == {"Luis Fer"}
+    assert {f["fecha"] for f in filas} == {"2026-10-29"}
+
+
+def test_ningun_excluido_de_nivel_comparte_estudio(entradas):
+    extraccion = entradas["extraccion"].set_index("id")
+    socios = extraccion.loc[list(EXCLUIDOS_NIVEL), "estudio_compartido_con"]
+    assert (socios.str.strip() == "").all()
+
+
+def test_prisma_vigente_es_la_base_mas_las_exclusiones(entradas):
+    base = entradas["declarado"]
+    assert base["fecha"] == "2026-10-29"
+    assert base["incluidos_informes"] == 196
+    assert base["incluidos_estudios"] == 193
+    assert base["excluidos_texto_completo"] == 99
+    assert base["excluidos_texto_completo_motivos"] == {
+        "E1": 32, "E2": 20, "E3": 3, "E4": 42, "E5": 2
+    }
+    assert base["evaluados"] == 295  # 295 - 99 = 196
+
+
+def test_exclusion_de_un_informe_no_incluido_hace_fallar(resultado, entradas):
+    calculado = resultado["calculado"]
+    falsa = [{"id": "R0001", "codigo": "E1"}]
+    with pytest.raises(prisma_02.ErrorPipeline, match="R0001"):
+        prisma_02.aplicar_exclusiones_nivel(
+            calculado, falsa, entradas["elegibilidad"], set()
+        )
+
+
+def test_codigo_de_exclusion_invalido_hace_fallar(tmp_path):
+    ruta = tmp_path / "exclusiones.yaml"
+    ruta.write_text(
+        "exclusiones:\n  - {id: R0186, codigo: E9, motivo: x,"
+        " decidido_por: Luis Fer, fecha: '2026-10-29'}\n",
+        encoding="utf-8",
+    )
+    with pytest.raises(prisma_02.ErrorPipeline, match="E9"):
+        prisma_02.cargar_exclusiones_nivel(ruta)
+
+
+def test_excluir_un_informe_de_un_par_sin_su_pareja_hace_fallar(entradas):
+    with pytest.raises(prisma_02.ErrorPipeline, match="R0188"):
+        prisma_02.estudios_quitados(entradas["extraccion"], {"R0177"})
+    assert prisma_02.estudios_quitados(entradas["extraccion"], {"R0177", "R0188"}) == 1
