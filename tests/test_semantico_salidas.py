@@ -115,9 +115,9 @@ def test_la_prueba_1_tiene_los_10_informes_y_los_trozos_esperados(metricas):
     )
 
 
-def test_la_hoja_a_ciegas_no_revela_modelo_ni_semilla(cfg):
+def test_la_hoja_a_ciegas_2b_no_revela_modelo_ni_semilla(cfg):
     hoja = pd.read_csv(
-        PRIVADA / "hoja_calificacion_ciega.csv",
+        PRIVADA / "hoja_calificacion_ciega_2b.csv",
         dtype=str,
         keep_default_na=False,
         encoding="utf-8-sig",
@@ -126,29 +126,34 @@ def test_la_hoja_a_ciegas_no_revela_modelo_ni_semilla(cfg):
         "codigo", "prueba", "tamano_del_tema", "palabras_clave",
         "fragmento_1", "fragmento_2", "fragmento_3", "calificacion",
     ]  # fmt: skip
+    assert len(hoja) == 35  # 20 temas de e5 + los 15 más grandes de MiniLM
+    assert (hoja["prueba"] == "P2b").all()
     assert (hoja["calificacion"] == "").all()
     assert hoja["codigo"].is_unique and (hoja["codigo"].str.len() == 5).all()
     assert (hoja["palabras_clave"].str.count(",") == cfg["palabras_clave"] - 1).all()
+    assert (hoja[["fragmento_1", "fragmento_2", "fragmento_3"]] != "").all().all()
 
 
-def test_la_traduccion_cubre_cada_codigo_y_es_la_semilla_medoide(metricas):
+def test_la_traduccion_2b_es_la_semilla_medoide_y_los_temas_mas_grandes(metricas):
     hoja = pd.read_csv(
-        PRIVADA / "hoja_calificacion_ciega.csv", dtype=str, encoding="utf-8-sig"
+        PRIVADA / "hoja_calificacion_ciega_2b.csv", dtype=str, encoding="utf-8-sig"
     )
-    tabla = pd.read_csv(PRIVADA / "traduccion_codigos.csv", dtype={"codigo": str})
+    tabla = pd.read_csv(PRIVADA / "traduccion_codigos_2b.csv", dtype={"codigo": str})
     assert set(hoja["codigo"]) == set(tabla["codigo"]) and len(hoja) == len(tabla)
-    rotulo = {"prueba1": "P1", "prueba2a": "P2a", "prueba2b": "P2b"}
-    for prueba, nombre in rotulo.items():
-        for modelo in MODELOS:
-            filas = tabla[(tabla["prueba"] == nombre) & (tabla["modelo"] == modelo)]
-            medoide = metricas[prueba]["modelos"][modelo]["semilla_medoide"]
-            assert set(filas["semilla"]) == {medoide}
-            corrida = next(
-                c
-                for c in metricas[prueba]["modelos"][modelo]["corridas"]
-                if c["semilla"] == medoide
-            )
-            assert len(filas) == corrida["n_temas"]  # sin tope: todos los temas
+    assert (tabla["prueba"] == "P2b").all()
+    esperados = {"principal": 20, "control": 15}
+    for modelo, cantidad in esperados.items():
+        filas = tabla[tabla["modelo"] == modelo]
+        m = metricas["prueba2b"]["modelos"][modelo]
+        corrida = next(c for c in m["corridas"] if c["semilla"] == m["semilla_medoide"])
+        assert set(filas["semilla"]) == {m["semilla_medoide"]}
+        assert len(filas) == cantidad
+        mayores = sorted(corrida["tamanos_temas"], reverse=True)[:cantidad]
+        assert sorted(filas["n_unidades"], reverse=True) == mayores
+    tamanos = hoja.set_index("codigo")["tamano_del_tema"].astype(int)
+    assert (
+        tamanos.loc[tabla["codigo"]].to_numpy() == tabla["n_unidades"].to_numpy()
+    ).all()
 
 
 def test_lo_versionado_no_trae_texto_de_los_articulos():
@@ -173,6 +178,7 @@ def test_el_veredicto_deja_la_interpretabilidad_pendiente():
     assert len(v["criterios"]) == 6  # 3 pruebas x 2 modelos
     for criterios in v["criterios"].values():
         assert criterios["interpretabilidad"].startswith("pendiente")
+    assert v["hoja_a_ciegas"]["temas_en_la_hoja"] == 35
     assert set(v["criterios"]["prueba1/principal"]) >= {
         "mezcla_de_idiomas", "temas_de_un_documento", "tiempo_embeddings_mps",
     }  # fmt: skip

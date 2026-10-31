@@ -123,6 +123,7 @@ semantico:
   hoja_ciega:
     fragmentos: 3
     palabras_por_fragmento: 60
-    max_temas_por_corrida: null       # null = todos los temas de la corrida elegida
+    # Solo Prueba 2b (oe2_*), semilla medoide de cada modelo; null = todos los temas, N = los N más grandes
+    temas_por_modelo: {principal: null, control: 15}
   salidas_metricas: outputs/semantico_metricas   # solo números: va a git
 

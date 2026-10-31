@@ -542,13 +542,13 @@ def recortar(texto: str, n: int) -> str:
 
 
 def temas_de_hoja(
-    prueba: str, clave: str, semilla: int, c: dict, cfg: dict
+    prueba: str, clave: str, semilla: int, c: dict, cfg: dict, maximo: int | None
 ) -> list[dict]:
     """Temas de una corrida (los más grandes primero) con 10 palabras y 3 fragmentos."""
     hoja = cfg["hoja_ciega"]
     ordenados = sorted(c["temas"].items(), key=lambda x: (-x[1]["n"], x[0]))
-    if hoja["max_temas_por_corrida"]:
-        ordenados = ordenados[: hoja["max_temas_por_corrida"]]
+    if maximo:
+        ordenados = ordenados[:maximo]
     filas = []
     for tema, info in ordenados:
         fragmentos = [recortar(d, hoja["palabras_por_fragmento"]) for d in info["docs"]]
@@ -580,16 +580,20 @@ def codigos_unicos(rng: np.random.Generator, cantidad: int) -> list[str]:
 
 
 def escribir_hoja_ciega(
-    resultados: dict, corridas: dict, cfg: dict, carpeta: Path
+    semillas: dict[str, int], corridas: dict, cfg: dict, carpeta: Path
 ) -> dict:
-    """Hoja con códigos aleatorios (sin modelo ni semilla) y su tabla de traducción."""
+    """Hoja de la Prueba 2b con códigos aleatorios (sin modelo ni semilla)."""
     filas = []
-    for prueba in PRUEBAS:
-        for clave in cfg["modelos"]:
-            semilla = resultados[prueba]["modelos"][clave]["semilla_medoide"]
-            filas += temas_de_hoja(
-                prueba, clave, semilla, corridas[prueba][clave][semilla], cfg
-            )
+    for clave in cfg["modelos"]:
+        semilla = semillas[clave]
+        filas += temas_de_hoja(
+            "prueba2b",
+            clave,
+            semilla,
+            corridas[clave][semilla],
+            cfg,
+            cfg["hoja_ciega"]["temas_por_modelo"][clave],
+        )
     rng = np.random.default_rng(cfg["semilla_codigos"])
     codigos = codigos_unicos(rng, len(filas))
     orden = rng.permutation(len(filas))
@@ -616,22 +620,74 @@ def escribir_hoja_ciega(
         )
     carpeta.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(hoja).to_csv(
-        carpeta / "hoja_calificacion_ciega.csv",
+        carpeta / "hoja_calificacion_ciega_2b.csv",
         index=False,
         encoding="utf-8-sig",
         lineterminator="\n",
     )
     pd.DataFrame(traduccion).to_csv(
-        carpeta / "traduccion_codigos.csv",
+        carpeta / "traduccion_codigos_2b.csv",
         index=False,
         encoding="utf-8",
         lineterminator="\n",
     )
-    cuenta = pd.DataFrame(traduccion).groupby(["prueba", "modelo"]).size()
+    cuenta = pd.DataFrame(traduccion).groupby("modelo").size()
     return {
+        "prueba": "P2b",
         "temas_en_la_hoja": len(hoja),
-        "por_prueba_y_modelo": {f"{p}/{m}": int(n) for (p, m), n in cuenta.items()},
+        "por_modelo": {m: int(n) for m, n in cuenta.items()},
     }
+
+
+def reproducir_corrida_2b(
+    clave: str,
+    modelo: dict,
+    semilla: int,
+    unidades: list[dict],
+    cfg: dict,
+    privada: Path,
+) -> dict:
+    """Repite la corrida medoide; debe dar las asignaciones ya guardadas."""
+    textos = [u["texto"] for u in unidades]
+    encoder = cargar_modelo(modelo, "mps")
+    e, _ = embeber(encoder, modelo["prefijo"], textos)
+    liberar(encoder)
+    indice = M.indice_invertido(M.conjuntos_de_palabras(textos))
+    c = corrida(textos, e, semilla, cfg, indice)
+    guardado = pd.read_csv(privada / f"asignaciones_prueba2b_{clave}_s{semilla}.csv")
+    mismas = list(guardado["id_unidad"]) == [u["id"] for u in unidades]
+    if not mismas or not np.array_equal(guardado["tema"].to_numpy(), c["etiquetas"]):
+        fallar(
+            f"{clave}/semilla {semilla}: la repetición no da las asignaciones guardadas"
+        )
+    return c
+
+
+def regenerar_hoja_2b(params: dict) -> dict:
+    """Rehace solo la hoja a ciegas de la Prueba 2b (no toca las métricas)."""
+    os.environ.setdefault("HF_HUB_OFFLINE", "1")
+    os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+    cfg = params["semantico"]
+    privada, publica = RAIZ_REPO / cfg["salidas"], RAIZ_REPO / cfg["salidas_metricas"]
+    unidades, _ = unidades_prueba2(cfg, cargar_matriz(params)["tabla"])
+    unidades = [u for u in unidades if u["oe"] == "oe2"]
+    guardadas = json.loads(
+        (publica / "prueba2b_metricas.json").read_text(encoding="utf-8")
+    )
+    semillas = {k: guardadas["modelos"][k]["semilla_medoide"] for k in cfg["modelos"]}
+    corridas = {
+        k: {
+            semillas[k]: reproducir_corrida_2b(
+                k, m, semillas[k], unidades, cfg, privada
+            )
+        }
+        for k, m in cfg["modelos"].items()
+    }
+    hoja = escribir_hoja_ciega(semillas, corridas, cfg, privada)
+    ruta = publica / "veredicto.json"
+    veredicto_guardado = json.loads(ruta.read_text(encoding="utf-8"))
+    escribir_json(ruta, {**veredicto_guardado, "hoja_a_ciegas": hoja})
+    return hoja
 
 
 # --- Veredicto -------------------------------------------------------------------
@@ -776,7 +832,11 @@ def ejecutar(params: dict) -> dict:
             prueba, datos[prueba], cfg
         )
         guardar_asignaciones(prueba, datos[prueba], corridas[prueba], privada)
-    hoja = escribir_hoja_ciega(resultados, corridas, cfg, privada)
+    medoides = {
+        k: resultados["prueba2b"]["modelos"][k]["semilla_medoide"]
+        for k in cfg["modelos"]
+    }
+    hoja = escribir_hoja_ciega(medoides, corridas["prueba2b"], cfg, privada)
     juicio = veredicto(resultados, emb, cfg)
     meta = metadatos(params, matriz)
     extra = {
@@ -832,13 +892,16 @@ def reporte(salida: dict) -> list[str]:
     lineas += [
         "",
         f"RAM máxima del proceso: {salida['ram_maxima_mb']:.0f} MB",
-        f"Hoja a ciegas: {salida['hoja']['temas_en_la_hoja']} temas",
+        f"Hoja a ciegas (P2b): {salida['hoja']['temas_en_la_hoja']} temas",
     ]
     return lineas
 
 
 def main() -> int:
     try:
+        if "--hoja-2b" in sys.argv:
+            print(regenerar_hoja_2b(cargar_params()))
+            return 0
         salida = ejecutar(cargar_params())
     except ErrorPipeline as error:
         print(f"ERROR: {error}", file=sys.stderr)
