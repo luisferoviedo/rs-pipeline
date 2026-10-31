@@ -128,7 +128,8 @@ def test_la_hoja_a_ciegas_2b_no_revela_modelo_ni_semilla(cfg):
     ]  # fmt: skip
     assert len(hoja) == 35  # 20 temas de e5 + los 15 más grandes de MiniLM
     assert (hoja["prueba"] == "P2b").all()
-    assert (hoja["calificacion"] == "").all()
+    # ya calificada por Luis Fer (el respaldo sin calificar es otro archivo)
+    assert hoja["calificacion"].isin(["interpretable", "mixto", "ruido"]).all()
     assert hoja["codigo"].is_unique and (hoja["codigo"].str.len() == 5).all()
     assert (hoja["palabras_clave"].str.count(",") == cfg["palabras_clave"] - 1).all()
     assert (hoja[["fragmento_1", "fragmento_2", "fragmento_3"]] != "").all().all()
@@ -173,12 +174,126 @@ def test_lo_versionado_no_trae_texto_de_los_articulos():
         assert all(len(c) <= 130 for c in cadenas(contenido)), ruta.name
 
 
-def test_el_veredicto_deja_la_interpretabilidad_pendiente():
+def test_el_veredicto_deja_pendiente_la_interpretabilidad_de_las_otras_pruebas():
     v = json.loads((PUBLICA / "veredicto.json").read_text(encoding="utf-8"))
     assert len(v["criterios"]) == 6  # 3 pruebas x 2 modelos
-    for criterios in v["criterios"].values():
-        assert criterios["interpretabilidad"].startswith("pendiente")
+    for clave, criterios in v["criterios"].items():
+        if clave.startswith("prueba2b/"):
+            assert criterios["interpretabilidad"] == "cumple"  # calificada (D40)
+        else:
+            assert criterios["interpretabilidad"].startswith("pendiente")
     assert v["hoja_a_ciegas"]["temas_en_la_hoja"] == 35
     assert set(v["criterios"]["prueba1/principal"]) >= {
         "mezcla_de_idiomas", "temas_de_un_documento", "tiempo_embeddings_mps",
     }  # fmt: skip
+
+
+# --- Calificación de la hoja a ciegas (Prueba 2b) ----------------------------------
+
+
+@pytest.fixture(scope="module")
+def calificacion():
+    ruta = PUBLICA / "prueba2b_calificacion.json"
+    return json.loads(ruta.read_text(encoding="utf-8"))
+
+
+def calificaciones_por_modelo():
+    hoja = pd.read_csv(
+        PRIVADA / "hoja_calificacion_ciega_2b.csv",
+        dtype=str,
+        keep_default_na=False,
+        encoding="utf-8-sig",
+        usecols=["codigo", "calificacion"],
+    )
+    traduccion = pd.read_csv(
+        PRIVADA / "traduccion_codigos_2b.csv", dtype={"codigo": str}
+    )
+    return traduccion.merge(hoja, on="codigo")
+
+
+def test_la_calificacion_suma_29_interpretables_6_mixtos_0_ruido(calificacion):
+    assert calificacion["total"]["n_temas"] == 35
+    assert calificacion["total"]["conteos"] == {
+        "interpretable": 29, "mixto": 6, "ruido": 0,
+    }  # fmt: skip
+
+
+def test_los_porcentajes_por_modelo_coinciden_con_el_recalculo(calificacion):
+    unidos = calificaciones_por_modelo()
+    esperado = {"principal": (20, 18, 2, 0), "control": (15, 11, 4, 0)}
+    for modelo, (n, interpretables, mixtos, ruido) in esperado.items():
+        grupo = unidos[unidos["modelo"] == modelo]["calificacion"]
+        assert len(grupo) == n
+        assert (grupo == "interpretable").sum() == interpretables
+        assert (grupo == "mixto").sum() == mixtos
+        assert (grupo == "ruido").sum() == ruido
+        r = calificacion["por_modelo"][modelo]
+        assert r["pct"]["interpretable"] == pytest.approx(100 * interpretables / n)
+        assert r["interpretabilidad"] == "cumple"  # 90 % y 73,3 % (umbral >= 60 %)
+
+
+def test_el_veredicto_final_de_la_prueba_2b_es_sigue_en_los_dos_modelos(calificacion):
+    for modelo in MODELOS:
+        final = calificacion["veredicto_final"][modelo]
+        assert final["veredicto"] == "sigue"
+        assert set(final["criterios"].values()) == {"cumple"}
+    guardado = json.loads((PUBLICA / "veredicto.json").read_text(encoding="utf-8"))
+    assert guardado["veredicto_final_prueba2b"] == calificacion["veredicto_final"]
+
+
+def test_la_calificacion_guarda_el_hash_de_la_hoja_calificada(calificacion):
+    from rs_pipeline import semantico_04
+
+    ruta = PRIVADA / "hoja_calificacion_ciega_2b.csv"
+    assert calificacion["hoja"]["sha256_hoja_calificada"] == semantico_04.sha256(ruta)
+    assert len(calificacion["por_tema"]) == 35
+
+
+def test_el_respaldo_sin_calificar_sigue_sin_calificar():
+    kw = {"dtype": str, "keep_default_na": False, "encoding": "utf-8-sig"}
+    respaldo = pd.read_csv(
+        PRIVADA / "hoja_calificacion_ciega_2b_sin_calificar_respaldo.csv", **kw
+    )
+    calificada = pd.read_csv(PRIVADA / "hoja_calificacion_ciega_2b.csv", **kw)
+    assert len(respaldo) == 35 and (respaldo["calificacion"] == "").all()
+    assert list(respaldo["codigo"]) == list(calificada["codigo"])
+    columnas = [c for c in respaldo.columns if c != "calificacion"]
+    assert respaldo[columnas].equals(
+        calificada[columnas]
+    )  # solo cambia la calificación
+
+
+def test_no_se_sobrescribe_una_hoja_ya_calificada(tmp_path):
+    from rs_pipeline import semantico_04, semantico_texto
+
+    ruta = tmp_path / "hoja.csv"
+    semantico_04.exigir_hoja_sin_calificar(ruta)  # no existe: no pasa nada
+    ruta.write_text("codigo,calificacion\nAAAAA,\nBBBBB,\n", encoding="utf-8")
+    semantico_04.exigir_hoja_sin_calificar(ruta)  # sin calificar: se puede reescribir
+    ruta.write_text("codigo,calificacion\nAAAAA,mixto\nBBBBB,\n", encoding="utf-8")
+    with pytest.raises(semantico_texto.ErrorPipeline, match="no se sobrescribe"):
+        semantico_04.exigir_hoja_sin_calificar(ruta)
+
+
+def test_una_calificacion_invalida_o_codigos_distintos_hacen_fallar(tmp_path):
+    from rs_pipeline import semantico_04, semantico_texto
+
+    (tmp_path / "traduccion_codigos_2b.csv").write_text(
+        "codigo,prueba,modelo,semilla,tema,n_unidades\nAAAAA,P2b,principal,4,0,30\n",
+        encoding="utf-8",
+    )
+    hoja = tmp_path / "hoja_calificacion_ciega_2b.csv"
+    hoja.write_text("codigo,calificacion\nAAAAA,regular\n", encoding="utf-8")
+    with pytest.raises(semantico_texto.ErrorPipeline, match="regular"):
+        semantico_04.leer_calificacion_2b(tmp_path)
+    hoja.write_text("codigo,calificacion\nZZZZZ,mixto\n", encoding="utf-8")
+    with pytest.raises(semantico_texto.ErrorPipeline, match="mismos códigos"):
+        semantico_04.leer_calificacion_2b(tmp_path)
+
+
+def test_el_veredicto_final_combina_los_criterios():
+    from rs_pipeline.semantico_04 import veredicto_final
+
+    assert veredicto_final({"a": "cumple", "b": "cumple"}) == "sigue"
+    assert veredicto_final({"a": "cumple", "b": "intermedio"}).startswith("intermedio")
+    assert veredicto_final({"a": "intermedio", "b": "no cumple"}) == "no sigue"

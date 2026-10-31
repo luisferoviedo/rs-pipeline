@@ -1,0 +1,324 @@
+{
+  "prueba": "prueba2b",
+  "hoja": {
+    "temas": 35,
+    "sha256_hoja_calificada": "04522778514102d2e55ff10ac65e8d3c967f8b27c30b1b37c4300d05b6671b42",
+    "sha256_traduccion": "60e624f28db8609d95b659a70e541ffd122f6ef98473dfd44857da44df7fba5a"
+  },
+  "por_modelo": {
+    "control": {
+      "n_temas": 15,
+      "conteos": {
+        "interpretable": 11,
+        "mixto": 4,
+        "ruido": 0
+      },
+      "pct": {
+        "interpretable": 73.33333333333333,
+        "mixto": 26.666666666666668,
+        "ruido": 0.0
+      },
+      "interpretabilidad": "cumple",
+      "minimo_temas_interpretables": "cumple"
+    },
+    "principal": {
+      "n_temas": 20,
+      "conteos": {
+        "interpretable": 18,
+        "mixto": 2,
+        "ruido": 0
+      },
+      "pct": {
+        "interpretable": 90.0,
+        "mixto": 10.0,
+        "ruido": 0.0
+      },
+      "interpretabilidad": "cumple",
+      "minimo_temas_interpretables": "cumple"
+    }
+  },
+  "total": {
+    "n_temas": 35,
+    "conteos": {
+      "interpretable": 29,
+      "mixto": 6,
+      "ruido": 0
+    },
+    "pct": {
+      "interpretable": 82.85714285714286,
+      "mixto": 17.142857142857142,
+      "ruido": 0.0
+    },
+    "interpretabilidad": "cumple",
+    "minimo_temas_interpretables": "cumple"
+  },
+  "veredicto_final": {
+    "control": {
+      "criterios": {
+        "ari_entre_semillas": "cumple",
+        "pct_sin_tema": "cumple",
+        "npmi_real_mayor_que_azar": "cumple",
+        "interpretabilidad": "cumple",
+        "minimo_temas_interpretables": "cumple"
+      },
+      "veredicto": "sigue"
+    },
+    "principal": {
+      "criterios": {
+        "ari_entre_semillas": "cumple",
+        "pct_sin_tema": "cumple",
+        "npmi_real_mayor_que_azar": "cumple",
+        "interpretabilidad": "cumple",
+        "minimo_temas_interpretables": "cumple"
+      },
+      "veredicto": "sigue"
+    }
+  },
+  "por_tema": [
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 13,
+      "n_unidades": 18,
+      "calificacion": "mixto"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 5,
+      "n_unidades": 113,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 10,
+      "n_unidades": 34,
+      "calificacion": "mixto"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 18,
+      "n_unidades": 12,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 12,
+      "n_unidades": 18,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 8,
+      "n_unidades": 53,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 11,
+      "n_unidades": 31,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 0,
+      "n_unidades": 675,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 0,
+      "n_unidades": 679,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 9,
+      "n_unidades": 35,
+      "calificacion": "mixto"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 16,
+      "n_unidades": 15,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 9,
+      "n_unidades": 70,
+      "calificacion": "mixto"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 15,
+      "n_unidades": 16,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 8,
+      "n_unidades": 86,
+      "calificacion": "mixto"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 11,
+      "n_unidades": 51,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 3,
+      "n_unidades": 133,
+      "calificacion": "mixto"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 4,
+      "n_unidades": 125,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 6,
+      "n_unidades": 87,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 6,
+      "n_unidades": 90,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 7,
+      "n_unidades": 84,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 1,
+      "n_unidades": 185,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 13,
+      "n_unidades": 24,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 10,
+      "n_unidades": 59,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 2,
+      "n_unidades": 139,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 2,
+      "n_unidades": 181,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 17,
+      "n_unidades": 14,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 14,
+      "n_unidades": 17,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 5,
+      "n_unidades": 110,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 14,
+      "n_unidades": 16,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 4,
+      "n_unidades": 116,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "control",
+      "semilla": 3,
+      "tema": 1,
+      "n_unidades": 156,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 3,
+      "n_unidades": 156,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 12,
+      "n_unidades": 45,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 7,
+      "n_unidades": 87,
+      "calificacion": "interpretable"
+    },
+    {
+      "modelo": "principal",
+      "semilla": 4,
+      "tema": 19,
+      "n_unidades": 12,
+      "calificacion": "interpretable"
+    }
+  ]
+}

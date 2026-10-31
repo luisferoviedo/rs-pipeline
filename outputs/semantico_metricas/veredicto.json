@@ -34,13 +34,15 @@
       "ari_entre_semillas": "cumple",
       "pct_sin_tema": "cumple",
       "npmi_real_mayor_que_azar": "cumple",
-      "interpretabilidad": "pendiente (hoja a ciegas de Luis Fer)"
+      "interpretabilidad": "cumple",
+      "minimo_temas_interpretables": "cumple"
     },
     "prueba2b/control": {
       "ari_entre_semillas": "cumple",
       "pct_sin_tema": "cumple",
       "npmi_real_mayor_que_azar": "cumple",
-      "interpretabilidad": "pendiente (hoja a ciegas de Luis Fer)"
+      "interpretabilidad": "cumple",
+      "minimo_temas_interpretables": "cumple"
     }
   },
   "no_cumple": [
@@ -54,6 +56,28 @@
     "por_modelo": {
       "control": 15,
       "principal": 20
+    }
+  },
+  "veredicto_final_prueba2b": {
+    "control": {
+      "criterios": {
+        "ari_entre_semillas": "cumple",
+        "pct_sin_tema": "cumple",
+        "npmi_real_mayor_que_azar": "cumple",
+        "interpretabilidad": "cumple",
+        "minimo_temas_interpretables": "cumple"
+      },
+      "veredicto": "sigue"
+    },
+    "principal": {
+      "criterios": {
+        "ari_entre_semillas": "cumple",
+        "pct_sin_tema": "cumple",
+        "npmi_real_mayor_que_azar": "cumple",
+        "interpretabilidad": "cumple",
+        "minimo_temas_interpretables": "cumple"
+      },
+      "veredicto": "sigue"
     }
   }
 }

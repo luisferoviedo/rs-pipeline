@@ -314,3 +314,81 @@ y los fallos esperados), `tests/test_normalizar_01.py` (14 pruebas: `nivel_dudos
 | matriz normalizada (81 columnas; 201 filas con `excluido_nivel`) | | `data/processed/`, fuera de git |
 | 11 tablas en `outputs/tablas/` | regeneradas sobre 196 informes / 193 estudios | git |
 
+## Bloque 5 · Mini-sprint semántico: ¿sirve BERTopic con embeddings multilingües? (`semantico_04.py`)
+
+Cierre: 31 oct 2026 (commits «Mini-sprint semántico…» en el historial de git). Flujograma actualizado.
+
+### Objetivo del paso
+Probar, antes de comprometerse, si BERTopic con embeddings multilingües funciona con este corpus: (Prueba 1) sobre trozos del
+texto completo de 10 informes; (Prueba 2) sobre las fichas de los 196 informes, con todos los campos de OE1, OE2 y OE4 (2a) y solo
+`oe2_*` (2b), el insumo del marco de criterios de diseño. Dos modelos (e5 principal y MiniLM de control), 5 semillas, y una
+calificación a ciegas de Luis Fer. Todo local, sin llamadas a la API.
+
+### Entradas
+| Archivo | Versión | SHA-256 |
+|---|---|---|
+| `data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv` | salida del bloque 2 (196 incluidos + 5 `excluido_nivel`) | `047840986e236173c915a1ce80a8d7decf690f49f64c3cbae7514b87d7b6bc85` |
+| `config/prisma_counts_2026-10-29.json` | 2026-10-29 (D34) | `af536e2c2ea7530b725436a0abfa1738a6e4a2fe9df95779f3bbd714034320c1` |
+| `_trabajo/ext/txt/R####.txt` de 10 informes (Drive, solo lectura) | texto completo con referencias cortadas | el hash de cada uno queda en `outputs/semantico_metricas/prueba1_metricas.json` |
+| `config/stopwords_semantico.yaml` | repositorio | `1677087a5c705bb0d8be175a84e7459be4cd4c9b2c8d955c2387dfc427c46774` |
+| `requirements-semantico.txt` | 53 paquetes fijados (bertopic 0.17.4, sentence-transformers 6.2.0, torch 2.15.0, umap-learn 0.5.12, hdbscan 0.8.44) | `8a99295016c92eb9cb10616d059ea111b016ec896882f0f63740deb100454554` |
+| `intfloat/multilingual-e5-base` (Hugging Face) | revisión `d128750597153bb5987e10b1c3493a34e5a4502a` | fijada por revisión (commit) |
+| `paraphrase-multilingual-MiniLM-L12-v2` (Hugging Face) | revisión `e8f8c211226b894fcb81acc59f3b34ba3efd5f42` | fijada por revisión (commit) |
+| `config/params.yaml` (sección `semantico`) | semillas, UMAP, umbrales, muestra, campos | hash en cada `.json` de métricas |
+
+### Proceso
+Qué hace, en lenguaje sencillo:
+1. **Prepara las unidades.** Prueba 1: limpia el texto completo (corta en el marcador de referencias o en su encabezado, quita títulos,
+   marcadores de página y encabezados repetidos, une las palabras cortadas con guion) y lo parte en trozos de ~150 palabras (e5) y ~90 (MiniLM)
+   sin cortar oraciones: 408 y 624 trozos. Prueba 2: toma cada campo de la ficha, quita las marcas `[F]`/`[I]` y las citas de página,
+   parte `oe2_criterios_candidatos` en un criterio por unidad y descarta lo de menos de 5 palabras: 3.608 unidades (2b: 2.176).
+2. **Calcula embeddings** con cada modelo en la GPU del Mac (MPS) y, solo para la Prueba 1, también en CPU para comparar tiempo y resultado.
+3. **Corre BERTopic** (UMAP + HDBSCAN) con 5 semillas por modelo y prueba, y calcula: ARI entre semillas, ARI entre modelos, % sin tema,
+   coherencia NPMI contra la misma medida con asignaciones barajadas, y el reparto de cada tema (por idioma, informe, OE, disciplina y nivel).
+4. **Hoja a ciegas.** Para la Prueba 2b toma la corrida de la semilla más representativa de cada modelo (20 temas de e5 y los 15 más grandes de MiniLM),
+   mezcla las filas y reemplaza modelo y semilla por un código aleatorio. Luis Fer califica cada tema (interpretable / mixto / ruido); recién entonces
+   se abre la tabla de traducción y se calcula el porcentaje por modelo.
+5. **Veredicto** frente a los umbrales aprobados (`config/params.yaml`).
+
+Comandos exactos (el venv se crea con `.venv/bin/python -m venv .venv-semantico` y `pip install -r requirements-semantico.txt`; los modelos se bajan
+con `huggingface_hub.snapshot_download(repo_id, revision=…)` usando las revisiones de `params.yaml`):
+```
+PYTHONPATH=src .venv-semantico/bin/python -m rs_pipeline.semantico_04
+PYTHONPATH=src .venv-semantico/bin/python -m rs_pipeline.semantico_04 --hoja-2b
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.semantico_04 --calificacion-2b
+```
+
+### Decisiones aplicadas
+- [D35](decisiones.md#d35-mini-sprint-semántico-diseño-de-las-pruebas) · Diseño de las pruebas y umbrales
+- [D36](decisiones.md#d36-análisis-de-sensibilidad-por-modelo-de-embeddings) · Análisis de sensibilidad por modelo de embeddings
+- [D37](decisiones.md#d37-los-temas-sobre-fichas-agrupan-la-extracción-no-el-texto-original) · Los temas sobre fichas agrupan la extracción, no el texto original
+- [D38](decisiones.md#d38-hoja-de-calificación-a-ciegas-solo-prueba-2b) · Hoja de calificación a ciegas (solo Prueba 2b)
+- [D39](decisiones.md#d39-resultado-de-las-corridas-y-veredicto-automático-provisional) · Resultado de las corridas y veredicto automático
+- [D40](decisiones.md#d40-calificación-a-ciegas-de-la-prueba-2b-y-veredicto-final) · Calificación a ciegas de la Prueba 2b y veredicto final
+
+### Controles
+Cuándo falla (código 1 y mensaje claro):
+- La matriz normalizada cambió desde que se normalizó, no tiene las columnas de la ficha, o sus informes incluidos no son los 196 de `prisma_counts_2026-10-29.json`.
+- Un informe de la Prueba 1 no está entre los incluidos, no tiene idioma válido, no existe su texto, no se encuentra su sección de referencias o no queda ningún trozo.
+- Las dos asignaciones que se comparan (ARI) no tienen el mismo largo.
+- Al repetir la corrida de la hoja a ciegas, las asignaciones no son las guardadas; o la hoja ya tiene calificaciones (no se sobrescribe).
+- Una calificación no es interpretable / mixto / ruido, o la hoja y la traducción no tienen los mismos códigos.
+
+Tests: `tests/test_semantico.py` (27 pruebas: ARI con valores conocidos, NPMI, limpieza y trozos sin cortar oraciones, y los números reales: 5 inglés / 3 español /
+2 portugués, 408 y 624 trozos, 3.608 unidades) y `tests/test_semantico_salidas.py` (recalculan ARI con una fórmula independiente, comprueban la hoja a ciegas,
+la traducción, la calificación 29/6/0 y que lo versionado no traiga texto). Total del proyecto: 111 pruebas.
+```
+.venv/bin/pytest
+```
+
+### Salidas
+| Archivo | Contenido | Dónde |
+|---|---|---|
+| `outputs/semantico_metricas/prueba1_metricas.json`, `prueba2a_…`, `prueba2b_…` | todas las métricas numéricas, por corrida, semilla y modelo | git (solo números) |
+| `outputs/semantico_metricas/prueba2b_calificacion.json` | % interpretables / mixtos / ruido por modelo y veredicto final, con hashes de la hoja y la traducción | git |
+| `outputs/semantico_metricas/veredicto.json` | criterios por prueba y modelo, y veredicto final de la 2b | git |
+| `outputs/semantico/hoja_calificacion_ciega_2b.csv` (+ `_sin_calificar_respaldo.csv`) y `traduccion_codigos_2b.csv` | hoja con fragmentos de las fichas y su traducción de códigos | local, ignorado |
+| `outputs/semantico/asignaciones_*.csv` | tema de cada unidad por prueba, modelo y semilla (sin texto) | local, ignorado |
+
+**Resultado:** la Prueba 1 (texto completo) no sirve para la síntesis (más de 50 % de los temas son «de un documento»); la Prueba 2b (fichas `oe2_*`) sigue con los dos modelos.
+

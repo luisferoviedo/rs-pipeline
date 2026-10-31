@@ -1,5 +1,5 @@
 %% Flujograma del pipeline rs-pipeline (se actualiza al cerrar cada bloque).
-%% Estado: bloques 1 (PRISMA), 2 (normalización), 3 (descriptivos) y 4 (exclusiones por nivel) cerrados.
+%% Estado: bloques 1 (PRISMA), 2 (normalización), 3 (descriptivos), 4 (exclusiones por nivel) y 5 (mini-sprint semántico) cerrados.
 %% Formas: paralelogramo = entrada; rectángulo = proceso/script; rombo = decisión o control;
 %%         documento = salida; estadio rojo = falla. Frontera: el Drive es SOLO LECTURA.
 flowchart TB
@@ -12,6 +12,7 @@ flowchart TB
     dP[/"03_recuperacion/artículos_pdf/_no_corresponde<br/>15 PDF de otro documento"/]
     dE[/"04_elegibilidad<br/>Elegibilidad v3 (307 filas, con año)<br/>Casos dudosos v4 (121 filas)"/]
     dX[/"05_extraccion<br/>Extraccion_datos_v2_2026-10-18.csv<br/>219 filas × 58 columnas"/]
+    dT[/"_trabajo/ext/txt<br/>texto completo de 10 informes<br/>(solo Prueba 1)"/]
     dJ[/"06_prisma<br/>prisma_counts_2026-10-26.json<br/>conteos base (201 informes)"/]
   end
 
@@ -23,6 +24,7 @@ flowchart TB
       env[/".env<br/>RS_DRIVE_ROOT (fuera de git)"/]
       cfgP[/"config/params.yaml<br/>config/reclasificaciones.yaml<br/>6 reclasificaciones D→E2"/]
       cfgC[/"config/categorias.yaml<br/>mapeo aprobado D17–D33<br/>(país, nivel, nivel_dudoso)"/]
+      cfgS[/"params (semantico) · stopwords<br/>requirements-semantico.txt (.venv-semantico)<br/>modelos HF con revisión fija"/]
       cfgE[/"config/exclusiones_nivel.yaml<br/>5 exclusiones (4 E1, 1 E3) D33"/]
       cfgV[/"config/prisma_counts_2026-10-29.json<br/>196 informes · 193 estudios<br/>(en el repo; el del Drive no se toca)"/]
     end
@@ -58,9 +60,22 @@ flowchart TB
       o4@{ shape: doc, label: "outputs/tablas/revision_elegibilidad_nivel.csv<br/>LOCAL, no versionado (D30); .json sí<br/>32 informes; decision_luisfer completa (D33)<br/>27 incluir · 4 E1 · 1 E3" }
     end
 
+    subgraph B5["BLOQUE 5 · Mini-sprint semántico — semantico_04.py (venv aparte, local)"]
+      direction TB
+      s0["Fichas de 196 informes (3.608 unidades; 2b: 2.176) y<br/>trozos de 10 informes (408 / 624)<br/>sin referencias ni encabezados"]
+      w1{"¿matriz = hash registrado y 196 informes?<br/>¿referencias cortadas? ¿textos existen?"}
+      s1["Embeddings e5-base y MiniLM (MPS)<br/>BERTopic: 5 semillas × 2 modelos × 3 pruebas"]
+      w2{"¿ARI entre semillas ≥ 0,6? ¿sin tema ≤ 40 %?<br/>¿NPMI real > azar? ¿temas de un documento ≤ 50 %?"}
+      s2["Hoja a ciegas P2b: 35 temas con código aleatorio<br/>Luis Fer califica: 29 interpretables · 6 mixtos · 0 ruido"]
+      w3{"¿≥ 60 % interpretables?"}
+      o5@{ shape: doc, label: "outputs/semantico_metricas/ (solo números, en git)<br/>P1 texto completo: no sirve · P2b fichas oe2: sigue" }
+      o6@{ shape: doc, label: "outputs/semantico/ (LOCAL, ignorado)<br/>hoja a ciegas · traducción · asignaciones" }
+    end
+
     f1(["FALLA<br/>mensaje claro y código 1<br/>no dibuja nada"])
     f2(["FALLA<br/>mensaje claro y código 1<br/>no escribe la matriz"])
     f3(["FALLA<br/>mensaje claro y código 1<br/>no escribe tablas"])
+    f4(["FALLA<br/>mensaje claro y código 1<br/>no corre el sprint"])
   end
 
   %% Entradas del bloque 1 (frontera: solo lectura)
@@ -115,7 +130,23 @@ flowchart TB
   q1 --> q2
   q2 --> o4
 
+  %% Bloque 5
+  dT --> s0
+  o2 --> s0
+  cfgV --> s0
+  cfgS --> s0
+  s0 --> w1
+  w1 -- "sí" --> s1
+  w1 -- "no" --> f4
+  s1 --> w2
+  w2 -- "sí" --> s2
+  w2 -- "no: no sigue" --> o5
+  s2 --> w3
+  w3 -- "sí / intermedio / no" --> o5
+  s1 --> o6
+  s2 --> o6
+
   classDef drive fill:#e8f1fb,stroke:#2b6cb0,color:#1a365d
   classDef falla fill:#fde8e8,stroke:#c0392b,color:#7b1d1d
-  class dB,dC,dR,dP,dE,dX,dJ drive
-  class f1,f2,f3 falla
+  class dB,dC,dR,dP,dE,dX,dJ,dT drive
+  class f1,f2,f3,f4 falla

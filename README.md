@@ -65,6 +65,18 @@ PUPPETEER_SKIP_DOWNLOAD=1 PUPPETEER_EXECUTABLE_PATH="/Applications/Google Chrome
   npx -y @mermaid-js/mermaid-cli@12.0.0 -i docs/flujograma.mmd -o docs/flujograma.svg
 ```
 
+## Mini-sprint semántico (BERTopic, local)
+Venv aparte para no tocar el pipeline: `.venv/bin/python -m venv .venv-semantico` y
+`.venv-semantico/bin/pip install -r requirements-semantico.txt`. Los modelos de Hugging Face se descargan fijados a su
+revisión de `config/params.yaml` (caché fuera del repo). Todo corre sin red y sin llamadas a la API:
+```
+PYTHONPATH=src .venv-semantico/bin/python -m rs_pipeline.semantico_04                  # las tres pruebas
+PYTHONPATH=src .venv-semantico/bin/python -m rs_pipeline.semantico_04 --hoja-2b        # rehace la hoja a ciegas (no pisa una calificada)
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.semantico_04 --calificacion-2b          # % interpretables por modelo y veredicto
+```
+Lo que trae texto de los artículos (hoja a ciegas, asignaciones) queda en `outputs/semantico/` (ignorado por git);
+a git solo van las métricas numéricas de `outputs/semantico_metricas/`.
+
 ## Verificar
 ```
 .venv/bin/pytest            # tests contra los CSV reales (requiere RS_DRIVE_ROOT)

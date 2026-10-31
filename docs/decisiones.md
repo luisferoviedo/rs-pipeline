@@ -180,3 +180,16 @@ Medias de las 5 semillas. El detalle numérico está en `outputs/semantico_metri
 - **Prueba 2b:** e5 20 temas, 7,7 % sin tema, ARI 0,998, NPMI −0,010 contra −0,032 (supera al azar en 4 de 5 corridas, pero es casi cero); MiniLM 25 temas, 19,5 % sin tema, ARI 0,822 (mín 0,549), NPMI 0,072 contra −0,134.
 - **Veredicto frente a los umbrales:** estabilidad, sin tema, NPMI y tiempo cumplen en las 6 combinaciones. No cumplen: mezcla de idiomas (P1, e5) y temas «de un documento» (P1, e5 y MiniLM). Con la regla aprobada, la **prueba de texto completo no sirve para la síntesis**. Las fichas (Prueba 2) cumplen lo automático y quedan a la espera de la interpretabilidad.
 
+## D40. Calificación a ciegas de la Prueba 2b y veredicto final
+Luis Fer calificó la hoja a ciegas de la Prueba 2b (35 temas) el 31 oct 2026: **29 interpretables, 6 mixtos y 0 ruido**. Se abrió después la traducción de códigos (`traduccion_codigos_2b.csv`) y se calculó por modelo (`semantico_04 --calificacion-2b`; resultado numérico en `outputs/semantico_metricas/prueba2b_calificacion.json`, con el hash de la hoja calificada y de la traducción):
+
+| Modelo | Temas calificados | Interpretables | Mixtos | Ruido | Frente al umbral (≥60 % sigue; <40 % no sigue) |
+|---|---|---|---|---|---|
+| e5-base | 20 (todos) | 18 (90,0 %) | 2 (10,0 %) | 0 | cumple |
+| MiniLM | 15 (los más grandes de 23) | 11 (73,3 %) | 4 (26,7 %) | 0 | cumple |
+
+Ambos tienen además al menos 3 temas interpretables. **Veredicto final de la Prueba 2b: sigue, con los dos modelos.** Todos los criterios aprobados cumplen: ARI entre semillas 0,998 (e5) y 0,822 (MiniLM); sin tema 7,7 % y 19,5 %; NPMI real mayor que el azar (e5 −0,010 contra −0,032 en 4 de 5 corridas; MiniLM 0,072 contra −0,134 en 5 de 5); interpretabilidad 90,0 % y 73,3 %.
+- **Límites que acompañan al veredicto:** (1) la coherencia NPMI de e5 supera al azar por poco y es casi cero; (2) de MiniLM se calificaron solo los 15 temas más grandes de 23, de modo que su porcentaje describe los temas grandes; (3) se calificó solo la semilla medoide de cada modelo; (4) la interpretabilidad de la Prueba 2a no se calificó y queda pendiente; (5) los temas agrupan la extracción hecha por Claude, no el texto original (D37); (6) la Prueba 1 (texto completo) no cumple la regla de temas «de un documento» (D39).
+- **Protección:** `escribir_hoja_ciega` falla si la hoja existente ya tiene calificaciones, para que una corrida futura no pise el trabajo de Luis Fer. El respaldo sin calificar (`hoja_calificacion_ciega_2b_sin_calificar_respaldo.csv`) se conserva y un test comprueba que sigue vacío y con los mismos códigos.
+- **Tests cambiados por especificación:** dos asertos que daban por vacía la calificación de la hoja y por pendiente la interpretabilidad de la Prueba 2b; ahora esperan la hoja calificada y «cumple».
+

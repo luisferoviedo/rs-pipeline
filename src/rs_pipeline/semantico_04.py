@@ -579,6 +579,21 @@ def codigos_unicos(rng: np.random.Generator, cantidad: int) -> list[str]:
     return codigos
 
 
+CALIFICACIONES = ["interpretable", "mixto", "ruido"]
+
+
+def exigir_hoja_sin_calificar(ruta: Path) -> None:
+    """No se sobrescribe una hoja en la que Luis Fer ya puso calificaciones."""
+    if not ruta.is_file():
+        return
+    hoja = pd.read_csv(
+        ruta, dtype=str, keep_default_na=False, encoding="utf-8-sig",
+        usecols=["calificacion"],
+    )  # fmt: skip
+    if (hoja["calificacion"].str.strip() != "").any():
+        fallar(f"{ruta.name} ya tiene calificaciones: no se sobrescribe")
+
+
 def escribir_hoja_ciega(
     semillas: dict[str, int], corridas: dict, cfg: dict, carpeta: Path
 ) -> dict:
@@ -618,6 +633,7 @@ def escribir_hoja_ciega(
                 "n_unidades": f["n"],
             }
         )
+    exigir_hoja_sin_calificar(carpeta / "hoja_calificacion_ciega_2b.csv")
     carpeta.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(hoja).to_csv(
         carpeta / "hoja_calificacion_ciega_2b.csv",
@@ -688,6 +704,91 @@ def regenerar_hoja_2b(params: dict) -> dict:
     veredicto_guardado = json.loads(ruta.read_text(encoding="utf-8"))
     escribir_json(ruta, {**veredicto_guardado, "hoja_a_ciegas": hoja})
     return hoja
+
+
+# --- Calificación de la hoja a ciegas (Prueba 2b) ----------------------------------
+
+
+def leer_calificacion_2b(privada: Path) -> pd.DataFrame:
+    """Une la hoja calificada con la traducción de códigos; exige valores válidos."""
+    hoja = pd.read_csv(
+        privada / "hoja_calificacion_ciega_2b.csv", dtype=str, keep_default_na=False,
+        encoding="utf-8-sig", usecols=["codigo", "calificacion"],
+    )  # fmt: skip
+    traduccion = pd.read_csv(
+        privada / "traduccion_codigos_2b.csv", dtype={"codigo": str}
+    )
+    hoja["calificacion"] = hoja["calificacion"].str.strip().str.lower()
+    invalidas = sorted(set(hoja["calificacion"]) - set(CALIFICACIONES))
+    if invalidas:
+        fallar(f"Calificaciones fuera de {CALIFICACIONES}: {invalidas}")
+    if len(hoja) != len(traduccion) or set(hoja["codigo"]) != set(traduccion["codigo"]):
+        fallar("La hoja calificada y la traducción no tienen los mismos códigos")
+    return traduccion.merge(hoja, on="codigo")
+
+
+def resumen_de_calificacion(grupo: pd.DataFrame, umbrales: dict) -> dict:
+    n = len(grupo)
+    conteos = {c: int((grupo["calificacion"] == c).sum()) for c in CALIFICACIONES}
+    pct = {c: 100 * v / n for c, v in conteos.items()}
+    minimo = conteos["interpretable"] >= umbrales["minimo_temas_interpretables"]
+    return {
+        "n_temas": n, "conteos": conteos, "pct": pct,
+        "interpretabilidad": M.juzgar(
+            pct["interpretable"],
+            umbrales["interpretables_sigue_pct"],
+            umbrales["interpretables_no_sigue_pct"],
+            True,
+        ),
+        "minimo_temas_interpretables": "cumple" if minimo else "no cumple",
+    }  # fmt: skip
+
+
+def veredicto_final(criterios: dict) -> str:
+    valores = set(criterios.values())
+    if "no cumple" in valores or "no calculable" in valores:
+        return "no sigue"
+    return "intermedio: decide Luis Fer" if "intermedio" in valores else "sigue"
+
+
+def calificar_hoja_2b(params: dict) -> dict:
+    """% interpretables, mixtos y ruido por modelo y el veredicto final de la 2b."""
+    cfg = params["semantico"]
+    privada, publica = RAIZ_REPO / cfg["salidas"], RAIZ_REPO / cfg["salidas_metricas"]
+    unidos = leer_calificacion_2b(privada)
+    por_modelo = {
+        m: resumen_de_calificacion(g, cfg["umbrales"])
+        for m, g in unidos.groupby("modelo")
+    }
+    ruta_veredicto = publica / "veredicto.json"
+    guardado = json.loads(ruta_veredicto.read_text(encoding="utf-8"))
+    final = {}
+    for modelo, r in por_modelo.items():
+        criterios = guardado["criterios"][f"prueba2b/{modelo}"]
+        criterios["interpretabilidad"] = r["interpretabilidad"]
+        criterios["minimo_temas_interpretables"] = r["minimo_temas_interpretables"]
+        final[modelo] = {
+            "criterios": criterios,
+            "veredicto": veredicto_final(criterios),
+        }
+    resultado = {
+        "prueba": "prueba2b",
+        "hoja": {
+            "temas": len(unidos),
+            "sha256_hoja_calificada": sha256(
+                privada / "hoja_calificacion_ciega_2b.csv"
+            ),
+            "sha256_traduccion": sha256(privada / "traduccion_codigos_2b.csv"),
+        },
+        "por_modelo": por_modelo,
+        "total": resumen_de_calificacion(unidos, cfg["umbrales"]),
+        "veredicto_final": final,
+        "por_tema": unidos.drop(columns=["codigo", "prueba"]).to_dict("records"),
+    }
+    escribir_json(publica / "prueba2b_calificacion.json", resultado)
+    guardado["veredicto_final_prueba2b"] = final
+    escribir_json(ruta_veredicto, guardado)
+    return resultado
 
 
 # --- Veredicto -------------------------------------------------------------------
@@ -899,6 +1000,19 @@ def reporte(salida: dict) -> list[str]:
 
 def main() -> int:
     try:
+        if "--calificacion-2b" in sys.argv:
+            resultado = calificar_hoja_2b(cargar_params())
+            print(
+                json.dumps(
+                    a_json(resultado["por_modelo"]), ensure_ascii=False, indent=1
+                )
+            )
+            print(
+                json.dumps(
+                    a_json(resultado["veredicto_final"]), ensure_ascii=False, indent=1
+                )
+            )
+            return 0
         if "--hoja-2b" in sys.argv:
             print(regenerar_hoja_2b(cargar_params()))
             return 0
