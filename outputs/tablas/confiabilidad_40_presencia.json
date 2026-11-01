@@ -1,0 +1,47 @@
+{
+  "nota": "D49: la escala principal es la presencia (0 frente a 1 o 2). La atribución (2) no se usa como medida.",
+  "n_informes": 40,
+  "atribucion": {
+    "codigos_2_luis": 114,
+    "codigos_2_claude": 16,
+    "codigos_total": 360
+  },
+  "kappa": "Cohen sin pesos sobre presencia 0/1",
+  "ac1": "AC1 de Gwet sobre presencia 0/1; medida principal si la prevalencia de algún codificador supera 0.85 o es menor que 0.15",
+  "ic": "bootstrap por informe, 5000 remuestreos, semilla 20261101, percentiles 2,5 y 97,5 (los mismos remuestreos para todas las filas)",
+  "umbral_ac1_confiable": 0.6,
+  "criterios_ac1_ge_060": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C07",
+    "C09"
+  ],
+  "criterios_ac1_menor_060": [
+    "C05",
+    "C06",
+    "C08"
+  ],
+  "total": {
+    "kappa_cohen": 0.185,
+    "ac1_gwet": 0.636
+  },
+  "modelos": [
+    "claude-sonnet-5-5"
+  ],
+  "entradas": {
+    "libro": {
+      "archivo": "libro_codigos_v2.yaml",
+      "sha256": "69ff2a4afca9eadf5e59fe2e9e30b4c011cbb7ec0a931e098b6d17b4540ffd66"
+    },
+    "codigos_luisfer": {
+      "archivo": "codigos_luisfer_40.csv",
+      "sha256": "aaf5ecc572d94fc105d2d945f9398c4aba52293cfae19b25207ed4f281102e80"
+    }
+  },
+  "salida": {
+    "archivo": "confiabilidad_40_presencia.csv",
+    "sha256": "084445b0b731e753f526fcf94902b4db8db7eb8d97d4338003a18330f929c1dc"
+  }
+}

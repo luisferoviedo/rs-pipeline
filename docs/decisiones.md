@@ -276,3 +276,12 @@ Decisiones de Luis Fer (1 nov 2026):
 - **Resultado:** kappa total 0.296 (IC 95 % 0.233 a 0.353). Veredicto según el umbral de Luis Fer (≥ 0,60 sigue; 0,40–0,60 se revisan criterios; < 0,40 se replantea el libro): **kappa total < 0,40: se replantea el libro**.
 - **Salidas:** `outputs/tablas/confiabilidad_40.csv/.json` (git, solo números); `outputs/semantico/desacuerdos_40_luisfer_claude.csv` (ignorado, trae justificaciones).
 - **Tests:** `tests/test_confiabilidad_40.py` (AC1 con cuenta a mano, umbrales del veredicto, distribuciones y salidas publicadas contra los códigos fuente).
+
+## D49. La escala principal pasa a ser la presencia (0 frente a 1 o 2)
+Decisión de Luis Fer (1 nov 2026), tomada **después de ver los resultados de D48** (kappa ponderado total 0,296); no se declaró antes de codificar.
+- **Escala principal: presencia binaria** (0 = no aparece o se dice que no se reporta; 1 = aparece, con o sin resultado). **La atribución (código 2) deja de usarse como medida.** Se reporta como hallazgo: solo 16 de 360 códigos de Claude (y 114 de Luis Fer) atribuyen el resultado a un componente específico; la mayoría de los estudios evalúa paquetes. Los códigos 0/1/2 siguen guardados; el libro v2 no cambia.
+- **Medidas:** % de acuerdo, kappa de Cohen y AC1 de Gwet por criterio y total, con IC 95 % por bootstrap de informes (los mismos 5000 remuestreos para todas las filas, semilla 20261101). **El AC1 es la medida principal** cuando la prevalencia de algún codificador supera 0,85 (o es menor que 0,15), por la paradoja del kappa: con casi todo en un código, el kappa se acerca a 0 aunque haya acuerdo casi total (p. ej. C01 y C02: Luis Fer marcó presencia en los 40 informes, kappa 0,000 y AC1 0,974 y 0,890). En esta muestra esa condición se cumple en los nueve criterios.
+- **AC1 ≥ 0,60 (confiables):** C01, C02, C03, C04, C07, C09. **A revisar:** C05, C06, C08 (los tres desacuerdos van en un solo sentido: Luis Fer codifica presencia y Claude no). Total: AC1 0.636, kappa de Cohen 0.185.
+- **Límite:** que C01 y C02 tengan AC1 alto no significa que discriminen; casi todos los informes tienen presencia, así que aportan poca información para comparar estudios.
+- **Salidas:** `outputs/tablas/confiabilidad_40_presencia.csv/.json` (git, solo números); `outputs/semantico/desacuerdos_40_presencia_luisfer_claude.csv` (ignorado). `python -m rs_pipeline.confiabilidad_40` genera D48 y D49.
+- **Tests:** `tests/test_confiabilidad_40.py` (kappa de Cohen y AC1 binarios con cuenta a mano; la salida publicada contra la tabla de códigos).

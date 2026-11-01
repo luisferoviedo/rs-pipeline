@@ -1,6 +1,7 @@
 """Tests de la confiabilidad de la muestra de 40 (D48)."""
 
 import json
+import math
 from pathlib import Path
 
 import pandas as pd
@@ -50,3 +51,32 @@ def test_salidas_publicadas_cuadran_con_los_codigos_fuente():
     assert tabla.iloc[-1][["claude_0", "claude_1", "claude_2"]].sum() == 360
     # ninguna columna de la salida de git trae texto de las fichas ni justificaciones
     assert not any("justific" in c or "nota" in c for c in tabla.columns)
+
+
+def test_kappa_cohen_y_ac1_binarios_con_cuenta_a_mano():
+    # a=[0,1,1,0], b=[0,1,0,0]: po=3/4, pe=1/2*1/4+1/2*3/4=1/2 -> kappa=1/2
+    assert C.kappa_cohen([0, 1, 1, 0], [0, 1, 0, 0]) == pytest.approx(0.5)
+    # pi1=3/8; pe=2*(3/8*5/8)=15/32; AC1=(3/4-15/32)/(17/32)=9/17
+    assert C.ac1_gwet([0, 1, 1, 0], [0, 1, 0, 0], C.BINARIAS) == pytest.approx(9 / 17)
+    assert math.isnan(C.kappa_cohen([1, 1, 1], [1, 1, 1]))
+    assert C.a_presencia([0, 1, 2]) == [0, 1, 1]
+
+
+def test_presencia_publicada_cuadra_con_la_tabla_de_codigos():
+    traza = json.loads(
+        (TABLAS / "confiabilidad_40_presencia.json").read_text(encoding="utf-8")
+    )
+    tabla = pd.read_csv(TABLAS / "confiabilidad_40_presencia.csv")
+    d48 = pd.read_csv(TABLAS / "confiabilidad_40.csv").iloc[-1]
+    assert traza["atribucion"] == {
+        "codigos_2_luis": int(d48["luis_2"]),
+        "codigos_2_claude": int(d48["claude_2"]),
+        "codigos_total": 360,
+    }
+    por_criterio = tabla[tabla["criterio"] != "TOTAL"]
+    ok = list(por_criterio.loc[por_criterio["ac1_gwet"] >= 0.60, "criterio"])
+    assert ok == traza["criterios_ac1_ge_060"] == [
+        "C01", "C02", "C03", "C04", "C07", "C09"
+    ]  # fmt: skip
+    assert list(tabla["criterio"])[-1] == "TOTAL"
+    assert all((tabla["kappa_ic_bajo"].dropna() <= tabla["kappa_ic_alto"].dropna()))

@@ -487,3 +487,8 @@ Tests: `tests/test_codificacion.py` (8 pruebas). Total del proyecto: 137 pruebas
 - **Comando:** `PYTHONPATH=src .venv/bin/python -m rs_pipeline.confiabilidad_40`.
 - **Controles:** falla si falta el archivo de Luis Fer o una columna, si un código no es 0, 1 o 2, o si los dos no tienen exactamente los mismos 40 informes con el libro v2. Tests: 153 en total.
 - **Salidas:** `outputs/tablas/confiabilidad_40.csv/.json` (git, con hash de las entradas); desacuerdos con justificaciones en `outputs/semantico/` (ignorado).
+
+### Bloque 7, paso 5 · Confiabilidad de presencia (D49)
+- **Qué se hizo:** la escala principal pasa a presencia (0 frente a 1 o 2); se recalculan acuerdo, kappa de Cohen y AC1 de Gwet por criterio y total, con IC bootstrap (mismo comando que el paso 4).
+- **Controles:** los de D48; además el test compara la salida publicada con la tabla de códigos (conteo de códigos 2 y criterios con AC1 ≥ 0,60). Tests: 155 en total.
+- **Salidas:** `outputs/tablas/confiabilidad_40_presencia.csv/.json` (git); desacuerdos de presencia en `outputs/semantico/` (ignorado).
