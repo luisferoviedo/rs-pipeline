@@ -481,3 +481,9 @@ Tests: `tests/test_codificacion.py` (8 pruebas). Total del proyecto: 137 pruebas
 - **Comando de la sesión nueva (registrar un lote):** `PYTHONPATH=src .venv/bin/python -m rs_pipeline.codificacion_claude --registrar outputs/semantico/lote_codificacion_40.json --hoja hoja_codificacion_40.csv --libro v2`.
 - **Controles:** falla si el lote no trae exactamente los informes de la hoja, si un código no es 0, 1 o 2, o si falta una justificación de una línea; la hoja de 40 no se sobrescribe si ya tiene códigos. Tests: 149 en total.
 - **Salidas:** `config/libro_codigos_v2.yaml`, `docs/libro_codigos_v2.md`, `docs/protocolo_codificacion_ciega.md`, `outputs/tablas/codificacion_claude_resumen.json` (git); hoja, correspondencia, registro y códigos de Claude (ignorados).
+
+### Bloque 7, paso 4 · Confiabilidad de la muestra de 40 (D48)
+- **Qué se hizo:** se comparan los códigos de Luis Fer (`codigos_luisfer_40.csv`) con los de Claude (registro, libro v2) por criterio y en total.
+- **Comando:** `PYTHONPATH=src .venv/bin/python -m rs_pipeline.confiabilidad_40`.
+- **Controles:** falla si falta el archivo de Luis Fer o una columna, si un código no es 0, 1 o 2, o si los dos no tienen exactamente los mismos 40 informes con el libro v2. Tests: 153 en total.
+- **Salidas:** `outputs/tablas/confiabilidad_40.csv/.json` (git, con hash de las entradas); desacuerdos con justificaciones en `outputs/semantico/` (ignorado).

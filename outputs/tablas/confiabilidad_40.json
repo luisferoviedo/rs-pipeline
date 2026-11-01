@@ -1,0 +1,31 @@
+{
+  "nota": "D48: los códigos de Luis Fer los decidió él leyendo las fichas, apoyado en notas propias de lecturas previas; Claude codificó primero en sesión limpia sin acceso a los códigos humanos.",
+  "n_informes": 40,
+  "kappa": "ponderado, pesos cuadráticos, categorías 0-1-2",
+  "ac1": "AC1 de Gwet sin pesos (acuerdo exacto), categorías 0-1-2",
+  "kappa_total": 0.296,
+  "kappa_total_ic95": {
+    "bajo": 0.233,
+    "alto": 0.353,
+    "metodo": "bootstrap por informe, 5000 remuestreos, semilla 20261101, percentiles 2,5 y 97,5",
+    "remuestreos_descartados": 0
+  },
+  "veredicto": "kappa total < 0,40: se replantea el libro",
+  "modelos": [
+    "claude-sonnet-5-5"
+  ],
+  "entradas": {
+    "libro": {
+      "archivo": "libro_codigos_v2.yaml",
+      "sha256": "69ff2a4afca9eadf5e59fe2e9e30b4c011cbb7ec0a931e098b6d17b4540ffd66"
+    },
+    "codigos_luisfer": {
+      "archivo": "codigos_luisfer_40.csv",
+      "sha256": "aaf5ecc572d94fc105d2d945f9398c4aba52293cfae19b25207ed4f281102e80"
+    }
+  },
+  "salida": {
+    "archivo": "confiabilidad_40.csv",
+    "sha256": "e83373fa686d672bbc6c21b6990f2de7562c1e10f523be92c8d2de6d4b2ac9ba"
+  }
+}
