@@ -297,3 +297,115 @@ def test_el_veredicto_final_combina_los_criterios():
     assert veredicto_final({"a": "cumple", "b": "cumple"}) == "sigue"
     assert veredicto_final({"a": "cumple", "b": "intermedio"}).startswith("intermedio")
     assert veredicto_final({"a": "intermedio", "b": "no cumple"}) == "no sigue"
+
+
+# --- Hoja para nombrar los temas de e5 (Bloque 6, paso 1) ---------------------------
+
+COLUMNAS_NOMBRAR = [
+    "tema", "n_unidades", "n_informes", "palabras_clave", "campos_oe2",
+    "fragmento_1", "fragmento_2", "fragmento_3", "fragmento_4", "fragmento_5",
+    "accion", "fusionar_con", "nombre", "criterio", "nota",
+]  # fmt: skip
+
+
+@pytest.fixture(scope="module")
+def hoja_nombrar():
+    return pd.read_csv(
+        PRIVADA / "hoja_nombrar_temas_2b_e5.csv",
+        dtype=str,
+        keep_default_na=False,
+        encoding="utf-8-sig",
+    )
+
+
+def test_la_hoja_para_nombrar_tiene_las_columnas_exactas_y_20_temas(
+    hoja_nombrar, metricas
+):
+    assert list(hoja_nombrar.columns) == COLUMNAS_NOMBRAR
+    m = metricas["prueba2b"]["modelos"]["principal"]
+    detalle = m["detalle_por_tema_semilla_medoide"]
+    assert len(hoja_nombrar) == 20 == len(detalle)
+    assert list(hoja_nombrar["tema"].astype(int)) == [d["tema"] for d in detalle]
+
+
+def test_n_unidades_y_n_informes_coinciden_con_las_metricas_y_con_las_asignaciones(
+    hoja_nombrar, metricas
+):
+    m = metricas["prueba2b"]["modelos"]["principal"]
+    asignaciones = asignacion("prueba2b", "principal", m["semilla_medoide"])
+    asignaciones["informe"] = asignaciones["id_unidad"].str.split("|").str[0]
+    for d, fila in zip(
+        m["detalle_por_tema_semilla_medoide"],
+        hoja_nombrar.to_dict("records"),
+        strict=True,
+    ):
+        del_tema = asignaciones[asignaciones["tema"] == d["tema"]]
+        assert int(fila["n_unidades"]) == d["n_unidades"] == len(del_tema)
+        assert (
+            int(fila["n_informes"]) == d["n_informes"] == del_tema["informe"].nunique()
+        )
+
+
+def test_campos_oe2_son_los_que_pasan_de_5_por_ciento(hoja_nombrar, metricas):
+    m = metricas["prueba2b"]["modelos"]["principal"]
+    asignaciones = asignacion("prueba2b", "principal", m["semilla_medoide"])
+    asignaciones["campo"] = asignaciones["id_unidad"].str.split("|").str[1]
+    for fila in hoja_nombrar.to_dict("records"):
+        campos = asignaciones.loc[asignaciones["tema"] == int(fila["tema"]), "campo"]
+        pct = 100 * campos.value_counts() / len(campos)
+        esperado = {c: round(p) for c, p in pct.items() if p > 5}
+        leido = {}
+        for trozo in fila["campos_oe2"].split("; "):
+            campo, numero, signo = trozo.rsplit(" ", 2)
+            assert signo == "%"
+            leido[campo] = int(numero)
+        assert leido == esperado
+        assert all(c.startswith("oe2_") for c in leido)
+
+
+def test_las_palabras_y_los_fragmentos_vienen_de_la_ficha(hoja_nombrar, cfg):
+    from rs_pipeline import semantico_04
+
+    params = yaml.safe_load((RAIZ / "config/params.yaml").read_text(encoding="utf-8"))
+    unidades, _ = semantico_04.unidades_prueba2(
+        cfg, semantico_04.cargar_matriz(params)["tabla"]
+    )
+    textos_oe2 = {u["texto"] for u in unidades if u["oe"] == "oe2"}
+    assert (hoja_nombrar["palabras_clave"].str.count(",") == 9).all()  # 10 palabras
+    for k in range(1, 6):
+        assert hoja_nombrar[f"fragmento_{k}"].isin(textos_oe2).all()
+    assert (hoja_nombrar["fragmento_1"] != "").all()
+
+
+def test_no_se_sobrescribe_una_hoja_de_nombrar_ya_empezada(tmp_path):
+    from rs_pipeline import semantico_04, semantico_texto
+
+    columnas = semantico_04.COLUMNAS_NOMBRAR
+    vacia = pd.DataFrame([dict.fromkeys(columnas, "")])
+    ruta = tmp_path / "hoja.csv"
+    semantico_04.exigir_hoja_sin_llenar(ruta)  # no existe
+    vacia.to_csv(ruta, index=False, encoding="utf-8-sig")
+    semantico_04.exigir_hoja_sin_llenar(ruta)  # sin llenar: se puede reescribir
+    llena = vacia.assign(nombre="un nombre")
+    llena.to_csv(ruta, index=False, encoding="utf-8-sig")
+    with pytest.raises(semantico_texto.ErrorPipeline, match="no se sobrescribe"):
+        semantico_04.exigir_hoja_sin_llenar(ruta)
+    assert columnas == COLUMNAS_NOMBRAR
+
+
+def test_los_fragmentos_son_los_mas_cercanos_al_centroide():
+    import numpy as np
+
+    from rs_pipeline import semantico_04
+
+    e = np.array([[1.0, 0.0], [0.9, 0.1], [0.0, 1.0], [0.8, 0.2], [1.0, 0.05]])
+    e /= np.linalg.norm(e, axis=1, keepdims=True)
+    elegidas = semantico_04.mas_representativas(e, np.array([0, 1, 3, 4]), 2)
+    assert set(elegidas) <= {0, 1, 3, 4} and len(elegidas) == 2
+    centroide = e[[0, 1, 3, 4]].mean(axis=0)
+    centroide /= np.linalg.norm(centroide)
+    mejores = sorted([0, 1, 3, 4], key=lambda i: -float(e[i] @ centroide))[:2]
+    assert elegidas == mejores
+    assert semantico_04.campos_del_tema(
+        ["a"] * 70 + ["b"] * 20 + ["c"] * 5 + ["d"] * 5
+    ) == ("a 70 %; b 20 %")  # c y d valen 5 %: no pasan de 5 %

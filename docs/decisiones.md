@@ -193,3 +193,18 @@ Ambos tienen además al menos 3 temas interpretables. **Veredicto final de la Pr
 - **Protección:** `escribir_hoja_ciega` falla si la hoja existente ya tiene calificaciones, para que una corrida futura no pise el trabajo de Luis Fer. El respaldo sin calificar (`hoja_calificacion_ciega_2b_sin_calificar_respaldo.csv`) se conserva y un test comprueba que sigue vacío y con los mismos códigos.
 - **Tests cambiados por especificación:** dos asertos que daban por vacía la calificación de la hoja y por pendiente la interpretabilidad de la Prueba 2b; ahora esperan la hoja calificada y «cumple».
 
+## D41. Bloque 6, paso 1: nombrar los temas de la Prueba 2b (e5)
+Decisiones aprobadas por Luis Fer (31 oct 2026) para pasar de los temas a un marco de criterios de diseño:
+- **Alcance:** solo se nombran los **20 temas de e5** de la semilla medoide (la que Luis Fer calificó, semilla 4); MiniLM queda como control de sensibilidad.
+- **Quién nombra primero:** Luis Fer, **sin ver propuestas**. En este paso no se generan nombres ni criterios propios.
+- **Qué puede hacer con cada tema:** mantener, fusionar, dividir o descartar (columna `accion`; `fusionar_con` indica con cuál).
+- **Regla de peso de la evidencia (se aplicará en el paso 2; aquí solo se registra):**
+  - **A. Calidad MMAT:** criterios cumplidos, alta / media / baja.
+  - **B. Diseño:** comparativo con control > pre-post de un grupo > descriptivo o cualitativo.
+  - **C. Pertinencia:** secundaria > primer año universitario > `nivel_dudoso`.
+  - **Análisis de sensibilidad:** cada criterio debe sostenerse también sin los estudios de peso bajo.
+- **Hoja:** `outputs/semantico/hoja_nombrar_temas_2b_e5.csv` (ignorada por git; UTF-8 con BOM), una fila por tema, con las columnas `tema, n_unidades, n_informes, palabras_clave, campos_oe2, fragmento_1` a `fragmento_5`, `accion, fusionar_con, nombre, criterio, nota` (las cinco últimas vacías). `campos_oe2` lista los campos de la ficha de donde vienen las unidades del tema, solo los que superan el 5 % (por ejemplo «oe2_andamiaje 70 %; oe2_retroalimentacion 20 %»).
+- **Fragmentos:** las 5 unidades más representativas se definen como las más cercanas (coseno) al centroide de los embeddings e5 del tema; son el texto completo de la unidad de la ficha, sin recortar. Las 20 filas salen de repetir la corrida de la semilla 4, que debe dar exactamente las asignaciones guardadas (si no, falla).
+- **Protección:** `semantico_04 --hoja-nombrar-2b` se niega a sobrescribir la hoja si alguna de las cinco columnas a llenar ya tiene contenido.
+- **Tests:** columnas exactas, 20 temas, `n_unidades` y `n_informes` recalculados desde las asignaciones, `campos_oe2` recalculado, que cada fragmento sea una unidad real de la ficha, la protección y el cálculo del centroide (117 pruebas en total).
+

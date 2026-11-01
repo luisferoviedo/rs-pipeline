@@ -662,7 +662,7 @@ def reproducir_corrida_2b(
     unidades: list[dict],
     cfg: dict,
     privada: Path,
-) -> dict:
+) -> tuple[dict, np.ndarray]:
     """Repite la corrida medoide; debe dar las asignaciones ya guardadas."""
     textos = [u["texto"] for u in unidades]
     encoder = cargar_modelo(modelo, "mps")
@@ -676,7 +676,7 @@ def reproducir_corrida_2b(
         fallar(
             f"{clave}/semilla {semilla}: la repetición no da las asignaciones guardadas"
         )
-    return c
+    return c, e
 
 
 def regenerar_hoja_2b(params: dict) -> dict:
@@ -695,7 +695,7 @@ def regenerar_hoja_2b(params: dict) -> dict:
         k: {
             semillas[k]: reproducir_corrida_2b(
                 k, m, semillas[k], unidades, cfg, privada
-            )
+            )[0]
         }
         for k, m in cfg["modelos"].items()
     }
@@ -789,6 +789,90 @@ def calificar_hoja_2b(params: dict) -> dict:
     guardado["veredicto_final_prueba2b"] = final
     escribir_json(ruta_veredicto, guardado)
     return resultado
+
+
+# --- Hoja para nombrar los temas (Bloque 6, paso 1) -----------------------------------
+
+COLUMNAS_NOMBRAR = [
+    "tema", "n_unidades", "n_informes", "palabras_clave", "campos_oe2",
+    "fragmento_1", "fragmento_2", "fragmento_3", "fragmento_4", "fragmento_5",
+    "accion", "fusionar_con", "nombre", "criterio", "nota",
+]  # fmt: skip
+A_LLENAR = ["accion", "fusionar_con", "nombre", "criterio", "nota"]
+FRAGMENTOS_NOMBRAR = 5
+MINIMO_PCT_CAMPO = 5
+
+
+def exigir_hoja_sin_llenar(ruta: Path) -> None:
+    """No se sobrescribe una hoja en la que Luis Fer ya empezó a nombrar."""
+    if not ruta.is_file():
+        return
+    hoja = pd.read_csv(
+        ruta, dtype=str, keep_default_na=False, encoding="utf-8-sig", usecols=A_LLENAR
+    )
+    if (hoja.apply(lambda columna: columna.str.strip()) != "").to_numpy().any():
+        fallar(f"{ruta.name} ya tiene contenido: no se sobrescribe")
+
+
+def campos_del_tema(campos: list[str]) -> str:
+    """'oe2_andamiaje 70 %; oe2_retroalimentacion 20 %' (solo los que pasan de 5 %)."""
+    cuenta = pd.Series(campos).value_counts()
+    porcentajes = 100 * cuenta / cuenta.sum()
+    pasan = porcentajes[porcentajes > MINIMO_PCT_CAMPO]
+    return "; ".join(f"{campo} {round(p)} %" for campo, p in pasan.items())
+
+
+def mas_representativas(e: np.ndarray, indices: np.ndarray, cantidad: int) -> list[int]:
+    """Las unidades del tema más cercanas (coseno) al centroide de sus embeddings."""
+    centroide = e[indices].mean(axis=0)
+    centroide /= np.linalg.norm(centroide)
+    similitud = e[indices] @ centroide
+    orden = np.argsort(-similitud, kind="stable")[:cantidad]
+    return [int(indices[i]) for i in orden]
+
+
+def filas_para_nombrar(c: dict, e: np.ndarray, unidades: list[dict]) -> list[dict]:
+    etiquetas = c["etiquetas"]
+    filas = []
+    for tema, info in sorted(c["temas"].items()):
+        indices = np.flatnonzero(etiquetas == tema)
+        elegidas = mas_representativas(e, indices, FRAGMENTOS_NOMBRAR)
+        fila = {
+            "tema": tema,
+            "n_unidades": len(indices),
+            "n_informes": len({unidades[i]["informe"] for i in indices}),
+            "palabras_clave": ", ".join(info["palabras"]),
+            "campos_oe2": campos_del_tema([unidades[i]["campo"] for i in indices]),
+        }
+        fila |= {
+            f"fragmento_{k + 1}": unidades[i]["texto"] for k, i in enumerate(elegidas)
+        }
+        filas.append(fila | dict.fromkeys(A_LLENAR, ""))
+    return filas
+
+
+def hoja_nombrar_2b_e5(params: dict) -> int:
+    """Hoja para que Luis Fer nombre los temas de e5 (semilla medoide, Prueba 2b)."""
+    os.environ.setdefault("HF_HUB_OFFLINE", "1")
+    os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+    cfg = params["semantico"]
+    privada, publica = RAIZ_REPO / cfg["salidas"], RAIZ_REPO / cfg["salidas_metricas"]
+    ruta = privada / "hoja_nombrar_temas_2b_e5.csv"
+    exigir_hoja_sin_llenar(ruta)
+    unidades, _ = unidades_prueba2(cfg, cargar_matriz(params)["tabla"])
+    unidades = [u for u in unidades if u["oe"] == "oe2"]
+    guardadas = json.loads(
+        (publica / "prueba2b_metricas.json").read_text(encoding="utf-8")
+    )
+    semilla = guardadas["modelos"]["principal"]["semilla_medoide"]
+    c, e = reproducir_corrida_2b(
+        "principal", cfg["modelos"]["principal"], semilla, unidades, cfg, privada
+    )
+    filas = filas_para_nombrar(c, e, unidades)
+    pd.DataFrame(filas, columns=COLUMNAS_NOMBRAR).to_csv(
+        ruta, index=False, encoding="utf-8-sig", lineterminator="\n"
+    )
+    return len(filas)
 
 
 # --- Veredicto -------------------------------------------------------------------
@@ -1000,6 +1084,9 @@ def reporte(salida: dict) -> list[str]:
 
 def main() -> int:
     try:
+        if "--hoja-nombrar-2b" in sys.argv:
+            print(f"temas en la hoja: {hoja_nombrar_2b_e5(cargar_params())}")
+            return 0
         if "--calificacion-2b" in sys.argv:
             resultado = calificar_hoja_2b(cargar_params())
             print(
