@@ -88,6 +88,9 @@ flowchart TB
       l1{"¿C01–C09 en orden? ¿columnas de la ficha?<br/>¿piloto variado? ¿hoja sin códigos previos?"}
       o9@{ shape: doc, label: "config/libro_codigos_v0.yaml · docs/libro_codigos_v0.md<br/>outputs/tablas/costo_codificacion_estimado.json (en git)" }
       o10@{ shape: doc, label: "outputs/semantico/ (LOCAL, ignorado)<br/>hoja piloto P01–P05 · correspondencia<br/>muestra de confiabilidad (40)" }
+      l2["Luis Fer codifica el piloto → libro v1 (reglas a, b, c · D45)<br/>Claude Code codifica los mismos 5 (sin API · D46)"]
+      l3{"¿códigos 0-1-2? ¿9 criterios con justificación?<br/>¿mismos informes en ambas hojas?"}
+      o11@{ shape: doc, label: "logs/codificacion_claude.jsonl (LOCAL, solo se agrega)<br/>outputs/tablas/acuerdo_piloto_luisfer_claude (en git):<br/>71,1 % · kappa 0,548 (orientativo)" }
     end
 
     f1(["FALLA<br/>mensaje claro y código 1<br/>no dibuja nada"])
@@ -96,6 +99,7 @@ flowchart TB
     f4(["FALLA<br/>mensaje claro y código 1<br/>no corre el sprint"])
     f5(["FALLA<br/>mensaje claro y código 1<br/>no escribe el cruce"])
     f6(["FALLA<br/>mensaje claro y código 1<br/>no escribe la hoja"])
+    f7(["FALLA<br/>mensaje claro y código 1<br/>no registra ni compara"])
   end
 
   %% Entradas del bloque 1 (frontera: solo lectura)
@@ -184,8 +188,12 @@ flowchart TB
   l1 -- "sí" --> o9
   l1 -- "sí" --> o10
   l1 -- "no" --> f6
+  o10 --> l2
+  l2 --> l3
+  l3 -- "sí" --> o11
+  l3 -- "no" --> f7
 
   classDef drive fill:#e8f1fb,stroke:#2b6cb0,color:#1a365d
   classDef falla fill:#fde8e8,stroke:#c0392b,color:#7b1d1d
   class dB,dC,dR,dP,dE,dX,dJ,dT drive
-  class f1,f2,f3,f4,f5,f6 falla
+  class f1,f2,f3,f4,f5,f6,f7 falla

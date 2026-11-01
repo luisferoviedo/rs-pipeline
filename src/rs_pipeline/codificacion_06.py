@@ -39,6 +39,28 @@ REGLAS = [
     "Los criterios C01 y C09 siguen en borrador: se codifican igual y se marcan "
     "en la nota si el enunciado no alcanza para decidir.",
 ]
+# Reglas nuevas del piloto (v1, D45).
+REGLAS_V1 = [
+    *REGLAS,
+    "«2» exige que los autores atribuyan el resultado, aunque sea en parte, a ESE "
+    "componente. Que la intervención en conjunto funcione no basta: un paquete "
+    "cuenta como 1 para los componentes a los que no se atribuye el resultado.",
+    "Un dato descriptivo de contexto o de barrera (p. ej., el porcentaje de "
+    "estudiantes sin internet en casa) es 1. Solo es 2 si el estudio dice que "
+    "influyó en la actividad o en el aprendizaje.",
+    "«1» exige que la ficha mencione el componente. Si no lo menciona, o dice que "
+    "no se documenta, es 0, aunque se pueda suponer que existía.",
+]
+# Ejemplos inventados de las reglas nuevas (no son texto de artículos).
+EJEMPLOS_REGLAS_V1 = [
+    "Regla a. Ejemplo: «El grupo con simulación, guía y trabajo en parejas mejoró "
+    "frente al control; los autores no atribuyen la mejora a ninguna parte» → "
+    "retroalimentación, guía e interactividad = 1, no 2.",
+    "Regla b. Ejemplo: «El 30 % de los estudiantes no tenía internet en casa» → 1; "
+    "«quienes no tenían internet no pudieron terminar la práctica» → 2.",
+    "Regla c. Ejemplo: «Costo y licencia: no se documenta» → 0, aunque la "
+    "herramienta fuera gratuita en la práctica.",
+]
 # Ejemplos inventados (no son texto de artículos) para tres criterios.
 EJEMPLOS = {
     "C02": {
@@ -77,7 +99,7 @@ def cargar_marco() -> tuple[dict, str]:
     return marco, S.sha256(ruta)
 
 
-def construir_libro(cfg: dict) -> dict:
+def construir_libro(cfg: dict, version: str = "v0") -> dict:
     marco, sha = cargar_marco()
     criterios = []
     for c in marco["criterios"]:
@@ -86,12 +108,13 @@ def construir_libro(cfg: dict) -> dict:
         if c["id"] in EJEMPLOS:
             entrada["ejemplos"] = {k: v for k, v in EJEMPLOS[c["id"]].items()}
         criterios.append(entrada)
-    return {
-        "version": "v0",
-        "decision": "D44",
+    v1 = version == "v1"
+    libro = {
+        "version": version,
+        "decision": "D45" if v1 else "D44",
         "fuente_criterios": {"archivo": "config/criterios_v0.yaml", "sha256": sha},
         "escala": ESCALA,
-        "reglas": REGLAS,
+        "reglas": REGLAS_V1 if v1 else REGLAS,
         "campos_ficha": cfg["campos_ficha"],
         "campos_excluidos": {
             "oe2_criterios_candidatos": "inferencias del extractor (sesgan el código)",
@@ -99,11 +122,14 @@ def construir_libro(cfg: dict) -> dict:
         },
         "criterios": criterios,
     }
+    if v1:
+        libro["ejemplos_de_reglas"] = EJEMPLOS_REGLAS_V1
+    return libro
 
 
 def libro_a_markdown(libro: dict) -> str:
     lineas = [
-        "# Libro de códigos v0 (D44)",
+        f"# Libro de códigos {libro['version']} ({libro['decision']})",
         "",
         "Codificación deductiva de cada informe frente a cada criterio del marco v0.",
         "",
@@ -124,6 +150,10 @@ def libro_a_markdown(libro: dict) -> str:
         "",
         "## Criterios",
     ]
+    if "ejemplos_de_reglas" in libro:
+        lineas += ["", "## Ejemplos de las reglas nuevas (inventados)", ""]
+        lineas += [f"- {e}" for e in libro["ejemplos_de_reglas"]]
+        lineas.append("")
     for c in libro["criterios"]:
         lineas += [
             "",
@@ -138,15 +168,15 @@ def libro_a_markdown(libro: dict) -> str:
     return "\n".join(lineas) + "\n"
 
 
-def escribir_libro(cfg: dict) -> dict:
-    libro = construir_libro(cfg)
-    ruta_yaml = RAIZ_REPO / "config" / "libro_codigos_v0.yaml"
+def escribir_libro(cfg: dict, version: str = "v0") -> dict:
+    libro = construir_libro(cfg, version)
+    ruta_yaml = RAIZ_REPO / "config" / f"libro_codigos_{version}.yaml"
     with ruta_yaml.open("w", encoding="utf-8") as f:
         f.write(
-            "# Libro de códigos v0 (D44). Texto de los criterios: criterios_v0.yaml\n"
+            f"# Libro de códigos {version}. Texto de los criterios: criterios_v0.yaml\n"
         )
         yaml.safe_dump(libro, f, allow_unicode=True, sort_keys=False, width=100)
-    ruta_md = RAIZ_REPO / "docs" / "libro_codigos_v0.md"
+    ruta_md = RAIZ_REPO / "docs" / f"libro_codigos_{version}.md"
     ruta_md.write_text(libro_a_markdown(libro), encoding="utf-8")
     return {"yaml": S.sha256(ruta_yaml), "md": S.sha256(ruta_md)}
 
@@ -346,8 +376,14 @@ def ejecutar(params: dict) -> dict:
         "hashes_libro": hashes,
     }
     ruta_costo = tablas / "costo_codificacion_estimado.json"
+    marcado = {
+        "estado": "no aplica (D46)",
+        "motivo": "La codificación la hace Claude Code con la suscripción de Luis "
+        "Fer, sin API; esta estimación de la API queda solo como registro histórico.",
+        "estimacion_api_no_vigente": costo,
+    }
     ruta_costo.write_text(
-        json.dumps(costo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        json.dumps(marcado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     return {
         "piloto": piloto,
@@ -359,6 +395,9 @@ def ejecutar(params: dict) -> dict:
 
 def main() -> int:
     try:
+        if "--libro-v1" in sys.argv:
+            print(escribir_libro(S.cargar_params()["codificacion"], "v1"))
+            return 0
         salida = ejecutar(S.cargar_params())
     except ErrorPipeline as error:
         print(f"ERROR: {error}", file=sys.stderr)

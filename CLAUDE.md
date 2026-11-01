@@ -26,10 +26,17 @@
 - NO modifiques tests existentes para que pasen. Si un test parece incorrecto, DETENTE y explícalo.
 - Los tests verifican números reales contra los CSV fuente, no "que no explote".
 
-## API de Claude
+## API de Claude (solo para un uso futuro; no aplica a la codificación, D46)
 - La llave solo en .env (en .gitignore). Nunca en código ni en logs.
 - Cada llamada queda en logs/llm_calls.jsonl: modelo exacto, parámetros, hash de la entrada, respuesta cruda, tokens y fecha.
 - Ninguna llamada a la API sin que Luis Fer apruebe el lote y el costo estimado.
+
+## Codificación asistida por Claude Code (D46)
+La codificación deductiva (piloto, muestra de 40 y los 196 informes) la hace Claude Code con la suscripción de Luis Fer, **no la API**.
+- Cada informe codificado deja una línea en `logs/codificacion_claude.jsonl` con: fecha, modelo que se está usando (ID exacto), versión del libro de códigos (hash del YAML), `id_ciego`, hash de la ficha leída, los 9 códigos y la justificación de una línea por código.
+- `logs/` sigue fuera de git (tiene justificaciones con contenido de fichas); a git va solo un resumen numérico.
+- Se codifica por lotes (máximo 50 informes por sesión) y cada lote termina con commit.
+- Nunca se recodifica sobre un registro anterior: un nuevo intento es una nueva línea con su fecha.
 
 ## Calidad
 - Ruff (reglas E, F, B, S, BLE, TRY, C901 con máx. 10) antes de cada commit. pip-audit cada vez que cambie requirements.txt y antes de cada push.

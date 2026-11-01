@@ -1,0 +1,16 @@
+{
+  "nota": "Con 5 informes es solo orientativo. Los códigos de Luis Fer ya estaban a la vista de Claude al codificar: no es una codificación ciega.",
+  "libro": {
+    "archivo": "libro_codigos_v1.yaml",
+    "sha256": "33ce0facb6cd13e99b6a242ad0e17a88c55489f8806e9df8a453dd546f4d60b9"
+  },
+  "kappa": "ponderado, pesos cuadráticos, categorías 0-1-2; vacío si no calculable",
+  "modelo": [
+    "claude-sonnet-5-5"
+  ],
+  "n_informes": 5,
+  "salida": {
+    "archivo": "acuerdo_piloto_luisfer_claude.csv",
+    "sha256": "5ee78b188fb1dea1816e8b15181ccfd0ab3a599cbaa98e846323cb1fae953c5a"
+  }
+}

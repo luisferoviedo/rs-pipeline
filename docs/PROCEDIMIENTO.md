@@ -469,3 +469,9 @@ Tests: `tests/test_codificacion.py` (8 pruebas). Total del proyecto: 137 pruebas
 | `outputs/tablas/costo_codificacion_estimado.json` | tokens y USD estimados para los 196 informes | git |
 | `outputs/semantico/hoja_codificacion_piloto.csv` y `_correspondencia.csv` | hoja ciega P01–P05 con los 19 campos y su correspondencia | local, ignorado |
 | `outputs/semantico/muestra_confiabilidad_40.csv` | lista de 40 informes | local, ignorado |
+
+### Bloque 7, paso 2 · Piloto codificado, libro v1 y acuerdo con Claude Code (`codificacion_claude.py`)
+- **Qué se hizo:** Luis Fer codificó el piloto (5 informes × 9 criterios). Con sus tres reglas nuevas (D45) se escribió el libro v1 (`python -m rs_pipeline.codificacion_06 --libro-v1`). Claude Code codificó los mismos 5 informes leyendo solo las fichas y dejó una línea por informe en `logs/codificacion_claude.jsonl` (D46). Comando para registrar un lote: `PYTHONPATH=src .venv/bin/python -m rs_pipeline.codificacion_claude --registrar lote.json`; para comparar: `… -m rs_pipeline.codificacion_claude`.
+- **Resultado:** acuerdo 71,1 % (32 de 45), kappa ponderado cuadrático 0,548; orientativo (5 informes) y no ciego.
+- **Controles:** falla si un código no es 0, 1 o 2, si faltan criterios o justificaciones, si la hoja no tiene los nueve códigos de Luis Fer, o si la hoja y el registro no tienen los mismos informes. Tests: 144 en total.
+- **Salidas:** `outputs/tablas/acuerdo_piloto_luisfer_claude.csv/.json` (git); `logs/` y `outputs/semantico/` (ignorados).

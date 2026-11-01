@@ -1,113 +1,117 @@
 {
-  "n_informes": 196,
-  "caracteres_ficha_media": 2067.566326530612,
-  "caracteres_por_token_central=3.5": {
-    "solo_codigos": {
-      "tokens_libro_en_cache": 2514,
-      "tokens_ficha_por_informe": 591,
-      "tokens_salida_por_informe": 60,
-      "tokens_entrada_total": 118297,
-      "usd": {
-        "claude-sonnet-5-5": {
-          "con_cache": 0.2,
-          "sin_cache": 0.67
-        },
-        "claude-opus-5-5": {
-          "con_cache": 0.41,
-          "sin_cache": 1.33
+  "estado": "no aplica (D46)",
+  "motivo": "La codificación la hace Claude Code con la suscripción de Luis Fer, sin API; esta estimación de la API queda solo como registro histórico.",
+  "estimacion_api_no_vigente": {
+    "n_informes": 196,
+    "caracteres_ficha_media": 2067.566326530612,
+    "caracteres_por_token_central=3.5": {
+      "solo_codigos": {
+        "tokens_libro_en_cache": 2514,
+        "tokens_ficha_por_informe": 591,
+        "tokens_salida_por_informe": 60,
+        "tokens_entrada_total": 118297,
+        "usd": {
+          "claude-sonnet-5-5": {
+            "con_cache": 0.2,
+            "sin_cache": 0.67
+          },
+          "claude-opus-5-5": {
+            "con_cache": 0.41,
+            "sin_cache": 1.33
+          }
+        }
+      },
+      "con_justificacion_breve": {
+        "tokens_libro_en_cache": 2514,
+        "tokens_ficha_por_informe": 591,
+        "tokens_salida_por_informe": 450,
+        "tokens_entrada_total": 118297,
+        "usd": {
+          "claude-sonnet-5-5": {
+            "con_cache": 0.59,
+            "sin_cache": 1.05
+          },
+          "claude-opus-5-5": {
+            "con_cache": 1.17,
+            "sin_cache": 2.1
+          }
         }
       }
     },
-    "con_justificacion_breve": {
-      "tokens_libro_en_cache": 2514,
-      "tokens_ficha_por_informe": 591,
-      "tokens_salida_por_informe": 450,
-      "tokens_entrada_total": 118297,
-      "usd": {
-        "claude-sonnet-5-5": {
-          "con_cache": 0.59,
-          "sin_cache": 1.05
-        },
-        "claude-opus-5-5": {
-          "con_cache": 1.17,
-          "sin_cache": 2.1
+    "caracteres_por_token_bajo=3.0": {
+      "solo_codigos": {
+        "tokens_libro_en_cache": 2867,
+        "tokens_ficha_por_informe": 689,
+        "tokens_salida_por_informe": 60,
+        "tokens_entrada_total": 137947,
+        "usd": {
+          "claude-sonnet-5-5": {
+            "con_cache": 0.23,
+            "sin_cache": 0.76
+          },
+          "claude-opus-5-5": {
+            "con_cache": 0.46,
+            "sin_cache": 1.51
+          }
         }
-      }
-    }
-  },
-  "caracteres_por_token_bajo=3.0": {
-    "solo_codigos": {
-      "tokens_libro_en_cache": 2867,
-      "tokens_ficha_por_informe": 689,
-      "tokens_salida_por_informe": 60,
-      "tokens_entrada_total": 137947,
-      "usd": {
-        "claude-sonnet-5-5": {
-          "con_cache": 0.23,
-          "sin_cache": 0.76
-        },
-        "claude-opus-5-5": {
-          "con_cache": 0.46,
-          "sin_cache": 1.51
-        }
-      }
-    },
-    "con_justificacion_breve": {
-      "tokens_libro_en_cache": 2867,
-      "tokens_ficha_por_informe": 689,
-      "tokens_salida_por_informe": 450,
-      "tokens_entrada_total": 137947,
-      "usd": {
-        "claude-sonnet-5-5": {
-          "con_cache": 0.61,
-          "sin_cache": 1.14
-        },
-        "claude-opus-5-5": {
-          "con_cache": 1.22,
-          "sin_cache": 2.28
-        }
-      }
-    }
-  },
-  "caracteres_por_token_alto=4.0": {
-    "solo_codigos": {
-      "tokens_libro_en_cache": 2250,
-      "tokens_ficha_por_informe": 517,
-      "tokens_salida_por_informe": 60,
-      "tokens_entrada_total": 103560,
-      "usd": {
-        "claude-sonnet-5-5": {
-          "con_cache": 0.19,
-          "sin_cache": 0.6
-        },
-        "claude-opus-5-5": {
-          "con_cache": 0.37,
-          "sin_cache": 1.2
+      },
+      "con_justificacion_breve": {
+        "tokens_libro_en_cache": 2867,
+        "tokens_ficha_por_informe": 689,
+        "tokens_salida_por_informe": 450,
+        "tokens_entrada_total": 137947,
+        "usd": {
+          "claude-sonnet-5-5": {
+            "con_cache": 0.61,
+            "sin_cache": 1.14
+          },
+          "claude-opus-5-5": {
+            "con_cache": 1.22,
+            "sin_cache": 2.28
+          }
         }
       }
     },
-    "con_justificacion_breve": {
-      "tokens_libro_en_cache": 2250,
-      "tokens_ficha_por_informe": 517,
-      "tokens_salida_por_informe": 450,
-      "tokens_entrada_total": 103560,
-      "usd": {
-        "claude-sonnet-5-5": {
-          "con_cache": 0.57,
-          "sin_cache": 0.98
-        },
-        "claude-opus-5-5": {
-          "con_cache": 1.14,
-          "sin_cache": 1.97
+    "caracteres_por_token_alto=4.0": {
+      "solo_codigos": {
+        "tokens_libro_en_cache": 2250,
+        "tokens_ficha_por_informe": 517,
+        "tokens_salida_por_informe": 60,
+        "tokens_entrada_total": 103560,
+        "usd": {
+          "claude-sonnet-5-5": {
+            "con_cache": 0.19,
+            "sin_cache": 0.6
+          },
+          "claude-opus-5-5": {
+            "con_cache": 0.37,
+            "sin_cache": 1.2
+          }
+        }
+      },
+      "con_justificacion_breve": {
+        "tokens_libro_en_cache": 2250,
+        "tokens_ficha_por_informe": 517,
+        "tokens_salida_por_informe": 450,
+        "tokens_entrada_total": 103560,
+        "usd": {
+          "claude-sonnet-5-5": {
+            "con_cache": 0.57,
+            "sin_cache": 0.98
+          },
+          "claude-opus-5-5": {
+            "con_cache": 1.14,
+            "sin_cache": 1.97
+          }
         }
       }
+    },
+    "fuente_precios": "https://platform.claude.com/docs/en/about-claude/pricing",
+    "consultado": "2026-10-31",
+    "nota": "Estimación sin llamar a la API: tokens = caracteres / (caracteres por token); Batch con descuento de 50 % acumulado con el caché de 1 h",
+    "hashes_libro": {
+      "yaml": "4b8d9eae94cf0ab797c6c7d018afa2c73ebc20f3a81b39aed34acc069ec82101",
+      "md": "06a097a6044863716a2b029127914b98b3c46b081d76c71189fd654ffae4a9bb"
     }
-  },
-  "fuente_precios": "https://platform.claude.com/docs/en/about-claude/pricing",
-  "consultado": "2026-10-31",
-  "nota": "Estimación sin llamar a la API: tokens = caracteres / (caracteres por token); Batch con descuento de 50 % acumulado con el caché de 1 h",
-  "hashes_libro": {
-    "yaml": "4b8d9eae94cf0ab797c6c7d018afa2c73ebc20f3a81b39aed34acc069ec82101",
-    "md": "06a097a6044863716a2b029127914b98b3c46b081d76c71189fd654ffae4a9bb"
   }
 }

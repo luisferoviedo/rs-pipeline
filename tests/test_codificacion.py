@@ -131,5 +131,8 @@ def test_costo_con_cuentas_a_mano(params):
     json_costo = json.loads(
         (RAIZ / "outputs/tablas/costo_codificacion_estimado.json").read_text("utf-8")
     )
-    assert json_costo["n_informes"] == 196
-    assert "platform.claude.com" in json_costo["fuente_precios"]
+    # D46: la estimación de la API quedó marcada como «no aplica»
+    assert json_costo["estado"] == "no aplica (D46)"
+    historica = json_costo["estimacion_api_no_vigente"]
+    assert historica["n_informes"] == 196
+    assert "platform.claude.com" in historica["fuente_precios"]
