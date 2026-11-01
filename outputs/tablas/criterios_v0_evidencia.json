@@ -1,0 +1,129 @@
+{
+  "entradas": {
+    "matriz_normalizada": {
+      "archivo": "data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv",
+      "sha256": "047840986e236173c915a1ce80a8d7decf690f49f64c3cbae7514b87d7b6bc85"
+    },
+    "marco_de_criterios": {
+      "archivo": "config/criterios_v0.yaml",
+      "sha256": "5df40f492afdbb69063dc1524125c9d92233a00cf898023c8c5dd4f039d5a21f"
+    },
+    "asignaciones_e5_prueba2b": {
+      "archivo": "asignaciones_prueba2b_principal_s4.csv",
+      "semilla": 4,
+      "sha256": "8ce70164250779b98b3f5be6c83fb4e56b4cb98c190fd12d08b6dc7246cca221"
+    },
+    "prisma_counts": "config/prisma_counts_2026-10-29.json",
+    "modelo_embeddings": {
+      "id": "intfloat/multilingual-e5-base",
+      "revision": "d128750597153bb5987e10b1c3493a34e5a4502a",
+      "prefijo": "passage: ",
+      "palabras_por_trozo": 150
+    }
+  },
+  "reglas": {
+    "A": "3+ «Sí» en los 5 ítems MMAT = alta, 2 = media, 0-1 o filtro 1 distinto de «Sí» = baja (el conteo solo agrupa; no es un puntaje global)",
+    "B": "pre-post de un grupo = medio; sin comparación o no comparativo = bajo; el resto = alto (comparativo con control)",
+    "C": "secundaria = 2; primer año, 2.º año, formación docente y mixto = 1; nivel_dudoso o año no reportado = 0",
+    "peso_suma": "puntos A+B+C (0-2 cada uno): 5-6 alto, 3-4 medio, 0-2 bajo",
+    "peso_minimo": "el menor de los tres puntos: 2 alto, 1 medio, 0 bajo",
+    "estudio": "atributos del informe de más puntos del estudio",
+    "no_reporta": "\\bno\\s+(?:se\\s+)?(?:reporta|reportan|menciona|mencionan|especifica|especifican|declara|detalla|indica|describe|informa|evalúa|evaluó|evaluaron)\\b|\\bsin\\s+(?:datos|información|reporte|medición)\\b|\\bno\\s+hay\\s+(?:datos|medición)\\b"
+  },
+  "versiones": {
+    "pandas": "2.3.3",
+    "numpy": "2.5.4",
+    "python": "3.13.7"
+  },
+  "salida": {
+    "archivo": "criterios_v0_evidencia.csv",
+    "sha256": "373628671b696d06da2dda0d7de59cae951a49dfe39d3f96f374d44f83a19349"
+  },
+  "solapamiento_temas_6_12": {
+    "temas": [
+      6,
+      12
+    ],
+    "informes_a": 89,
+    "informes_b": 44,
+    "informes_comunes": 1,
+    "pct_de_a": 1.1,
+    "pct_de_b": 2.3,
+    "supera_70_pct": false
+  },
+  "reporte_por_campo": [
+    {
+      "campo": "oe2_herramienta",
+      "n_informes_solo_no_reporta": 0,
+      "n_informes_mixta": 16,
+      "n_informes_real": 180,
+      "n_informes_vacio": 0,
+      "pct_solo_no_reporta_de_196": 0.0
+    },
+    {
+      "campo": "oe2_andamiaje",
+      "n_informes_solo_no_reporta": 5,
+      "n_informes_mixta": 20,
+      "n_informes_real": 171,
+      "n_informes_vacio": 0,
+      "pct_solo_no_reporta_de_196": 2.6
+    },
+    {
+      "campo": "oe2_retroalimentacion",
+      "n_informes_solo_no_reporta": 17,
+      "n_informes_mixta": 92,
+      "n_informes_real": 87,
+      "n_informes_vacio": 0,
+      "pct_solo_no_reporta_de_196": 8.7
+    },
+    {
+      "campo": "oe2_interactividad",
+      "n_informes_solo_no_reporta": 2,
+      "n_informes_mixta": 19,
+      "n_informes_real": 175,
+      "n_informes_vacio": 0,
+      "pct_solo_no_reporta_de_196": 1.0
+    },
+    {
+      "campo": "oe2_dispositivo",
+      "n_informes_solo_no_reporta": 29,
+      "n_informes_mixta": 51,
+      "n_informes_real": 116,
+      "n_informes_vacio": 0,
+      "pct_solo_no_reporta_de_196": 14.8
+    },
+    {
+      "campo": "oe2_conectividad",
+      "n_informes_solo_no_reporta": 27,
+      "n_informes_mixta": 117,
+      "n_informes_real": 52,
+      "n_informes_vacio": 0,
+      "pct_solo_no_reporta_de_196": 13.8
+    },
+    {
+      "campo": "oe2_idioma_accesibilidad",
+      "n_informes_solo_no_reporta": 65,
+      "n_informes_mixta": 104,
+      "n_informes_real": 27,
+      "n_informes_vacio": 0,
+      "pct_solo_no_reporta_de_196": 33.2
+    },
+    {
+      "campo": "oe2_costo_licencia",
+      "n_informes_solo_no_reporta": 47,
+      "n_informes_mixta": 72,
+      "n_informes_real": 77,
+      "n_informes_vacio": 0,
+      "pct_solo_no_reporta_de_196": 24.0
+    },
+    {
+      "campo": "oe2_usabilidad_calidad",
+      "n_informes_solo_no_reporta": 26,
+      "n_informes_mixta": 84,
+      "n_informes_real": 86,
+      "n_informes_vacio": 0,
+      "pct_solo_no_reporta_de_196": 13.3
+    }
+  ],
+  "base": "196 informes y 193 estudios (sin los 5 excluidos por nivel)"
+}

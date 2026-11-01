@@ -392,3 +392,44 @@ la traducción, la calificación 29/6/0 y que lo versionado no traiga texto). To
 
 **Resultado:** la Prueba 1 (texto completo) no sirve para la síntesis (más de 50 % de los temas son «de un documento»); la Prueba 2b (fichas `oe2_*`) sigue con los dos modelos.
 
+
+
+## Bloque 6 · Marco de criterios v0 y cruce con la evidencia (`criterios_05.py`)
+
+Cierre: 31 oct 2026. Flujograma actualizado.
+
+### Objetivo del paso
+Pasar de los 20 temas de e5 (Prueba 2b) a un marco de 9 criterios de diseño con texto de Luis Fer, y cruzar cada criterio con la evidencia: cuántas unidades, informes y estudios lo sostienen, con qué calidad y diseño, en qué nivel y disciplina, con qué dirección del efecto, y cuánto dice solo que el estudio «no reporta».
+
+### Entradas
+| Archivo | Versión | SHA-256 |
+|---|---|---|
+| `data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv` | salida del bloque 2 | `047840986e236173c915a1ce80a8d7decf690f49f64c3cbae7514b87d7b6bc85` |
+| `config/criterios_v0.yaml` | marco v0 (D42) | `5df40f492afdbb69063dc1524125c9d92233a00cf898023c8c5dd4f039d5a21f` |
+| `outputs/semantico/asignaciones_prueba2b_principal_s4.csv` | e5, semilla medoide 4 (local) | `8ce70164250779b98b3f5be6c83fb4e56b4cb98c190fd12d08b6dc7246cca221` |
+| `config/prisma_counts_2026-10-29.json` | 196 informes / 193 estudios | `af536e2c2ea7530b725436a0abfa1738a6e4a2fe9df95779f3bbd714034320c1` |
+
+### Proceso
+1. Paso 1: `semantico_04 --hoja-nombrar-2b` genera la hoja de los 20 temas; Luis Fer los nombra sin ver propuestas; Claude propone sus nombres aparte y se compara el acuerdo (8 de 9 temas nombrados coinciden en sustancia).
+2. Paso 2: Luis Fer decide el marco (9 criterios, D42) y el peso de la evidencia (D43). `criterios_05.py` calcula los pesos A, B y C de cada informe, los combina (suma y mínimo), asigna estudios, cruza cada criterio con sus unidades, separa las unidades «no reporta» y busca los 5 candidatos más parecidos a cada enunciado.
+```
+PYTHONPATH=src .venv-semantico/bin/python -m rs_pipeline.criterios_05
+PYTHONPATH=src .venv-semantico/bin/python -m rs_pipeline.criterios_05 --ejemplos   # ejemplos de C09 (local)
+```
+
+### Decisiones aplicadas
+- [D41](decisiones.md#d41-bloque-6-paso-1-nombrar-los-temas-de-la-prueba-2b-e5) · Nombrar los temas; regla A/B/C
+- [D42](decisiones.md#d42-bloque-6-paso-2-marco-de-criterios-v0-decisiones-de-luis-fer-sobre-los-20-temas-de-e5) · Marco de criterios v0
+- [D43](decisiones.md#d43-bloque-6-paso-2-e-peso-de-la-evidencia-y-cruce-de-los-criterios-con-los-estudios) · Peso de la evidencia y cruce
+
+### Controles
+Falla (código 1) si la matriz cambió o no tiene los 196 informes / 193 estudios, si un informe no tiene 5 ítems MMAT con Sí / No / No se puede saber, si una dirección del efecto o un nivel es desconocido, o si las asignaciones guardadas no corresponden a las unidades actuales de las fichas.
+Tests: `tests/test_criterios.py` (reglas con casos a mano; MMAT 28 alta / 49 media / 119 baja recalculado; unidades, informes y estudios de cada criterio recalculados desde las asignaciones; los repartos suman). Total del proyecto: 129 pruebas.
+
+### Salidas
+| Archivo | Contenido | Dónde |
+|---|---|---|
+| `outputs/tablas/criterios_v0_evidencia.csv/.json` | por criterio: n de unidades, informes y estudios; peso (suma y mínimo); sensibilidad; nivel; disciplina; dirección; «no reporta» | git |
+| `outputs/tablas/criterios_v0_reporte_por_campo.csv` | por campo de ficha, informes donde el campo entero no reporta | git |
+| `outputs/tablas/mmat_items_por_informe.csv/.json` | respuestas MMAT ítem por ítem, para el anexo | git |
+| `outputs/semantico/criterios_v0_*.csv`, `propuestas_nombres_claude_2b_e5.csv` | IDs, ejemplos, 5 candidatos por criterio, propuestas de nombres (con texto) | local, ignorado |

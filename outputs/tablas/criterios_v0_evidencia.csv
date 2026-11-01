@@ -1,0 +1,10 @@
+id_criterio,estado,temas_origen,n_unidades,n_informes,n_estudios,suma_alto,suma_medio,suma_bajo,minimo_alto,minimo_medio,minimo_bajo,n_estudios_sin_bajo_suma,n_estudios_sin_bajo_minimo,nivel_secundaria,nivel_universitario,nivel_otro,disciplina_física,disciplina_química,disciplina_biología,disciplina_ciencias integradas,disciplina_otra,direccion_favorable,direccion_mixto,direccion_sin_diferencia,direccion_no_comparativo,direccion_otro,direccion_sin_bajo_suma_favorable,direccion_sin_bajo_suma_mixto,direccion_sin_bajo_suma_sin_diferencia,direccion_sin_bajo_suma_no_comparativo,direccion_sin_bajo_suma_otro,n_unidades_real,n_unidades_mixta,n_unidades_solo_no_reporta,pct_unidades_solo_no_reporta,supera_20_pct_no_reporta,pct_unidades_con_no_reporta,supera_20_pct_con_no_reporta,n_informes_con_contenido,n_informes_solo_no_reporta
+C01,borrador: revisar Luis Fer,0,675,196,193,31,114,48,6,46,141,145,52,139,46,8,87,66,21,14,5,60,47,10,75,1,51,41,10,42,1,670,5,0,0.0,False,0.7,False,196,0
+C02,aprobado,2,181,178,177,31,100,46,6,44,127,131,50,126,44,7,82,59,19,13,4,53,42,10,71,1,44,37,10,39,1,169,12,0,0.0,False,6.6,False,178,0
+C03,aprobado,5,113,111,110,21,58,31,3,26,81,79,29,78,26,6,52,34,11,9,4,36,25,9,39,1,32,20,9,17,1,112,1,0,0.0,False,0.9,False,111,0
+C04,aprobado,6,90,89,89,12,56,21,2,20,67,68,22,67,20,2,42,32,7,7,1,28,18,4,39,0,23,15,4,26,0,11,79,0,0.0,False,87.8,True,89,0
+C05,aprobado,11,51,51,51,8,28,15,3,13,35,36,16,34,15,2,21,19,7,3,1,12,9,2,28,0,9,8,2,17,0,48,3,0,0.0,False,5.9,False,51,0
+C06,aprobado,12,45,44,44,6,24,14,0,9,35,30,9,33,10,1,20,14,5,1,4,16,8,1,18,1,13,7,1,8,1,45,0,0,0.0,False,0.0,False,44,0
+C07,aprobado,16 8,101,99,99,15,51,33,3,20,76,66,23,65,29,5,43,31,15,8,2,28,25,5,41,0,21,21,5,19,0,46,55,0,0.0,False,54.5,True,99,0
+C08,aprobado,17,14,13,13,4,7,2,2,5,6,11,7,7,5,1,8,4,0,1,0,4,3,2,3,1,4,3,2,1,1,14,0,0,0.0,False,0.0,False,13,0
+C09,borrador: revisar Luis Fer,3 4 7 9 10 13 18 19,545,193,191,30,114,47,6,45,140,144,51,138,45,8,86,65,21,14,5,59,46,10,75,1,51,40,10,42,1,237,304,4,0.7,False,56.5,True,193,0

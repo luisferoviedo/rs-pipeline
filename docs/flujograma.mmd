@@ -72,10 +72,21 @@ flowchart TB
       o6@{ shape: doc, label: "outputs/semantico/ (LOCAL, ignorado)<br/>hoja a ciegas · traducción · asignaciones" }
     end
 
+    subgraph B6["BLOQUE 6 · Marco de criterios v0 y evidencia — criterios_05.py (venv semántico, local)"]
+      direction TB
+      h0["Hoja para nombrar los 20 temas de e5 (P2b, semilla 4)<br/>Luis Fer nombra a ciegas; Claude propone aparte (acuerdo 8 de 9)"]
+      cfgK[/"config/criterios_v0.yaml (en git)<br/>9 criterios C01–C09 · D42<br/>C01 y C09 en borrador"/]
+      k0["Cruce criterio × unidades, informes y estudios<br/>peso A MMAT + B diseño + C pertinencia (suma y mínimo)<br/>sensibilidad sin peso bajo · dirección · nivel · disciplina<br/>separa «no reporta» (D43) · 5 candidatos por similitud e5"]
+      k1{"¿matriz = hash, 196 informes / 193 estudios?<br/>¿asignaciones = unidades? ¿5 ítems MMAT por informe?"}
+      o7@{ shape: doc, label: "outputs/tablas/ (en git, solo números)<br/>criterios_v0_evidencia · reporte_por_campo<br/>mmat_items_por_informe + .json" }
+      o8@{ shape: doc, label: "outputs/semantico/ (LOCAL, ignorado)<br/>IDs · ejemplos · 5 candidatos por criterio" }
+    end
+
     f1(["FALLA<br/>mensaje claro y código 1<br/>no dibuja nada"])
     f2(["FALLA<br/>mensaje claro y código 1<br/>no escribe la matriz"])
     f3(["FALLA<br/>mensaje claro y código 1<br/>no escribe tablas"])
     f4(["FALLA<br/>mensaje claro y código 1<br/>no corre el sprint"])
+    f5(["FALLA<br/>mensaje claro y código 1<br/>no escribe el cruce"])
   end
 
   %% Entradas del bloque 1 (frontera: solo lectura)
@@ -146,7 +157,18 @@ flowchart TB
   s1 --> o6
   s2 --> o6
 
+  %% Bloque 6
+  s2 --> h0
+  h0 --> cfgK
+  cfgK --> k0
+  o2 --> k0
+  cfgV --> k0
+  k0 --> k1
+  k1 -- "sí" --> o7
+  k1 -- "sí" --> o8
+  k1 -- "no" --> f5
+
   classDef drive fill:#e8f1fb,stroke:#2b6cb0,color:#1a365d
   classDef falla fill:#fde8e8,stroke:#c0392b,color:#7b1d1d
   class dB,dC,dR,dP,dE,dX,dJ,dT drive
-  class f1,f2,f3,f4 falla
+  class f1,f2,f3,f4,f5 falla

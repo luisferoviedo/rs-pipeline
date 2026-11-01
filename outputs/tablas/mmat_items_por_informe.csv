@@ -1,0 +1,197 @@
+id,estudio,mmat_categoria,filtro_1,filtro_2,item_1,item_2,item_3,item_4,item_5
+R0002,R0002,3 no aleatorizado,Sí,Sí,No,Sí,Sí,Sí,No se puede saber
+R0004,R0004,5 métodos mixtos,Sí,Sí,Sí,No,No,No se puede saber,No
+R0006,R0006,4 cuantitativo descriptivo,Sí,Sí,No se puede saber,No se puede saber,Sí,No se puede saber,Sí
+R0007,R0007,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No,No,No
+R0009,R0009,4 cuantitativo descriptivo,Sí,No se puede saber,No,No se puede saber,No,No se puede saber,No
+R0010,R0010,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,No se puede saber
+R0013,R0013,1 cualitativo,Sí,Sí,Sí,No se puede saber,Sí,No se puede saber,No se puede saber
+R0015,R0015,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No,No se puede saber,No
+R0018,R0018,2 ensayo aleatorizado,Sí,Sí,No se puede saber,Sí,No,No se puede saber,Sí
+R0019,R0019,3 no aleatorizado,Sí,Sí,No se puede saber,No,Sí,No,No se puede saber
+R0021,R0021,5 métodos mixtos,Sí,Sí,Sí,No,No se puede saber,No,No
+R0024,R0024,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber
+R0025,R0025,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No,No se puede saber
+R0026,R0026,3 no aleatorizado,Sí,Sí,No,No se puede saber,Sí,No,Sí
+R0027,R0027,3 no aleatorizado,Sí,Sí,No,Sí,No se puede saber,No,Sí
+R0033,R0033,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No,Sí
+R0034,R0034,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No,No
+R0035,R0035,3 no aleatorizado,Sí,Sí,No,Sí,Sí,Sí,No se puede saber
+R0038,R0038,5 métodos mixtos,Sí,Sí,Sí,Sí,Sí,No,No
+R0043,R0043,3 no aleatorizado,Sí,Sí,No,Sí,No se puede saber,No,No se puede saber
+R0045,R0045,2 ensayo aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No
+R0047,R0047,1 cualitativo,Sí,Sí,Sí,Sí,No se puede saber,Sí,Sí
+R0053,R0053,5 métodos mixtos,Sí,No se puede saber,Sí,No,No se puede saber,No,No
+R0055,R0055,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No,No,No
+R0059,R0059,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No,No se puede saber
+R0064,R0064,5 métodos mixtos,Sí,Sí,No se puede saber,No,No se puede saber,No,No
+R0066,R0066,3 no aleatorizado,Sí,Sí,No se puede saber,No,No,No,No se puede saber
+R0079,R0079,3 no aleatorizado,No se puede saber,Sí,Sí,No se puede saber,Sí,No,No se puede saber
+R0083,R0083,5 métodos mixtos,Sí,Sí,Sí,Sí,No se puede saber,No,No
+R0087,R0087,3 no aleatorizado,Sí,Sí,No,Sí,No se puede saber,No,No se puede saber
+R0089,R0089,3 no aleatorizado,Sí,Sí,No,Sí,No se puede saber,No,No se puede saber
+R0091,R0091,3 no aleatorizado,Sí,Sí,No,No,No,No,No
+R0094,R0094,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No se puede saber,Sí
+R0096,R0096,3 no aleatorizado,Sí,Sí,No,No se puede saber,No se puede saber,No,No se puede saber
+R0101,R0101,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,No se puede saber
+R0102,R0102,2 ensayo aleatorizado,Sí,Sí,No se puede saber,Sí,No,Sí,No se puede saber
+R0107,R0107,3 no aleatorizado,Sí,Sí,Sí,No se puede saber,Sí,No,Sí
+R0114,R0114,5 métodos mixtos,Sí,Sí,Sí,No,No se puede saber,No,No se puede saber
+R0115,R0115,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber
+R0124,R0124,3 no aleatorizado,Sí,No se puede saber,No se puede saber,No,No se puede saber,No,No se puede saber
+R0130,R0130,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No se puede saber,No,No
+R0131,R0131,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No se puede saber,No,No
+R0136,R0136,1 cualitativo,Sí,Sí,No se puede saber,Sí,Sí,No,No se puede saber
+R0148,R0148,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No se puede saber,No se puede saber
+R0150,R0150,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No se puede saber,Sí,No
+R0154,R0154,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No se puede saber,No se puede saber
+R0164,R0164,4 cuantitativo descriptivo,Sí,Sí,Sí,No,Sí,No se puede saber,Sí
+R0169,R0169,1 cualitativo,Sí,Sí,Sí,Sí,No se puede saber,No,No se puede saber
+R0177,R0177,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No se puede saber,No,No
+R0188,R0177,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No,No,No se puede saber
+R0192,R0192,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,Sí
+R0197,R0197,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,Sí,Sí,No
+R0200,R0200,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber
+R0221,R0221,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No se puede saber,No se puede saber
+R0223,R0223,2 ensayo aleatorizado,Sí,Sí,Sí,Sí,Sí,No se puede saber,No se puede saber
+R0226,R0226,3 no aleatorizado,Sí,Sí,No,No se puede saber,Sí,No,No se puede saber
+R0231,R0231,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No se puede saber,Sí
+R0234,R0234,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No,No se puede saber
+R0243,R0243,3 no aleatorizado,Sí,Sí,Sí,No,Sí,No se puede saber,No se puede saber
+R0244,R0244,2 ensayo aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No se puede saber,Sí
+R0245,R0245,3 no aleatorizado,Sí,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber
+R0247,R0247,2 ensayo aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No se puede saber,No se puede saber
+R0251,R0251,3 no aleatorizado,Sí,Sí,Sí,No se puede saber,No se puede saber,No,No se puede saber
+R0263,R0263,2 ensayo aleatorizado,Sí,Sí,No se puede saber,No,No,No se puede saber,No se puede saber
+R0277,R0277,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No se puede saber,Sí
+R0280,R0280,4 cuantitativo descriptivo,No,No se puede saber,No se puede saber,No,No se puede saber,No,Sí
+R0281,R0281,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,No se puede saber
+R0293,R0293,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,Sí,Sí
+R0302,R0302,4 cuantitativo descriptivo,Sí,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No
+R0304,R0304,4 cuantitativo descriptivo,No,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber,No
+R0306,R0306,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No,Sí
+R0311,R0311,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No se puede saber,No se puede saber
+R0317,R0317,3 no aleatorizado,Sí,Sí,Sí,No se puede saber,Sí,No se puede saber,Sí
+R0321,R0321,1 cualitativo,Sí,Sí,Sí,Sí,Sí,Sí,Sí
+R0333,R0333,3 no aleatorizado,Sí,Sí,No,No se puede saber,No se puede saber,No,No se puede saber
+R0335,R0335,5 métodos mixtos,Sí,Sí,Sí,Sí,Sí,No,No
+R0341,R0341,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,Sí,No se puede saber
+R0349,R0349,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No,No se puede saber
+R0360,R0360,5 métodos mixtos,Sí,Sí,Sí,Sí,No se puede saber,No,No
+R0362,R0362,3 no aleatorizado,Sí,Sí,No se puede saber,No,Sí,No,No
+R0363,R0363,4 cuantitativo descriptivo,Sí,No se puede saber,No,No,No se puede saber,No se puede saber,No
+R0365,R0365,3 no aleatorizado,Sí,Sí,No se puede saber,No,No,No,No se puede saber
+R0375,R0375,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No se puede saber,No se puede saber
+R0383,R0383,5 métodos mixtos,Sí,Sí,Sí,No,No,No,No
+R0409,R0409,2 ensayo aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No se puede saber,No se puede saber
+R0411,R0411,1 cualitativo,Sí,Sí,Sí,Sí,Sí,No se puede saber,Sí
+R0416,R0416,4 cuantitativo descriptivo,Sí,Sí,No se puede saber,No,No,No se puede saber,Sí
+R0429,R0429,3 no aleatorizado,Sí,Sí,Sí,No se puede saber,No se puede saber,No,No se puede saber
+R0439,R0439,4 cuantitativo descriptivo,Sí,No se puede saber,No,No,No se puede saber,No,Sí
+R0450,R0450,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No,No se puede saber
+R0453,R0453,5 métodos mixtos,Sí,Sí,Sí,Sí,No se puede saber,No,No
+R0462,R0462,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No,No,No se puede saber
+R0463,R0463,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No,No se puede saber
+R0472,R0472,1 cualitativo,Sí,Sí,Sí,Sí,Sí,No se puede saber,No se puede saber
+R0477,R0477,1 cualitativo,Sí,Sí,Sí,Sí,Sí,Sí,Sí
+R0479,R0479,3 no aleatorizado,Sí,Sí,No,Sí,No se puede saber,Sí,No se puede saber
+R0489,R0489,2 ensayo aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No se puede saber,No se puede saber
+R0493,R0493,3 no aleatorizado,Sí,Sí,No,Sí,Sí,Sí,Sí
+R0494,R0494,5 métodos mixtos,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No,No
+R0527,R0527,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No,No,Sí
+R0530,R0530,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No,No
+R0533,R0533,2 ensayo aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No,No se puede saber,Sí
+R0562,R0562,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No,Sí
+R0578,R0578,1 cualitativo,Sí,Sí,Sí,Sí,No se puede saber,No se puede saber,No se puede saber
+R0592,R0592,4 cuantitativo descriptivo,Sí,Sí,No,No,Sí,No,Sí
+R0594,R0594,2 ensayo aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No se puede saber,No se puede saber
+R0597,R0597,4 cuantitativo descriptivo,Sí,Sí,Sí,No se puede saber,No,Sí,No
+R0598,R0598,2 ensayo aleatorizado,Sí,Sí,Sí,Sí,No se puede saber,No se puede saber,No se puede saber
+R0617,R0617,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber
+R0624,R0624,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No se puede saber,No,No
+R0705,R0705,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No,Sí
+R0711,R0711,3 no aleatorizado,Sí,Sí,Sí,Sí,Sí,No,Sí
+R0713,R0713,1 cualitativo,Sí,No se puede saber,Sí,No,No se puede saber,No,No
+R0721,R0721,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No se puede saber,No,Sí
+R0730,R0730,3 no aleatorizado,No se puede saber,No,No,No,No se puede saber,No,No se puede saber
+R0735,R0735,3 no aleatorizado,Sí,Sí,No se puede saber,No,Sí,No,No se puede saber
+R0737,R0737,5 métodos mixtos,Sí,No,No se puede saber,No,No,No se puede saber,No
+R0742,R0742,3 no aleatorizado,Sí,No se puede saber,No se puede saber,No,No se puede saber,No,No se puede saber
+R0746,R0746,3 no aleatorizado,Sí,Sí,No,No,No se puede saber,No,No se puede saber
+R0748,R0748,5 métodos mixtos,Sí,No se puede saber,Sí,No se puede saber,No,No,No
+R0751,R0751,3 no aleatorizado,Sí,Sí,No,No se puede saber,Sí,No,No
+R0752,R0752,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No,No,No
+R0755,R0755,3 no aleatorizado,Sí,No se puede saber,No,No se puede saber,Sí,No,No se puede saber
+R0758,R0758,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No,No se puede saber
+R0762,R0762,3 no aleatorizado,Sí,No se puede saber,No,No,No se puede saber,No,No se puede saber
+R0763,R0763,3 no aleatorizado,Sí,Sí,No se puede saber,No,Sí,No,No se puede saber
+R0765,R0765,3 no aleatorizado,Sí,Sí,No,No se puede saber,Sí,No,No se puede saber
+R0768,R0768,2 ensayo aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No se puede saber
+R0770,R0770,1 cualitativo,Sí,No se puede saber,Sí,No se puede saber,No se puede saber,No,No se puede saber
+R0771,R0771,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No,Sí
+R0773,R0773,1 cualitativo,Sí,No se puede saber,Sí,Sí,No se puede saber,No,No se puede saber
+R0775,R0775,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,No se puede saber
+R0777,R0777,3 no aleatorizado,Sí,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No se puede saber
+R0778,R0778,4 cuantitativo descriptivo,Sí,No se puede saber,No se puede saber,No,No se puede saber,No se puede saber,No
+R0783,R0783,3 no aleatorizado,Sí,Sí,No se puede saber,No,Sí,No,No se puede saber
+R0787,R0787,5 métodos mixtos,Sí,No se puede saber,No se puede saber,No se puede saber,No,No,No
+R0788,R0788,3 no aleatorizado,Sí,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No,Sí
+R0791,R0791,3 no aleatorizado,Sí,No,No,No,No se puede saber,No,Sí
+R0792,R0792,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,No se puede saber
+R0796,R0796,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,No se puede saber
+R0802,R0802,5 métodos mixtos,Sí,No se puede saber,Sí,No,No,No,No
+R0804,R0804,5 métodos mixtos,Sí,No,No,No,No,No,No
+R0809,R0809,1 cualitativo,Sí,No se puede saber,Sí,No se puede saber,No,No,No se puede saber
+R0811,R0811,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,No se puede saber
+R0812,R0812,3 no aleatorizado,Sí,No se puede saber,No se puede saber,No,No se puede saber,No,No se puede saber
+R0813,R0813,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No,No se puede saber
+R0814,R0814,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,No se puede saber
+R0815,R0815,3 no aleatorizado,Sí,Sí,No,No se puede saber,Sí,No,No se puede saber
+R0825,R0825,1 cualitativo,Sí,Sí,Sí,No,Sí,No se puede saber,No se puede saber
+R0834,R0834,3 no aleatorizado,Sí,No se puede saber,Sí,No se puede saber,No se puede saber,No,Sí
+R0842,R0842,3 no aleatorizado,Sí,No se puede saber,No se puede saber,No,Sí,No,No se puede saber
+R0844,R0844,3 no aleatorizado,Sí,Sí,No,Sí,Sí,No,No se puede saber
+R0845,R0845,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No,No se puede saber
+R0862,R0862,3 no aleatorizado,Sí,Sí,No,Sí,No se puede saber,No,No
+R0867,R0867,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No se puede saber,No,No
+R0868,R0868,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber
+R0870,R0870,4 cuantitativo descriptivo,Sí,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber,Sí
+R0872,R0872,3 no aleatorizado,Sí,Sí,No,Sí,No se puede saber,No,No se puede saber
+R0873,R0873,5 métodos mixtos,Sí,No se puede saber,Sí,No,No,No,No
+R0875,R0875,3 no aleatorizado,Sí,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber
+R0882,R0882,3 no aleatorizado,Sí,Sí,No,No se puede saber,No se puede saber,No se puede saber,Sí
+R0884,R0884,4 cuantitativo descriptivo,Sí,Sí,No se puede saber,No,Sí,No,Sí
+R0888,R0888,5 métodos mixtos,Sí,Sí,Sí,Sí,Sí,No,No
+R0889,R0889,1 cualitativo,No se puede saber,No,Sí,Sí,No,No,No
+R0896,R0896,2 ensayo aleatorizado,Sí,Sí,Sí,No,Sí,No se puede saber,Sí
+R0897,R0897,1 cualitativo,Sí,Sí,Sí,No se puede saber,No,No,No
+R0909,R0909,5 métodos mixtos,Sí,Sí,Sí,Sí,Sí,Sí,No
+R0912,R0912,2 ensayo aleatorizado,Sí,Sí,Sí,No se puede saber,No se puede saber,No,No se puede saber
+R0918,R0918,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,No,No se puede saber,Sí
+R0919,R0919,3 no aleatorizado,Sí,Sí,No,Sí,No se puede saber,No,No se puede saber
+R0922,R0922,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No se puede saber,No,No
+R0929,R0929,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,Sí
+R0930,R0844,3 no aleatorizado,Sí,Sí,No,Sí,Sí,No,No se puede saber
+R0944,R0944,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No,No,No
+R0946,R0946,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,No se puede saber
+R0951,R0951,5 métodos mixtos,Sí,Sí,Sí,Sí,No se puede saber,No,No
+R0952,R0952,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No se puede saber,Sí
+R0953,R0953,2 ensayo aleatorizado,Sí,Sí,No se puede saber,No,No se puede saber,Sí,No se puede saber
+R0954,R0954,3 no aleatorizado,Sí,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No,Sí
+R0956,R0956,5 métodos mixtos,Sí,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No,No
+R0968,R0968,5 métodos mixtos,Sí,Sí,Sí,No se puede saber,No se puede saber,No,No
+R0976,R0976,1 cualitativo,Sí,Sí,Sí,Sí,Sí,No se puede saber,Sí
+R0990,R0990,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,Sí,No,No se puede saber
+R0998,R0998,3 no aleatorizado,Sí,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber
+R1000,R1000,5 métodos mixtos,Sí,Sí,No se puede saber,Sí,Sí,No se puede saber,No
+R1006,R1006,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber
+R1007,R1007,3 no aleatorizado,Sí,No se puede saber,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber
+R1013,R1013,3 no aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No,No se puede saber
+R1015,R1015,2 ensayo aleatorizado,Sí,Sí,No se puede saber,Sí,Sí,No se puede saber,No se puede saber
+R1031,R0990,5 métodos mixtos,Sí,No se puede saber,Sí,No,No,No,No
+R1033,R1033,3 no aleatorizado,Sí,Sí,No,Sí,Sí,No,No se puede saber
+R1058,R1058,3 no aleatorizado,Sí,Sí,No se puede saber,No,Sí,No,No se puede saber
+R1065,R1065,3 no aleatorizado,Sí,Sí,No,Sí,Sí,No se puede saber,No se puede saber
+R1085,R1085,4 cuantitativo descriptivo,Sí,No se puede saber,No se puede saber,No,No se puede saber,No,Sí
+R1091,R1091,2 ensayo aleatorizado,Sí,Sí,Sí,Sí,No,No se puede saber,Sí
+R1098,R1098,3 no aleatorizado,Sí,Sí,No se puede saber,No se puede saber,No se puede saber,No,No se puede saber
