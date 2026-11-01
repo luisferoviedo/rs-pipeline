@@ -132,26 +132,39 @@ def comparar(luis: pd.DataFrame, claude: dict[str, dict]) -> tuple[pd.DataFrame,
 # --- Ejecución --------------------------------------------------------------------
 
 
-def leer_hoja(params: dict) -> pd.DataFrame:
-    ruta = RAIZ_REPO / params["semantico"]["salidas"] / "hoja_codificacion_piloto.csv"
+def leer_hoja(
+    params: dict,
+    archivo: str = "hoja_codificacion_piloto.csv",
+    con_codigos: bool = True,
+) -> pd.DataFrame:
+    ruta = RAIZ_REPO / params["semantico"]["salidas"] / archivo
     hoja = pd.read_csv(ruta, dtype=str, keep_default_na=False, encoding="utf-8-sig")
-    if (hoja[CRITERIOS] == "").to_numpy().any():
-        fallar("La hoja del piloto no tiene los nueve códigos de Luis Fer por informe")
+    if con_codigos and (hoja[CRITERIOS] == "").to_numpy().any():
+        fallar(f"{archivo} no tiene los nueve códigos de Luis Fer por informe")
     return hoja
 
 
-def registrar_lote(ruta_json: Path, params: dict) -> int:
-    """Agrega al registro los informes de un JSON con codigos y justificaciones."""
-    libro = RAIZ_REPO / "config" / "libro_codigos_v1.yaml"
-    hoja = leer_hoja(params)
-    entrada = json.loads(ruta_json.read_text(encoding="utf-8"))
+def archivo_de_codigos(archivo_hoja: str) -> str:
+    """hoja_codificacion_40.csv -> codigos_claude_40.csv"""
+    return archivo_hoja.replace("hoja_codificacion_", "codigos_claude_")
+
+
+def lineas_del_lote(
+    entrada: dict, hoja: pd.DataFrame, libro: Path, params: dict
+) -> list:
+    """Líneas del registro de un lote, validadas todas antes de escribir ninguna."""
+    if sorted(entrada["informes"]) != sorted(hoja["id_ciego"]):
+        fallar("El lote no trae exactamente los informes de la hoja")
     campos = params["codificacion"]["campos_ficha"]
     por_id = hoja.set_index("id_ciego")
+    fecha = datetime.now().astimezone().isoformat(timespec="seconds")
+    lineas = []
     for id_ciego, datos in entrada["informes"].items():
+        validar_codificacion(id_ciego, datos["codigos"], datos["justificaciones"])
         ficha = {c: por_id.loc[id_ciego, c] for c in campos}
-        registrar(
+        lineas.append(
             {
-                "fecha": datetime.now().astimezone().isoformat(timespec="seconds"),
+                "fecha": fecha,
                 "modelo": entrada["modelo"],
                 "libro": {"archivo": libro.name, "sha256": S.sha256(libro)},
                 "id_ciego": id_ciego,
@@ -160,7 +173,81 @@ def registrar_lote(ruta_json: Path, params: dict) -> int:
                 "justificaciones": datos["justificaciones"],
             }
         )
-    return len(entrada["informes"])
+    return lineas
+
+
+def registrar_lote(
+    ruta_json: Path,
+    params: dict,
+    archivo_hoja: str = "hoja_codificacion_piloto.csv",
+    version_libro: str = "v1",
+) -> int:
+    """Agrega al registro (y a un CSV ignorado) los informes de un lote de Claude."""
+    libro = RAIZ_REPO / "config" / f"libro_codigos_{version_libro}.yaml"
+    if not libro.is_file():
+        fallar(f"No existe {libro.name}")
+    hoja = leer_hoja(params, archivo_hoja, con_codigos=False)
+    entrada = json.loads(ruta_json.read_text(encoding="utf-8"))
+    lineas = lineas_del_lote(entrada, hoja, libro, params)
+    for linea in lineas:
+        registrar(linea)
+    ruta_csv = (
+        RAIZ_REPO / params["semantico"]["salidas"] / archivo_de_codigos(archivo_hoja)
+    )
+    filas = pd.DataFrame(
+        [
+            {
+                "fecha": r["fecha"],
+                "id_ciego": r["id_ciego"],
+                "criterio": c,
+                "codigo": r["codigos"][c],
+                "justificacion": r["justificaciones"][c],
+            }
+            for r in lineas
+            for c in CRITERIOS
+        ]
+    )
+    filas.to_csv(
+        ruta_csv,
+        mode="a",
+        header=not ruta_csv.is_file(),
+        index=False,
+        encoding="utf-8",
+        lineterminator="\n",
+    )
+    return len(lineas)
+
+
+def actualizar_resumen(params: dict) -> dict:
+    """Resumen numérico del registro (sin códigos ni justificaciones): va a git."""
+    registro = leer_registro()
+    por_libro: dict[tuple[str, str], dict] = {}
+    for r in registro:
+        clave = (r["libro"]["archivo"], r["libro"]["sha256"])
+        grupo = por_libro.setdefault(
+            clave, {"lineas": 0, "modelos": set(), "ultima_fecha": ""}
+        )
+        grupo["lineas"] += 1
+        grupo["modelos"].add(r["modelo"])
+        grupo["ultima_fecha"] = max(grupo["ultima_fecha"], r["fecha"])
+    resumen = {
+        "lineas_en_el_registro": len(registro),
+        "por_libro": [
+            {
+                "libro": archivo,
+                "sha256": sha,
+                "informes_codificados": g["lineas"],
+                "modelos": sorted(g["modelos"]),
+                "ultima_fecha": g["ultima_fecha"],
+            }
+            for (archivo, sha), g in sorted(por_libro.items())
+        ],
+    }
+    ruta = RAIZ_REPO / params["salidas"]["tablas"] / "codificacion_claude_resumen.json"
+    ruta.write_text(
+        json.dumps(resumen, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    return resumen
 
 
 def comparar_piloto(params: dict) -> dict:
@@ -211,12 +298,22 @@ def comparar_piloto(params: dict) -> dict:
     return {"tabla": tabla, "desacuerdos": desacuerdos}
 
 
+def _opcion(nombre: str, por_defecto: str) -> str:
+    if nombre not in sys.argv:
+        return por_defecto
+    return sys.argv[sys.argv.index(nombre) + 1]
+
+
 def main() -> int:
     try:
         params = S.cargar_params()
         if "--registrar" in sys.argv:
             ruta = Path(sys.argv[sys.argv.index("--registrar") + 1])
-            print(f"informes registrados: {registrar_lote(ruta, params)}")
+            hoja = _opcion("--hoja", "hoja_codificacion_piloto.csv")
+            libro = _opcion("--libro", "v1")
+            n = registrar_lote(ruta, params, hoja, libro)
+            actualizar_resumen(params)
+            print(f"informes registrados: {n}")
             return 0
         salida = comparar_piloto(params)
         print(salida["tabla"].to_string(index=False))

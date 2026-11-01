@@ -115,3 +115,41 @@ def test_libro_v1_tiene_las_tres_reglas_nuevas_y_v0_no_cambia():
     assert v1["reglas"][: len(v0["reglas"])] == v0["reglas"]
     assert len(v1["reglas"]) == len(v0["reglas"]) + 3
     assert v1["criterios"] == v0["criterios"] and v1["escala"] == v0["escala"]
+
+
+def test_lote_exige_exactamente_los_informes_de_la_hoja():
+    hoja = pd.DataFrame({"id_ciego": ["M01", "M02"], "tema": ["a", "b"]})
+    params = {"codificacion": {"campos_ficha": ["tema"]}}
+    libro = RAIZ / "config/libro_codigos_v2.yaml"
+    uno = {
+        "codigos": dict.fromkeys(CRITERIOS, 1),
+        "justificaciones": dict.fromkeys(CRITERIOS, "x"),
+    }
+    lote = {"modelo": "m", "informes": {"M01": uno, "M02": uno}}
+    lineas = K.lineas_del_lote(lote, hoja, libro, params)
+    assert [x["id_ciego"] for x in lineas] == ["M01", "M02"]
+    assert lineas[0]["sha256_ficha"] == K.hash_ficha({"tema": "a"})
+    assert lineas[0]["libro"]["sha256"] == S.sha256(libro)
+    with pytest.raises(K.ErrorPipeline):
+        K.lineas_del_lote(
+            {"modelo": "m", "informes": {"M01": uno}}, hoja, libro, params
+        )
+    malo = uno | {"codigos": dict.fromkeys(CRITERIOS, 5)}
+    with pytest.raises(K.ErrorPipeline):
+        K.lineas_del_lote(
+            {"modelo": "m", "informes": {"M01": malo, "M02": uno}}, hoja, libro, params
+        )
+
+
+def test_nombre_del_archivo_de_codigos():
+    assert K.archivo_de_codigos("hoja_codificacion_40.csv") == "codigos_claude_40.csv"
+
+
+def test_resumen_numerico_no_trae_codigos():
+    r = json.loads(
+        (RAIZ / "outputs/tablas/codificacion_claude_resumen.json").read_text("utf-8")
+    )
+    assert set(r) == {"lineas_en_el_registro", "por_libro"}
+    assert all(
+        "codigos" not in g and "justificaciones" not in g for g in r["por_libro"]
+    )

@@ -61,6 +61,26 @@ EJEMPLOS_REGLAS_V1 = [
     "Regla c. Ejemplo: «Costo y licencia: no se documenta» → 0, aunque la "
     "herramienta fuera gratuita en la práctica.",
 ]
+# Cambios tras el piloto (v2, D47).
+REGLAS_V2 = [
+    *REGLAS_V1,
+    "Si el grupo de comparación también tuvo el componente, no se puede atribuir "
+    "el resultado a ese componente: se codifica 1, no 2.",
+    "C08: predecir y luego comparar con lo observado (predecir-observar-explicar), "
+    "o comparar resultados con valores de referencia o con la teoría, cuenta como "
+    "1. Es 2 solo si el estudio relaciona ese contraste con un resultado.",
+]
+EJEMPLOS_REGLAS_V2 = [
+    *EJEMPLOS_REGLAS_V1,
+    "Regla d. Ejemplo: «El grupo control también usó hojas de trabajo guiadas y "
+    "ambos grupos mejoraron» → la guía = 1, no 2.",
+    "Regla C08. Ejemplo: «Los estudiantes predecían la trayectoria y luego la "
+    "comparaban con lo que mostraba la simulación» → 1; «quienes comparaban con la "
+    "teoría corrigieron más errores en el postest, según los autores» → 2.",
+]
+REGLAS_POR_VERSION = {"v0": REGLAS, "v1": REGLAS_V1, "v2": REGLAS_V2}
+DECISION_POR_VERSION = {"v0": "D44", "v1": "D45", "v2": "D47"}
+EJEMPLOS_POR_VERSION = {"v1": EJEMPLOS_REGLAS_V1, "v2": EJEMPLOS_REGLAS_V2}
 # Ejemplos inventados (no son texto de artículos) para tres criterios.
 EJEMPLOS = {
     "C02": {
@@ -108,13 +128,12 @@ def construir_libro(cfg: dict, version: str = "v0") -> dict:
         if c["id"] in EJEMPLOS:
             entrada["ejemplos"] = {k: v for k, v in EJEMPLOS[c["id"]].items()}
         criterios.append(entrada)
-    v1 = version == "v1"
     libro = {
         "version": version,
-        "decision": "D45" if v1 else "D44",
+        "decision": DECISION_POR_VERSION[version],
         "fuente_criterios": {"archivo": "config/criterios_v0.yaml", "sha256": sha},
         "escala": ESCALA,
-        "reglas": REGLAS_V1 if v1 else REGLAS,
+        "reglas": REGLAS_POR_VERSION[version],
         "campos_ficha": cfg["campos_ficha"],
         "campos_excluidos": {
             "oe2_criterios_candidatos": "inferencias del extractor (sesgan el código)",
@@ -122,8 +141,8 @@ def construir_libro(cfg: dict, version: str = "v0") -> dict:
         },
         "criterios": criterios,
     }
-    if v1:
-        libro["ejemplos_de_reglas"] = EJEMPLOS_REGLAS_V1
+    if version in EJEMPLOS_POR_VERSION:
+        libro["ejemplos_de_reglas"] = EJEMPLOS_POR_VERSION[version]
     return libro
 
 
@@ -151,7 +170,8 @@ def libro_a_markdown(libro: dict) -> str:
         "## Criterios",
     ]
     if "ejemplos_de_reglas" in libro:
-        lineas += ["", "## Ejemplos de las reglas nuevas (inventados)", ""]
+        titulo = "las reglas nuevas" if libro["version"] == "v1" else "las reglas"
+        lineas += ["", f"## Ejemplos de {titulo} (inventados)", ""]
         lineas += [f"- {e}" for e in libro["ejemplos_de_reglas"]]
         lineas.append("")
     for c in libro["criterios"]:
@@ -258,8 +278,15 @@ def exigir_hoja_sin_codificar(ruta) -> None:  # noqa: ANN001
         fallar(f"{ruta.name} ya tiene códigos o notas: no se sobrescribe")
 
 
-def filas_del_piloto(tabla: pd.DataFrame, piloto: list[str], cfg: dict, semilla: int):
-    azar = np.random.default_rng(semilla + 2)
+def filas_del_piloto(
+    tabla: pd.DataFrame,
+    piloto: list[str],
+    cfg: dict,
+    semilla: int,
+    prefijo: str = "P",
+    desplazamiento: int = 2,
+):
+    azar = np.random.default_rng(semilla + desplazamiento)
     orden = list(azar.permutation(piloto))
     por_id = tabla.set_index("id")
     faltan = [c for c in cfg["campos_ficha"] if c not in por_id]
@@ -267,7 +294,7 @@ def filas_del_piloto(tabla: pd.DataFrame, piloto: list[str], cfg: dict, semilla:
         fallar(f"La matriz no tiene las columnas {faltan}")
     hoja, correspondencia = [], []
     for k, id_real in enumerate(orden, start=1):
-        ciego = f"P{k:02d}"
+        ciego = f"{prefijo}{k:02d}"
         fila = {"id_ciego": ciego}
         fila |= {
             c: T.limpiar_ficha(por_id.loc[id_real, c]) for c in cfg["campos_ficha"]
@@ -276,6 +303,34 @@ def filas_del_piloto(tabla: pd.DataFrame, piloto: list[str], cfg: dict, semilla:
         hoja.append(fila)
         correspondencia.append({"id_ciego": ciego, "id": id_real})
     return pd.DataFrame(hoja), pd.DataFrame(correspondencia)
+
+
+def hoja_codificacion_40(params: dict) -> int:
+    """Hoja de la muestra de confiabilidad (M01…M40), sin códigos ni anclajes."""
+    cfg = params["codificacion"]
+    privada = RAIZ_REPO / params["semantico"]["salidas"]
+    ruta = privada / "hoja_codificacion_40.csv"
+    exigir_hoja_sin_codificar(ruta)
+    muestra = pd.read_csv(privada / "muestra_confiabilidad_40.csv")
+    if len(muestra) != cfg["n_confiabilidad"]:
+        fallar(f"La muestra tiene {len(muestra)} informes, no {cfg['n_confiabilidad']}")
+    tabla = S.cargar_matriz(params)["tabla"]
+    hoja, correspondencia = filas_del_piloto(
+        tabla, list(muestra["id"]), cfg, cfg["semilla"], prefijo="M", desplazamiento=3
+    )
+    hoja.to_csv(
+        ruta,
+        index=False,
+        encoding="utf-8-sig",
+        lineterminator="\n",
+        columns=columnas_hoja(cfg),
+    )
+    correspondencia.to_csv(
+        privada / "hoja_codificacion_40_correspondencia.csv",
+        index=False,
+        lineterminator="\n",
+    )
+    return len(hoja)
 
 
 # --- Costo ---------------------------------------------------------------------------
@@ -395,8 +450,12 @@ def ejecutar(params: dict) -> dict:
 
 def main() -> int:
     try:
-        if "--libro-v1" in sys.argv:
-            print(escribir_libro(S.cargar_params()["codificacion"], "v1"))
+        for version in ("v1", "v2"):
+            if f"--libro-{version}" in sys.argv:
+                print(escribir_libro(S.cargar_params()["codificacion"], version))
+                return 0
+        if "--hoja-40" in sys.argv:
+            print(f"informes en la hoja: {hoja_codificacion_40(S.cargar_params())}")
             return 0
         salida = ejecutar(S.cargar_params())
     except ErrorPipeline as error:

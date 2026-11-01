@@ -475,3 +475,9 @@ Tests: `tests/test_codificacion.py` (8 pruebas). Total del proyecto: 137 pruebas
 - **Resultado:** acuerdo 71,1 % (32 de 45), kappa ponderado cuadrático 0,548; orientativo (5 informes) y no ciego.
 - **Controles:** falla si un código no es 0, 1 o 2, si faltan criterios o justificaciones, si la hoja no tiene los nueve códigos de Luis Fer, o si la hoja y el registro no tienen los mismos informes. Tests: 144 en total.
 - **Salidas:** `outputs/tablas/acuerdo_piloto_luisfer_claude.csv/.json` (git); `logs/` y `outputs/semantico/` (ignorados).
+
+### Bloque 7, paso 3 · Libro v2 y muestra de 40 sin anclaje (D47)
+- **Qué se hizo:** el piloto queda fuera de la confiabilidad; libro v2 (`codificacion_06 --libro-v2`); hoja de la muestra de 40 (`codificacion_06 --hoja-40`); protocolo para que la codificación de Claude se haga en una sesión nueva, sin ver los códigos del piloto (`docs/protocolo_codificacion_ciega.md`).
+- **Comando de la sesión nueva (registrar un lote):** `PYTHONPATH=src .venv/bin/python -m rs_pipeline.codificacion_claude --registrar outputs/semantico/lote_codificacion_40.json --hoja hoja_codificacion_40.csv --libro v2`.
+- **Controles:** falla si el lote no trae exactamente los informes de la hoja, si un código no es 0, 1 o 2, o si falta una justificación de una línea; la hoja de 40 no se sobrescribe si ya tiene códigos. Tests: 149 en total.
+- **Salidas:** `config/libro_codigos_v2.yaml`, `docs/libro_codigos_v2.md`, `docs/protocolo_codificacion_ciega.md`, `outputs/tablas/codificacion_claude_resumen.json` (git); hoja, correspondencia, registro y códigos de Claude (ignorados).

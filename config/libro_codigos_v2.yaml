@@ -1,0 +1,154 @@
+# Libro de códigos v2. Texto de los criterios: criterios_v0.yaml
+version: v2
+decision: D47
+fuente_criterios:
+  archivo: config/criterios_v0.yaml
+  sha256: 5df40f492afdbb69063dc1524125c9d92233a00cf898023c8c5dd4f039d5a21f
+escala:
+  0: No aparece, o la ficha dice explícitamente que no se reporta.
+  1: 'Descrito: el laboratorio o la actividad lo tenía, pero el estudio no reporta su efecto.'
+  2: 'Con resultado: el estudio lo vincula a un resultado (mejoró algo, o su ausencia causó problemas).'
+reglas:
+- Codificar solo lo que dice la ficha; no completar con conocimiento propio.
+- Ante duda entre dos códigos, el menor.
+- Un informe recibe un código por criterio (C01 a C09), siempre los nueve.
+- El código 2 exige un vínculo con un resultado dicho en la ficha; que el estudio tenga resultados en
+  general no basta.
+- 'Los criterios C01 y C09 siguen en borrador: se codifican igual y se marcan en la nota si el enunciado
+  no alcanza para decidir.'
+- '«2» exige que los autores atribuyan el resultado, aunque sea en parte, a ESE componente. Que la intervención
+  en conjunto funcione no basta: un paquete cuenta como 1 para los componentes a los que no se atribuye
+  el resultado.'
+- Un dato descriptivo de contexto o de barrera (p. ej., el porcentaje de estudiantes sin internet en casa)
+  es 1. Solo es 2 si el estudio dice que influyó en la actividad o en el aprendizaje.
+- «1» exige que la ficha mencione el componente. Si no lo menciona, o dice que no se documenta, es 0,
+  aunque se pueda suponer que existía.
+- 'Si el grupo de comparación también tuvo el componente, no se puede atribuir el resultado a ese componente:
+  se codifica 1, no 2.'
+- 'C08: predecir y luego comparar con lo observado (predecir-observar-explicar), o comparar resultados
+  con valores de referencia o con la teoría, cuenta como 1. Es 2 solo si el estudio relaciona ese contraste
+  con un resultado.'
+campos_ficha:
+- tema
+- nivel_norm
+- disciplina_norm
+- diseno
+- comparacion
+- oe1_hallazgo
+- oe1_condiciones
+- oe1_direccion_norm
+- oe2_herramienta
+- oe2_andamiaje
+- oe2_retroalimentacion
+- oe2_interactividad
+- oe2_dispositivo
+- oe2_conectividad
+- oe2_idioma_accesibilidad
+- oe2_costo_licencia
+- oe2_usabilidad_calidad
+- oe4_secuencia
+- oe4_rol_docente
+campos_excluidos:
+  oe2_criterios_candidatos: inferencias del extractor (sesgan el código)
+  lf_*: notas de Luis Fer
+criterios:
+- id: C01
+  dimension: Acompañamiento y mediación pedagógica del aprendizaje
+  criterio_corto: Mediación docente y participación activa del estudiante
+  enunciado: El laboratorio virtual debe integrar sus funcionalidades tecnológicas con decisiones didácticas
+    explícitas sobre su uso, de modo que el estudiante participe en un proceso guiado, autónomo y reflexivo,
+    y no sea un usuario pasivo que solo ejecuta la simulación.
+  estado: 'borrador: revisar Luis Fer'
+- id: C02
+  dimension: Estructuración didáctica y niveles de orientación de las actividades experimentales.
+  criterio_corto: Estructuración y secuenciación guiada de las experiencias de aprendizaje experimental.
+  enunciado: El laboratorio virtual debe ofrecer experiencias experimentales organizadas mediante guías
+    didácticas estructuradas, con objetivos de aprendizaje, fundamentación conceptual, procedimientos,
+    preguntas orientadoras y actividades de análisis que conduzcan progresivamente al estudiante desde
+    la exploración hasta la interpretación y comunicación de resultados.
+  estado: aprobado
+  ejemplos:
+    0: 'Ejemplo: «Se usó el simulador en una clase; no reporta guía ni estructura de las actividades.»'
+    1: 'Ejemplo: «Cada práctica tenía una guía con objetivo, pasos numerados y preguntas finales; no se
+      analiza su efecto.»'
+    2: 'Ejemplo: «El grupo con guía estructurada terminó más prácticas y mejoró en el postest; el grupo
+      sin guía se perdió en la exploración.»'
+- id: C03
+  dimension: Interactividad y manipulación experimental en entornos de simulación.
+  criterio_corto: Manipulación de variables y exploración experimental interactiva.
+  enunciado: El laboratorio virtual debe permitir que el estudiante manipule variables independientes,
+    modifique las condiciones de los sistemas simulados, utilice instrumentos virtuales y observe los
+    cambios producidos en los fenómenos estudiados, facilitando la exploración de relaciones entre variables,
+    la formulación de predicciones y la comprensión de procesos científicos.
+  estado: aprobado
+- id: C04
+  dimension: Retroalimentación y evaluación formativa en entornos de experimentación virtual.
+  criterio_corto: Retroalimentación formativa y seguimiento del aprendizaje experimental.
+  enunciado: El laboratorio virtual debe favorecer procesos de retroalimentación continua mediante respuestas
+    del sistema ante las acciones del estudiante, orientaciones del docente, espacios de discusión y mecanismos
+    de autoevaluación que permitan reconocer avances, identificar errores y mejorar la comprensión de
+    los fenómenos científicos.
+  estado: aprobado
+  ejemplos:
+    0: 'Ejemplo: «Retroalimentación de la herramienta: no reporta.»'
+    1: 'Ejemplo: «El docente comentaba las respuestas al cierre de la sesión; el estudio no evalúa ese
+      comentario.»'
+    2: 'Ejemplo: «Los estudiantes que recibieron corrección inmediata de la simulación corrigieron más
+      errores en la segunda práctica.»'
+- id: C05
+  dimension: Desarrollo de habilidades científicas mediante la experimentación virtual.
+  criterio_corto: Desarrollo de habilidades de medición, análisis e interpretación experimental.
+  enunciado: El laboratorio virtual debe proporcionar herramientas y escenarios que permitan al estudiante
+    ejecutar procedimientos experimentales, utilizar instrumentos de medición, recolectar y procesar datos,
+    representar resultados e interpretar fenómenos científicos para construir explicaciones sustentadas
+    en evidencias.
+  estado: aprobado
+- id: C06
+  dimension: Mecanismos multimodales de retroalimentación y visualización del aprendizaje experimental.
+  criterio_corto: Mecanismos multimodales de retroalimentación y visualización del aprendizaje experimental.
+  enunciado: El laboratorio virtual debe proporcionar información oportuna sobre las acciones y resultados
+    del estudiante mediante representaciones visuales, gráficas, respuestas automáticas y orientaciones
+    de docentes o pares, facilitando la identificación de errores, la comprensión de los resultados y
+    el mejoramiento progresivo del desempeño experimental.
+  estado: aprobado
+- id: C07
+  dimension: Calidad técnica, usabilidad y condiciones de operación de los laboratorios virtuales.
+  criterio_corto: Usabilidad, eficiencia y fiabilidad del entorno tecnológico.
+  enunciado: El laboratorio virtual debe garantizar una interacción sencilla, eficiente y confiable, considerando
+    la facilidad de uso, los tiempos de respuesta, los requisitos técnicos, la compatibilidad con los
+    dispositivos disponibles y su capacidad para mantener un funcionamiento adecuado ante diferentes condiciones
+    de conectividad y demanda de usuarios.
+  estado: aprobado
+- id: C08
+  dimension: Contraste de resultados y validación del aprendizaje mediante la simulación.
+  criterio_corto: Verificación y contraste de resultados mediante representaciones experimentales.
+  enunciado: El laboratorio virtual debe permitir contrastar los resultados obtenidos por los estudiantes
+    con representaciones, respuestas y soluciones de referencia, facilitando la verificación de procedimientos,
+    la identificación de errores conceptuales y la autorregulación del aprendizaje mediante la interpretación
+    de resultados y el diálogo pedagógico.
+  estado: aprobado
+- id: C09
+  dimension: Accesibilidad y viabilidad tecnológica del laboratorio virtual
+  criterio_corto: Acceso en contextos de baja conectividad y recursos limitados
+  enunciado: El laboratorio virtual debe poder usarse con los dispositivos, la conectividad, el idioma
+    y los recursos económicos disponibles en las instituciones, sin depender de equipos costosos, licencias
+    pagas ni conexión permanente.
+  estado: 'borrador: revisar Luis Fer'
+  ejemplos:
+    0: 'Ejemplo: «Idioma, costo y conectividad: no reporta.»'
+    1: 'Ejemplo: «La simulación se descargó para usarla sin conexión en el aula; no se informa si cambió
+      la participación.»'
+    2: 'Ejemplo: «Cuatro estudiantes sin internet en casa no pudieron repetir la práctica y quedaron fuera
+      del análisis.»'
+ejemplos_de_reglas:
+- 'Regla a. Ejemplo: «El grupo con simulación, guía y trabajo en parejas mejoró frente al control; los
+  autores no atribuyen la mejora a ninguna parte» → retroalimentación, guía e interactividad = 1, no 2.'
+- 'Regla b. Ejemplo: «El 30 % de los estudiantes no tenía internet en casa» → 1; «quienes no tenían internet
+  no pudieron terminar la práctica» → 2.'
+- 'Regla c. Ejemplo: «Costo y licencia: no se documenta» → 0, aunque la herramienta fuera gratuita en
+  la práctica.'
+- 'Regla d. Ejemplo: «El grupo control también usó hojas de trabajo guiadas y ambos grupos mejoraron»
+  → la guía = 1, no 2.'
+- 'Regla C08. Ejemplo: «Los estudiantes predecían la trayectoria y luego la comparaban con lo que mostraba
+  la simulación» → 1; «quienes comparaban con la teoría corrigieron más errores en el postest, según los
+  autores» → 2.'

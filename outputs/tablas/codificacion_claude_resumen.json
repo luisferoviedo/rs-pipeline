@@ -1,0 +1,14 @@
+{
+  "lineas_en_el_registro": 5,
+  "por_libro": [
+    {
+      "libro": "libro_codigos_v1.yaml",
+      "sha256": "33ce0facb6cd13e99b6a242ad0e17a88c55489f8806e9df8a453dd546f4d60b9",
+      "informes_codificados": 5,
+      "modelos": [
+        "claude-sonnet-5-5"
+      ],
+      "ultima_fecha": "2026-10-31T23:32:16-05:00"
+    }
+  ]
+}

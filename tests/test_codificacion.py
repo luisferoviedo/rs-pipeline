@@ -136,3 +136,39 @@ def test_costo_con_cuentas_a_mano(params):
     historica = json_costo["estimacion_api_no_vigente"]
     assert historica["n_informes"] == 196
     assert "platform.claude.com" in historica["fuente_precios"]
+
+
+def test_libro_v2_agrega_dos_cambios_y_no_toca_v1():
+    v1 = yaml.safe_load((RAIZ / "config/libro_codigos_v1.yaml").read_text("utf-8"))
+    v2 = yaml.safe_load((RAIZ / "config/libro_codigos_v2.yaml").read_text("utf-8"))
+    assert v2["version"] == "v2" and v2["decision"] == "D47"
+    assert v2["reglas"][: len(v1["reglas"])] == v1["reglas"]
+    assert len(v2["reglas"]) == len(v1["reglas"]) + 2
+    assert "comparación también tuvo" in v2["reglas"][-2]
+    assert "C08" in v2["reglas"][-1] and "predecir" in v2["reglas"][-1]
+    assert v2["criterios"] == v1["criterios"] and v2["escala"] == v1["escala"]
+
+
+def test_hoja_de_40_mismas_columnas_que_el_piloto_y_sin_codigos(params):
+    privada = PRIVADA
+    leer = lambda n: pd.read_csv(  # noqa: E731
+        privada / n, dtype=str, keep_default_na=False, encoding="utf-8-sig"
+    )
+    hoja, piloto = (
+        leer("hoja_codificacion_40.csv"),
+        leer("hoja_codificacion_piloto.csv"),
+    )
+    assert list(hoja.columns) == list(piloto.columns)
+    assert list(hoja["id_ciego"]) == [f"M{n:02d}" for n in range(1, 41)]
+    assert (hoja[[*[f"C0{n}" for n in range(1, 10)], "nota"]] == "").all().all()
+    assert not any(
+        re.search(r"\[\s*[FI]\s*\]|\bpp?\.\s*\d", t)
+        for t in hoja[CAMPOS].to_numpy().ravel()
+    )
+    corr = leer("hoja_codificacion_40_correspondencia.csv")
+    muestra = pd.read_csv(privada / "muestra_confiabilidad_40.csv")
+    assert sorted(corr["id"]) == sorted(muestra["id"]) and len(corr) == 40
+    assert not set(corr["id"]) & set(
+        leer("hoja_codificacion_piloto_correspondencia.csv")["id"]
+    )
+    assert not set(corr["id"]) & EXCLUIDOS_NIVEL
