@@ -426,4 +426,9 @@ def test_marco_de_criterios_v0_cubre_los_20_temas_una_vez():
     por_id = {c["id"]: c for c in criterios}
     assert por_id["C07"]["temas_origen"] == [16, 8]
     assert por_id["C09"]["temas_origen"] == [3, 4, 7, 9, 10, 13, 18, 19]
-    assert {c["id"] for c in criterios if c["estado"] != "aprobado"} == {"C01", "C09"}
+    # D50: C06 pasa a borrador (se quitó «orientaciones de docentes o pares»)
+    assert {c["id"] for c in criterios if c["estado"] != "aprobado"} == {
+        "C01",
+        "C06",
+        "C09",
+    }

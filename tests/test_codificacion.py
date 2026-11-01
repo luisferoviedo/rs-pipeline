@@ -39,6 +39,10 @@ def test_libro_repite_los_criterios_y_la_escala():
     assert libro["campos_ficha"] == CAMPOS
     for c, origen in zip(libro["criterios"], marco["criterios"], strict=True):
         for clave in ("id", "dimension", "criterio_corto", "enunciado", "estado"):
+            if c["id"] == "C06" and clave in ("enunciado", "estado"):
+                # D50 cambió el C06 del marco; el libro v0 conserva el texto de D42
+                assert c[clave] != origen[clave]
+                continue
             assert c[clave] == origen[clave]
     con_ejemplos = [c for c in libro["criterios"] if "ejemplos" in c]
     assert 2 <= len(con_ejemplos) <= 3

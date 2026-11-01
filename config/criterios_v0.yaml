@@ -68,12 +68,12 @@ criterios:
   dimension: Mecanismos multimodales de retroalimentación y visualización del aprendizaje experimental.
   criterio_corto: Mecanismos multimodales de retroalimentación y visualización del aprendizaje experimental.
   enunciado: El laboratorio virtual debe proporcionar información oportuna sobre las acciones y resultados
-    del estudiante mediante representaciones visuales, gráficas, respuestas automáticas y orientaciones
-    de docentes o pares, facilitando la identificación de errores, la comprensión de los resultados y
-    el mejoramiento progresivo del desempeño experimental.
+    del estudiante mediante representaciones visuales, gráficas y respuestas automáticas, facilitando
+    la identificación de errores, la comprensión de los resultados y el mejoramiento progresivo del
+    desempeño experimental.
   temas_origen:
   - 12
-  estado: aprobado
+  estado: 'borrador: revisar Luis Fer'
 - id: C07
   dimension: Calidad técnica, usabilidad y condiciones de operación de los laboratorios virtuales.
   criterio_corto: Usabilidad, eficiencia y fiabilidad del entorno tecnológico.
