@@ -409,3 +409,21 @@ def test_los_fragmentos_son_los_mas_cercanos_al_centroide():
     assert semantico_04.campos_del_tema(
         ["a"] * 70 + ["b"] * 20 + ["c"] * 5 + ["d"] * 5
     ) == ("a 70 %; b 20 %")  # c y d valen 5 %: no pasan de 5 %
+
+
+def test_marco_de_criterios_v0_cubre_los_20_temas_una_vez():
+    import yaml
+
+    marco = yaml.safe_load(open("config/criterios_v0.yaml", encoding="utf-8"))
+    criterios = marco["criterios"]
+    assert [c["id"] for c in criterios] == [f"C0{n}" for n in range(1, 10)]
+    for c in criterios:
+        assert all(c[k].strip() for k in ("dimension", "criterio_corto", "enunciado"))
+        assert c["estado"] in ("aprobado", "borrador: revisar Luis Fer")
+    usados = [t for c in criterios for t in c["temas_origen"]]
+    usados += [d["tema"] for d in marco["descartados"]]
+    assert sorted(usados) == list(range(20))
+    por_id = {c["id"]: c for c in criterios}
+    assert por_id["C07"]["temas_origen"] == [16, 8]
+    assert por_id["C09"]["temas_origen"] == [3, 4, 7, 9, 10, 13, 18, 19]
+    assert {c["id"] for c in criterios if c["estado"] != "aprobado"} == {"C01", "C09"}

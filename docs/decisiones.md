@@ -208,3 +208,13 @@ Decisiones aprobadas por Luis Fer (31 oct 2026) para pasar de los temas a un mar
 - **Protección:** `semantico_04 --hoja-nombrar-2b` se niega a sobrescribir la hoja si alguna de las cinco columnas a llenar ya tiene contenido.
 - **Tests:** columnas exactas, 20 temas, `n_unidades` y `n_informes` recalculados desde las asignaciones, `campos_oe2` recalculado, que cada fragmento sea una unidad real de la ficha, la protección y el cálculo del centroide (117 pruebas en total).
 
+
+## D42. Bloque 6, paso 2: marco de criterios v0 (decisiones de Luis Fer sobre los 20 temas de e5)
+Decisiones de Luis Fer (31 oct 2026) tras nombrar la hoja `hoja_nombrar_temas_2b_e5.csv` (respaldo sin nombrar: `…_sin_nombrar_respaldo.csv`):
+- **Estructura oficial de un criterio (3 niveles):** `dimension` = columna `nombre` de la hoja · `criterio_corto` = columna `criterio` · `enunciado` = columna `nota`.
+- **Marco v0, 9 criterios** (`config/criterios_v0.yaml`, texto de Luis Fer, se versiona): C01 = tema 0 (borrador, con textos dados por Luis Fer; la dimensión sale de la hoja) · C02 = 2 · C03 = 5 · C04 = 6 · C05 = 11 · C06 = 12 · C07 = 16 + 8 (el 8, usabilidad, se fusiona con el 16; textos del 16) · C08 = 17 (todos «aprobado», textos tal cual de la hoja) · C09 nuevo (borrador) = 3, 4, 7, 9, 10, 13, 18, 19, con dimensión, criterio corto y enunciado dados por Luis Fer.
+- **Descartados:** tema 1 (qué herramienta se usó: es un dato, no un criterio), 14 y 15 (mezclas pequeñas). Los 20 temas quedan cubiertos una sola vez.
+- **Diferencia con la hoja:** en la columna `accion` de la hoja los temas 3, 4, 7, 8, 9, 10, 13, 18 y 19 figuran como «descartar»; las decisiones de este registro (C09 y la fusión 8→16) tienen prioridad.
+- **6 y 12 quedan separados;** si en el cruce comparten más del 70 % de sus informes, se avisa a Luis Fer.
+- **Chequeo de acuerdo de nombres:** Claude propuso un nombre corto por tema leyendo solo el respaldo sin nombrar, antes de abrir los textos de Luis Fer (`outputs/semantico/propuestas_nombres_claude_2b_e5.csv`, ignorado).
+- **Pendiente de aprobación:** la operacionalización del peso de la evidencia (A, B, C y su combinación) y el cruce por criterio (E).
