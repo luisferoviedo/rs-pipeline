@@ -133,6 +133,9 @@ codificacion:
   semilla: 20261031                # semilla fija de las muestras
   n_piloto: 5
   n_confiabilidad: 40
+  n_verificacion_presencia: 20     # muestra nueva para verificar C05, C06 y C08 (D50)
+  n_lotes_196: 4                   # lotes de la codificación completa (D50)
+  max_por_lote: 50                 # tope por sesión (CLAUDE.md)
   campos_ficha: [tema, nivel_norm, disciplina_norm, diseno, comparacion, oe1_hallazgo,
     oe1_condiciones, oe1_direccion_norm, oe2_herramienta, oe2_andamiaje, oe2_retroalimentacion,
     oe2_interactividad, oe2_dispositivo, oe2_conectividad, oe2_idioma_accesibilidad,

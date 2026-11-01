@@ -22,6 +22,7 @@ from rs_pipeline import semantico_texto as T
 from rs_pipeline.semantico_texto import ErrorPipeline, fallar
 
 RAIZ_REPO = S.RAIZ_REPO
+LIBROS_HISTORICOS = ("v0", "v1", "v2")  # ya usados para codificar: no se reescriben
 CRITERIOS = [f"C0{n}" for n in range(1, 10)]
 ESCALA = {
     0: "No aparece, o la ficha dice explícitamente que no se reporta.",
@@ -78,8 +79,6 @@ EJEMPLOS_REGLAS_V2 = [
     "comparaban con lo que mostraba la simulación» → 1; «quienes comparaban con la "
     "teoría corrigieron más errores en el postest, según los autores» → 2.",
 ]
-REGLAS_POR_VERSION = {"v0": REGLAS, "v1": REGLAS_V1, "v2": REGLAS_V2}
-DECISION_POR_VERSION = {"v0": "D44", "v1": "D45", "v2": "D47"}
 EJEMPLOS_POR_VERSION = {"v1": EJEMPLOS_REGLAS_V1, "v2": EJEMPLOS_REGLAS_V2}
 # Ejemplos inventados (no son texto de artículos) para tres criterios.
 EJEMPLOS = {
@@ -108,6 +107,127 @@ EJEMPLOS = {
 }
 
 
+# Libro v3 (D50): escala principal = presencia (0/1); la atribución no se codifica.
+ESCALA_V3 = {
+    0: "No aparece, o la ficha dice explícitamente que no se reporta o que no se "
+    "documenta.",
+    1: "Aparece: la ficha menciona el componente como parte de la actividad o del "
+    "laboratorio, con o sin resultado.",
+}
+REGLAS_V3 = [
+    "Codificar solo lo que dice la ficha; no completar con conocimiento propio.",
+    "Ante duda entre 0 y 1, el 0.",
+    "Un informe recibe un código por criterio (C01 a C09), siempre los nueve.",
+    "«1» exige que la ficha mencione el componente. Si no lo menciona, o dice que "
+    "no se reporta o no se documenta, es 0, aunque se pueda suponer que existía.",
+    "No se codifica atribución: da igual si el estudio vincula el componente con un "
+    "resultado, si el resultado es del paquete completo o si el grupo de "
+    "comparación también tuvo el componente.",
+    "Un dato descriptivo de contexto o de barrera (p. ej., el porcentaje de "
+    "estudiantes sin internet en casa) cuenta como presencia (1).",
+    "Los criterios C01, C06 y C09 siguen en borrador: se codifican igual y, si el "
+    "enunciado no alcanza para decidir, se dice en la justificación de una línea.",
+    "C05, C06 y C08 se deciden con su lista «cuenta / no cuenta»; si un caso no "
+    "está en ninguna lista, se aplica la regla de duda (0).",
+    "La corrección o los comentarios del docente o de pares se codifican en C04, "
+    "no en C06.",
+]
+# Ejemplos inventados (no son texto de artículos) del libro v3: códigos 0 y 1.
+EJEMPLOS_V3 = {
+    "C02": {
+        0: EJEMPLOS["C02"][0],
+        1: EJEMPLOS["C02"][1],
+    },
+    "C04": {
+        0: EJEMPLOS["C04"][0],
+        1: EJEMPLOS["C04"][1],
+    },
+    "C05": {
+        0: "Ejemplo: «Los estudiantes exploraban la simulación y explicaban lo que "
+        "veían; no se menciona registro de datos.»",
+        1: "Ejemplo: «Los estudiantes registraban voltaje y corriente en una tabla y "
+        "calculaban la resistencia.»",
+    },
+    "C06": {
+        0: "Ejemplo: «La simulación mostraba gráficas de energía mientras el "
+        "estudiante cambiaba la altura.»",
+        1: "Ejemplo: «La simulación marcaba en rojo las conexiones erróneas del "
+        "circuito y daba un puntaje.»",
+    },
+    "C08": {
+        0: "Ejemplo: «Los estudiantes observaban que la energía mecánica se "
+        "conservaba.»",
+        1: "Ejemplo: «Los estudiantes calculaban el alcance a mano y lo comparaban "
+        "con el que mostraba la simulación.»",
+    },
+    "C09": {
+        0: EJEMPLOS["C09"][0],
+        1: EJEMPLOS["C09"][1],
+    },
+}
+# Listas «cuenta / no cuenta» aprobadas por Luis Fer (D50).
+LISTAS_V3 = {
+    "C05": {
+        "cuenta": [
+            "Mide con un instrumento, real o virtual.",
+            "Registra datos en una tabla o informe.",
+            "Calcula a partir de datos.",
+            "Grafica o interpreta datos propios.",
+            "Concluye a partir de datos.",
+        ],
+        "no_cuenta": [
+            "Solo manipula parámetros y observa.",
+            "Ve gráficas que genera el sistema, sin que el estudiante las procese.",
+            "Responde preguntas conceptuales.",
+            "«Realiza experimentos» sin mención de datos.",
+            "Explica o argumenta con lo observado, sin datos registrados.",
+        ],
+    },
+    "C06": {
+        "cuenta": [
+            "Un puntaje o una calificación automática del trabajo del estudiante.",
+            "Una marca o un mensaje de error del sistema.",
+            "Un indicador de estado o de riesgo que cambia según lo que hizo.",
+            "Un resultado del sistema que, según la ficha, deja ver el error del "
+            "estudiante.",
+        ],
+        "no_cuenta": [
+            "Tener gráficos, animaciones o representaciones del fenómeno.",
+            "La respuesta visual al mover parámetros.",
+            "«Retroalimentación inmediata» sin decir qué muestra.",
+            "La corrección o los comentarios del docente o de pares (van a C04).",
+        ],
+    },
+    "C08": {
+        "cuenta": [
+            "Predice y luego compara con lo observado (predecir-observar-explicar).",
+            "Compara su resultado con un valor de referencia o con la teoría.",
+            "Compara su cálculo a mano con el simulador.",
+            "Verifica una ley o un resultado conocido.",
+            "Contrasta lo esperado con lo obtenido.",
+            "Recrea el montaje real para contrastarlo con la simulación.",
+        ],
+        "no_cuenta": [
+            "Observar un principio (p. ej., la conservación) sin compararlo con nada.",
+            "Comparar grupos o condiciones del estudio: es diseño del estudio, no "
+            "actividad del estudiante.",
+            "Que el docente corrija las respuestas (va a C04).",
+            "La clave de un cuestionario, salvo que la ficha diga que el estudiante "
+            "contrasta su respuesta con ella.",
+        ],
+    },
+}
+NOTAS_V3 = {
+    "C01": "Casi universal en la muestra de 40 (D49); en el marco será una "
+    "condición base (D50).",
+    "C02": "Casi universal en la muestra de 40 (D49); en el marco será una "
+    "condición base (D50).",
+    "C04": "Incluye la corrección y los comentarios del docente o de pares (D50).",
+}
+
+REGLAS_POR_VERSION = {"v0": REGLAS, "v1": REGLAS_V1, "v2": REGLAS_V2, "v3": REGLAS_V3}
+DECISION_POR_VERSION = {"v0": "D44", "v1": "D45", "v2": "D47", "v3": "D50"}
+
 # --- Libro de códigos ----------------------------------------------------------------
 
 
@@ -122,17 +242,22 @@ def cargar_marco() -> tuple[dict, str]:
 def construir_libro(cfg: dict, version: str = "v0") -> dict:
     marco, sha = cargar_marco()
     criterios = []
+    ejemplos = EJEMPLOS_V3 if version == "v3" else EJEMPLOS
     for c in marco["criterios"]:
         entrada = {k: c[k] for k in ("id", "dimension", "criterio_corto", "enunciado")}
         entrada["estado"] = c["estado"]
-        if c["id"] in EJEMPLOS:
-            entrada["ejemplos"] = {k: v for k, v in EJEMPLOS[c["id"]].items()}
+        if c["id"] in ejemplos:
+            entrada["ejemplos"] = {k: v for k, v in ejemplos[c["id"]].items()}
+        if version == "v3":
+            entrada |= LISTAS_V3.get(c["id"], {})
+            if c["id"] in NOTAS_V3:
+                entrada["nota"] = NOTAS_V3[c["id"]]
         criterios.append(entrada)
     libro = {
         "version": version,
         "decision": DECISION_POR_VERSION[version],
         "fuente_criterios": {"archivo": "config/criterios_v0.yaml", "sha256": sha},
-        "escala": ESCALA,
+        "escala": ESCALA_V3 if version == "v3" else ESCALA,
         "reglas": REGLAS_POR_VERSION[version],
         "campos_ficha": cfg["campos_ficha"],
         "campos_excluidos": {
@@ -150,7 +275,8 @@ def libro_a_markdown(libro: dict) -> str:
     lineas = [
         f"# Libro de códigos {libro['version']} ({libro['decision']})",
         "",
-        "Codificación deductiva de cada informe frente a cada criterio del marco v0.",
+        "Codificación deductiva de cada informe frente a cada criterio del marco v0"
+        + (": presencia (0/1)." if libro["version"] == "v3" else "."),
         "",
         "## Escala (por informe y criterio)",
         "",
@@ -185,12 +311,20 @@ def libro_a_markdown(libro: dict) -> str:
         ]
         for codigo, texto in c.get("ejemplos", {}).items():
             lineas.append(f"- **Código {codigo}.** {texto}")
+        for clave, rotulo in (("cuenta", "Cuenta (1)"), ("no_cuenta", "No cuenta (0)")):
+            if clave in c:
+                lineas.append(f"- **{rotulo}:**")
+                lineas += [f"  - {x}" for x in c[clave]]
+        if "nota" in c:
+            lineas.append(f"- **Nota:** {c['nota']}")
     return "\n".join(lineas) + "\n"
 
 
 def escribir_libro(cfg: dict, version: str = "v0") -> dict:
     libro = construir_libro(cfg, version)
     ruta_yaml = RAIZ_REPO / "config" / f"libro_codigos_{version}.yaml"
+    if ruta_yaml.is_file() and version in LIBROS_HISTORICOS:
+        fallar(f"{ruta_yaml.name} es un libro histórico: no se reescribe (D50)")
     with ruta_yaml.open("w", encoding="utf-8") as f:
         f.write(
             f"# Libro de códigos {version}. Texto de los criterios: criterios_v0.yaml\n"
@@ -245,14 +379,18 @@ def cuotas(tamanos: pd.Series, total: int) -> dict:
 
 
 def elegir_confiabilidad(
-    pesos: pd.DataFrame, piloto: list[str], cantidad: int, semilla: int
+    pesos: pd.DataFrame,
+    piloto: list[str],
+    cantidad: int,
+    semilla: int,
+    desplazamiento: int = 1,
 ) -> pd.DataFrame:
     """40 informes estratificados por peso y nivel; sin el piloto ni su estudio."""
     estudios_piloto = set(pesos[pesos["id"].isin(piloto)]["estudio"])
     pool = pesos[~pesos["estudio"].isin(estudios_piloto)].copy()
     pool["estrato"] = pool["peso_suma"] + " | " + pool["nivel"]
     cuota = cuotas(pool.groupby("estrato").size(), cantidad)
-    azar = np.random.default_rng(semilla + 1)
+    azar = np.random.default_rng(semilla + desplazamiento)
     elegidos = []
     for estrato, n in sorted(cuota.items()):
         ids = sorted(pool[pool["estrato"] == estrato]["id"])
@@ -269,12 +407,13 @@ def columnas_hoja(cfg: dict) -> list[str]:
     return ["id_ciego", *cfg["campos_ficha"], *CRITERIOS, "nota"]
 
 
-def exigir_hoja_sin_codificar(ruta) -> None:  # noqa: ANN001
+def exigir_hoja_sin_codificar(ruta, vacias: list[str] | None = None) -> None:  # noqa: ANN001
     """No pisa una hoja donde Luis Fer ya escribió códigos o notas."""
     if not ruta.is_file():
         return
     hoja = pd.read_csv(ruta, dtype=str, keep_default_na=False, encoding="utf-8-sig")
-    if (hoja[[*CRITERIOS, "nota"]] != "").to_numpy().any():
+    columnas = vacias or [*CRITERIOS, "nota"]
+    if (hoja[columnas] != "").to_numpy().any():
         fallar(f"{ruta.name} ya tiene códigos o notas: no se sobrescribe")
 
 
@@ -285,6 +424,7 @@ def filas_del_piloto(
     semilla: int,
     prefijo: str = "P",
     desplazamiento: int = 2,
+    ancho: int = 2,
 ):
     azar = np.random.default_rng(semilla + desplazamiento)
     orden = list(azar.permutation(piloto))
@@ -294,7 +434,7 @@ def filas_del_piloto(
         fallar(f"La matriz no tiene las columnas {faltan}")
     hoja, correspondencia = [], []
     for k, id_real in enumerate(orden, start=1):
-        ciego = f"{prefijo}{k:02d}"
+        ciego = f"{prefijo}{k:0{ancho}d}"
         fila = {"id_ciego": ciego}
         fila |= {
             c: T.limpiar_ficha(por_id.loc[id_real, c]) for c in cfg["campos_ficha"]
@@ -331,6 +471,114 @@ def hoja_codificacion_40(params: dict) -> int:
         lineterminator="\n",
     )
     return len(hoja)
+
+
+# --- Verificación de presencia y codificación completa (D50) --------------------------
+
+CRITERIOS_VERIFICADOS = ["C05", "C06", "C08"]
+
+
+def repartir_en_lotes(ids: list[str], n_lotes: int, maximo: int) -> list[list[str]]:
+    """Lotes consecutivos de tamaño parejo (el último puede ser más corto)."""
+    ordenados = sorted(ids)
+    tamano = -(-len(ordenados) // n_lotes)
+    if tamano > maximo:
+        fallar(f"Un lote tendría {tamano} informes y el máximo por sesión es {maximo}")
+    lotes = [ordenados[i : i + tamano] for i in range(0, len(ordenados), tamano)]
+    if sum(len(x) for x in lotes) != len(ordenados) or len(lotes) > n_lotes:
+        fallar("El reparto en lotes no cuadra con los informes")
+    return lotes
+
+
+def ids_ya_usados(privada) -> list[str]:  # noqa: ANN001
+    """Informes del piloto y de la muestra de 40 (para no repetirlos)."""
+    piloto = pd.read_csv(privada / "hoja_codificacion_piloto_correspondencia.csv")
+    muestra = pd.read_csv(privada / "muestra_confiabilidad_40.csv")
+    return sorted(set(piloto["id"]) | set(muestra["id"]))
+
+
+def hoja_presencia_20(params: dict) -> int:
+    """Hoja de verificación de C05, C06 y C08: 20 informes nuevos (V01…V20)."""
+    cfg = params["codificacion"]
+    privada = RAIZ_REPO / params["semantico"]["salidas"]
+    ruta = privada / "hoja_codificacion_presencia_20.csv"
+    columnas = [*CRITERIOS_VERIFICADOS, "modo_presencia", "nota"]
+    exigir_hoja_sin_codificar(ruta, columnas)
+    tabla, pesos = informes_con_peso(params)
+    muestra = elegir_confiabilidad(
+        pesos,
+        ids_ya_usados(privada),
+        cfg["n_verificacion_presencia"],
+        cfg["semilla"],
+        desplazamiento=4,
+    )
+    if len(muestra) != cfg["n_verificacion_presencia"]:
+        fallar(f"La muestra tiene {len(muestra)} informes, no el pedido")
+    hoja, correspondencia = filas_del_piloto(
+        tabla, list(muestra["id"]), cfg, cfg["semilla"], prefijo="V", desplazamiento=5
+    )
+    hoja = hoja.assign(modo_presencia="")
+    hoja.to_csv(
+        ruta,
+        index=False,
+        encoding="utf-8-sig",
+        lineterminator="\n",
+        columns=["id_ciego", *cfg["campos_ficha"], *columnas],
+    )
+    correspondencia.to_csv(
+        privada / "hoja_codificacion_presencia_20_correspondencia.csv",
+        index=False,
+        lineterminator="\n",
+    )
+    muestra.to_csv(
+        privada / "muestra_verificacion_presencia_20.csv",
+        index=False,
+        lineterminator="\n",
+    )
+    return len(hoja)
+
+
+def hoja_196(params: dict) -> list[int]:
+    """Hoja de los 196 (T001…T196) y una hoja por lote; devuelve sus tamaños."""
+    cfg = params["codificacion"]
+    privada = RAIZ_REPO / params["semantico"]["salidas"]
+    ruta = privada / "hoja_codificacion_196.csv"
+    exigir_hoja_sin_codificar(ruta)
+    tabla = S.cargar_matriz(params)["tabla"]
+    hoja, correspondencia = filas_del_piloto(
+        tabla,
+        list(tabla["id"]),
+        cfg,
+        cfg["semilla"],
+        prefijo="T",
+        desplazamiento=6,
+        ancho=3,
+    )
+    lotes = repartir_en_lotes(
+        list(hoja["id_ciego"]), cfg["n_lotes_196"], cfg["max_por_lote"]
+    )
+    columnas = columnas_hoja(cfg)
+    hoja.to_csv(
+        ruta,
+        index=False,
+        encoding="utf-8-sig",
+        lineterminator="\n",
+        columns=columnas,
+    )
+    for n, ids in enumerate(lotes, start=1):
+        hoja[hoja["id_ciego"].isin(ids)].to_csv(
+            privada / f"hoja_codificacion_196_lote{n}.csv",
+            index=False,
+            encoding="utf-8-sig",
+            lineterminator="\n",
+            columns=columnas,
+        )
+    correspondencia.to_csv(
+        privada / "hoja_codificacion_196_correspondencia.csv",
+        index=False,
+        lineterminator="\n",
+    )
+    return [len(x) for x in lotes]
 
 
 # --- Costo ---------------------------------------------------------------------------
@@ -450,10 +698,17 @@ def ejecutar(params: dict) -> dict:
 
 def main() -> int:
     try:
-        for version in ("v1", "v2"):
+        for version in ("v1", "v2", "v3"):
             if f"--libro-{version}" in sys.argv:
                 print(escribir_libro(S.cargar_params()["codificacion"], version))
                 return 0
+        if "--hoja-presencia-20" in sys.argv:
+            n = hoja_presencia_20(S.cargar_params())
+            print(f"informes en la hoja: {n}")
+            return 0
+        if "--hoja-196" in sys.argv:
+            print(f"lotes de la hoja de 196: {hoja_196(S.cargar_params())}")
+            return 0
         if "--hoja-40" in sys.argv:
             print(f"informes en la hoja: {hoja_codificacion_40(S.cargar_params())}")
             return 0

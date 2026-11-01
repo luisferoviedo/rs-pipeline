@@ -492,3 +492,9 @@ Tests: `tests/test_codificacion.py` (8 pruebas). Total del proyecto: 137 pruebas
 - **Qué se hizo:** la escala principal pasa a presencia (0 frente a 1 o 2); se recalculan acuerdo, kappa de Cohen y AC1 de Gwet por criterio y total, con IC bootstrap (mismo comando que el paso 4).
 - **Controles:** los de D48; además el test compara la salida publicada con la tabla de códigos (conteo de códigos 2 y criterios con AC1 ≥ 0,60). Tests: 155 en total.
 - **Salidas:** `outputs/tablas/confiabilidad_40_presencia.csv/.json` (git); desacuerdos de presencia en `outputs/semantico/` (ignorado).
+
+### Bloque 7, paso 6 · Libro v3, verificación de presencia y hoja de 196 (D50)
+- **Qué se hizo:** libro v3 (presencia 0/1, listas «cuenta / no cuenta»), hoja de 20 informes nuevos para que Luis Fer verifique C05, C06 y C08, hoja de los 196 repartida en cuatro lotes y registro de lotes parciales. No se codificó ningún informe.
+- **Comandos:** `PYTHONPATH=src .venv/bin/python -m rs_pipeline.codificacion_06 --libro-v3`, `… --hoja-presencia-20` y `… --hoja-196`. Registrar el lote N: `PYTHONPATH=src .venv/bin/python -m rs_pipeline.codificacion_claude --registrar outputs/semantico/lote_codificacion_196_loteN.json --hoja hoja_codificacion_196.csv --libro v3 --lote N`.
+- **Controles:** falla si el lote no trae exactamente los informes del lote N, si un código no es 0 o 1 (en v3), si un lote pasaría de 50 informes, si se intenta reescribir un libro histórico (v0 a v2) o si una hoja ya tiene códigos. Tests: 168 en total.
+- **Salidas:** `config/libro_codigos_v3.yaml`, `docs/libro_codigos_v3.md`, `docs/protocolo_codificacion_ciega.md` (git); hojas, correspondencias y lotes en `outputs/semantico/` (ignorados).

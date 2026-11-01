@@ -18,14 +18,17 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import yaml
 
 from rs_pipeline import semantico_04 as S
+from rs_pipeline.codificacion_06 import repartir_en_lotes
 from rs_pipeline.semantico_texto import ErrorPipeline, fallar
 
 RAIZ_REPO = S.RAIZ_REPO
 CRITERIOS = [f"C0{n}" for n in range(1, 10)]
 RUTA_LOG = RAIZ_REPO / "logs" / "codificacion_claude.jsonl"
 CATEGORIAS = (0, 1, 2)
+LIBROS_SIN_SUFIJO = ("v0", "v1", "v2")  # nombres de archivo anteriores a D50
 
 
 # --- Registro ---------------------------------------------------------------------
@@ -37,19 +40,29 @@ def hash_ficha(campos: dict[str, str]) -> str:
     return hashlib.sha256(texto.encode("utf-8")).hexdigest()
 
 
-def validar_codificacion(id_ciego: str, codigos: dict, justificaciones: dict) -> None:
+def validar_codificacion(
+    id_ciego: str,
+    codigos: dict,
+    justificaciones: dict,
+    categorias: tuple[int, ...] = CATEGORIAS,
+) -> None:
     if list(codigos) != CRITERIOS or list(justificaciones) != CRITERIOS:
         fallar(f"{id_ciego}: deben venir los nueve criterios C01 a C09, en orden")
-    if any(c not in CATEGORIAS for c in codigos.values()):
-        fallar(f"{id_ciego}: un código no es 0, 1 ni 2")
+    if any(c not in categorias for c in codigos.values()):
+        permitidos = ", ".join(str(c) for c in categorias)
+        fallar(f"{id_ciego}: un código no es uno de los permitidos ({permitidos})")
     for criterio, texto in justificaciones.items():
         if not texto.strip() or "\n" in texto:
             fallar(f"{id_ciego} {criterio}: la justificación debe ser de una línea")
 
 
-def registrar(linea: dict, ruta: Path = RUTA_LOG) -> None:
+def registrar(
+    linea: dict, ruta: Path = RUTA_LOG, categorias: tuple[int, ...] = CATEGORIAS
+) -> None:
     """Agrega una línea al registro (nunca reescribe las anteriores)."""
-    validar_codificacion(linea["id_ciego"], linea["codigos"], linea["justificaciones"])
+    validar_codificacion(
+        linea["id_ciego"], linea["codigos"], linea["justificaciones"], categorias
+    )
     ruta.parent.mkdir(parents=True, exist_ok=True)
     with ruta.open("a", encoding="utf-8") as archivo:
         archivo.write(json.dumps(linea, ensure_ascii=False) + "\n")
@@ -144,23 +157,40 @@ def leer_hoja(
     return hoja
 
 
-def archivo_de_codigos(archivo_hoja: str) -> str:
-    """hoja_codificacion_40.csv -> codigos_claude_40.csv"""
-    return archivo_hoja.replace("hoja_codificacion_", "codigos_claude_")
+def archivo_de_codigos(archivo_hoja: str, version_libro: str = "v1") -> str:
+    """hoja_codificacion_40.csv -> codigos_claude_40.csv (libro v3: …_196_v3.csv)."""
+    nombre = archivo_hoja.replace("hoja_codificacion_", "codigos_claude_")
+    if version_libro in LIBROS_SIN_SUFIJO:
+        return nombre
+    return nombre.replace(".csv", f"_{version_libro}.csv")
 
 
 def lineas_del_lote(
-    entrada: dict, hoja: pd.DataFrame, libro: Path, params: dict
+    entrada: dict,
+    hoja: pd.DataFrame,
+    libro: Path,
+    params: dict,
+    ids_esperados: list[str] | None = None,
+    categorias: tuple[int, ...] = CATEGORIAS,
 ) -> list:
-    """Líneas del registro de un lote, validadas todas antes de escribir ninguna."""
-    if sorted(entrada["informes"]) != sorted(hoja["id_ciego"]):
-        fallar("El lote no trae exactamente los informes de la hoja")
+    """Líneas del registro de un lote, validadas todas antes de escribir ninguna.
+
+    Sin ids_esperados, el lote debe traer exactamente los informes de la hoja; con
+    ellos (lote parcial de una hoja más grande), exactamente esos informes.
+    """
+    esperados = sorted(hoja["id_ciego"] if ids_esperados is None else ids_esperados)
+    if not set(esperados) <= set(hoja["id_ciego"]):
+        fallar("Hay informes esperados que no están en la hoja")
+    if sorted(entrada["informes"]) != esperados:
+        fallar("El lote no trae exactamente los informes que le tocan")
     campos = params["codificacion"]["campos_ficha"]
     por_id = hoja.set_index("id_ciego")
     fecha = datetime.now().astimezone().isoformat(timespec="seconds")
     lineas = []
     for id_ciego, datos in entrada["informes"].items():
-        validar_codificacion(id_ciego, datos["codigos"], datos["justificaciones"])
+        validar_codificacion(
+            id_ciego, datos["codigos"], datos["justificaciones"], categorias
+        )
         ficha = {c: por_id.loc[id_ciego, c] for c in campos}
         lineas.append(
             {
@@ -176,23 +206,39 @@ def lineas_del_lote(
     return lineas
 
 
+def ids_del_lote(hoja: pd.DataFrame, params: dict, lote: int) -> list[str]:
+    """Informes que le tocan al lote (1…n) de una hoja repartida en lotes."""
+    cfg = params["codificacion"]
+    lotes = repartir_en_lotes(
+        list(hoja["id_ciego"]), cfg["n_lotes_196"], cfg["max_por_lote"]
+    )
+    if not 1 <= lote <= len(lotes):
+        fallar(f"El lote debe estar entre 1 y {len(lotes)}")
+    return lotes[lote - 1]
+
+
 def registrar_lote(
     ruta_json: Path,
     params: dict,
     archivo_hoja: str = "hoja_codificacion_piloto.csv",
     version_libro: str = "v1",
+    lote: int | None = None,
 ) -> int:
     """Agrega al registro (y a un CSV ignorado) los informes de un lote de Claude."""
     libro = RAIZ_REPO / "config" / f"libro_codigos_{version_libro}.yaml"
     if not libro.is_file():
         fallar(f"No existe {libro.name}")
+    categorias = tuple(yaml.safe_load(libro.read_text(encoding="utf-8"))["escala"])
     hoja = leer_hoja(params, archivo_hoja, con_codigos=False)
+    esperados = None if lote is None else ids_del_lote(hoja, params, lote)
     entrada = json.loads(ruta_json.read_text(encoding="utf-8"))
-    lineas = lineas_del_lote(entrada, hoja, libro, params)
+    lineas = lineas_del_lote(entrada, hoja, libro, params, esperados, categorias)
     for linea in lineas:
-        registrar(linea)
+        registrar(linea, categorias=categorias)
     ruta_csv = (
-        RAIZ_REPO / params["semantico"]["salidas"] / archivo_de_codigos(archivo_hoja)
+        RAIZ_REPO
+        / params["semantico"]["salidas"]
+        / archivo_de_codigos(archivo_hoja, version_libro)
     )
     filas = pd.DataFrame(
         [
@@ -311,7 +357,8 @@ def main() -> int:
             ruta = Path(sys.argv[sys.argv.index("--registrar") + 1])
             hoja = _opcion("--hoja", "hoja_codificacion_piloto.csv")
             libro = _opcion("--libro", "v1")
-            n = registrar_lote(ruta, params, hoja, libro)
+            lote = int(_opcion("--lote", "0")) or None
+            n = registrar_lote(ruta, params, hoja, libro, lote)
             actualizar_resumen(params)
             print(f"informes registrados: {n}")
             return 0
