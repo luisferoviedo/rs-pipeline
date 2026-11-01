@@ -433,3 +433,39 @@ Tests: `tests/test_criterios.py` (reglas con casos a mano; MMAT 28 alta / 49 med
 | `outputs/tablas/criterios_v0_reporte_por_campo.csv` | por campo de ficha, informes donde el campo entero no reporta | git |
 | `outputs/tablas/mmat_items_por_informe.csv/.json` | respuestas MMAT ítem por ítem, para el anexo | git |
 | `outputs/semantico/criterios_v0_*.csv`, `propuestas_nombres_claude_2b_e5.csv` | IDs, ejemplos, 5 candidatos por criterio, propuestas de nombres (con texto) | local, ignorado |
+
+
+## Bloque 7 · Libro de códigos y piloto de codificación deductiva (`codificacion_06.py`)
+
+Cierre del diseño: 31 oct 2026. Sin llamadas a la API. Flujograma actualizado.
+
+### Objetivo del paso
+Medir evidencia real (no cobertura de campos) codificando cada informe frente a cada criterio. Este paso solo diseña el libro de códigos, elige las muestras y arma la hoja del piloto, y estima el costo de codificar los 196 informes.
+
+### Entradas
+| Archivo | Versión | SHA-256 |
+|---|---|---|
+| `config/criterios_v0.yaml` | marco v0 (D42) | `5df40f492afdbb69063dc1524125c9d92233a00cf898023c8c5dd4f039d5a21f` |
+| `data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv` | salida del bloque 2 | `047840986e236173c915a1ce80a8d7decf690f49f64c3cbae7514b87d7b6bc85` |
+| `config/params.yaml` (sección `codificacion`) | semilla, campos, precios | en git |
+
+### Proceso
+`codificacion_06.py` escribe el libro de códigos desde el marco, calcula el peso de cada informe (D43), sortea con semilla fija el piloto (5 informes variados) y la muestra de confiabilidad (40, estratificada por peso y nivel), limpia los 19 campos de la ficha de los 5 del piloto (sin marcas [F]/[I] ni citas de página) y estima los tokens y el costo con la Batch API y el caché.
+```
+PYTHONPATH=src .venv-semantico/bin/python -m rs_pipeline.codificacion_06
+```
+
+### Decisiones aplicadas
+- [D44](decisiones.md#d44-bloque-7-libro-de-códigos-y-codificación-deductiva-piloto) · Libro de códigos, campos, muestras, costo
+
+### Controles
+Falla (código 1) si `criterios_v0.yaml` no trae C01–C09 en orden, si falta una columna de la ficha, si no hay un piloto variado, o si la hoja del piloto ya tiene códigos o notas (no se sobrescribe).
+Tests: `tests/test_codificacion.py` (8 pruebas). Total del proyecto: 137 pruebas.
+
+### Salidas
+| Archivo | Contenido | Dónde |
+|---|---|---|
+| `config/libro_codigos_v0.yaml`, `docs/libro_codigos_v0.md` | libro de códigos v0 (escala, reglas, campos, criterios, ejemplos inventados) | git |
+| `outputs/tablas/costo_codificacion_estimado.json` | tokens y USD estimados para los 196 informes | git |
+| `outputs/semantico/hoja_codificacion_piloto.csv` y `_correspondencia.csv` | hoja ciega P01–P05 con los 19 campos y su correspondencia | local, ignorado |
+| `outputs/semantico/muestra_confiabilidad_40.csv` | lista de 40 informes | local, ignorado |

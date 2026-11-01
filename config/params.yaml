@@ -127,3 +127,22 @@ semantico:
     temas_por_modelo: {principal: null, control: 15}
   salidas_metricas: outputs/semantico_metricas   # solo números: va a git
 
+
+# Bloque 7: libro de códigos y codificación deductiva (D44)
+codificacion:
+  semilla: 20261031                # semilla fija de las muestras
+  n_piloto: 5
+  n_confiabilidad: 40
+  campos_ficha: [tema, nivel_norm, disciplina_norm, diseno, comparacion, oe1_hallazgo,
+    oe1_condiciones, oe1_direccion_norm, oe2_herramienta, oe2_andamiaje, oe2_retroalimentacion,
+    oe2_interactividad, oe2_dispositivo, oe2_conectividad, oe2_idioma_accesibilidad,
+    oe2_costo_licencia, oe2_usabilidad_calidad, oe4_secuencia, oe4_rol_docente]
+  # Estimación de tokens sin llamar a la API: caracteres por token (rango de sensibilidad)
+  caracteres_por_token: {central: 3.5, bajo: 3.0, alto: 4.0}
+  salida_tokens_por_informe: {solo_codigos: 60, con_justificacion_breve: 450}
+  modelos_costo:
+    claude-sonnet-5-5: {entrada: 2.0, salida: 10.0, escritura_1h: 4.0, lectura_cache: 0.10}
+    claude-opus-5-5: {entrada: 4.0, salida: 20.0, escritura_1h: 8.0, lectura_cache: 0.20}
+  precios_fuente: https://platform.claude.com/docs/en/about-claude/pricing
+  precios_consultados: "2026-10-31"
+  descuento_batch: 0.5             # sobre entrada y salida; se acumula con el caché
