@@ -1,0 +1,57 @@
+{
+  "nota": "D51: Luis Fer codificó C05, C06 y C08 a ciegas en 20 informes nuevos; Claude los codificó con el libro v3 dentro de los 196.",
+  "n_informes": 20,
+  "kappa": "Cohen sin pesos sobre presencia 0/1",
+  "ac1": "AC1 de Gwet sobre presencia 0/1",
+  "ic": "bootstrap por informe, 5000 remuestreos, semilla 20261101, percentiles 2,5 y 97,5 (los mismos remuestreos para todas las filas)",
+  "umbral_ac1_validado": 0.6,
+  "criterios_validados": [],
+  "criterios_a_adjudicar": [
+    "C05",
+    "C06",
+    "C08"
+  ],
+  "sentido_de_los_desacuerdos": {
+    "C05": {
+      "luis_1_claude_0": 9,
+      "luis_0_claude_1": 0
+    },
+    "C06": {
+      "luis_1_claude_0": 15,
+      "luis_0_claude_1": 0
+    },
+    "C08": {
+      "luis_1_claude_0": 13,
+      "luis_0_claude_1": 0
+    }
+  },
+  "modelos": [
+    "claude-sonnet-5-5"
+  ],
+  "entradas": [
+    {
+      "archivo": "codigos_luisfer_presencia_20.csv",
+      "sha256": "eb9314c1a360fb94298b8b286a06597ba5c89feb2d368a71a154fc26ffce6b96"
+    },
+    {
+      "archivo": "hoja_codificacion_presencia_20_correspondencia.csv",
+      "sha256": "f39a6de674dee4ba07f2abce0f7c6fcaec5421dbda1c1c6f9ee4048c3a7e78fc"
+    },
+    {
+      "archivo": "hoja_codificacion_196_correspondencia.csv",
+      "sha256": "cf38e882e7535bca0be34f8e7cd41dd251f39152a7f91032bae27f0774785a5e"
+    },
+    {
+      "archivo": "libro_codigos_v3.yaml",
+      "sha256": "c1f7eeb671c474d8b642b261e079b29b3901bb4cdf689b45f087c33942d49bd0"
+    },
+    {
+      "archivo": "codificacion_claude.jsonl",
+      "sha256": "f930eede6fcb71099af34ef320adb7afcd26791ebd6ce948e739ac89086f4ea5"
+    }
+  ],
+  "salida": {
+    "archivo": "verificacion_presencia_20.csv",
+    "sha256": "79076abc376f1262622d4236533160e11e843f6b32c4ccf7178cbcfd29d0374c"
+  }
+}
