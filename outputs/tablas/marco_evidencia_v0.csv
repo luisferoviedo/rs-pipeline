@@ -1,0 +1,10 @@
+id_criterio,etiqueta,nota_calibracion_d52,n_informes_total,n_informes_presentes,n_informes_ausentes,pct_informes_presentes,n_estudios_total,n_estudios_presentes,n_estudios_ausentes,pct_estudios_presentes,suma_alto,suma_medio,suma_bajo,pct_suma_alto,minimo_alto,minimo_medio,minimo_bajo,pct_minimo_alto,nivel_secundaria,nivel_universitario,nivel_otro,disciplina_física,disciplina_química,disciplina_biología,disciplina_ciencias integradas,disciplina_otra,dir_presente_favorable,dir_ausente_favorable,fisher_p_favorable,dir_presente_mixto,dir_ausente_mixto,fisher_p_mixto,dir_presente_sin_diferencia,dir_ausente_sin_diferencia,fisher_p_sin_diferencia,dir_presente_no_comparativo,dir_ausente_no_comparativo,fisher_p_no_comparativo,dir_presente_otro,dir_ausente_otro,fisher_p_otro
+C01,condición base,,196,185,11,94.4,193,183,10,94.8,30,106,47,16.4,5,45,133,2.7,132,44,7,83,60,21,14,5,58,2,0.7269,41,6,0.0148,10,0,1.0,73,2,0.321,1,0,1.0
+C02,condición base,,196,162,34,82.7,193,160,33,82.9,29,89,42,18.1,5,42,113,3.1,115,39,6,72,52,19,13,4,48,12,0.5365,38,9,0.6605,9,1,1.0,64,11,0.5585,1,0,1.0
+C03,,,196,162,34,82.7,193,161,32,83.4,28,90,43,17.4,5,40,116,3.1,114,40,7,74,53,16,13,5,48,12,0.4078,38,9,0.6526,10,0,0.374,64,11,0.6922,1,0,1.0
+C04,,,196,147,49,75.0,193,145,48,75.1,27,82,36,18.6,5,39,101,3.4,104,35,6,68,45,18,10,4,45,15,1.0,37,10,0.566,6,4,0.2692,56,19,1.0,1,0,1.0
+C05,,sí,196,77,119,39.3,193,77,116,39.9,12,43,22,15.6,2,17,58,2.6,48,28,1,44,24,5,3,1,20,40,0.2664,21,26,0.4947,7,3,0.0923,28,47,0.6513,1,0,0.399
+C06,brecha de diseño,sí,196,24,172,12.2,193,24,169,12.4,5,10,9,20.8,0,9,15,0.0,12,10,2,6,7,7,3,1,5,55,0.3464,9,38,0.1283,1,9,1.0,9,66,1.0,0,1,1.0
+C07,,,196,115,81,58.7,193,115,78,59.6,16,65,34,13.9,3,21,91,2.6,79,31,5,53,37,14,8,3,34,26,0.6355,30,17,0.6085,6,4,1.0,44,31,0.8809,1,0,1.0
+C08,,sí,196,43,153,21.9,193,43,150,22.3,12,22,9,27.9,2,16,25,4.7,34,7,2,28,8,4,3,0,17,43,0.1933,9,38,0.6877,0,10,0.1207,16,59,0.8604,1,0,0.2228
+C09,,,196,139,57,70.9,193,139,54,72.0,19,82,38,13.7,3,31,105,2.2,100,32,7,64,46,15,10,4,38,22,0.0839,33,14,0.852,8,2,0.7286,59,16,0.1383,1,0,1.0

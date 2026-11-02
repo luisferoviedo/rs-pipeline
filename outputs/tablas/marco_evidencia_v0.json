@@ -1,0 +1,50 @@
+{
+  "nota": "D54: presencia según los códigos de Claude (libro v3, codificación asistida por IA con libro de códigos cerrado). Solo números.",
+  "base": {
+    "informes": 196,
+    "estudios": 193
+  },
+  "estudio_presente": "algún informe del estudio con presencia",
+  "atributos_del_estudio": "informe de más puntos (D43)",
+  "pesos": "suma = regla principal de D43; mínimo = sensibilidad",
+  "fisher": "exacta bilateral, descriptiva, sin corrección; cada dirección frente al resto, estudios con el criterio presente vs. ausente",
+  "etiquetas": {
+    "C01": "condición base",
+    "C02": "condición base",
+    "C06": "brecha de diseño"
+  },
+  "nota_calibracion_d52": {
+    "criterios": [
+      "C05",
+      "C06",
+      "C08"
+    ],
+    "texto": "D52: la prevalencia depende del umbral; con la lectura amplia del investigador era 0,85-0,95 y con la definición estricta (libro v3) es la reportada"
+  },
+  "entradas": {
+    "codigos_claude": {
+      "archivo": "codigos_claude_196_v3.csv",
+      "sha256": "e068fc0f9ec6530ef86c5a20ad305a6cb404d24c784edc414d136d3c198e0108"
+    },
+    "correspondencia": {
+      "archivo": "hoja_codificacion_196_correspondencia.csv",
+      "sha256": "cf38e882e7535bca0be34f8e7cd41dd251f39152a7f91032bae27f0774785a5e"
+    },
+    "matriz_normalizada": {
+      "archivo": "data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv",
+      "sha256": "047840986e236173c915a1ce80a8d7decf690f49f64c3cbae7514b87d7b6bc85"
+    },
+    "marco_de_criterios": {
+      "archivo": "config/criterios_v0.yaml",
+      "sha256": "6ee5e11d426e98a32cc4960829c682db04dd32306fde65e0419942fb9cf96736"
+    },
+    "libro_codigos": {
+      "archivo": "config/libro_codigos_v3.yaml",
+      "sha256": "c1f7eeb671c474d8b642b261e079b29b3901bb4cdf689b45f087c33942d49bd0"
+    }
+  },
+  "salida": {
+    "archivo": "marco_evidencia_v0.csv",
+    "sha256": "06b447c4832e7bfcaf9273c0a7c2f9111949c201bb36b5e04efef538610f6364"
+  }
+}

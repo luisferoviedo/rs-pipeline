@@ -536,3 +536,35 @@ Tests: `tests/test_codificacion.py` (8 pruebas). Total del proyecto: 137 pruebas
 - **Salidas:** `outputs/tablas/prevalencia_final_presencia_20.csv/.json` (git); `adjudicacion_presencia_20_cierre.csv` actualizada (ignorada).
 
 > **Terminología desde D53 (no se reescriben los pasos anteriores):** piloto de 5 y muestra de 40 = *calibración del libro de códigos*; codificación de los 196 por Claude = *codificación asistida por IA con libro de códigos cerrado*; los 20 informes de Luis Fer = *verificación humana de la codificación*; revisión de los 37 casos = *revisión de discrepancias por el investigador, con adopción de la definición operacional estricta*; κ bajo de D51 = *diagnóstico de calibración (diferencia de umbral, no ruido)*. El uso de Claude se declara siempre con modelo, libro de códigos y registro.
+
+## Bloque 8 · Tabla de evidencia del marco v0 (`marco_evidencia_08.py`)
+
+Cierre: 2 nov 2026. Flujograma actualizado.
+
+### Objetivo del paso
+Describir, para cada criterio C01–C09, cuánta evidencia lo sostiene: cuántos informes y estudios lo tienen presente, con qué peso de evidencia, en qué niveles y disciplinas, y cómo se reparte la dirección del efecto entre estudios con el criterio presente y ausente.
+
+### Entradas
+| Archivo | Versión | SHA-256 |
+|---|---|---|
+| `outputs/semantico/codigos_claude_196_v3.csv` | libro v3, codificación asistida por IA con libro de códigos cerrado (local, ignorado) | en `marco_evidencia_v0.json` |
+| `outputs/semantico/hoja_codificacion_196_correspondencia.csv` | T001…T196 → id real (local, ignorado) | en `marco_evidencia_v0.json` |
+| `data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv` | salida del bloque 2 | `047840986e236173c915a1ce80a8d7decf690f49f64c3cbae7514b87d7b6bc85` |
+| `config/criterios_v0.yaml`, `config/libro_codigos_v3.yaml` | marco v0 y libro v3 | en `marco_evidencia_v0.json` |
+
+### Proceso
+Convierte los códigos T en ids reales, calcula el peso de cada informe (regla suma de D43 y regla del mínimo como sensibilidad) y marca un estudio como «presente» si alguno de sus informes lo tiene. Reparte los estudios presentes por peso, nivel y disciplina, y compara la dirección del efecto entre presentes y ausentes con la prueba exacta de Fisher (solo descriptiva, las 45 reportadas, sin corrección).
+```
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.marco_evidencia_08
+```
+
+### Decisiones aplicadas
+[D43](decisiones.md) (peso de evidencia) · [D52](decisiones.md) y [D53](decisiones.md) (nota de calibración de C05, C06 y C08) · [D54](decisiones.md#d54-bloque-8-tabla-de-evidencia-del-marco-v0-con-los-códigos-de-presencia).
+
+### Controles
+Falla si falta un archivo o una columna, si algún código no es 0 ni 1, si se repite un informe y criterio, si los informes codificados no son los de la matriz o si las bases no son 196 informes y 193 estudios. Tests: `tests/test_marco_evidencia.py`; 187 en total.
+
+### Salidas
+| Archivo | Contenido | Dónde |
+|---|---|---|
+| `outputs/tablas/marco_evidencia_v0.csv/.json` | por criterio: presencia, pesos, nivel, disciplina, dirección presente/ausente y p de Fisher (solo números) | git |

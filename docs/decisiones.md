@@ -374,3 +374,27 @@ Decisiones de Luis Fer (2 nov 2026), tomadas después de D52. No cambia el conte
   El uso de Claude se declara siempre de forma explícita: modelo (ID exacto), libro de códigos (versión y hash) y registro (`logs/codificacion_claude.jsonl`).
 - **Salidas:** `outputs/tablas/prevalencia_final_presencia_20.csv/.json` (git, solo números, con hash de entradas). Comando: `PYTHONPATH=src .venv/bin/python -m rs_pipeline.adjudicacion_d53`. `adjudicacion_d52` se niega a reescribir un cierre que ya trae la revisión D53.
 - **Tests:** `tests/test_adjudicacion_d53.py` (5 pruebas: «revisar» pasa a 0 sin tocar el resto, falla con una hoja que no tiene los 37 casos, prevalencia con cuenta a mano, salidas reales contra los códigos de Luis Fer y D52, D52 no pisa el cierre). Total: 182.
+
+## D54. Bloque 8: tabla de evidencia del marco v0 con los códigos de presencia
+Decisión de Luis Fer (2 nov 2026). Datos: `codigos_claude_196_v3.csv` (codificación asistida por IA con libro de códigos cerrado, libro v3, `claude-sonnet-5-5`), 196 informes / 193 estudios, sin los 5 excluidos por nivel. Los códigos de C05, C06 y C08 no cambian (D52, D53).
+- **Estudio «presente»:** algún informe del estudio con presencia (mi decisión de implementación, igual que el cruce del Bloque 6). Peso, nivel, disciplina y dirección salen del informe de más puntos (D43). Peso y dirección se reparten **entre estudios**, no entre informes.
+- **Por criterio:** n y % de informes y de estudios con presencia; reparto por peso entre los estudios presentes con la regla suma (principal) y la del mínimo (sensibilidad); reparto por nivel y disciplina; dirección del efecto (favorable / mixto / sin diferencia / no comparativo / otro) en estudios presentes vs. ausentes.
+- **Fisher (solo descriptivo):** exacta bilateral, implementada con combinatoria (`math.comb`; no hay scipy y no se agregó ningún paquete), cada dirección frente al resto; se reportan las 45 pruebas (9 criterios × 5 direcciones), sin corrección por comparaciones múltiples. Con 45 pruebas se esperan por azar unas 2 con p < 0,05; solo una lo cumple (C01, mixto, p = 0,015), y C01 tiene apenas 10 estudios ausentes. No se interpreta como efecto del criterio.
+- **Etiquetas:** C01 y C02 = «condición base» (casi universales: 94,4 % y 82,7 % de los informes); C06 = «brecha de diseño» (12,2 %). C05, C06 y C08 llevan la nota de calibración de D52: la prevalencia depende del umbral (con la lectura amplia era 0,85–0,95; con la definición estricta del libro v3, 0,12–0,39 en los 196).
+- **Resumen** (% de estudios con peso alto por la regla suma entre los presentes; dirección «favorable» y «mixto», presentes vs. ausentes):
+
+| Criterio | Etiqueta | Informes presentes | Estudios presentes | Peso alto (suma) | Peso alto (mínimo) | Favorable, presente vs. ausente | Mixto, presente vs. ausente |
+|---|---|---|---|---|---|---|---|
+| C01 | condición base | 94.4 % (185) | 94.8 % (183) | 16.4 % | 2.7 % | 32 % vs 20 % (p = 0.7269) | 22 % vs 60 % (p = 0.0148) |
+| C02 | condición base | 82.7 % (162) | 82.9 % (160) | 18.1 % | 3.1 % | 30 % vs 36 % (p = 0.5365) | 24 % vs 27 % (p = 0.6605) |
+| C03 | — | 82.7 % (162) | 83.4 % (161) | 17.4 % | 3.1 % | 30 % vs 38 % (p = 0.4078) | 24 % vs 28 % (p = 0.6526) |
+| C04 | — | 75.0 % (147) | 75.1 % (145) | 18.6 % | 3.4 % | 31 % vs 31 % (p = 1.0) | 26 % vs 21 % (p = 0.566) |
+| C05 | — | 39.3 % (77) | 39.9 % (77) | 15.6 % | 2.6 % | 26 % vs 34 % (p = 0.2664) | 27 % vs 22 % (p = 0.4947) |
+| C06 | brecha de diseño | 12.2 % (24) | 12.4 % (24) | 20.8 % | 0.0 % | 21 % vs 33 % (p = 0.3464) | 38 % vs 22 % (p = 0.1283) |
+| C07 | — | 58.7 % (115) | 59.6 % (115) | 13.9 % | 2.6 % | 30 % vs 33 % (p = 0.6355) | 26 % vs 22 % (p = 0.6085) |
+| C08 | — | 21.9 % (43) | 22.3 % (43) | 27.9 % | 4.7 % | 40 % vs 29 % (p = 0.1933) | 21 % vs 25 % (p = 0.6877) |
+| C09 | — | 70.9 % (139) | 72.0 % (139) | 13.7 % | 2.2 % | 27 % vs 41 % (p = 0.0839) | 24 % vs 26 % (p = 0.852) |
+
+- **Cómo leerlo:** las diferencias entre presentes y ausentes en la dirección del efecto son pequeñas y sus pruebas no distinguen del azar, salvo el caso aislado ya señalado. El peso alto es bajo en todos los criterios (la regla del mínimo casi no deja estudios en «alto»). Es una descripción de cobertura y de evidencia disponible, no una comparación de eficacia entre criterios.
+- **Salidas:** `outputs/tablas/marco_evidencia_v0.csv/.json` (git, solo números, con hash de entradas). Comando: `PYTHONPATH=src .venv/bin/python -m rs_pipeline.marco_evidencia_08`.
+- **Tests:** `tests/test_marco_evidencia.py` (5 pruebas: Fisher con cuentas a mano, fila con datos inventados, bases 196/193, presente + ausente = total por criterio, pesos/nivel/dirección suman los presentes, n por criterio contra los códigos fuente, etiquetas y hashes). Total: 187.

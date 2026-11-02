@@ -104,6 +104,13 @@ flowchart TB
       o15@{ shape: doc, label: "outputs/tablas/prevalencia_final_presencia_20 (en git)<br/>C05 0,50 · C06 0,10 · C08 0,30 (n = 20)<br/>adjudicacion_presencia_20_cierre (LOCAL)" }
     end
 
+    subgraph B8["Bloque 8 · Tabla de evidencia del marco (D54)"]
+      m1["marco_evidencia_08.py<br/>códigos de presencia de los 196 (libro v3) × peso (D43)<br/>nivel · disciplina · dirección presente vs. ausente · Fisher descriptivo"]
+      m2{"¿bases 196 informes / 193 estudios?<br/>¿códigos 0/1? ¿presente + ausente = total?"}
+      m3@{ shape: doc, label: "outputs/tablas/marco_evidencia_v0 (en git, solo números)" }
+    end
+    f9(["FALLA<br/>mensaje claro y código 1<br/>no escribe la tabla"])
+
     f1(["FALLA<br/>mensaje claro y código 1<br/>no dibuja nada"])
     f2(["FALLA<br/>mensaje claro y código 1<br/>no escribe la matriz"])
     f3(["FALLA<br/>mensaje claro y código 1<br/>no escribe tablas"])
@@ -217,8 +224,12 @@ flowchart TB
   l9 --> o14
   o14 --> l10
   l10 --> o15
+  o15 --> m1
+  m1 --> m2
+  m2 -- "sí" --> m3
+  m2 -- "no" --> f9
 
   classDef drive fill:#e8f1fb,stroke:#2b6cb0,color:#1a365d
   classDef falla fill:#fde8e8,stroke:#c0392b,color:#7b1d1d
   class dB,dC,dR,dP,dE,dX,dJ,dT drive
-  class f1,f2,f3,f4,f5,f6,f7,f8 falla
+  class f1,f2,f3,f4,f5,f6,f7,f8,f9 falla
