@@ -522,3 +522,17 @@ Tests: `tests/test_codificacion.py` (8 pruebas). Total del proyecto: 137 pruebas
 - **Controles:** falla si falta un archivo o una columna, si la hoja del lector no trae los 37 casos, si el registro no trae los 196 con el libro v3, o si `adjudicacion_revisar.csv` ya tiene decisiones de Luis Fer (no se sobrescribe). Tests: `tests/test_adjudicacion_d52.py`; 177 en total.
 - **Resultado:** 2 decididos por Luis Fer, 20 en 0 por la regla D52 y **15 a revisar** (C05 3, C06 4, C08 8). Claude codificó C03 = 1 en 4 de los 9 informes de C05 con desacuerdo.
 - **Salidas:** `outputs/tablas/calibracion_presencia_20.csv/.json` (git); `adjudicacion_presencia_20_cierre.csv` y `adjudicacion_revisar.csv` en `outputs/semantico/` (ignorados).
+
+### Bloque 7, paso 9 · Revisión de discrepancias por el investigador y terminología (D53, `adjudicacion_d53.py`)
+- **Objetivo del paso:** cerrar la verificación humana de la codificación de C05, C06 y C08 (20 informes): los 37 casos quedan decididos y se reporta la prevalencia final.
+- **Entradas:** `outputs/semantico/adjudicacion_presencia_20_cierre.csv` (local, ignorado; salida de D52) y `codigos_luisfer_presencia_20.csv` (local). El hash de la hoja de cierre queda en `outputs/tablas/prevalencia_final_presencia_20.json`.
+- **Proceso:** el investigador adopta la definición operacional estricta del libro v3: los 15 casos en «revisar» pasan a 0, se anotan A01, A04 y A11 en `nota_d53` y se calcula la prevalencia final (lo que el investigador marcó 1, menos los casos en 0). No se calcula kappa ni AC1 después de la revisión.
+  ```
+  PYTHONPATH=src .venv/bin/python -m rs_pipeline.adjudicacion_d53
+  ```
+- **Decisiones aplicadas:** [D53](decisiones.md#d53-cierre-de-c05-c06-y-c08-en-la-verificación-humana-y-terminología-de-la-documentación) (incluye la nota de terminología: calibración del libro de códigos, codificación asistida por IA con libro de códigos cerrado, verificación humana, revisión de discrepancias por el investigador, diagnóstico de calibración).
+- **Controles:** falla si falta la hoja de cierre o una columna, si no trae los 37 casos, o si tras la revisión algún código final no es 0. `adjudicacion_d52` no reescribe un cierre que ya trae la revisión D53. Tests: `tests/test_adjudicacion_d53.py` (5 pruebas); 182 en total.
+- **Resultado:** prevalencia final en los 20: C05 0,50 · C06 0,10 · C08 0,30.
+- **Salidas:** `outputs/tablas/prevalencia_final_presencia_20.csv/.json` (git); `adjudicacion_presencia_20_cierre.csv` actualizada (ignorada).
+
+> **Terminología desde D53 (no se reescriben los pasos anteriores):** piloto de 5 y muestra de 40 = *calibración del libro de códigos*; codificación de los 196 por Claude = *codificación asistida por IA con libro de códigos cerrado*; los 20 informes de Luis Fer = *verificación humana de la codificación*; revisión de los 37 casos = *revisión de discrepancias por el investigador, con adopción de la definición operacional estricta*; κ bajo de D51 = *diagnóstico de calibración (diferencia de umbral, no ruido)*. El uso de Claude se declara siempre con modelo, libro de códigos y registro.

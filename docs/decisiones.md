@@ -342,3 +342,35 @@ Decisión de Luis Fer (2 nov 2026), tomada **después de ver los resultados de D
 - **Nota de calibración (limitaciones y recomendación para futuras revisiones):** con la lectura amplia del investigador, C05, C06 y C08 aparecen casi en todos los estudios (0,85–0,95); con la lectura literal, 0,10–0,50. La misma ficha produce prevalencias muy distintas según dónde se ponga el umbral, y eso explica por qué el AC1 de D51 fue bajo aunque no haya un codificador «equivocado». Recomendación: **fijar el umbral antes de codificar** con la lista «cuenta / no cuenta» y ejemplos límite, y calibrar a los codificadores en 3–5 informes antes de la muestra de verificación. Límites: la comparación es de 20 informes; la lectura amplia y la literal no son dos codificaciones independientes de la misma regla, sino dos reglas distintas; el cierre por palabras clave no sustituye la lectura de la ficha.
 - **Salidas:** `outputs/tablas/calibracion_presencia_20.csv/.json` (git, solo números, con hash de entradas).
 - **Tests:** `tests/test_adjudicacion_d52.py` (clasificación con datos inventados, «media» no cuenta como «medi-», retroalimentación automática en cualquier orden, salidas reales contra la hoja del lector, no pisa decisiones). Total: 177.
+
+## D53. Cierre de C05, C06 y C08 en la verificación humana y terminología de la documentación
+Decisiones de Luis Fer (2 nov 2026), tomadas después de D52. No cambia el contenido de las decisiones anteriores.
+- **Revisión de discrepancias por el investigador, con adopción de la definición operacional estricta:** los 37 casos de `adjudicacion_presencia_20_lector.csv` y `adjudicacion_revisar.csv` quedan en **0** (los 15 que D52 dejó en «revisar» y los 22 que ya estaban en 0). Los códigos de Claude de los 196 no cambian.
+- **Notas de revisión** (en la columna `nota_d53` de la hoja de cierre, ignorada):
+  - **A04 (V07, C05):** Luis Fer pensó mantener 1; al verificar la ficha, la secuencia predicción → prueba es C08 y la manipulación es C03; no hay medición ni registro de datos. → 0.
+  - **A11 (V03, C06):** la «retroalimentación visual inmediata» no dice qué muestra el sistema, y la del docente o de pares es C04. → 0.
+  - **A01:** lo que Luis Fer veía en C05 lo asocia a C03; según D52 no se confirma con los códigos de Claude (C03 = 1 en 4 de los 9 informes, por debajo de la tasa base de 82,7 %). Se deja anotado y no se recodifica.
+- **Códigos finales de la muestra de 20** (`outputs/semantico/adjudicacion_presencia_20_cierre.csv`, ignorado): 37 casos con `codigo_final` = 0 (2 decididos por Luis Fer, 20 por la regla D52, 15 por la revisión del investigador). A04 y A11 ya figuraban en 0 por la regla D52; la revisión lo confirma.
+- **Prevalencia final en los 20 informes** (de 20):
+
+| Criterio | Lectura amplia (investigador) | Final tras la revisión |
+|---|---|---|
+| C05 | 19/20 (0,95) | **10/20 (0,50)** |
+| C06 | 17/20 (0,85) | **2/20 (0,10)** |
+| C08 | 19/20 (0,95) | **6/20 (0,30)** |
+
+  Coincide con la «prevalencia final mínima» de D52 (todo lo dudoso quedó en 0) y con la lectura literal de Claude.
+- **No se calcula kappa ni AC1 después de la revisión:** el código final sale de uno de los dos codificadores y ya no hay codificadores independientes. Las medidas de confiabilidad válidas siguen siendo las de D51 (AC1 0,252, −0,496 y −0,224; kappa 0,100, 0,038 y 0,044), antes de la revisión.
+- **Nota de terminología (vale para toda la documentación desde ahora; no se reescriben las decisiones anteriores).** No se usa la palabra «consenso». Se usa:
+
+| Antes (en D44–D52) | Término desde D53 |
+|---|---|
+| piloto de 5 y muestra de 40 | **calibración del libro de códigos** |
+| codificación de los 196 por Claude | **codificación asistida por IA con libro de códigos cerrado** |
+| los 20 informes de Luis Fer (D50–D52) | **verificación humana de la codificación** |
+| revisión de los 37 casos (adjudicación) | **revisión de discrepancias por el investigador, con adopción de la definición operacional estricta** |
+| κ bajo de D51 | **diagnóstico de calibración (diferencia de umbral, no ruido)** |
+
+  El uso de Claude se declara siempre de forma explícita: modelo (ID exacto), libro de códigos (versión y hash) y registro (`logs/codificacion_claude.jsonl`).
+- **Salidas:** `outputs/tablas/prevalencia_final_presencia_20.csv/.json` (git, solo números, con hash de entradas). Comando: `PYTHONPATH=src .venv/bin/python -m rs_pipeline.adjudicacion_d53`. `adjudicacion_d52` se niega a reescribir un cierre que ya trae la revisión D53.
+- **Tests:** `tests/test_adjudicacion_d53.py` (5 pruebas: «revisar» pasa a 0 sin tocar el resto, falla con una hoja que no tiene los 37 casos, prevalencia con cuenta a mano, salidas reales contra los códigos de Luis Fer y D52, D52 no pisa el cierre). Total: 182.

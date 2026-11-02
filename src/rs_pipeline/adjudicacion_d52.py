@@ -183,12 +183,23 @@ def comprobar_revisar(ruta: Path) -> None:
             fallar(f"{ruta.name} ya tiene decisiones de Luis Fer; no se sobrescribe")
 
 
+def comprobar_cierre(ruta: Path) -> None:
+    """No pisa un cierre que ya pasó por la revisión del investigador (D53)."""
+    if ruta.is_file():
+        previa = pd.read_csv(
+            ruta, dtype=str, keep_default_na=False, encoding="utf-8-sig"
+        )
+        if previa.get("nota_d53", pd.Series(dtype=str)).ne("").any():
+            fallar(f"{ruta.name} ya tiene la revisión D53; no se sobrescribe")
+
+
 def guardar(params: dict, r: dict) -> None:
     privada = RAIZ_REPO / params["semantico"]["salidas"]
     cierre = r["cierre"]
     ruta_cierre = privada / CIERRE
     ruta_revisar = privada / REVISAR
     comprobar_revisar(ruta_revisar)
+    comprobar_cierre(ruta_cierre)
     salida = {"index": False, "encoding": "utf-8-sig", "lineterminator": "\n"}
     cierre.to_csv(ruta_cierre, **salida)
     columnas = [c for c in cierre.columns if c != "codigo_final"]

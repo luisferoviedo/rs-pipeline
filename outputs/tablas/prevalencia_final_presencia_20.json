@@ -1,0 +1,14 @@
+{
+  "nota": "D53: prevalencia final tras la revisión de discrepancias por el investigador. No se calcula kappa ni AC1 después de la revisión.",
+  "casos_adjudicados_a_0": 37,
+  "entradas": [
+    {
+      "archivo": "adjudicacion_presencia_20_cierre.csv",
+      "sha256": "f561698c75fba53a76aaa8ba694d00d2900401efd058efa9291f72a14a2c445d"
+    }
+  ],
+  "salida": {
+    "archivo": "prevalencia_final_presencia_20.csv",
+    "sha256": "b7d8b354a9dbb30d5ed16e84de36e7582f8148f9023e4c45d63456a0e48375e2"
+  }
+}
