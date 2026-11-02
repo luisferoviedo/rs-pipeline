@@ -41,6 +41,7 @@ La codificación deductiva (piloto, muestra de 40 y los 196 informes) la hace Cl
 ## Calidad
 - Ruff (reglas E, F, B, S, BLE, TRY, C901 con máx. 10) antes de cada commit. pip-audit cada vez que cambie requirements.txt y antes de cada push.
 - gitleaks en pre-commit.
+- `ruff format` SOLO sobre los archivos modificados en el paso, listándolos uno por uno; nunca sobre carpetas (`src`, `tests`). Antes de cada commit, revisar `git status` y confirmar que solo cambiaron archivos del paso.
 
 ## Documentación
 - `docs/PROCEDIMIENTO.md`: al cerrar cada bloque, añade su sección con este formato: Objetivo del paso · Entradas (archivo, versión, hash) · Proceso (qué hace el script en lenguaje sencillo y el comando exacto para ejecutarlo) · Decisiones aplicadas (enlaces a los D-xx de `docs/decisiones.md`) · Controles (qué verifica, cuándo falla, tests) · Salidas (archivo y dónde queda).
