@@ -1,0 +1,52 @@
+{
+  "nota": "D52: definición estricta (literal) de C05, C06 y C08. Prevalencia amplia = códigos del investigador; literal = códigos de Claude (libro v3).",
+  "n_informes": 20,
+  "terminos_cuenta": {
+    "C05": [
+      "medi-",
+      "registr-",
+      "calcul-",
+      "tabla",
+      "dato"
+    ],
+    "C06": [
+      "puntaje",
+      "error",
+      "indicador",
+      "retroaliment- automática"
+    ],
+    "C08": [
+      "predic-",
+      "compar-",
+      "verific-",
+      "contrast-",
+      "referencia"
+    ]
+  },
+  "regla_busqueda": "raíz al inicio de palabra, sin tildes ni mayúsculas, en los campos de texto de la ficha (sin nivel_norm, disciplina_norm ni oe1_direccion_norm); retroalimentación automática = ambas palabras a menos de 4 palabras",
+  "decididos_por_luis_fer": [
+    "A01",
+    "A02"
+  ],
+  "casos_a_revisar": 15,
+  "casos_decididos_a_0": 22,
+  "c03_en_los_c05_de_desacuerdo": {
+    "informes": 9,
+    "con_c03_igual_1": 4,
+    "prevalencia_c03_claude_en_196": 0.827
+  },
+  "entradas": [
+    {
+      "archivo": "adjudicacion_presencia_20_lector.csv",
+      "sha256": "bd1e955b21c0b18ca0ba5a31ddd785d22cfae3d3763b44932575f54800b4132d"
+    },
+    {
+      "archivo": "codificacion_claude.jsonl",
+      "sha256": "f930eede6fcb71099af34ef320adb7afcd26791ebd6ce948e739ac89086f4ea5"
+    }
+  ],
+  "salida": {
+    "archivo": "calibracion_presencia_20.csv",
+    "sha256": "99d0d2fc7dcf022c95128316bdb1e23a22e7e0b0ab34a38c6e82f623201c6241"
+  }
+}
