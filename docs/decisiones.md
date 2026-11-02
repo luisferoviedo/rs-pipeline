@@ -319,3 +319,26 @@ Sesión del 1 nov 2026, con acceso a todo (no es la de codificación ciega). Lui
 - **Límite de la medida «después»:** una vez adjudicados, el acuerdo entre el código final y cada codificador ya no es confiabilidad independiente (el final sale de uno de los dos). Se reportará como *cuánto de lo que cada uno marcó sobrevive a la revisión*, junto con el kappa y el AC1 «antes» de esta tabla. Falta fijar con Luis Fer qué se compara exactamente; no se calculó.
 - **Salidas:** `outputs/tablas/verificacion_presencia_20.csv/.json` (git, solo números, con hash de las cinco entradas: códigos de Luis Fer, ambas correspondencias, libro v3 y registro); `desacuerdos_presencia_20_luisfer_claude.csv` y `adjudicacion_presencia_20.csv` en `outputs/semantico/` (ignorados).
 - **Tests:** `tests/test_verificacion_presencia_20.py` (cruce con datos inventados y falla si un informe no está entre los 196; los 20 reales cruzan sin repetidos; la salida publicada contra los códigos fuente; la hoja de adjudicación no pisa decisiones). Total: 173.
+
+## D52. Definición estricta de C05, C06 y C08 y cierre de la adjudicación
+Decisión de Luis Fer (2 nov 2026), tomada **después de ver los resultados de D51** y de revisar los desacuerdos.
+- **Definición estricta (literal):** hay presencia en C05, C06 y C08 solo si la ficha menciona explícitamente un ítem de la lista «cuenta» del libro v3. Según Luis Fer, los desacuerdos de D51 se debían a un **umbral más amplio del investigador**, no a un error de Claude. Los códigos de Claude de los 196 se mantienen; no se recodifica.
+- **Verificación pedida (C05 ↔ C03):** Luis Fer sostiene que lo que veía como C05 (manipular y observar) corresponde a C03. En los 9 informes V con desacuerdo en C05, **Claude codificó C03 = 1 en 4** (V03, V07, V16 y V20) y C03 = 0 en 5. En los 6 de esos 9 que quedan en 0 (A01–A04, A06 y A09), C03 = 1 en 4 de 6; en los 3 que van a revisión, 0 de 3. **Cómo leerlo:** Claude codificó C03 = 1 en el 82,7 % de los 196 informes, así que 4 de 9 (44 %) está por debajo de esa tasa base: con los códigos de Claude, la explicación «lo que veía como C05 es C03» no se sostiene como regla. Puede seguir siendo cierta en la lectura del investigador; no queda demostrada aquí.
+- **Cierre de la adjudicación** (`python -m rs_pipeline.adjudicacion_d52`, sin revisar los 37 uno a uno). Lee la hoja del lector sin modificarla:
+  - A01 y A02 (decididos por Luis Fer) → 0.
+  - Los 35 restantes: si la ficha contiene algún término de la lista «cuenta» del criterio → «revisar»; si no → código final 0, decisión «claude (regla D52)». Términos: C05 medi-, registr-, calcul-, tabla, dato; C06 puntaje, error, indicador, retroaliment- automática; C08 predic-, compar-, verific-, contrast-, referencia.
+  - **Cómo se buscó** (mi decisión de implementación, revisable): raíz al inicio de palabra, sin tildes ni mayúsculas, en los 16 campos de texto libre de la ficha, **sin** `nivel_norm`, `disciplina_norm` ni `oe1_direccion_norm` (en esas, «media» saldría como «medi-»). «Retroalimentación automática» = ambas palabras a menos de cuatro palabras, en cualquier orden. La búsqueda detecta la palabra, no que el ítem sea el pedido: «revisar» significa «hay que mirarlo», no «probablemente 1».
+  - **Resultado:** 37 casos = 2 decididos por Luis Fer + 20 en 0 por la regla D52 + **15 a revisar** (C05 3, C06 4, C08 8). Hoja de los 15 con las columnas del lector: `outputs/semantico/adjudicacion_revisar.csv`; registro de los 37 con el código final: `adjudicacion_presencia_20_cierre.csv` (ambas ignoradas).
+- **Confiabilidad antes de la adjudicación (D51, sin cambios):** AC1 0,252 (C05), −0,496 (C06), −0,224 (C08); kappa de Cohen 0,100, 0,038, 0,044.
+- **Prevalencia en los 20 después de la adjudicación** (de 20 informes; los 15 «revisar» pueden quedar en 0 o en 1):
+
+| Criterio | Amplia (investigador) | Literal (Claude) | Final, mínima | Final, máxima |
+|---|---|---|---|---|
+| C05 | 19/20 (0,95) | 10/20 (0,50) | 10/20 (0,50) | 13/20 (0,65) |
+| C06 | 17/20 (0,85) | 2/20 (0,10) | 2/20 (0,10) | 6/20 (0,30) |
+| C08 | 19/20 (0,95) | 6/20 (0,30) | 6/20 (0,30) | 14/20 (0,70) |
+
+  La prevalencia final queda como rango hasta que Luis Fer decida los 15.
+- **Nota de calibración (limitaciones y recomendación para futuras revisiones):** con la lectura amplia del investigador, C05, C06 y C08 aparecen casi en todos los estudios (0,85–0,95); con la lectura literal, 0,10–0,50. La misma ficha produce prevalencias muy distintas según dónde se ponga el umbral, y eso explica por qué el AC1 de D51 fue bajo aunque no haya un codificador «equivocado». Recomendación: **fijar el umbral antes de codificar** con la lista «cuenta / no cuenta» y ejemplos límite, y calibrar a los codificadores en 3–5 informes antes de la muestra de verificación. Límites: la comparación es de 20 informes; la lectura amplia y la literal no son dos codificaciones independientes de la misma regla, sino dos reglas distintas; el cierre por palabras clave no sustituye la lectura de la ficha.
+- **Salidas:** `outputs/tablas/calibracion_presencia_20.csv/.json` (git, solo números, con hash de entradas).
+- **Tests:** `tests/test_adjudicacion_d52.py` (clasificación con datos inventados, «media» no cuenta como «medi-», retroalimentación automática en cualquier orden, salidas reales contra la hoja del lector, no pisa decisiones). Total: 177.

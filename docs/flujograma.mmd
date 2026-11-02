@@ -98,6 +98,8 @@ flowchart TB
       l8{"¿AC1 ≥ 0,60<br/>por criterio?"}
       o12@{ shape: doc, label: "outputs/tablas/verificacion_presencia_20 (en git, solo números)<br/>C05 0,25 · C06 −0,50 · C08 −0,22 (n = 20)" }
       o13@{ shape: doc, label: "outputs/semantico/ (LOCAL, ignorado)<br/>desacuerdos + hoja de adjudicación (Luis Fer decide)" }
+      l9["adjudicacion_d52.py (D52) · definición estricta de C05, C06 y C08<br/>término de la lista «cuenta» en la ficha → revisar; si no → 0<br/>nota de calibración: prevalencia amplia vs literal"]
+      o14@{ shape: doc, label: "outputs/tablas/calibracion_presencia_20 (en git)<br/>outputs/semantico/adjudicacion_revisar (LOCAL, 15 casos)" }
     end
 
     f1(["FALLA<br/>mensaje claro y código 1<br/>no dibuja nada"])
@@ -209,6 +211,8 @@ flowchart TB
   l8 -- "sí: validado" --> o12
   l8 -- "no: adjudicar" --> o12
   l8 -- "no: adjudicar" --> o13
+  o13 --> l9
+  l9 --> o14
 
   classDef drive fill:#e8f1fb,stroke:#2b6cb0,color:#1a365d
   classDef falla fill:#fde8e8,stroke:#c0392b,color:#7b1d1d

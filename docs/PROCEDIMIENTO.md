@@ -510,3 +510,15 @@ Tests: `tests/test_codificacion.py` (8 pruebas). Total del proyecto: 137 pruebas
 - **Controles:** falla si falta un archivo o una columna, si las correspondencias no tienen 20 y 196 informes, si un informe de los 20 no está entre los 196, si el registro no trae los 196 con el libro v3, si un código no es 0 o 1, o si la hoja de adjudicación ya tiene códigos finales. Tests: `tests/test_verificacion_presencia_20.py` (5 pruebas); 173 en total.
 - **Resultado:** AC1 0,252 (C05), −0,496 (C06) y −0,224 (C08); ninguno alcanza 0,60. Los 37 desacuerdos van todos en un sentido (Luis Fer 1, Claude 0). Queda pendiente la adjudicación de Luis Fer.
 - **Salidas:** `outputs/tablas/verificacion_presencia_20.csv/.json` (git, solo números); `outputs/semantico/desacuerdos_presencia_20_luisfer_claude.csv` y `adjudicacion_presencia_20.csv` (ignorados).
+
+### Bloque 7, paso 8 · Definición estricta y cierre de la adjudicación (D52, `adjudicacion_d52.py`)
+- **Objetivo del paso:** dejar decididos los 37 desacuerdos de D51 sin revisarlos uno a uno, y separar los pocos que sí necesitan la mirada de Luis Fer.
+- **Entradas:** `outputs/semantico/adjudicacion_presencia_20_lector.csv` (local, ignorado; no se modifica), ambas correspondencias, `config/libro_codigos_v3.yaml` (`c1f7eeb6…`) y `logs/codificacion_claude.jsonl`. Hashes en `outputs/tablas/calibracion_presencia_20.json`.
+- **Proceso:** A01 y A02 quedan en 0 (decididos por Luis Fer). En los otros 35, si la ficha contiene un término de la lista «cuenta» del criterio el caso pasa a «revisar»; si no, queda en 0 con la regla D52. También cuenta cuántos informes de C05 con desacuerdo tienen C03 = 1 en Claude y calcula la prevalencia amplia, literal y final.
+  ```
+  PYTHONPATH=src .venv/bin/python -m rs_pipeline.adjudicacion_d52
+  ```
+- **Decisiones aplicadas:** [D51](decisiones.md#d51-verificación-de-c05-c06-y-c08-en-20-informes-luis-fer-frente-a-claude-libro-v3) · [D52](decisiones.md#d52-definición-estricta-de-c05-c06-y-c08-y-cierre-de-la-adjudicación).
+- **Controles:** falla si falta un archivo o una columna, si la hoja del lector no trae los 37 casos, si el registro no trae los 196 con el libro v3, o si `adjudicacion_revisar.csv` ya tiene decisiones de Luis Fer (no se sobrescribe). Tests: `tests/test_adjudicacion_d52.py`; 177 en total.
+- **Resultado:** 2 decididos por Luis Fer, 20 en 0 por la regla D52 y **15 a revisar** (C05 3, C06 4, C08 8). Claude codificó C03 = 1 en 4 de los 9 informes de C05 con desacuerdo.
+- **Salidas:** `outputs/tablas/calibracion_presencia_20.csv/.json` (git); `adjudicacion_presencia_20_cierre.csv` y `adjudicacion_revisar.csv` en `outputs/semantico/` (ignorados).
