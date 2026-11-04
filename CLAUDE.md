@@ -35,7 +35,7 @@
 La codificación deductiva (piloto, muestra de 40 y los 196 informes) la hace Claude Code con la suscripción de Luis Fer, **no la API**.
 - Cada informe codificado deja una línea en `logs/codificacion_claude.jsonl` con: fecha, modelo que se está usando (ID exacto), versión del libro de códigos (hash del YAML), `id_ciego`, hash de la ficha leída, los 9 códigos y la justificación de una línea por código.
 - `logs/` sigue fuera de git (tiene justificaciones con contenido de fichas); a git va solo un resumen numérico.
-- Se codifica por lotes (máximo 50 informes por sesión) y cada lote termina con commit.
+- Se codifica por lotes: máximo 100 unidades (informes o enunciados) por sesión, con commit cada 50 (D56).
 - Nunca se recodifica sobre un registro anterior: un nuevo intento es una nueva línea con su fecha.
 
 ## Calidad
