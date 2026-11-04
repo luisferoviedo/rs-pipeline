@@ -1,0 +1,125 @@
+# Marco de criterios v1: v0 con C01, C06 y C09 aprobados y los 3 niveles (D55). v0 queda congelado.
+version: v1
+decision: D55
+fuente:
+  archivo: config/criterios_v0.yaml
+  sha256: 6ee5e11d426e98a32cc4960829c682db04dd32306fde65e0419942fb9cf96736
+# Campo agregado por trazabilidad: la fuente de v0 (D42), copiada tal cual.
+fuente_origen_v0:
+  hoja: outputs/semantico/hoja_nombrar_temas_2b_e5.csv
+  sha256: 06ab15d4392c44542bce2b70c73b796c0307d42bc61807f3d604460632e8443b
+  modelo: intfloat/multilingual-e5-base
+  prueba: 2b
+  semilla: 4
+  decision: D42
+niveles:
+- base
+- calidad
+- innovacion
+descartados:
+- tema: 1
+  motivo: 'qué herramienta se usó: es un dato, no un criterio'
+- tema: 14
+  motivo: mezcla pequeña
+- tema: 15
+  motivo: mezcla pequeña
+criterios:
+- id: C01
+  dimension: Acompañamiento y mediación pedagógica del aprendizaje
+  criterio_corto: Mediación docente y participación activa del estudiante
+  enunciado: "El laboratorio virtual debe articularse con decisiones didácticas explícitas del docente antes, durante y después de la simulación, de modo que el estudiante participe de forma activa, guiada y reflexiva, y no se limite a ejecutar la simulación."
+  nivel: base
+  temas_origen:
+  - 0
+  estado: aprobado
+- id: C02
+  dimension: Estructuración didáctica y niveles de orientación de las actividades experimentales.
+  criterio_corto: Estructuración y secuenciación guiada de las experiencias de aprendizaje experimental.
+  enunciado: El laboratorio virtual debe ofrecer experiencias experimentales organizadas mediante guías
+    didácticas estructuradas, con objetivos de aprendizaje, fundamentación conceptual, procedimientos,
+    preguntas orientadoras y actividades de análisis que conduzcan progresivamente al estudiante desde
+    la exploración hasta la interpretación y comunicación de resultados.
+  nivel: base
+  temas_origen:
+  - 2
+  estado: aprobado
+- id: C03
+  dimension: Interactividad y manipulación experimental en entornos de simulación.
+  criterio_corto: Manipulación de variables y exploración experimental interactiva.
+  enunciado: El laboratorio virtual debe permitir que el estudiante manipule variables independientes,
+    modifique las condiciones de los sistemas simulados, utilice instrumentos virtuales y observe los
+    cambios producidos en los fenómenos estudiados, facilitando la exploración de relaciones entre variables,
+    la formulación de predicciones y la comprensión de procesos científicos.
+  nivel: base
+  temas_origen:
+  - 5
+  estado: aprobado
+- id: C04
+  dimension: Retroalimentación y evaluación formativa en entornos de experimentación virtual.
+  criterio_corto: Retroalimentación formativa y seguimiento del aprendizaje experimental.
+  enunciado: El laboratorio virtual debe favorecer procesos de retroalimentación continua mediante respuestas
+    del sistema ante las acciones del estudiante, orientaciones del docente, espacios de discusión y mecanismos
+    de autoevaluación que permitan reconocer avances, identificar errores y mejorar la comprensión de
+    los fenómenos científicos.
+  nivel: calidad
+  temas_origen:
+  - 6
+  estado: aprobado
+- id: C05
+  dimension: Desarrollo de habilidades científicas mediante la experimentación virtual.
+  criterio_corto: Desarrollo de habilidades de medición, análisis e interpretación experimental.
+  enunciado: El laboratorio virtual debe proporcionar herramientas y escenarios que permitan al estudiante
+    ejecutar procedimientos experimentales, utilizar instrumentos de medición, recolectar y procesar datos,
+    representar resultados e interpretar fenómenos científicos para construir explicaciones sustentadas
+    en evidencias.
+  nivel: innovacion
+  temas_origen:
+  - 11
+  estado: aprobado
+- id: C06
+  dimension: Mecanismos multimodales de retroalimentación y visualización del aprendizaje experimental.
+  criterio_corto: "Retroalimentación automática y visualización del desempeño."
+  enunciado: "El laboratorio virtual debe generar respuestas automáticas e inmediatas a las acciones del estudiante (mensajes, gráficas o representaciones visuales) que le permitan identificar errores y ajustar su procedimiento sin depender en todo momento de la intervención docente."
+  nivel: innovacion
+  temas_origen:
+  - 12
+  estado: aprobado
+- id: C07
+  dimension: Calidad técnica, usabilidad y condiciones de operación de los laboratorios virtuales.
+  criterio_corto: Usabilidad, eficiencia y fiabilidad del entorno tecnológico.
+  enunciado: El laboratorio virtual debe garantizar una interacción sencilla, eficiente y confiable, considerando
+    la facilidad de uso, los tiempos de respuesta, los requisitos técnicos, la compatibilidad con los
+    dispositivos disponibles y su capacidad para mantener un funcionamiento adecuado ante diferentes condiciones
+    de conectividad y demanda de usuarios.
+  nivel: calidad
+  temas_origen:
+  - 16
+  - 8
+  estado: aprobado
+- id: C08
+  dimension: Contraste de resultados y validación del aprendizaje mediante la simulación.
+  criterio_corto: Verificación y contraste de resultados mediante representaciones experimentales.
+  enunciado: El laboratorio virtual debe permitir contrastar los resultados obtenidos por los estudiantes
+    con representaciones, respuestas y soluciones de referencia, facilitando la verificación de procedimientos,
+    la identificación de errores conceptuales y la autorregulación del aprendizaje mediante la interpretación
+    de resultados y el diálogo pedagógico.
+  nivel: innovacion
+  temas_origen:
+  - 17
+  estado: aprobado
+- id: C09
+  dimension: Accesibilidad y viabilidad tecnológica del laboratorio virtual
+  criterio_corto: Acceso en contextos de baja conectividad y recursos limitados
+  enunciado: "El laboratorio virtual debe poder usarse con los dispositivos, la conectividad, el idioma y los recursos económicos disponibles en las instituciones, sin equipos costosos, licencias pagas ni conexión permanente, y debe declarar explícitamente esos requisitos de uso."
+  nivel: calidad
+  temas_origen:
+  - 3
+  - 4
+  - 7
+  - 9
+  - 10
+  - 13
+  - 18
+  - 19
+  estado: aprobado
+  extension_teorica: "DUA (CAST, 2024) como fundamento teórico declarado; la accesibilidad para la diversidad de estudiantes no se codificó con el libro v3."

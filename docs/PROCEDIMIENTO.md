@@ -568,3 +568,33 @@ Falla si falta un archivo o una columna, si algún código no es 0 ni 1, si se r
 | Archivo | Contenido | Dónde |
 |---|---|---|
 | `outputs/tablas/marco_evidencia_v0.csv/.json` | por criterio: presencia, pesos, nivel, disciplina, dirección presente/ausente y p de Fisher (solo números) | git |
+
+## Bloque 8.1 · Cierre del marco (`config/criterios_v1.yaml`)
+
+Cierre: 3 nov 2026. Flujograma actualizado.
+
+### Objetivo del paso
+Dejar el marco de 9 criterios aprobado por Luis Fer y organizado en 3 niveles, sin tocar v0, que queda congelado.
+
+### Entradas
+| Archivo | Versión | SHA-256 |
+|---|---|---|
+| `config/criterios_v0.yaml` | marco v0 (D42), congelado | `6ee5e11d426e98a32cc4960829c682db04dd32306fde65e0419942fb9cf96736` |
+| Enunciados aprobados de C01, C06 y C09 | decisión de Luis Fer, 3 nov 2026 | texto en D55 |
+
+### Proceso
+No hay script: v1 es un archivo de configuración escrito a partir de v0. Copia v0 y cambia solo los textos de C01, C06 y C09, agrega el nivel de cada criterio y la extensión teórica de C09, y pasa los 9 criterios a `aprobado`. Registra el hash de v0 para poder comprobar que no cambió. Se verifica con:
+```
+.venv/bin/pytest tests/test_criterios_v1.py
+```
+
+### Decisiones aplicadas
+[D55](decisiones.md#d55-bloque-81-marco-v1-aprobado-en-3-niveles) · [D42](decisiones.md) (origen del marco v0) · [D53](decisiones.md) (terminología).
+
+### Controles
+Falla si v1 no tiene C01 a C09 en orden y aprobados, si algún nivel no tiene exactamente sus tres criterios, si `dimension`, `temas_origen` o los enunciados sin cambio difieren de v0, si los textos de C01, C06 y C09 no son los aprobados, si el hash de v0 registrado no coincide con el archivo, o si v0 deja de tener C01, C06 y C09 en borrador. Tests: `tests/test_criterios_v1.py`.
+
+### Salidas
+| Archivo | Contenido | Dónde |
+|---|---|---|
+| `config/criterios_v1.yaml` | marco v1: 9 criterios aprobados, 3 niveles, DUA como extensión de C09 | git |

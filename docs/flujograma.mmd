@@ -109,6 +109,13 @@ flowchart TB
       m2{"¿bases 196 informes / 193 estudios?<br/>¿códigos 0/1? ¿presente + ausente = total?"}
       m3@{ shape: doc, label: "outputs/tablas/marco_evidencia_v0 (en git, solo números)" }
     end
+
+    subgraph B81["Bloque 8.1 · Cierre del marco (D55)"]
+      n1["criterios_v1.yaml (D55)<br/>copia de v0 + C01, C06 y C09 aprobados · 3 niveles · DUA en C09<br/>v0 congelado; v1 lo leerán el Bloque 9 y el OE2"]
+      n2{"¿v0 sin cambios?<br/>¿hash de v0 = el registrado en v1?"}
+      n3@{ shape: doc, label: "config/criterios_v1.yaml (en git)" }
+    end
+    f10(["FALLA<br/>test_criterios_v1 en rojo"])
     f9(["FALLA<br/>mensaje claro y código 1<br/>no escribe la tabla"])
 
     f1(["FALLA<br/>mensaje claro y código 1<br/>no dibuja nada"])
@@ -228,8 +235,12 @@ flowchart TB
   m1 --> m2
   m2 -- "sí" --> m3
   m2 -- "no" --> f9
+  m3 --> n1
+  n1 --> n2
+  n2 -- "sí" --> n3
+  n2 -- "no" --> f10
 
   classDef drive fill:#e8f1fb,stroke:#2b6cb0,color:#1a365d
   classDef falla fill:#fde8e8,stroke:#c0392b,color:#7b1d1d
   class dB,dC,dR,dP,dE,dX,dJ,dT drive
-  class f1,f2,f3,f4,f5,f6,f7,f8,f9 falla
+  class f1,f2,f3,f4,f5,f6,f7,f8,f9,f10 falla
