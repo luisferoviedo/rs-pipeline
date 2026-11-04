@@ -9,6 +9,11 @@ de git) y le pide a pdfinfo el conteo de páginas. Registra en el inventario rut
 tamaño, páginas y sha256.
 
     PYTHONPATH=src .venv/bin/python -m rs_pipeline.referentes_descarga_09 [--id ID ...]
+
+Ingesta manual (PDF que descarga Luis Fer a mano, p. ej. PISA 2025 de la OCDE):
+
+    PYTHONPATH=src .venv/bin/python -m rs_pipeline.referentes_descarga_09 \\
+        --ingesta-manual ID [--archivo NOMBRE.pdf]
 """
 
 from __future__ import annotations
@@ -142,6 +147,34 @@ def descargar_documento(
     return True
 
 
+def ingerir_manual(
+    doc: dict, dominios: list[str], destino: Path, nombre: str | None, hoy: date
+) -> None:
+    """Registra un PDF que Luis Fer ya dejó en la carpeta de destino (sin red)."""
+    if doc["estado"] != "aprobado_manual":
+        fallar(
+            f"{doc['id']}: la ingesta manual es solo para documentos aprobado_manual"
+        )
+    if doc["sha256"] is not None:
+        fallar(f"{doc['id']}: ya está registrado; no se registra dos veces")
+    if not R.url_permitida(doc["url_oficial"], dominios):
+        fallar(f"{doc['id']}: url_oficial fuera de los dominios permitidos")
+    ruta = (destino / (nombre or f"{doc['id']}.pdf")).resolve()
+    if ruta.parent != destino.resolve():
+        fallar(f"el archivo debe estar directamente en {destino}, no en {ruta.parent}")
+    if not ruta.is_file():
+        fallar(f"{doc['id']}: no encuentro {ruta}; descárgalo a mano y vuelve a correr")
+    verificar_pdf(ruta.read_bytes()[:8], doc["url_oficial"])
+    doc["ruta_local"] = ruta.relative_to(RAIZ_REPO).as_posix()
+    doc["fecha_descarga"] = hoy.isoformat()
+    doc["tamano_bytes"] = ruta.stat().st_size
+    doc["paginas"] = paginas_pdf(ruta)
+    doc["sha256"] = sha256_de(ruta)
+    doc["notas"] = (
+        f"{doc['notas']} Ingesta manual registrada el {hoy.isoformat()}.".strip()
+    )
+
+
 def cabecera_de_comentarios(ruta: Path) -> str:
     lineas = ruta.read_text(encoding="utf-8").splitlines(keepends=True)
     comentarios = []
@@ -187,11 +220,39 @@ def ejecutar(
     return bajados
 
 
+def ejecutar_ingesta(
+    ruta_inventario: Path,
+    destino: Path,
+    id_doc: str,
+    nombre: str | None = None,
+    hoy: date | None = None,
+) -> None:
+    inventario = yaml.safe_load(ruta_inventario.read_text(encoding="utf-8"))
+    documentos = R.validar_inventario(inventario)
+    elegidos = elegir(documentos, [id_doc])
+    ingerir_manual(
+        elegidos[0],
+        inventario["dominios_permitidos"],
+        destino,
+        nombre,
+        hoy or date.today(),
+    )
+    guardar_inventario(ruta_inventario, inventario)
+
+
 def main(argv: list[str] | None = None) -> int:
     analizador = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     analizador.add_argument("--id", action="append", dest="ids", help="solo este id")
+    analizador.add_argument(
+        "--ingesta-manual", metavar="ID", help="registrar un PDF a mano"
+    )
+    analizador.add_argument("--archivo", help="nombre del PDF en data/raw/curriculo/")
     args = analizador.parse_args(argv)
     try:
+        if args.ingesta_manual:
+            ejecutar_ingesta(INVENTARIO, DESTINO, args.ingesta_manual, args.archivo)
+            print(f"Registrado: {args.ingesta_manual}")
+            return 0
         bajados = ejecutar(INVENTARIO, DESTINO, args.ids)
     except ErrorPipeline as error:
         print(f"ERROR: {error}", file=sys.stderr)

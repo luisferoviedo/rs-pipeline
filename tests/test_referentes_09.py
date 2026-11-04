@@ -208,4 +208,4 @@ def test_cobertura_por_nivel_cine_de_los_curriculos():
 def test_aprobados_y_descargados_son_coherentes():
     for d in inventario_real()["documentos"]:
         if d["sha256"] is not None:
-            assert d["estado"] == "aprobado", d["id"]
+            assert d["estado"] in ("aprobado", "aprobado_manual"), d["id"]

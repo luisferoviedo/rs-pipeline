@@ -250,3 +250,97 @@ def test_los_descargados_reales_coinciden_con_el_inventario():
         assert len(contenido) == d["tamano_bytes"], d["id"]
         assert hashlib.sha256(contenido).hexdigest() == d["sha256"], d["id"]
         assert D.paginas_pdf(ruta) == d["paginas"], d["id"]
+
+
+# --- Ingesta manual (PDF que baja Luis Fer a mano) -----------------------------------
+
+
+def doc_manual(**campos):
+    return doc(estado="aprobado_manual", **campos)
+
+
+def test_el_estado_aprobado_manual_es_valido_y_se_revisa_el_dominio():
+    R.validar_inventario(
+        {"dominios_permitidos": DOMINIOS, "documentos": [doc_manual()]}
+    )
+    malo = doc_manual(url_oficial="https://example.com/a.pdf")
+    with pytest.raises(R.ErrorPipeline, match="fuera de los dominios"):
+        R.validar_inventario({"dominios_permitidos": DOMINIOS, "documentos": [malo]})
+
+
+def test_la_descarga_automatica_no_toca_los_aprobado_manual(
+    tmp_path, inventario_en_disco
+):
+    ruta = inventario_en_disco(doc_manual())
+
+    pedidos = []
+
+    def leer(url, dominios):
+        pedidos.append(url)
+        return pdf_con_paginas(1)
+
+    assert D.ejecutar(ruta, tmp_path / "raw", leer=leer, hoy=HOY) == []
+    assert pedidos == []
+
+
+def test_ingesta_manual_registra_igual_que_la_descarga(
+    tmp_path, monkeypatch, inventario_en_disco
+):
+    monkeypatch.setattr(D, "RAIZ_REPO", tmp_path)
+    contenido = pdf_con_paginas(5)
+    (tmp_path / "raw").mkdir()
+    (tmp_path / "raw" / "T-1.pdf").write_bytes(contenido)
+    ruta = inventario_en_disco(doc_manual(notas="Se baja a mano."))
+    D.ejecutar_ingesta(ruta, tmp_path / "raw", "T-1", hoy=HOY)
+    d = yaml.safe_load(ruta.read_text(encoding="utf-8"))["documentos"][0]
+    assert d["ruta_local"] == "raw/T-1.pdf"
+    assert d["fecha_descarga"] == "2026-11-04"
+    assert d["tamano_bytes"] == len(contenido)
+    assert d["paginas"] == 5
+    assert d["sha256"] == hashlib.sha256(contenido).hexdigest()
+    assert d["notas"] == "Se baja a mano. Ingesta manual registrada el 2026-11-04."
+    with pytest.raises(D.ErrorPipeline, match="ya está registrado"):
+        D.ejecutar_ingesta(ruta, tmp_path / "raw", "T-1", hoy=HOY)
+
+
+def test_ingesta_manual_con_nombre_de_archivo_propio(
+    tmp_path, monkeypatch, inventario_en_disco
+):
+    monkeypatch.setattr(D, "RAIZ_REPO", tmp_path)
+    (tmp_path / "raw").mkdir()
+    (tmp_path / "raw" / "PISA_2025.pdf").write_bytes(pdf_con_paginas(2))
+    ruta = inventario_en_disco(doc_manual())
+    D.ejecutar_ingesta(ruta, tmp_path / "raw", "T-1", "PISA_2025.pdf", HOY)
+    d = yaml.safe_load(ruta.read_text(encoding="utf-8"))["documentos"][0]
+    assert d["ruta_local"] == "raw/PISA_2025.pdf"
+    assert d["paginas"] == 2
+
+
+@pytest.mark.parametrize(
+    ("contenido", "texto"),
+    [(None, "no encuentro"), (b"<html></html>", "%PDF"), (b"%PDF-1.4 roto", "pdfinfo")],
+)
+def test_ingesta_manual_falla_si_falta_o_no_es_pdf_valido(
+    tmp_path, monkeypatch, inventario_en_disco, contenido, texto
+):
+    monkeypatch.setattr(D, "RAIZ_REPO", tmp_path)
+    (tmp_path / "raw").mkdir()
+    if contenido is not None:
+        (tmp_path / "raw" / "T-1.pdf").write_bytes(contenido)
+    ruta = inventario_en_disco(doc_manual())
+    with pytest.raises(D.ErrorPipeline, match=texto):
+        D.ejecutar_ingesta(ruta, tmp_path / "raw", "T-1", hoy=HOY)
+    d = yaml.safe_load(ruta.read_text(encoding="utf-8"))["documentos"][0]
+    assert d["sha256"] is None
+
+
+def test_ingesta_manual_solo_para_aprobado_manual_y_dentro_de_la_carpeta(
+    tmp_path, inventario_en_disco
+):
+    (tmp_path / "raw").mkdir()
+    ruta = inventario_en_disco(doc(estado="aprobado"))
+    with pytest.raises(D.ErrorPipeline, match="solo para documentos aprobado_manual"):
+        D.ejecutar_ingesta(ruta, tmp_path / "raw", "T-1", hoy=HOY)
+    ruta = inventario_en_disco(doc_manual())
+    with pytest.raises(D.ErrorPipeline, match="directamente en"):
+        D.ejecutar_ingesta(ruta, tmp_path / "raw", "T-1", "../fuera.pdf", HOY)

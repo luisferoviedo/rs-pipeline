@@ -1,7 +1,8 @@
 # Inventario de referentes curriculares del Bloque 9 (D56).
-# Todos los documentos están en estado por_verificar: Luis Fer aprueba las URL una por una
-# (estado: aprobado) antes de cualquier descarga. Los campos ruta_local a sha256 los llena
-# el script de descarga. Lo que no se sabe dice POR VERIFICAR.
+# Estados: por_verificar (nada se descarga), aprobado (lo baja el script), aprobado_manual
+# (lo baja Luis Fer a mano y se registra con --ingesta-manual) y referencia (no se codifica).
+# Luis Fer aprueba cada URL; los campos ruta_local a sha256 los llena el script.
+# Lo que no se sabe dice POR VERIFICAR.
 version: v0
 decision: D56
 dominios_permitidos:
@@ -26,32 +27,31 @@ documentos:
   pais: Colombia
   organismo: Ministerio de Educación Nacional (MEN)
   titulo: Estándares básicos de competencias en Ciencias Sociales y Ciencias Naturales (Guía 7)
-  version: 2004 (año POR VERIFICAR en el PDF)
+  version: 2004 (el PDF dice 2004)
   fecha: POR VERIFICAR
-  acto_de_adopcion: Documento de orientación del MEN; sin acto normativo (POR VERIFICAR)
-  url_oficial: https://www.mineducacion.gov.co/1621/article-116042.html
+  acto_de_adopcion: 'no aplica: documento de referencia del MEN'
+  url_oficial: https://www.mineducacion.gov.co/1759/articles-81033_archivo_pdf.pdf
   idioma: es
   nivel_cine:
   - 2
   - 3
   grados_originales: Grupos de grados 6.º-7.º, 8.º-9.º y 10.º-11.º
   area: Ciencias Naturales
-  estado: por_verificar
-  notas: La URL es la página del MEN, no el PDF. La página enlaza el archivo con la ruta relativa articles-116042_archivo_pdf3.pdf;
-    falta confirmar la URL absoluta.
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
+  estado: aprobado
+  notas: URL del PDF dada por Luis Fer (reemplaza la página del MEN).
+  ruta_local: data/raw/curriculo/CO-EBC-2004.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 1349222
+  paginas: 48
+  sha256: d21ff298c2608dfe4912a0ae3fb3c5c956fe4aa46965dcc15586357356d23789
 - id: CO-DBA-CN
   rol: curriculo
   pais: Colombia
   organismo: Ministerio de Educación Nacional (MEN)
   titulo: Derechos Básicos de Aprendizaje (DBA) Ciencias Naturales
-  version: POR VERIFICAR
+  version: V.1, 2016 (la portada dice V.1; el pie de la portada fecha 12/10/16)
   fecha: POR VERIFICAR
-  acto_de_adopcion: Documento de orientación del MEN; sin acto normativo (POR VERIFICAR)
+  acto_de_adopcion: 'no aplica: documento de referencia del MEN, sin acto administrativo de adopción'
   url_oficial: https://colombiaaprende.edu.co/sites/default/files/files_public/2026-05/dba_c.naturales-min.pdf
   idioma: es
   nivel_cine:
@@ -59,20 +59,21 @@ documentos:
   - 3
   grados_originales: 6.º a 11.º (el documento cubre transición a 11.º)
   area: Ciencias Naturales
-  estado: por_verificar
+  estado: aprobado
   notas: 'La página de Colombia Aprende (publicada 25/05/2026) lista el archivo con http://; se propone
-    https con el mismo servidor. No sé si es V1 o V2 de 2016: se mira en la portada.'
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
+    https con el mismo servidor. No sé si es V1 o V2 de 2016: se mira en la portada. Descargado el 4 nov
+    2026: la portada dice V.1, no V.2.'
+  ruta_local: data/raw/curriculo/CO-DBA-CN.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 3998056
+  paginas: 44
+  sha256: 3156475f8a0cc988080dc71c49b722f9f125726591adafd66f45a78d5e8a3f4d
 - id: CO-ICFES-MR-CN-S11
   rol: marco_evaluacion
   pais: Colombia
   organismo: ICFES
   titulo: Marco de referencia de la prueba de Ciencias Naturales Saber 11
-  version: 2019 (según Luis Fer; POR VERIFICAR en el PDF)
+  version: 2019 (el PDF dice 2019)
   fecha: POR VERIFICAR
   acto_de_adopcion: No aplica (marco de evaluación)
   url_oficial: https://www.icfes.gov.co/wp-content/uploads/2024/11/Marco-de-referencia-Prueba-de-ciencias-naturales-Saber-11-2.pdf
@@ -81,20 +82,19 @@ documentos:
   - 3
   grados_originales: Grado 11.º
   area: Ciencias Naturales
-  estado: por_verificar
-  notas: URL vista en una búsqueda; el archivo está alojado en 2024/11 y puede ser una reedición del marco
-    de 2019. Se confirma al leer el PDF.
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
+  estado: aprobado
+  notas: 'Luis Fer: el PDF dice 2019; 2024/11 en la URL es la fecha en que se volvió a subir.'
+  ruta_local: data/raw/curriculo/CO-ICFES-MR-CN-S11.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 3299802
+  paginas: 49
+  sha256: 43d2fa40ece6c486fe18a8139d0b0c506fef37294eaa63d024ea12948c9ab367
 - id: PE-CNEB-2016
   rol: curriculo
   pais: Perú
   organismo: Ministerio de Educación (MINEDU)
   titulo: Currículo Nacional de la Educación Básica
-  version: 2016, modificado en 2017
+  version: 2016 (la portada dice 2016)
   fecha: POR VERIFICAR
   acto_de_adopcion: RM 281-2016-MINEDU (modificada por RM 159-2017-MINEDU); POR VERIFICAR si hay una versión
     posterior
@@ -105,45 +105,49 @@ documentos:
   - 3
   grados_originales: Educación Básica Regular, secundaria (ciclos VI y VII)
   area: Ciencia y Tecnología
-  estado: por_verificar
+  estado: aprobado
   notas: Trae competencias y estándares; los desempeños por grado están en el Programa curricular de Secundaria
-    (PE-PCS-2025). URL vista en una búsqueda; puede no ser la versión vigente.
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
-- id: PE-PCS-2025
+    (PE-PCS-2016). URL vista en una búsqueda; puede no ser la versión vigente.
+  ruta_local: data/raw/curriculo/PE-CNEB-2016.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 12381710
+  paginas: 224
+  sha256: a745ca842113f53609c435df9a13eda67371164b22ccb8492b2b02167dc2299b
+- id: PE-PCS-2016
   rol: curriculo
   pais: Perú
   organismo: Ministerio de Educación (MINEDU)
   titulo: Programa curricular de Educación Secundaria
-  version: Publicación del 21/05/2025 en gob.pe (versión POR VERIFICAR)
+  version: 2016 (POR VERIFICAR en el PDF)
   fecha: POR VERIFICAR
-  acto_de_adopcion: POR VERIFICAR
-  url_oficial: https://www.gob.pe/institucion/minedu/informes-publicaciones/6791708-programa-curricular-de-educacion-secundaria
+  acto_de_adopcion: RM 649-2016-MINEDU
+  url_oficial: https://www.minedu.gob.pe/curriculo/pdf/programa-curricular-educacion-secundaria.pdf
   idioma: es
   nivel_cine:
   - 2
   - 3
   grados_originales: 1.º a 5.º de secundaria
   area: Ciencia y Tecnología
-  estado: por_verificar
-  notas: La URL es la página de gob.pe (PDF de unos 19 MB), no el archivo; falta la URL directa de descarga.
-    La página respondió con error 418 a mi lectura.
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
-- id: BR-BNCC-EF-2017
+  estado: aprobado
+  notas: 'URL y norma dadas por Luis Fer. Antes se había visto una publicación del 21/05/2025 en gob.pe;
+    si el PDF es otra edición, se avisa. Descargado el 4 nov 2026: PDF escaneado sin capa de texto (259
+    caracteres en 259 páginas, páginas como imagen); la extracción necesita OCR, que no está autorizado.
+    Búsqueda de otra versión con texto (4 nov 2026): la publicación de gob.pe del 21/05/2025 pesa 19,3
+    MB, igual que este archivo (19.305.904 bytes), así que probablemente es el mismo escaneo; no pude
+    abrir la página (418 anti-bot) y no se forzó. Sin OCR hasta que Luis Fer lo autorice.'
+  ruta_local: data/raw/curriculo/PE-PCS-2016.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 19305904
+  paginas: 259
+  sha256: 3f4443dd1273f287c1ae069eed1cb314cb0574f9f0794495716415be2ec8075b
+- id: BR-BNCC-EF-2018
   rol: curriculo
   pais: Brasil
   organismo: Ministério da Educação (MEC)
-  titulo: 'Base Nacional Comum Curricular: Educação Infantil e Ensino Fundamental (Ciências da Natureza,
-    anos finais)'
-  version: Versão final (BNCC_EI_EF_110518_versaofinal_site.pdf)
-  fecha: POR VERIFICAR
+  titulo: 'Base Nacional Comum Curricular (BNCC): Educação Infantil, Ensino Fundamental e Ensino Médio;
+    Ciências da Natureza, anos finais del Fundamental'
+  version: 2018 (BNCC completa, versão homologada; el PDF se creó el 13/12/2018 y se modificó el 19/12/2018)
+  fecha: 2018-12
   acto_de_adopcion: Resolução CNE/CP (número y fecha POR VERIFICAR)
   url_oficial: https://basenacionalcomum.mec.gov.br/images/BNCC_EI_EF_110518_versaofinal_site.pdf
   idioma: pt
@@ -151,36 +155,40 @@ documentos:
   - 2
   grados_originales: 6.º a 9.º ano (anos finais)
   area: Ciências da Natureza (códigos EF06CI01 a EF09CI..)
-  estado: por_verificar
-  notas: URL vista en una búsqueda. El PDF trae todo el Fundamental; se extrae solo el área de Ciências
-    da Natureza de los anos finais.
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
+  estado: aprobado
+  notas: 'Luis Fer (4 nov 2026): este mismo PDF de 600 páginas (nombre original BNCC_EI_EF_110518_versaofinal_site.pdf)
+    es la BNCC completa de 2018 y sirve para los dos ids; el Ensino Médio empieza hacia la p. 461 del
+    índice (los códigos EM13CNT101... aparecen en la página PDF 557). Se extrae solo el área Ciências
+    da Natureza de los anos finais (códigos EF06CI.. a EF09CI..).'
+  ruta_local: data/raw/curriculo/BR-BNCC-2018.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 3058960
+  paginas: 600
+  sha256: ad623d7b33986a4e87e1441a4e675064cd30db3650b86a75caefa476e802272b
 - id: BR-BNCC-EM-2018
   rol: curriculo
   pais: Brasil
   organismo: Ministério da Educação (MEC)
-  titulo: 'Base Nacional Comum Curricular: Ensino Médio (Ciências da Natureza e suas Tecnologias)'
-  version: Versión final de 2018 (POR VERIFICAR)
-  fecha: 2018-12-17 (POR VERIFICAR)
-  acto_de_adopcion: Resolução CNE/CP nº 4, de 17/12/2018 (según una búsqueda; POR VERIFICAR)
-  url_oficial: https://www.gov.br/mec/pt-br/cne/bncc_ensino_medio.pdf
+  titulo: 'Base Nacional Comum Curricular (BNCC): Educação Infantil, Ensino Fundamental e Ensino Médio;
+    Ciências da Natureza e suas Tecnologias del Ensino Médio'
+  version: 2018 (BNCC completa, versão homologada)
+  fecha: '2018-12-17'
+  acto_de_adopcion: Resolução CNE/CP nº 4, de 17/12/2018 (DOU 18/12/2018)
+  url_oficial: https://basenacionalcomum.mec.gov.br/images/BNCC_EI_EF_110518_versaofinal_site.pdf
   idioma: pt
   nivel_cine:
   - 3
   grados_originales: Ensino Médio (1.º a 3.º ano)
   area: Ciências da Natureza e suas Tecnologias (códigos EM13CNT...)
-  estado: por_verificar
-  notas: 'No se propone la copia basenacionalcomum.mec.gov.br/images/historico/BNCC_EnsinoMedio_embaixa_site_110518.pdf:
-    parece un borrador de fines de 2017. La URL de gov.br se vio en una búsqueda y no la abrí.'
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
+  estado: aprobado_manual
+  notas: 'Mismo PDF que BR-BNCC-EF-2018 (data/raw/curriculo/BR-BNCC-2018.pdf); no hay descarga aparte
+    (la URL de gov.br daba 404). Ver la nota de BR-BNCC-EF-2018. Resolución: https://www.gov.br/mec/pt-br/cne/pdf/normas-classificadas-por-assunto/base-nacional-comum-curricular-ensino-medio-bncc-em/rcp004_18.pdf
+    Ingesta manual registrada el 2026-11-04.'
+  ruta_local: data/raw/curriculo/BR-BNCC-2018.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 3058960
+  paginas: 600
+  sha256: ad623d7b33986a4e87e1441a4e675064cd30db3650b86a75caefa476e802272b
 - id: MX-PLAN-2025
   rol: curriculo
   pais: México
@@ -195,9 +203,10 @@ documentos:
   - 2
   grados_originales: Secundaria, fase 6 (1.º a 3.º)
   area: Campo formativo Saberes y pensamiento científico
-  estado: por_verificar
-  notas: Marco del plan, no los enunciados por grado. Falta decidir cuál edición es la vigente al 3 nov
-    2026.
+  estado: referencia
+  notas: 'Luis Fer (4 nov 2026): lo vigente es el Plan de Estudio 2022 + el Programa Sintético Fase 6;
+    este PDF queda como referencia, salvo que diga ser una edición del mismo Plan 2022 (en ese caso se
+    le muestra). Aún no descargado.'
   ruta_local: null
   fecha_descarga: null
   tamano_bytes: null
@@ -208,7 +217,7 @@ documentos:
   pais: México
   organismo: Secretaría de Educación Pública (SEP)
   titulo: 'Programa de estudio para la educación secundaria: Programa sintético de la Fase 6'
-  version: 2024 (POR VERIFICAR)
+  version: 2024 (el PDF trae 2024)
   fecha: POR VERIFICAR
   acto_de_adopcion: POR VERIFICAR
   url_oficial: https://educacionbasica.sep.gob.mx/wp-content/uploads/2024/06/Programa_Sintetico_Fase_6.pdf
@@ -217,20 +226,20 @@ documentos:
   - 2
   grados_originales: Secundaria, fase 6 (1.º a 3.º)
   area: Saberes y pensamiento científico (contenidos y progresiones de aprendizaje)
-  estado: por_verificar
+  estado: aprobado
   notas: Aquí están los enunciados por grado de secundaria. URL vista en una búsqueda.
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
+  ruta_local: data/raw/curriculo/MX-PSINT-F6.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 2961238
+  paginas: 136
+  sha256: 8e907bd1968369a34858f88c87aa0fbc500a7f60048a26e2d5af50df3fbc928d
 - id: MX-MCCEMS-CNEYT-2025
   rol: curriculo
   pais: México
   organismo: SEP, Dirección General del Bachillerato (DGB)
   titulo: 'Modelo Educativo 2025, Marco Curricular Común de la EMS: Ciencias Naturales, Experimentales
     y Tecnología'
-  version: Modelo Educativo 2025 (POR VERIFICAR)
+  version: Modelo Educativo 2025 (vigencia POR VERIFICAR)
   fecha: POR VERIFICAR
   acto_de_adopcion: Acuerdo publicado en el DOF del 15/08/2025 (número POR VERIFICAR)
   url_oficial: https://dgb.sep.gob.mx/storage/recursos/2025/09/7U6gjAhlX6-MCC_CIENCIAS-NATURALES.pdf
@@ -239,10 +248,12 @@ documentos:
   - 3
   grados_originales: Bachillerato, CNEyT I a VI (seis semestres)
   area: Ciencias Naturales, Experimentales y Tecnología
-  estado: por_verificar
-  notas: dgb.sep.gob.mx es un subdominio de sep.gob.mx. Hay otra copia en gob.mx (file/1023507). La DGB
-    también publica programas por área de conocimiento con títulos distintos; falta confirmar cuál es
-    el vigente.
+  estado: aprobado_manual
+  notas: 'dgb.sep.gob.mx da 403 al script (4 nov 2026): Luis Fer lo baja a mano y se registra con --ingesta-manual.
+    URL exacta: https://dgb.sep.gob.mx/storage/recursos/2025/09/7U6gjAhlX6-MCC_CIENCIAS-NATURALES.pdf
+    ; otra copia: https://www.gob.mx/cms/uploads/attachment/file/1023507/2025_MCC_CIENCIAS_NATURALES_BN.pdf
+    . Confirmar en el PDF que es el documento del área de Ciencias Naturales, Experimentales y Tecnología
+    del MCCEMS.'
   ruta_local: null
   fecha_descarga: null
   tamano_bytes: null
@@ -252,46 +263,50 @@ documentos:
   rol: curriculo
   pais: Argentina
   organismo: Ministerio de Educación de la Nación / Consejo Federal de Educación
-  titulo: 'Núcleos de Aprendizajes Prioritarios: Ciencias Naturales, Educación Secundaria, Ciclo Básico'
-  version: POR VERIFICAR
-  fecha: POR VERIFICAR
-  acto_de_adopcion: Resolución del Consejo Federal de Educación (número POR VERIFICAR)
-  url_oficial: https://backend.educ.ar/refactor_resource/get-attachment/22986
+  titulo: 'Núcleos de Aprendizajes Prioritarios: Ciencias Naturales, Tercer Ciclo EGB / Nivel Medio (Anexo
+    I de la Res. CFCyE 249/05)'
+  version: 2005 (dic. 2005)
+  fecha: 2005-12
+  acto_de_adopcion: Res. CFCyE 249/05, Anexo I
+  url_oficial: https://cfe.educacion.gob.ar/resoluciones/res05/249-05-ane1cn.pdf
   idioma: es
   nivel_cine:
   - 2
-  grados_originales: 1.º-2.º y 2.º-3.º año (ciclo básico)
+  grados_originales: Tercer Ciclo EGB / Nivel Medio (7.º, 8.º y 9.º de la estructura anterior)
   area: Ciencias Naturales
-  estado: por_verificar
-  notas: URL vista en una búsqueda como adjunto del recurso 110571 de educ.ar; no la abrí. Falta confirmar
-    que es el PDF de los NAP y su fecha.
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
+  estado: aprobado_manual
+  notas: La denominación es la de la estructura anterior (Tercer Ciclo EGB / Nivel Medio); equivale al
+    ciclo básico (CINE 2). Luis Fer lo descargó a mano el 4 nov 2026 desde la resolución del CFE (no desde
+    educ.ar); 11 páginas. Ingesta manual registrada el 2026-11-04.
+  ruta_local: data/raw/curriculo/AR-NAP-CB-CN.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 40845
+  paginas: 11
+  sha256: 2dc068c5614ee804d6c8a0f9ecce8e110cbd28507df78eecfa177dc332668f61
 - id: AR-NAP-CO
   rol: curriculo
   pais: Argentina
   organismo: Ministerio de Educación de la Nación / Consejo Federal de Educación
-  titulo: 'Núcleos de Aprendizajes Prioritarios: Ciencias Naturales, Educación Secundaria, Ciclo Orientado'
+  titulo: 'Núcleos de Aprendizajes Prioritarios: Ciencias Naturales, Educación Secundaria, Ciclo Orientado
+    (Anexo de la Res. CFE 180/12)'
   version: POR VERIFICAR
   fecha: POR VERIFICAR
-  acto_de_adopcion: Resolución del Consejo Federal de Educación (número POR VERIFICAR)
-  url_oficial: https://www.educ.ar/recursos/132579/nap-ciencias-naturales-educacion-secundaria-ciclo-orientado
+  acto_de_adopcion: Res. CFE 180/12
+  url_oficial: https://cfe.educacion.gob.ar/resoluciones/res12/180-12_02.pdf
   idioma: es
   nivel_cine:
   - 3
   grados_originales: Ciclo orientado
   area: Ciencias Naturales
-  estado: por_verificar
-  notas: La URL es la página del recurso en educ.ar (no respondió a mi lectura), no el PDF; falta la URL
-    directa de descarga.
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
+  estado: aprobado_manual
+  notas: Luis Fer lo descargó a mano el 4 nov 2026 desde la resolución del CFE (no desde educ.ar); 10
+    páginas. cfe.educacion.gob.ar entra por el dominio listado educacion.gob.ar (D56). Ingesta manual
+    registrada el 2026-11-04.
+  ruta_local: data/raw/curriculo/AR-NAP-CO-CN.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 357365
+  paginas: 10
+  sha256: 9476eb6b33a1300c3e3b01fde88ef34793afda22c8f0359c9fa19aba724dbf5d
 - id: OCDE-PISA2025-MARCO
   rol: marco_evaluacion
   pais: OCDE
@@ -300,36 +315,38 @@ documentos:
   version: OECD (2026)
   fecha: POR VERIFICAR
   acto_de_adopcion: No aplica (marco de evaluación)
-  url_oficial: https://www.oecd.org/en/publications/pisa-2025-assessment-and-analytical-framework_86c36975-en
+  url_oficial: https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/05/pisa-2025-assessment-and-analytical-framework_3abce6d6/86c36975-en.pdf
   idioma: en
   nivel_cine: []
   grados_originales: Estudiantes de 15 años (CINE 2 y 3)
   area: Ciencias (competencia científica)
-  estado: por_verificar
-  notas: La URL es la ficha de la publicación en oecd.org (respondió 403 a mi lectura), no el PDF; falta
-    la URL directa. Se confirman en el PDF cuáles competencias quedaron fusionadas.
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
+  estado: aprobado_manual
+  notas: 'La OCDE responde 403 a los scripts: Luis Fer lo descargó a mano el 4 nov 2026 desde url_oficial
+    (214 páginas, sha256 verificado contra el que él calculó) y se registró con --ingesta-manual.'
+  ruta_local: data/raw/curriculo/86c36975-en.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 9748078
+  paginas: 214
+  sha256: 5b50212929d3fe97c7226e9180a7349a3b619d416e3a5424c327a59e2d33898f
 - id: UNESCO-CINE-2011
   rol: contexto_unesco
   pais: UNESCO
   organismo: UNESCO Institute for Statistics (UIS)
-  titulo: 'International Standard Classification of Education: ISCED 2011'
-  version: 2012 (ref. UIS/2012/INS/10/REV, según una búsqueda; POR VERIFICAR)
+  titulo: Clasificación Internacional Normalizada de la Educación, CINE 2011
+  version: UIS/2012/INS/10 REV.2 (según una búsqueda; POR VERIFICAR en el PDF)
   fecha: POR VERIFICAR
   acto_de_adopcion: Adoptada por la Conferencia General de la UNESCO en nov. 2011 (según una búsqueda;
     POR VERIFICAR)
-  url_oficial: https://uis.unesco.org/sites/default/files/documents/international-standard-classification-of-education-isced-2011-en.pdf
-  idioma: en
+  url_oficial: https://unesdoc.unesco.org/ark:/48223/pf0000220782
+  idioma: es
   nivel_cine: []
   grados_originales: No aplica
   area: Clasificación de niveles educativos
-  estado: por_verificar
-  notas: Fuente de la tabla de homologación de grados por país. Existe una revisión posterior (ISCED 2023);
-    esta decisión usa CINE 2011 (D56).
+  estado: aprobado_manual
+  notas: 'Luis Fer aprobó la edición en español. Los intentos del 4 nov 2026 con script fallaron: uis.unesco.org
+    (404 en las rutas -sp.pdf) y unesdoc (403 al script). Luis Fer lo baja a mano desde unesdoc.unesco.org/ark:/48223/pf0000220782
+    y se registra con --ingesta-manual. La edición en inglés sí responde 200 application/pdf en https://www.uis.unesco.org/sites/default/files/medias/fichiers/2025/04/international-standard-classification-of-education-isced-2011-en.pdf
+    (no descargada).'
   ruta_local: null
   fecha_descarga: null
   tamano_bytes: null

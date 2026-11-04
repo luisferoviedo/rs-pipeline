@@ -16,7 +16,9 @@ from rs_pipeline.semantico_texto import ErrorPipeline, fallar
 
 POR_VERIFICAR = "POR VERIFICAR"
 ROLES = {"curriculo", "marco_evaluacion", "contexto_unesco"}
-ESTADOS = {"por_verificar", "aprobado", "referencia"}
+ESTADOS = {"por_verificar", "aprobado", "aprobado_manual", "referencia"}
+# aprobado_manual: aprobado; Luis Fer baja el PDF a mano (el sitio rechaza scripts)
+APROBADOS = {"aprobado", "aprobado_manual"}
 PAISES = {"Colombia", "Perú", "Brasil", "México", "Argentina", "OCDE", "UNESCO"}
 CAMPOS_BASE = [
     "id",
@@ -94,7 +96,7 @@ def validar_descarga(doc: dict) -> None:
         fallar(f"{id_doc}: los campos de descarga están a medias: {llenos}")
     if llenos and not SHA256.fullmatch(str(doc["sha256"])):
         fallar(f"{id_doc}: sha256 no válido: {doc['sha256']!r}")
-    if llenos and doc["estado"] != "aprobado":
+    if llenos and doc["estado"] not in APROBADOS:
         fallar(
             f"{id_doc}: solo se descargan documentos aprobados, no {doc['estado']!r}"
         )
@@ -104,7 +106,7 @@ def validar_documento(doc: dict, dominios: list[str]) -> None:
     validar_campos(doc)
     validar_cine(doc)
     validar_descarga(doc)
-    if doc["estado"] == "aprobado" and not url_permitida(
+    if doc["estado"] in APROBADOS and not url_permitida(
         str(doc["url_oficial"]), dominios
     ):
         fallar(
