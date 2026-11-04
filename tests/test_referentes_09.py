@@ -5,8 +5,11 @@ otro que la rompe.
 """
 
 import copy
+from collections import Counter
+from pathlib import Path
 
 import pytest
+import yaml
 
 from rs_pipeline import referentes_09 as R
 
@@ -126,3 +129,83 @@ def test_el_inventario_no_se_modifica():
     copia = copy.deepcopy(inv)
     R.validar_inventario(inv)
     assert inv == copia
+
+
+# --- Inventario real (config/referentes_curriculares.yaml) -----------------------
+
+INVENTARIO = (
+    Path(__file__).resolve().parents[1] / "config" / "referentes_curriculares.yaml"
+)
+DOMINIOS_APROBADOS = [
+    "educacion.gob.ar",
+    "educ.ar",
+    "argentina.gob.ar",
+    "minedu.gob.pe",
+    "gob.pe",
+    "sep.gob.mx",
+    "gob.mx",
+    "gov.br",
+    "mec.gov.br",
+    "mineducacion.gov.co",
+    "colombiaaprende.edu.co",
+    "icfes.gov.co",
+    "oecd.org",
+    "unesco.org",
+    "uis.unesco.org",
+]
+
+
+def inventario_real():
+    return yaml.safe_load(INVENTARIO.read_text(encoding="utf-8"))
+
+
+def test_inventario_real_es_valido_y_tiene_los_15_documentos():
+    docs = R.validar_inventario(inventario_real())
+    assert len(docs) == 15
+    por_pais = Counter(d["pais"] for d in docs)
+    assert por_pais == {
+        "Colombia": 3,
+        "Perú": 2,
+        "Brasil": 2,
+        "México": 3,
+        "Argentina": 2,
+        "OCDE": 1,
+        "UNESCO": 2,
+    }
+    assert Counter(d["rol"] for d in docs) == {
+        "curriculo": 11,
+        "marco_evaluacion": 2,
+        "contexto_unesco": 2,
+    }
+
+
+def test_dominios_permitidos_son_exactamente_los_aprobados_por_luis_fer():
+    assert inventario_real()["dominios_permitidos"] == DOMINIOS_APROBADOS
+
+
+def test_todas_las_url_estan_en_dominios_permitidos():
+    inv = inventario_real()
+    fuera = [
+        d["id"]
+        for d in inv["documentos"]
+        if not R.url_permitida(d["url_oficial"], inv["dominios_permitidos"])
+    ]
+    assert fuera == []
+
+
+def test_cobertura_por_nivel_cine_de_los_curriculos():
+    docs = inventario_real()["documentos"]
+    cine = {2: set(), 3: set()}
+    for d in docs:
+        if d["rol"] == "curriculo":
+            for nivel in d["nivel_cine"]:
+                cine[nivel].add(d["pais"])
+    paises = {"Colombia", "Perú", "Brasil", "México", "Argentina"}
+    assert cine[2] == paises
+    assert cine[3] == paises
+
+
+def test_aprobados_y_descargados_son_coherentes():
+    for d in inventario_real()["documentos"]:
+        if d["sha256"] is not None:
+            assert d["estado"] == "aprobado", d["id"]
