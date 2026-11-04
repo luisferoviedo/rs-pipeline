@@ -151,9 +151,10 @@ def ingerir_manual(
     doc: dict, dominios: list[str], destino: Path, nombre: str | None, hoy: date
 ) -> None:
     """Registra un PDF que Luis Fer ya dejó en la carpeta de destino (sin red)."""
-    if doc["estado"] != "aprobado_manual":
+    if doc["estado"] not in ("aprobado_manual", "referencia"):
         fallar(
-            f"{doc['id']}: la ingesta manual es solo para documentos aprobado_manual"
+            f"{doc['id']}: la ingesta manual es solo para documentos "
+            "aprobado_manual o referencia"
         )
     if doc["sha256"] is not None:
         fallar(f"{doc['id']}: ya está registrado; no se registra dos veces")

@@ -121,7 +121,18 @@ def test_campos_de_descarga():
     R.validar_inventario(inventario(doc(estado="aprobado", **lleno)))
     falla(inventario(doc(estado="aprobado", **(lleno | {"paginas": None}))), "a medias")
     falla(inventario(doc(estado="aprobado", **(lleno | {"sha256": "xyz"}))), "sha256")
-    falla(inventario(doc(estado="referencia", **lleno)), "solo se descargan")
+    falla(inventario(doc(estado="por_verificar", **lleno)), "solo se descargan")
+
+
+def test_un_documento_de_referencia_puede_traer_los_campos_de_descarga():
+    lleno = {
+        "ruta_local": "data/raw/curriculo/x.pdf",
+        "fecha_descarga": "2026-11-04",
+        "tamano_bytes": 10,
+        "paginas": 2,
+        "sha256": "a" * 64,
+    }
+    R.validar_inventario(inventario(doc(estado="referencia", **lleno)))
 
 
 def test_el_inventario_no_se_modifica():
@@ -208,4 +219,4 @@ def test_cobertura_por_nivel_cine_de_los_curriculos():
 def test_aprobados_y_descargados_son_coherentes():
     for d in inventario_real()["documentos"]:
         if d["sha256"] is not None:
-            assert d["estado"] in ("aprobado", "aprobado_manual"), d["id"]
+            assert d["estado"] in ("aprobado", "aprobado_manual", "referencia"), d["id"]

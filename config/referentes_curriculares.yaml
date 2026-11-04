@@ -132,9 +132,10 @@ documentos:
   notas: 'URL y norma dadas por Luis Fer. Antes se había visto una publicación del 21/05/2025 en gob.pe;
     si el PDF es otra edición, se avisa. Descargado el 4 nov 2026: PDF escaneado sin capa de texto (259
     caracteres en 259 páginas, páginas como imagen); la extracción necesita OCR, que no está autorizado.
-    Búsqueda de otra versión con texto (4 nov 2026): la publicación de gob.pe del 21/05/2025 pesa 19,3
-    MB, igual que este archivo (19.305.904 bytes), así que probablemente es el mismo escaneo; no pude
-    abrir la página (418 anti-bot) y no se forzó. Sin OCR hasta que Luis Fer lo autorice.'
+    URL alterna: https://www.gob.pe/institucion/minedu/informes-publicaciones/6791708-programa-curricular-de-educacion-secundaria
+    (publicación del 21/05/2025 en el compendio «Programas curriculares de la Educación Básica Regular»).
+    Luis Fer confirmó el 4 nov 2026 que es el mismo archivo escaneado (mismo sha256): no hay versión con
+    texto. Sin OCR hasta que Luis Fer lo autorice (ver el plan en la conversación).'
   ruta_local: data/raw/curriculo/PE-PCS-2016.pdf
   fecha_descarga: '2026-11-04'
   tamano_bytes: 19305904
@@ -206,7 +207,8 @@ documentos:
   estado: referencia
   notas: 'Luis Fer (4 nov 2026): lo vigente es el Plan de Estudio 2022 + el Programa Sintético Fase 6;
     este PDF queda como referencia, salvo que diga ser una edición del mismo Plan 2022 (en ese caso se
-    le muestra). Aún no descargado.'
+    le muestra). Luis Fer lo baja a mano y se registra con --ingesta-manual (estado referencia). URL:
+    https://educacionbasica.sep.gob.mx/wp-content/uploads/2025/Plan_y_programas_de_estudio_2025/Plan%20de%20Estudio%202025%20-WEB-.pdf'
   ruta_local: null
   fecha_descarga: null
   tamano_bytes: null
@@ -239,8 +241,8 @@ documentos:
   organismo: SEP, Dirección General del Bachillerato (DGB)
   titulo: 'Modelo Educativo 2025, Marco Curricular Común de la EMS: Ciencias Naturales, Experimentales
     y Tecnología'
-  version: Modelo Educativo 2025 (vigencia POR VERIFICAR)
-  fecha: POR VERIFICAR
+  version: Modelo Educativo 2025
+  fecha: '2025'
   acto_de_adopcion: Acuerdo publicado en el DOF del 15/08/2025 (número POR VERIFICAR)
   url_oficial: https://dgb.sep.gob.mx/storage/recursos/2025/09/7U6gjAhlX6-MCC_CIENCIAS-NATURALES.pdf
   idioma: es
@@ -249,16 +251,16 @@ documentos:
   grados_originales: Bachillerato, CNEyT I a VI (seis semestres)
   area: Ciencias Naturales, Experimentales y Tecnología
   estado: aprobado_manual
-  notas: 'dgb.sep.gob.mx da 403 al script (4 nov 2026): Luis Fer lo baja a mano y se registra con --ingesta-manual.
-    URL exacta: https://dgb.sep.gob.mx/storage/recursos/2025/09/7U6gjAhlX6-MCC_CIENCIAS-NATURALES.pdf
-    ; otra copia: https://www.gob.mx/cms/uploads/attachment/file/1023507/2025_MCC_CIENCIAS_NATURALES_BN.pdf
-    . Confirmar en el PDF que es el documento del área de Ciencias Naturales, Experimentales y Tecnología
-    del MCCEMS.'
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
+  notas: 'Luis Fer lo descargó a mano el 4 nov 2026 desde https://dgb.sep.gob.mx/storage/recursos/2025/09/7U6gjAhlX6-MCC_CIENCIAS-NATURALES.pdf
+    (48 páginas). El PDF dice: «Sistema Nacional de Bachillerato de la Nueva Escuela Mexicana · Ciencias
+    Naturales, Experimentales y Tecnología · Marco Curricular Común de la Educación Media Superior · Modelo
+    Educativo 2025». Vigencia respecto de otros programas del bachillerato: POR VERIFICAR. Ingesta manual
+    registrada el 2026-11-04.'
+  ruta_local: data/raw/curriculo/MX-MCCEMS-CNEYT-2025.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 2158428
+  paginas: 48
+  sha256: 0c3820ac2551276d7a4227b5dedad9c6845dbfac16b416d1d2c1d5c25a4ed0d5
 - id: AR-NAP-CB
   rol: curriculo
   pais: Argentina
@@ -333,8 +335,8 @@ documentos:
   pais: UNESCO
   organismo: UNESCO Institute for Statistics (UIS)
   titulo: Clasificación Internacional Normalizada de la Educación, CINE 2011
-  version: UIS/2012/INS/10 REV.2 (según una búsqueda; POR VERIFICAR en el PDF)
-  fecha: POR VERIFICAR
+  version: UIS/2012/INS/10/REV.2, edición 2013 (ISBN 978-92-9189-129-0)
+  fecha: '2013'
   acto_de_adopcion: Adoptada por la Conferencia General de la UNESCO en nov. 2011 (según una búsqueda;
     POR VERIFICAR)
   url_oficial: https://unesdoc.unesco.org/ark:/48223/pf0000220782
@@ -343,33 +345,37 @@ documentos:
   grados_originales: No aplica
   area: Clasificación de niveles educativos
   estado: aprobado_manual
-  notas: 'Luis Fer aprobó la edición en español. Los intentos del 4 nov 2026 con script fallaron: uis.unesco.org
-    (404 en las rutas -sp.pdf) y unesdoc (403 al script). Luis Fer lo baja a mano desde unesdoc.unesco.org/ark:/48223/pf0000220782
-    y se registra con --ingesta-manual. La edición en inglés sí responde 200 application/pdf en https://www.uis.unesco.org/sites/default/files/medias/fichiers/2025/04/international-standard-classification-of-education-isced-2011-en.pdf
-    (no descargada).'
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
-- id: UNESCO-ERCE2019-CURR
+  notas: 'Luis Fer lo descargó a mano el 4 nov 2026 desde el visor de https://unesdoc.unesco.org/ark:/48223/pf0000220782
+    (89 páginas). El PDF dice: «Publicado en 2013 por UNESCO-UIS… Ref: UIS/2012/INS/10/REV.2». Los scripts
+    reciben 404 en uis.unesco.org (rutas -sp.pdf) y 403 en unesdoc. La edición en inglés sí es descargable
+    por script en www.uis.unesco.org/sites/default/files/medias/fichiers/2025/04/international-standard-classification-of-education-isced-2011-en.pdf
+    (no descargada). Ingesta manual registrada el 2026-11-04.'
+  ruta_local: data/raw/curriculo/UNESCO-CINE-2011.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 1244403
+  paginas: 89
+  sha256: c3adb9e469cf3cca0aecf1a9b67e6355f11fe256346863483bcf9c9f19b2d32a
+- id: UNESCO-ERCE-2019-AC
   rol: contexto_unesco
   pais: UNESCO
-  organismo: UNESCO, Laboratorio Latinoamericano de Evaluación de la Calidad de la Educación (LLECE)
-  titulo: Análisis curricular del ERCE 2019 (título exacto POR VERIFICAR)
-  version: 2020 (POR VERIFICAR)
-  fecha: POR VERIFICAR
+  organismo: UNESCO, Oficina Regional de Educación para América Latina y el Caribe (Santiago), LLECE
+  titulo: ¿Qué se espera que aprendan los estudiantes de América Latina y el Caribe? Análisis curricular
+    del Estudio Regional Comparativo y Explicativo (ERCE 2019)
+  version: UNESCO, 2020
+  fecha: '2020'
   acto_de_adopcion: No aplica
-  url_oficial: https://unesdoc.unesco.org/ark:/48223/pf0000373973
+  url_oficial: https://unesdoc.unesco.org/ark:/48223/pf0000373982
   idioma: es
   nivel_cine: []
   grados_originales: 'Referencia: 6.º de primaria (CINE 1), no se compara'
   area: Lenguaje, matemática y ciencias
-  estado: por_verificar
-  notas: Antecedente metodológico y lista de contraste (D56). La URL salió de una búsqueda sin título;
-    falta confirmar que es el informe regional y no uno nacional.
-  ruta_local: null
-  fecha_descarga: null
-  tamano_bytes: null
-  paginas: null
-  sha256: null
+  estado: referencia
+  notas: Referencia (no se codifica; D56). Luis Fer lo descargó a mano el 4 nov 2026 desde https://chile.un.org/es/download/56177/102656,
+    que entrega el archivo de UNESDOC 373982spa.pdf (ark:/48223/pf0000373982, 188 páginas). Los reportes
+    nacionales no son necesarios. Reemplaza la ark pf0000373973, que no estaba confirmada. Ingesta manual
+    registrada el 2026-11-04.
+  ruta_local: data/raw/curriculo/UNESCO-ERCE-2019-AC.pdf
+  fecha_descarga: '2026-11-04'
+  tamano_bytes: 13591123
+  paginas: 188
+  sha256: 8c8556ae86733be5ea2f8121a65db0c3292ff4ebdcbb5b7bc1c985c3d368c521

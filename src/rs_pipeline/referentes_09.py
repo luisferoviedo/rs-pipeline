@@ -19,6 +19,8 @@ ROLES = {"curriculo", "marco_evaluacion", "contexto_unesco"}
 ESTADOS = {"por_verificar", "aprobado", "aprobado_manual", "referencia"}
 # aprobado_manual: aprobado; Luis Fer baja el PDF a mano (el sitio rechaza scripts)
 APROBADOS = {"aprobado", "aprobado_manual"}
+# Pueden traer los campos de descarga: aprobados y referencia (esta, por ingesta manual)
+REGISTRABLES = APROBADOS | {"referencia"}
 PAISES = {"Colombia", "Perú", "Brasil", "México", "Argentina", "OCDE", "UNESCO"}
 CAMPOS_BASE = [
     "id",
@@ -96,7 +98,7 @@ def validar_descarga(doc: dict) -> None:
         fallar(f"{id_doc}: los campos de descarga están a medias: {llenos}")
     if llenos and not SHA256.fullmatch(str(doc["sha256"])):
         fallar(f"{id_doc}: sha256 no válido: {doc['sha256']!r}")
-    if llenos and doc["estado"] not in APROBADOS:
+    if llenos and doc["estado"] not in REGISTRABLES:
         fallar(
             f"{id_doc}: solo se descargan documentos aprobados, no {doc['estado']!r}"
         )

@@ -344,3 +344,20 @@ def test_ingesta_manual_solo_para_aprobado_manual_y_dentro_de_la_carpeta(
     ruta = inventario_en_disco(doc_manual())
     with pytest.raises(D.ErrorPipeline, match="directamente en"):
         D.ejecutar_ingesta(ruta, tmp_path / "raw", "T-1", "../fuera.pdf", HOY)
+
+
+def test_ingesta_manual_acepta_referencia_pero_la_descarga_automatica_no(
+    tmp_path, monkeypatch, inventario_en_disco
+):
+    monkeypatch.setattr(D, "RAIZ_REPO", tmp_path)
+    contenido = pdf_con_paginas(3)
+    (tmp_path / "raw").mkdir()
+    (tmp_path / "raw" / "T-1.pdf").write_bytes(contenido)
+    ruta = inventario_en_disco(doc(estado="referencia"))
+    with pytest.raises(D.ErrorPipeline, match="solo se descargan"):
+        D.ejecutar(ruta, tmp_path / "raw", ids=["T-1"], leer=lambda u, dom: contenido)
+    D.ejecutar_ingesta(ruta, tmp_path / "raw", "T-1", hoy=HOY)
+    d = yaml.safe_load(ruta.read_text(encoding="utf-8"))["documentos"][0]
+    assert d["estado"] == "referencia"
+    assert d["paginas"] == 3
+    assert d["sha256"] == hashlib.sha256(contenido).hexdigest()
