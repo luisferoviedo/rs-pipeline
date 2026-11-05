@@ -1,0 +1,152 @@
+id: PE-PCS-2016
+decision: D57
+entrada_sha256: 3f4443dd1273f287c1ae069eed1cb314cb0574f9f0794495716415be2ec8075b
+dpi_referencia: 300
+margen_px_300dpi:
+  maximo: 6
+  minimo: 3
+paginas:
+- pagina: 177
+  recorte_superior: 0.081205
+  px_300dpi: 283
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 200-276 (px a 300 dpi); hueco hasta la siguiente
+    banda: 174 px; margen 6 px; altura de página 3485 px'
+- pagina: 178
+  recorte_superior: 0.063128
+  px_300dpi: 220
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 125-213 (px a 300 dpi); hueco hasta la siguiente
+    banda: 49 px; margen 6 px; altura de página 3485 px'
+- pagina: 179
+  recorte_superior: 0.06198
+  px_300dpi: 216
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 143-209 (px a 300 dpi); hueco hasta la siguiente
+    banda: 46 px; margen 6 px; altura de página 3485 px'
+- pagina: 180
+  recorte_superior: 0.055093
+  px_300dpi: 192
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 119-185 (px a 300 dpi); hueco hasta la siguiente
+    banda: 71 px; margen 6 px; altura de página 3485 px'
+- pagina: 181
+  recorte_superior: 0.05825
+  px_300dpi: 203
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 125-196 (px a 300 dpi); hueco hasta la siguiente
+    banda: 64 px; margen 6 px; altura de página 3485 px'
+- pagina: 182
+  recorte_superior: 0.05911
+  px_300dpi: 206
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 116-199 (px a 300 dpi); hueco hasta la siguiente
+    banda: 133 px; margen 6 px; altura de página 3485 px'
+- pagina: 183
+  recorte_superior: 0.07231
+  px_300dpi: 252
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 178-245 (px a 300 dpi); hueco hasta la siguiente
+    banda: 91 px; margen 6 px; altura de página 3485 px'
+- pagina: 184
+  recorte_superior: 0.05825
+  px_300dpi: 203
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 103-196 (px a 300 dpi); hueco hasta la siguiente
+    banda: 60 px; margen 6 px; altura de página 3485 px'
+- pagina: 185
+  recorte_superior: 0.061406
+  px_300dpi: 214
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 128-207 (px a 300 dpi); hueco hasta la siguiente
+    banda: 54 px; margen 6 px; altura de página 3485 px'
+- pagina: 186
+  recorte_superior: 0.088092
+  px_300dpi: 307
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 217-300 (px a 300 dpi); hueco hasta la siguiente
+    banda: 40 px; margen 6 px; altura de página 3485 px'
+- pagina: 187
+  recorte_superior: 0.044189
+  px_300dpi: 154
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 66-147 (px a 300 dpi); hueco hasta la siguiente banda:
+    90 px; margen 6 px; altura de página 3485 px'
+- pagina: 188
+  recorte_superior: 0.070588
+  px_300dpi: 246
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 160-239 (px a 300 dpi); hueco hasta la siguiente
+    banda: 55 px; margen 6 px; altura de página 3485 px'
+- pagina: 189
+  recorte_superior: 0.112769
+  px_300dpi: 393
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 280-386 (px a 300 dpi); hueco hasta la siguiente
+    banda: 34 px; margen 6 px; altura de página 3485 px'
+- pagina: 190
+  recorte_superior: 0.058537
+  px_300dpi: 204
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 118-197 (px a 300 dpi); hueco hasta la siguiente
+    banda: 59 px; margen 6 px; altura de página 3485 px'
+- pagina: 191
+  recorte_superior: 0.074032
+  px_300dpi: 258
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 168-252 (px a 300 dpi); hueco hasta la siguiente
+    banda: 10 px; margen 5 px; altura de página 3485 px'
+- pagina: 192
+  recorte_superior: 0.089527
+  px_300dpi: 312
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 201-305 (px a 300 dpi); hueco hasta la siguiente
+    banda: 37 px; margen 6 px; altura de página 3485 px'
+- pagina: 193
+  recorte_superior: 0.077188
+  px_300dpi: 269
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 190-262 (px a 300 dpi); hueco hasta la siguiente
+    banda: 74 px; margen 6 px; altura de página 3485 px'
+- pagina: 194
+  recorte_superior: 0.083788
+  px_300dpi: 292
+  metodo: propuesto por detección PGM, verificado a ojo
+  verificado_por: "Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-05"
+  fecha: '2026-11-05'
+  nota: 'encabezado en las filas 189-285 (px a 300 dpi); hueco hasta la siguiente
+    banda: 55 px; margen 6 px; altura de página 3485 px'

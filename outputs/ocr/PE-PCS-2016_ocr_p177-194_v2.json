@@ -1,0 +1,878 @@
+{
+  "id": "PE-PCS-2016",
+  "decision": "D57",
+  "fecha": "2026-11-05",
+  "entrada": {
+    "ruta": "data/raw/curriculo/PE-PCS-2016.pdf",
+    "sha256": "3f4443dd1273f287c1ae069eed1cb314cb0574f9f0794495716415be2ec8075b"
+  },
+  "herramientas": {
+    "tesseract": "tesseract 5.5.2",
+    "leptonica": "leptonica-1.87.0",
+    "poppler_pdftoppm": "pdftoppm version 26.08.0",
+    "spa.traineddata_sha256": "6f2e04d02774a18f01bed44b1111f2cd7f3ba7ac9dc4373cd3f898a40ea6b464"
+  },
+  "dpi": 300,
+  "idioma": "spa",
+  "recorte": {
+    "superior": "por página, de config/recortes_pe_pcs_2016.yaml",
+    "superior_config": {
+      "ruta": "config/recortes_pe_pcs_2016.yaml",
+      "sha256": "d0037b6ad1430d86855818f27183b56ef0f3818be853ff11d71bdfb5e8919321"
+    },
+    "inferior_fraccion_altura": 0.905,
+    "quita": "encabezado 649-2016-MINEDU, número de página y parte baja del sello"
+  },
+  "paginas": [
+    {
+      "pagina_pdf": 177,
+      "recorte_superior_fraccion": 0.081205,
+      "recorte_px": {
+        "x": 0,
+        "y": 283,
+        "ancho": 2408,
+        "alto": 2871,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 189,
+      "confianza_media": 95.91,
+      "palabras_confianza_baja": 1,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p177.png": {
+          "sha256": "c25e3ec787994b1652d46bac4bf4fed1f46c5be36228d5dacdb45ea23a363837",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p177.png"
+        },
+        "p177.txt": {
+          "sha256": "391ae83e65e31fb76e3f0ee6e7d571a6e43970be903d4d170bf3422e72035485",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p177.txt"
+        },
+        "p177.tsv": {
+          "sha256": "5aae72e6fdf0e8fa749f464a8c42e8c9e4cbff02604be60360d427f7e69abf02",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p177.tsv"
+        }
+      },
+      "revisar_zona_sello": [],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 178,
+      "recorte_superior_fraccion": 0.063128,
+      "recorte_px": {
+        "x": 0,
+        "y": 220,
+        "ancho": 2408,
+        "alto": 2934,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 409,
+      "confianza_media": 96.48,
+      "palabras_confianza_baja": 0,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p178.png": {
+          "sha256": "5f709110977e274313d1dba83eefbb6eb388123b3c839acb6d9cae44aed80338",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p178.png"
+        },
+        "p178.txt": {
+          "sha256": "fb2f801880b4328bff561fe8c22a24ff701e6c3cedef31245d8f36ef20eebb3c",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p178.txt"
+        },
+        "p178.tsv": {
+          "sha256": "48cba22610422b5de7b9e797e29a0a97493b34f57a3ebdf9c0937aac4bf61a03",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p178.tsv"
+        }
+      },
+      "revisar_zona_sello": [],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 179,
+      "recorte_superior_fraccion": 0.06198,
+      "recorte_px": {
+        "x": 0,
+        "y": 216,
+        "ancho": 2408,
+        "alto": 2938,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 221,
+      "confianza_media": 94.95,
+      "palabras_confianza_baja": 1,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p179.png": {
+          "sha256": "1930eb9853b9b46ef94651ef519752626d6505709db8418aa70bcd4aa20c6df0",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p179.png"
+        },
+        "p179.txt": {
+          "sha256": "8bf92f00ed791442b9c0127ae6abb9375681a8dcd9ebe8d61e6cb7269eebdbd9",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p179.txt"
+        },
+        "p179.tsv": {
+          "sha256": "7d3f82535bcb22221c0b461f5a18273a95abb425101e1654290940f6ea6f940a",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p179.tsv"
+        }
+      },
+      "revisar_zona_sello": [],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 180,
+      "recorte_superior_fraccion": 0.055093,
+      "recorte_px": {
+        "x": 0,
+        "y": 192,
+        "ancho": 2408,
+        "alto": 2962,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 682,
+      "confianza_media": 95.88,
+      "palabras_confianza_baja": 6,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p180.png": {
+          "sha256": "9395108afe792d3b4ccfed6dad5525cfc250efc6a7e5321763d3f996f3260cdd",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p180.png"
+        },
+        "p180.txt": {
+          "sha256": "3c7bce4ee30b6db9d2f02949a19ed5c215cb921d849667166847b6e5d42e13b6",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p180.txt"
+        },
+        "p180.tsv": {
+          "sha256": "7725e02d3cbcc481cde1a228a340b5c374eeec983e426fb74a6b3898ea496c6d",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p180.tsv"
+        }
+      },
+      "revisar_zona_sello": [
+        {
+          "bloque": 31,
+          "parrafo": 2,
+          "linea": 1,
+          "palabras": 2,
+          "confianza_media": 94.12
+        }
+      ],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 181,
+      "recorte_superior_fraccion": 0.05825,
+      "recorte_px": {
+        "x": 0,
+        "y": 203,
+        "ancho": 2408,
+        "alto": 2951,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 635,
+      "confianza_media": 95.23,
+      "palabras_confianza_baja": 5,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p181.png": {
+          "sha256": "7b768ad2d3ed663c5599e2293f8776a892a2d0086d6388714797ccb48fe4a3e4",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p181.png"
+        },
+        "p181.txt": {
+          "sha256": "fb05fd2ef6be6999cfe536ea3ce787fca171ae06cb0e9734a72fcf0d82b4fb66",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p181.txt"
+        },
+        "p181.tsv": {
+          "sha256": "898909a0fb6a75bcb11e6a0d1c26ce2a289a09a8d1c539c29290d91b63db9906",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p181.tsv"
+        }
+      },
+      "revisar_zona_sello": [
+        {
+          "bloque": 15,
+          "parrafo": 4,
+          "linea": 5,
+          "palabras": 1,
+          "confianza_media": 96.62
+        },
+        {
+          "bloque": 22,
+          "parrafo": 1,
+          "linea": 1,
+          "palabras": 3,
+          "confianza_media": 34.19
+        },
+        {
+          "bloque": 22,
+          "parrafo": 1,
+          "linea": 2,
+          "palabras": 2,
+          "confianza_media": 37.46
+        }
+      ],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 182,
+      "recorte_superior_fraccion": 0.05911,
+      "recorte_px": {
+        "x": 0,
+        "y": 206,
+        "ancho": 2408,
+        "alto": 2948,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 728,
+      "confianza_media": 95.11,
+      "palabras_confianza_baja": 5,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p182.png": {
+          "sha256": "81763c0bd42b284d352e3e429e5b10db73ac6d832cd12c374325376a2c56e9bc",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p182.png"
+        },
+        "p182.txt": {
+          "sha256": "e0d7a882f9ba511d341515bc5f4ac19d17b064453c082b0b1086db2698831392",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p182.txt"
+        },
+        "p182.tsv": {
+          "sha256": "1d859d1e1fe9a0ae503c0a4df3165ac9ab5b1383b5a009d0ebfec73bb032c6ad",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p182.tsv"
+        }
+      },
+      "revisar_zona_sello": [
+        {
+          "bloque": 15,
+          "parrafo": 5,
+          "linea": 1,
+          "palabras": 8,
+          "confianza_media": 95.96
+        },
+        {
+          "bloque": 15,
+          "parrafo": 5,
+          "linea": 2,
+          "palabras": 6,
+          "confianza_media": 96.63
+        },
+        {
+          "bloque": 15,
+          "parrafo": 5,
+          "linea": 3,
+          "palabras": 10,
+          "confianza_media": 96.74
+        },
+        {
+          "bloque": 15,
+          "parrafo": 5,
+          "linea": 4,
+          "palabras": 8,
+          "confianza_media": 95.07
+        },
+        {
+          "bloque": 15,
+          "parrafo": 5,
+          "linea": 5,
+          "palabras": 3,
+          "confianza_media": 93.95
+        }
+      ],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 183,
+      "recorte_superior_fraccion": 0.07231,
+      "recorte_px": {
+        "x": 0,
+        "y": 252,
+        "ancho": 2408,
+        "alto": 2902,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 496,
+      "confianza_media": 95.39,
+      "palabras_confianza_baja": 6,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p183.png": {
+          "sha256": "a3e54d9c6a533056abca283a831a7a14a140f3e7a3185a27f5fa0c3b2a1c6aaa",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p183.png"
+        },
+        "p183.txt": {
+          "sha256": "a3f278a7c13ed2eb9a76783112b6562e7a3bafba0405bf3f4b96bfec718bf82f",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p183.txt"
+        },
+        "p183.tsv": {
+          "sha256": "9523df64f670ac3549f55c0f03f7135228e8bc582f0c2b82a1957ebb30e07dab",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p183.tsv"
+        }
+      },
+      "revisar_zona_sello": [],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 184,
+      "recorte_superior_fraccion": 0.05825,
+      "recorte_px": {
+        "x": 0,
+        "y": 203,
+        "ancho": 2408,
+        "alto": 2951,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 218,
+      "confianza_media": 96.41,
+      "palabras_confianza_baja": 0,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p184.png": {
+          "sha256": "7c5e625a504e67b446bac1795931984b73c413f89ca07048aa6bcb709ddf586c",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p184.png"
+        },
+        "p184.txt": {
+          "sha256": "bae000a2336db250484b0e898579470825ecd55bbd385342c407ed82870d716a",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p184.txt"
+        },
+        "p184.tsv": {
+          "sha256": "ee030931e0ea309e16cbf2425006292a14ea9586e98fccefa7a6247a3c547991",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p184.tsv"
+        }
+      },
+      "revisar_zona_sello": [],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 185,
+      "recorte_superior_fraccion": 0.061406,
+      "recorte_px": {
+        "x": 0,
+        "y": 214,
+        "ancho": 2408,
+        "alto": 2940,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 643,
+      "confianza_media": 96.12,
+      "palabras_confianza_baja": 1,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p185.png": {
+          "sha256": "e36277ed3e9af93d4f506b38a011a7b90e6890230a575b30dab96b9e4a39222e",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p185.png"
+        },
+        "p185.txt": {
+          "sha256": "36f563e1c04fd50fa6f52d9ce22adcb1e3614dae2b91da6ccf1a870696979e19",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p185.txt"
+        },
+        "p185.tsv": {
+          "sha256": "bedc871ce8b04e07527ada4ba119eafd1ad24812cf2ac534a03c2415ca119ecb",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p185.tsv"
+        }
+      },
+      "revisar_zona_sello": [],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 186,
+      "recorte_superior_fraccion": 0.088092,
+      "recorte_px": {
+        "x": 0,
+        "y": 307,
+        "ancho": 2408,
+        "alto": 2847,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 858,
+      "confianza_media": 94.68,
+      "palabras_confianza_baja": 12,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p186.png": {
+          "sha256": "02397f52bf595e6d4cb6486a19567c90d2e2b041242df4d24a7d9f4f47129509",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p186.png"
+        },
+        "p186.txt": {
+          "sha256": "b4f535e3d2cff0f58e4380992a47b53037519b946791a7d902d6deba7c8186a3",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p186.txt"
+        },
+        "p186.tsv": {
+          "sha256": "db829a351b3ca9d13112db9affabb048d00e8e2cf64d39c2584de6562c277f26",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p186.tsv"
+        }
+      },
+      "revisar_zona_sello": [
+        {
+          "bloque": 11,
+          "parrafo": 7,
+          "linea": 3,
+          "palabras": 4,
+          "confianza_media": 93.79
+        },
+        {
+          "bloque": 11,
+          "parrafo": 8,
+          "linea": 1,
+          "palabras": 8,
+          "confianza_media": 95.1
+        },
+        {
+          "bloque": 11,
+          "parrafo": 8,
+          "linea": 2,
+          "palabras": 9,
+          "confianza_media": 96.82
+        },
+        {
+          "bloque": 11,
+          "parrafo": 8,
+          "linea": 3,
+          "palabras": 8,
+          "confianza_media": 96.69
+        },
+        {
+          "bloque": 11,
+          "parrafo": 9,
+          "linea": 1,
+          "palabras": 9,
+          "confianza_media": 89.36
+        },
+        {
+          "bloque": 12,
+          "parrafo": 1,
+          "linea": 1,
+          "palabras": 2,
+          "confianza_media": 75.96
+        },
+        {
+          "bloque": 12,
+          "parrafo": 1,
+          "linea": 2,
+          "palabras": 9,
+          "confianza_media": 81.11
+        },
+        {
+          "bloque": 12,
+          "parrafo": 1,
+          "linea": 3,
+          "palabras": 4,
+          "confianza_media": 28.86
+        },
+        {
+          "bloque": 14,
+          "parrafo": 1,
+          "linea": 1,
+          "palabras": 1,
+          "confianza_media": 49.19
+        },
+        {
+          "bloque": 17,
+          "parrafo": 9,
+          "linea": 1,
+          "palabras": 8,
+          "confianza_media": 93.82
+        },
+        {
+          "bloque": 17,
+          "parrafo": 10,
+          "linea": 1,
+          "palabras": 8,
+          "confianza_media": 93.12
+        }
+      ],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 187,
+      "recorte_superior_fraccion": 0.044189,
+      "recorte_px": {
+        "x": 0,
+        "y": 154,
+        "ancho": 2408,
+        "alto": 3000,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 411,
+      "confianza_media": 95.54,
+      "palabras_confianza_baja": 3,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p187.png": {
+          "sha256": "2883e7b1eb9dad9ee55a36f53634d348ebf3187cabd00ff89542e83d33ab2bd7",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p187.png"
+        },
+        "p187.txt": {
+          "sha256": "3e65c2908b100f5b5e0925efb39b028952be4246f9584bf7f28a043aa88173d1",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p187.txt"
+        },
+        "p187.tsv": {
+          "sha256": "53248d36bbee088545e6f8b8f07be3d3c3b4bf8c666d4efaee29f49b68cfc61c",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p187.tsv"
+        }
+      },
+      "revisar_zona_sello": [],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 188,
+      "recorte_superior_fraccion": 0.070588,
+      "recorte_px": {
+        "x": 0,
+        "y": 246,
+        "ancho": 2408,
+        "alto": 2908,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 801,
+      "confianza_media": 95.34,
+      "palabras_confianza_baja": 5,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p188.png": {
+          "sha256": "d674fa3bf33c19e219fc65ce4541e74f94570b5dfe851243bf9467a92cbee8f7",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p188.png"
+        },
+        "p188.txt": {
+          "sha256": "07eb0af0526e05bbf6fe42cdc28893d94122b224c84df29d4d09c17a85e55bf8",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p188.txt"
+        },
+        "p188.tsv": {
+          "sha256": "1911fb551f90290a5818f8a92dbcaa2fae3167742ff15364fc36f71e3058ffe8",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p188.tsv"
+        }
+      },
+      "revisar_zona_sello": [
+        {
+          "bloque": 19,
+          "parrafo": 5,
+          "linea": 3,
+          "palabras": 9,
+          "confianza_media": 96.73
+        },
+        {
+          "bloque": 19,
+          "parrafo": 5,
+          "linea": 4,
+          "palabras": 7,
+          "confianza_media": 95.34
+        },
+        {
+          "bloque": 19,
+          "parrafo": 5,
+          "linea": 5,
+          "palabras": 9,
+          "confianza_media": 96.53
+        },
+        {
+          "bloque": 19,
+          "parrafo": 5,
+          "linea": 6,
+          "palabras": 2,
+          "confianza_media": 96.52
+        },
+        {
+          "bloque": 19,
+          "parrafo": 6,
+          "linea": 1,
+          "palabras": 6,
+          "confianza_media": 95.71
+        },
+        {
+          "bloque": 19,
+          "parrafo": 6,
+          "linea": 2,
+          "palabras": 7,
+          "confianza_media": 95.27
+        },
+        {
+          "bloque": 19,
+          "parrafo": 6,
+          "linea": 3,
+          "palabras": 10,
+          "confianza_media": 96.59
+        },
+        {
+          "bloque": 19,
+          "parrafo": 6,
+          "linea": 4,
+          "palabras": 4,
+          "confianza_media": 72.73
+        }
+      ],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 189,
+      "recorte_superior_fraccion": 0.112769,
+      "recorte_px": {
+        "x": 0,
+        "y": 393,
+        "ancho": 2408,
+        "alto": 2761,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 605,
+      "confianza_media": 94.78,
+      "palabras_confianza_baja": 11,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p189.png": {
+          "sha256": "7cefd17507c308b67ff3e048adc62bbe5deb613e86004bdabd608e26671523e5",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p189.png"
+        },
+        "p189.txt": {
+          "sha256": "d986efa291b7c32362e617a5bad39dd0fb29b49b5e8efe73527e37d10ffe690d",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p189.txt"
+        },
+        "p189.tsv": {
+          "sha256": "7e7501ce2553877d4d822527b5305735c79c451b7e04f3d3af9925fbd1b9b92f",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p189.tsv"
+        }
+      },
+      "revisar_zona_sello": [],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 190,
+      "recorte_superior_fraccion": 0.058537,
+      "recorte_px": {
+        "x": 0,
+        "y": 204,
+        "ancho": 2408,
+        "alto": 2950,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 227,
+      "confianza_media": 95.47,
+      "palabras_confianza_baja": 1,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p190.png": {
+          "sha256": "f70372578871c8ac738bdf2932f4eacdb2bba54fddd54a23866744ee7cbf6c92",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p190.png"
+        },
+        "p190.txt": {
+          "sha256": "efe20ca27338a816f5a0ace44242cc89a8211569bde7266a29dd9e6f2fccd29e",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p190.txt"
+        },
+        "p190.tsv": {
+          "sha256": "371882beadce645c5d9031acc728c5529f4581b78f3fd76e6aad7d878d516e5d",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p190.tsv"
+        }
+      },
+      "revisar_zona_sello": [],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 191,
+      "recorte_superior_fraccion": 0.074032,
+      "recorte_px": {
+        "x": 0,
+        "y": 258,
+        "ancho": 2408,
+        "alto": 2896,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 800,
+      "confianza_media": 95.73,
+      "palabras_confianza_baja": 5,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p191.png": {
+          "sha256": "4b379cdc76d17a1c62ccc26c39a760e8a21700d21080b1758aa39b28331a9376",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p191.png"
+        },
+        "p191.txt": {
+          "sha256": "1ccd82473335b32f20d161eb284179168cfba24a63354c94428e69edb9b97ef5",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p191.txt"
+        },
+        "p191.tsv": {
+          "sha256": "d8f1665c4163465fd80911c03b2bd6c9bb77b291e605c3adc5a12aa1d5d6b4ac",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p191.tsv"
+        }
+      },
+      "revisar_zona_sello": [
+        {
+          "bloque": 30,
+          "parrafo": 1,
+          "linea": 1,
+          "palabras": 2,
+          "confianza_media": 96.72
+        },
+        {
+          "bloque": 30,
+          "parrafo": 1,
+          "linea": 2,
+          "palabras": 5,
+          "confianza_media": 94.37
+        },
+        {
+          "bloque": 32,
+          "parrafo": 1,
+          "linea": 1,
+          "palabras": 15,
+          "confianza_media": 95.85
+        }
+      ],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 192,
+      "recorte_superior_fraccion": 0.089527,
+      "recorte_px": {
+        "x": 0,
+        "y": 312,
+        "ancho": 2408,
+        "alto": 2842,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 652,
+      "confianza_media": 94.7,
+      "palabras_confianza_baja": 6,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p192.png": {
+          "sha256": "99f86ae91cb93e0d58049a837a206ce0d3673c7c96d19927e4d5a5bb1ee757f7",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p192.png"
+        },
+        "p192.txt": {
+          "sha256": "a533efb97ceae74a5ec78c0fc11f647439a4fc456d8f7f62bc1a79419523e090",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p192.txt"
+        },
+        "p192.tsv": {
+          "sha256": "e86bc3c8727962d03d73ae6c1ceaedfc0f6104a8b2487a3a614f2fee4f0686ad",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p192.tsv"
+        }
+      },
+      "revisar_zona_sello": [],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 193,
+      "recorte_superior_fraccion": 0.077188,
+      "recorte_px": {
+        "x": 0,
+        "y": 269,
+        "ancho": 2408,
+        "alto": 2885,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 736,
+      "confianza_media": 94.93,
+      "palabras_confianza_baja": 9,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p193.png": {
+          "sha256": "68d8e5a8dab252e122a4496805aa62467fd298ae5e7e4244f37d3e3eb3c7ac25",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p193.png"
+        },
+        "p193.txt": {
+          "sha256": "c597f6d46a05dd4285d100514e94cb086a39109decb1d27299c5b106a707be18",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p193.txt"
+        },
+        "p193.tsv": {
+          "sha256": "45c55461ee5b124028ab24b56df5aa4bd1dc1ac98db02c1f3f411d22115ba41a",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p193.tsv"
+        }
+      },
+      "revisar_zona_sello": [
+        {
+          "bloque": 10,
+          "parrafo": 5,
+          "linea": 6,
+          "palabras": 16,
+          "confianza_media": 96.34
+        },
+        {
+          "bloque": 10,
+          "parrafo": 5,
+          "linea": 7,
+          "palabras": 10,
+          "confianza_media": 96.72
+        }
+      ],
+      "control_encabezado": "ok"
+    },
+    {
+      "pagina_pdf": 194,
+      "recorte_superior_fraccion": 0.083788,
+      "recorte_px": {
+        "x": 0,
+        "y": 292,
+        "ancho": 2408,
+        "alto": 2862,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 473,
+      "confianza_media": 95.21,
+      "palabras_confianza_baja": 5,
+      "umbral_confianza_baja": 60,
+      "umbral_pagina": 85,
+      "bajo_umbral_pagina": false,
+      "salidas": {
+        "p194.png": {
+          "sha256": "dd5e47e3e6987fd77999892ed13a66d5eb45e99e634aae8545d02546ee6eca9b",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p194.png"
+        },
+        "p194.txt": {
+          "sha256": "18d283bd5f4fd68c67d2d70a6f810431672d4449b2b6825766ee8575abcc47bf",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p194.txt"
+        },
+        "p194.tsv": {
+          "sha256": "a7d49bdd644c9465ed1d4e3950e45e181bf1ff39be4e7bd6e5af29a2a4f8d1a3",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p194.tsv"
+        }
+      },
+      "revisar_zona_sello": [],
+      "control_encabezado": "ok"
+    }
+  ]
+}

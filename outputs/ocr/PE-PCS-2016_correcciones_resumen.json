@@ -2,9 +2,10 @@
   "id": "PE-PCS-2016",
   "decision": "D57",
   "fecha": "2026-11-05",
-  "total_correcciones": 1,
+  "total_correcciones": 2,
   "por_pagina": {
-    "186": 1
+    "186": 1,
+    "188": 1
   },
   "nota": "El texto de las correcciones está en data/processed/curriculo/PE-PCS-2016_ocr/correcciones.csv (fuera de git)."
 }
