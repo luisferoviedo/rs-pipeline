@@ -1,0 +1,82 @@
+{
+  "id": "PE-PCS-2016",
+  "decision": "D57",
+  "fecha": "2026-11-05",
+  "entrada": {
+    "ruta": "data/raw/curriculo/PE-PCS-2016.pdf",
+    "sha256": "3f4443dd1273f287c1ae069eed1cb314cb0574f9f0794495716415be2ec8075b"
+  },
+  "herramientas": {
+    "tesseract": "tesseract 5.5.2",
+    "leptonica": "leptonica-1.87.0",
+    "poppler_pdftoppm": "pdftoppm version 26.08.0",
+    "spa.traineddata_sha256": "6f2e04d02774a18f01bed44b1111f2cd7f3ba7ac9dc4373cd3f898a40ea6b464"
+  },
+  "dpi": 300,
+  "idioma": "spa",
+  "recorte": {
+    "superior_fraccion_altura": 0.09,
+    "inferior_fraccion_altura": 0.905,
+    "quita": "encabezado 649-2016-MINEDU, número de página y parte baja del sello"
+  },
+  "paginas": [
+    {
+      "pagina_pdf": 182,
+      "recorte_px": {
+        "x": 0,
+        "y": 314,
+        "ancho": 2408,
+        "alto": 2840,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 728,
+      "confianza_media": 95.11,
+      "palabras_confianza_baja": 5,
+      "umbral_confianza_baja": 60,
+      "salidas": {
+        "p182.png": {
+          "sha256": "478258faca3a6c0bd25aae342604faf5132c8b334f29ed5927bcd7b3de4c65de",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p182.png"
+        },
+        "p182.txt": {
+          "sha256": "e0d7a882f9ba511d341515bc5f4ac19d17b064453c082b0b1086db2698831392",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p182.txt"
+        },
+        "p182.tsv": {
+          "sha256": "c9051014610223a70376ec5c13924f821fede24d90b0ae14f082711f1529b15c",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p182.tsv"
+        }
+      }
+    },
+    {
+      "pagina_pdf": 186,
+      "recorte_px": {
+        "x": 0,
+        "y": 314,
+        "ancho": 2408,
+        "alto": 2840,
+        "pagina_ancho": 2408,
+        "pagina_alto": 3485
+      },
+      "palabras": 854,
+      "confianza_media": 94.82,
+      "palabras_confianza_baja": 10,
+      "umbral_confianza_baja": 60,
+      "salidas": {
+        "p186.png": {
+          "sha256": "cb23a2f6f56ebadb650563a333919278771a0dffc407e0f891ee9f516c225c89",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p186.png"
+        },
+        "p186.txt": {
+          "sha256": "d50fca5a12e327019f708c4c9b6c653724226fb473844f6455dfe584c206c0e5",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p186.txt"
+        },
+        "p186.tsv": {
+          "sha256": "ac658acc9260e46e67b2a27c4e2f1b7c3d77ba6abc52b68157bfb05d888e55b5",
+          "ruta": "data/processed/curriculo/PE-PCS-2016_ocr/p186.tsv"
+        }
+      }
+    }
+  ]
+}
