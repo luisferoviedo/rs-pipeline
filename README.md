@@ -1,11 +1,31 @@
 # rs-pipeline
 
-Pipeline reproducible para la revisión sistemática (PRISMA 2020) de la tesis de maestría (Tesis 04).
+**Pipeline reproducible para revisiones sistemáticas con codificación asistida por IA, aplicado a laboratorios virtuales de ciencias naturales.**
 
-Qué hace hoy: recalcula los conteos PRISMA desde los CSV fuente, los compara con
-`prisma_counts_2026-10-26.json` y, solo si todo cuadra, dibuja el diagrama PRISMA 2020 en español
-(196 informes = 193 estudios tras las exclusiones de nivel, D33). Las reglas de trabajo están en `CLAUDE.md` y las decisiones en
-`docs/decisiones.md`.
+Este repositorio contiene el procesamiento de datos de la revisión sistemática (PRISMA 2020) de la tesis de maestría «Del laboratorio ausente al laboratorio digital: criterios de diseño para laboratorios virtuales de ciencias naturales pertinentes al currículo colombiano y viables en condiciones de conectividad limitada» (Maestría en Educación para la Innovación Pedagógica, Fundación Universitaria del Área Andina). A partir de 196 informes incluidos (193 estudios), el pipeline recalcula los conteos PRISMA, normaliza la matriz de extracción, agrupa las unidades de texto con síntesis temática, codifica la presencia de nueve criterios de diseño con un libro de códigos cerrado y calcula su confiabilidad y el peso de la evidencia que los respalda.
+
+## Qué garantiza
+- **Trazabilidad.** Cada salida registra la ruta y el hash SHA-256 de los archivos de los que proviene.
+- **Decisiones fechadas.** Cada decisión metodológica queda en `docs/decisiones.md` (D1, D2, …) con su fecha y su justificación.
+- **Pruebas contra números reales.** Las pruebas automatizadas (`tests/`; 267 en la última corrida completa, 5 nov 2026) comprueban los conteos contra las tablas fuente, no solo que el código corra.
+- **Fallas visibles.** Si falta un archivo, una columna o un ID, o si un conteo no cuadra, el script se detiene con un mensaje claro.
+- **Originales intactos.** Los datos de la revisión se leen en modo solo lectura; ningún paso los modifica.
+
+## Estado
+| Bloque | Contenido | Estado |
+|---|---|---|
+| 1–4 | Conteos y diagrama PRISMA, normalización, descriptivos, exclusiones por nivel | Terminado |
+| 5 | Síntesis temática inductiva (BERTopic con modelos multilingües) | Terminado |
+| 6–8.1 | Marco de criterios, libro de códigos, codificación deductiva, confiabilidad y peso de la evidencia; marco v1 en tres niveles | Terminado |
+| 9 | Homologación curricular latinoamericana (Colombia, Perú, Brasil, México y Argentina) contra el marco, el ICFES y PISA 2025 | En curso |
+
+El detalle de cada bloque (entradas, proceso, comandos, controles y salidas) está en `docs/PROCEDIMIENTO.md`; el flujograma, en `docs/flujograma.svg`.
+
+## Uso de inteligencia artificial
+La clasificación preliminar de registros en el cribado, el diligenciamiento de las fichas de extracción y la codificación deductiva se apoyaron en un modelo de lenguaje generativo de gran escala (Claude, Anthropic), ejecutado mediante Claude Code y bajo control humano: los investigadores fijaron las reglas (libro de códigos cerrado), la herramienta codificó en sesiones sin acceso a la codificación humana (`docs/protocolo_codificacion_ciega.md`) y los resultados se verificaron con muestras codificadas a ciegas por el investigador. Cada código asignado quedó registrado con la fecha, el identificador exacto del modelo, el hash del libro de códigos y una justificación (el registro no se publica porque contiene fragmentos de las fichas). Las medidas de confiabilidad y sus límites están en las decisiones D48 a D53.
+
+## Cómo citar
+Use el botón «Cite this repository» de GitHub (archivo `CITATION.cff`) o el DOI de Zenodo de la versión que utilice.
 
 ## Datos
 Los datos viven en un Google Drive de solo lectura y no se suben al repositorio.
@@ -84,5 +104,14 @@ a git solo van las métricas numéricas de `outputs/semantico_metricas/`.
 .venv/bin/pip-audit --local # cada vez que cambie requirements.txt y antes de cada push
 ```
 
+## Cómo adaptarlo a otra revisión
+El método no depende del tema; el código sí está ajustado a esta revisión. Para usarlo en otra área (por ejemplo, salud, ingeniería o inocuidad alimentaria) hay que reemplazar, como mínimo:
+1. **Rutas y textos del PRISMA:** `config/params.yaml` (carpeta de datos, ventana de búsqueda, fuentes, etiquetas de exclusión E1–E5 y de no recuperados) y los conteos de referencia `config/prisma_counts_*.json`, `config/reclasificaciones.yaml` y `config/exclusiones_nivel.yaml`.
+2. **La ficha de extracción:** los nombres de las columnas están en el código de `normalizar_01.py`, `descriptivos_03.py`, `criterios_05.py`, `codificacion_06.py` y `semantico_04.py`, y las categorías normalizadas en `config/categorias.yaml`.
+3. **Los criterios y el libro de códigos:** `config/criterios_v1.yaml` y un libro propio con la estructura de `config/libro_codigos_v3.yaml` (qué cuenta y qué no cuenta como presencia, con ejemplos).
+4. **Las pruebas:** las de `tests/` verifican los números de esta revisión; en una revisión nueva deben reescribirse con sus propios conteos.
+
+Recomendación aprendida en esta revisión (D52): fijar el umbral de cada criterio con ejemplos límite y calibrar a los codificadores en 3 a 5 informes **antes** de la muestra de verificación.
+
 ## Licencia
-Código: MIT (ver `LICENSE`). Los textos completos y los PDF no se publican.
+Código: MIT (ver `LICENSE`). Los textos completos, los PDF y las salidas con fragmentos de los artículos no se publican; se conservan en el Drive de los investigadores.

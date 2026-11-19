@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "Si usa este software, cítelo como se indica a continuación."
+title: "rs-pipeline: pipeline reproducible para revisiones sistemáticas con codificación asistida por IA, aplicado a laboratorios virtuales de ciencias naturales"
+type: software
+authors:
+  - family-names: "Oviedo Berrocal"
+    given-names: "Luis Fernando"
+    affiliation: "Fundación Universitaria del Área Andina"
+license: MIT
+repository-code: "https://github.com/luisferoviedo/rs-pipeline"
+version: "1.0-eje3"
+date-released: "2026-11-19"
+keywords:
+  - revisión sistemática
+  - PRISMA 2020
+  - reproducibilidad
+  - codificación asistida por IA
+  - síntesis temática
+  - laboratorios virtuales
+  - educación en ciencias

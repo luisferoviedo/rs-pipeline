@@ -1,0 +1,11 @@
+{
+  "title": "rs-pipeline: pipeline reproducible para revisiones sistemáticas con codificación asistida por IA, aplicado a laboratorios virtuales de ciencias naturales",
+  "upload_type": "software",
+  "description": "Código, decisiones metodológicas fechadas, libros de códigos y tablas numéricas de una revisión sistemática (PRISMA 2020) sobre criterios de diseño de laboratorios virtuales de ciencias naturales para la educación secundaria en condiciones de conectividad limitada. Cada salida registra el hash SHA-256 de sus entradas y un conjunto de pruebas automatizadas verifica los conteos contra las tablas fuente. El método (conteos PRISMA, normalización de la ficha de extracción, síntesis temática, codificación con libro de códigos cerrado asistida por IA con verificación humana, confiabilidad con AC1 de Gwet y peso de la evidencia) puede adaptarse a revisiones de otras áreas cambiando los archivos de configuración. No incluye textos completos ni PDF de los artículos.",
+  "creators": [
+    {"name": "Oviedo Berrocal, Luis Fernando", "affiliation": "Fundación Universitaria del Área Andina"}
+  ],
+  "license": "MIT",
+  "keywords": ["revisión sistemática", "PRISMA 2020", "reproducibilidad", "codificación asistida por IA", "síntesis temática", "laboratorios virtuales", "educación en ciencias"],
+  "language": "spa"
+}
