@@ -1,0 +1,93 @@
+criterio,n,pct_acuerdo_todos,prevalencias,ac1_gwet,ac1_ic_bajo,ac1_ic_alto,ac1_remuestreos_descartados,veredicto,comparacion,codificadores,kappa_cohen,ac1_dos
+C01,60,85.0,"[0.933, 0.867, 0.783]",0.869,0.765,0.946,0,robusto,entre_modelos,claude-sonnet | codex | gemini,,
+C02,60,93.3,"[0.817, 0.883, 0.85]",0.94,0.869,0.987,0,robusto,entre_modelos,claude-sonnet | codex | gemini,,
+C03,60,95.0,"[0.833, 0.85, 0.833]",0.954,0.892,1.0,0,robusto,entre_modelos,claude-sonnet | codex | gemini,,
+C04,60,86.7,"[0.75, 0.783, 0.717]",0.858,0.749,0.948,0,robusto,entre_modelos,claude-sonnet | codex | gemini,,
+C05,60,88.3,"[0.45, 0.567, 0.45]",0.845,0.736,0.937,0,robusto,entre_modelos,claude-sonnet | codex | gemini,,
+C06,60,90.0,"[0.117, 0.2, 0.167]",0.909,0.821,0.972,0,robusto,entre_modelos,claude-sonnet | codex | gemini,,
+C07,60,58.3,"[0.6, 0.8, 0.4]",0.466,0.295,0.64,0,moderado,entre_modelos,claude-sonnet | codex | gemini,,
+C08,60,91.7,"[0.233, 0.283, 0.3]",0.908,0.822,0.981,0,robusto,entre_modelos,claude-sonnet | codex | gemini,,
+C09,60,73.3,"[0.883, 0.983, 0.717]",0.766,0.632,0.875,0,robusto,entre_modelos,claude-sonnet | codex | gemini,,
+total,540,84.6,"[0.624, 0.691, 0.58]",0.808,0.766,0.849,0,robusto,entre_modelos,claude-sonnet | codex | gemini,,
+C01,60,93.3,"[0.933, 0.867]",0.919,0.826,0.982,0,robusto,par,claude-sonnet | codex,0.634,0.919
+C02,60,93.3,"[0.817, 0.883]",0.911,0.804,0.98,0,robusto,par,claude-sonnet | codex,0.741,0.911
+C03,60,98.3,"[0.833, 0.85]",0.977,0.921,1.0,0,robusto,par,claude-sonnet | codex,0.937,0.977
+C04,60,90.0,"[0.75, 0.783]",0.844,0.703,0.952,0,robusto,par,claude-sonnet | codex,0.721,0.844
+C05,60,88.3,"[0.45, 0.567]",0.767,0.602,0.906,0,robusto,par,claude-sonnet | codex,0.77,0.767
+C06,60,91.7,"[0.117, 0.2]",0.886,0.763,0.977,0,robusto,par,claude-sonnet | codex,0.691,0.886
+C07,60,80.0,"[0.6, 0.8]",0.655,0.448,0.832,0,robusto,par,claude-sonnet | codex,0.545,0.655
+C08,60,95.0,"[0.233, 0.283]",0.919,0.816,1.0,0,robusto,par,claude-sonnet | codex,0.87,0.919
+C09,60,90.0,"[0.883, 0.983]",0.886,0.78,0.966,0,robusto,par,claude-sonnet | codex,0.227,0.886
+total,540,91.1,"[0.624, 0.691]",0.838,0.792,0.882,0,robusto,par,claude-sonnet | codex,0.804,0.838
+C01,60,85.0,"[0.933, 0.783]",0.802,0.647,0.921,0,robusto,par,claude-sonnet | gemini,0.41,0.802
+C02,60,96.7,"[0.817, 0.85]",0.954,0.872,1.0,0,robusto,par,claude-sonnet | gemini,0.88,0.954
+C03,60,96.7,"[0.833, 0.833]",0.954,0.874,1.0,0,robusto,par,claude-sonnet | gemini,0.88,0.954
+C04,60,93.3,"[0.75, 0.717]",0.891,0.77,0.976,0,robusto,par,claude-sonnet | gemini,0.83,0.891
+C05,60,100.0,"[0.45, 0.45]",1.0,1.0,1.0,0,robusto,par,claude-sonnet | gemini,1.0,1.0
+C06,60,95.0,"[0.117, 0.167]",0.934,0.844,1.0,0,robusto,par,claude-sonnet | gemini,0.795,0.934
+C07,60,76.7,"[0.6, 0.4]",0.533,0.315,0.738,0,moderado,par,claude-sonnet | gemini,0.551,0.533
+C08,60,93.3,"[0.233, 0.3]",0.891,0.775,0.976,0,robusto,par,claude-sonnet | gemini,0.831,0.891
+C09,60,83.3,"[0.883, 0.717]",0.755,0.58,0.893,0,robusto,par,claude-sonnet | gemini,0.501,0.755
+total,540,91.1,"[0.624, 0.58]",0.829,0.781,0.875,0,robusto,par,claude-sonnet | gemini,0.815,0.829
+C01,60,91.7,"[0.867, 0.783]",0.883,0.762,0.977,0,robusto,par,codex | gemini,0.715,0.883
+C02,60,96.7,"[0.883, 0.85]",0.957,0.883,1.0,0,robusto,par,codex | gemini,0.856,0.957
+C03,60,95.0,"[0.85, 0.833]",0.932,0.84,1.0,0,robusto,par,codex | gemini,0.812,0.932
+C04,60,90.0,"[0.783, 0.717]",0.84,0.695,0.951,0,robusto,par,codex | gemini,0.735,0.84
+C05,60,88.3,"[0.567, 0.45]",0.767,0.602,0.906,0,robusto,par,codex | gemini,0.77,0.767
+C06,60,93.3,"[0.2, 0.167]",0.905,0.795,0.979,0,robusto,par,codex | gemini,0.778,0.905
+C07,60,60.0,"[0.8, 0.4]",0.231,-0.026,0.487,0,sensible al modelo,par,codex | gemini,0.286,0.231
+C08,60,95.0,"[0.283, 0.3]",0.915,0.808,1.0,0,robusto,par,codex | gemini,0.879,0.915
+C09,60,73.3,"[0.983, 0.717]",0.642,0.428,0.814,0,robusto,par,codex | gemini,0.082,0.642
+total,540,87.0,"[0.691, 0.58]",0.758,0.7,0.814,0,robusto,par,codex | gemini,0.724,0.758
+C01,60,98.3,"[0.933, 0.95]",0.981,0.938,1.0,0,robusto,repeticion,claude-sonnet | original,0.848,0.981
+C02,60,96.7,"[0.817, 0.85]",0.954,0.876,1.0,0,robusto,repeticion,claude-sonnet | original,0.88,0.954
+C03,60,96.7,"[0.833, 0.8]",0.952,0.872,1.0,0,robusto,repeticion,claude-sonnet | original,0.889,0.952
+C04,60,91.7,"[0.75, 0.733]",0.865,0.733,0.974,0,robusto,repeticion,claude-sonnet | original,0.783,0.865
+C05,60,96.7,"[0.45, 0.45]",0.934,0.834,1.0,0,robusto,repeticion,claude-sonnet | original,0.933,0.934
+C06,60,98.3,"[0.117, 0.1]",0.979,0.932,1.0,0,robusto,repeticion,claude-sonnet | original,0.914,0.979
+C07,60,91.7,"[0.6, 0.683]",0.846,0.704,0.969,0,robusto,repeticion,claude-sonnet | original,0.82,0.846
+C08,60,98.3,"[0.233, 0.217]",0.974,0.915,1.0,0,robusto,repeticion,claude-sonnet | original,0.952,0.974
+C09,60,85.0,"[0.883, 0.733]",0.783,0.617,0.911,0,robusto,repeticion,claude-sonnet | original,0.533,0.783
+total,540,94.8,"[0.624, 0.613]",0.902,0.864,0.936,0,robusto,repeticion,claude-sonnet | original,0.89,0.902
+C01,40,92.5,"[1.0, 0.925]",0.919,0.792,1.0,0,robusto,humano_40,luis | claude-sonnet,0.0,0.919
+C02,40,80.0,"[1.0, 0.8]",0.756,0.553,0.919,0,robusto,humano_40,luis | claude-sonnet,0.0,0.756
+C03,40,90.0,"[0.975, 0.875]",0.884,0.744,0.974,0,robusto,humano_40,luis | claude-sonnet,0.304,0.884
+C04,40,87.5,"[0.875, 0.75]",0.82,0.633,0.964,0,robusto,humano_40,luis | claude-sonnet,0.6,0.82
+C05,40,47.5,"[0.975, 0.45]",0.111,-0.255,0.436,0,sensible al modelo,humano_40,luis | claude-sonnet,0.041,0.111
+C06,40,10.0,"[1.0, 0.1]",-0.782,-0.949,-0.538,0,sensible al modelo,humano_40,luis | claude-sonnet,0.0,-0.782
+C07,40,72.5,"[0.9, 0.625]",0.569,0.28,0.799,0,moderado,humano_40,luis | claude-sonnet,0.312,0.569
+C08,40,25.0,"[0.925, 0.175]",-0.485,-0.74,-0.162,0,sensible al modelo,humano_40,luis | claude-sonnet,0.034,-0.485
+C09,40,85.0,"[0.8, 0.9]",0.799,0.604,0.942,0,robusto,humano_40,luis | claude-sonnet,0.423,0.799
+total,360,65.6,"[0.939, 0.622]",0.476,0.366,0.578,0,moderado,humano_40,luis | claude-sonnet,0.123,0.476
+C05,20,50.0,"[0.95, 0.45]",0.138,-0.386,0.597,0,sensible al modelo,humano_20,luis | claude-sonnet,0.083,0.138
+C06,20,30.0,"[0.85, 0.15]",-0.4,-0.782,0.038,0,sensible al modelo,humano_20,luis | claude-sonnet,0.06,-0.4
+C08,20,40.0,"[0.95, 0.35]",-0.101,-0.584,0.36,0,sensible al modelo,humano_20,luis | claude-sonnet,0.055,-0.101
+total,60,40.0,"[0.917, 0.317]",-0.138,-0.398,0.141,0,sensible al modelo,humano_20,luis | claude-sonnet,0.081,-0.138
+C01,40,85.0,"[1.0, 0.85]",0.826,0.639,0.947,0,robusto,humano_40,luis | codex,0.0,0.826
+C02,40,87.5,"[1.0, 0.875]",0.858,0.719,0.974,0,robusto,humano_40,luis | codex,0.0,0.858
+C03,40,90.0,"[0.975, 0.875]",0.884,0.744,0.974,0,robusto,humano_40,luis | codex,0.304,0.884
+C04,40,95.0,"[0.875, 0.825]",0.933,0.82,1.0,0,robusto,humano_40,luis | codex,0.805,0.933
+C05,40,60.0,"[0.975, 0.575]",0.386,0.052,0.664,0,sensible al modelo,humano_40,luis | codex,0.067,0.386
+C06,40,17.5,"[1.0, 0.175]",-0.601,-0.84,-0.284,0,sensible al modelo,humano_40,luis | codex,0.0,-0.601
+C07,40,87.5,"[0.9, 0.825]",0.836,0.662,0.967,0,robusto,humano_40,luis | codex,0.479,0.836
+C08,40,30.0,"[0.925, 0.225]",-0.369,-0.649,-0.035,0,sensible al modelo,humano_40,luis | codex,0.046,-0.369
+C09,40,82.5,"[0.8, 0.975]",0.781,0.578,0.919,0,robusto,humano_40,luis | codex,0.186,0.781
+total,360,70.6,"[0.939, 0.689]",0.578,0.473,0.671,0,moderado,humano_40,luis | codex,0.119,0.578
+C05,20,60.0,"[0.95, 0.55]",0.36,-0.154,0.756,0,sensible al modelo,humano_20,luis | codex,0.121,0.36
+C06,20,40.0,"[0.85, 0.25]",-0.188,-0.6,0.302,0,sensible al modelo,humano_20,luis | codex,0.111,-0.188
+C08,20,35.0,"[0.95, 0.4]",-0.158,-0.663,0.309,0,sensible al modelo,humano_20,luis | codex,-0.102,-0.158
+total,60,45.0,"[0.917, 0.4]",0.0,-0.286,0.29,0,sensible al modelo,humano_20,luis | codex,0.057,0.0
+C01,40,77.5,"[1.0, 0.775]",0.719,0.508,0.89,0,robusto,humano_40,luis | gemini,0.0,0.719
+C02,40,85.0,"[1.0, 0.85]",0.826,0.639,0.947,0,robusto,humano_40,luis | gemini,0.0,0.826
+C03,40,90.0,"[0.975, 0.875]",0.884,0.744,0.974,0,robusto,humano_40,luis | gemini,0.304,0.884
+C04,40,85.0,"[0.875, 0.725]",0.779,0.578,0.933,0,robusto,humano_40,luis | gemini,0.547,0.779
+C05,40,47.5,"[0.975, 0.45]",0.111,-0.255,0.436,0,sensible al modelo,humano_40,luis | gemini,0.041,0.111
+C06,40,17.5,"[1.0, 0.175]",-0.601,-0.84,-0.284,0,sensible al modelo,humano_40,luis | gemini,0.0,-0.601
+C07,40,57.5,"[0.9, 0.475]",0.255,-0.095,0.559,0,sensible al modelo,humano_40,luis | gemini,0.183,0.255
+C08,40,32.5,"[0.925, 0.25]",-0.31,-0.6,0.038,0,sensible al modelo,humano_40,luis | gemini,0.053,-0.31
+C09,40,90.0,"[0.8, 0.75]",0.846,0.68,0.969,0,robusto,humano_40,luis | gemini,0.714,0.846
+total,360,64.7,"[0.939, 0.592]",0.449,0.331,0.558,0,moderado,humano_40,luis | gemini,0.159,0.449
+C05,20,50.0,"[0.95, 0.45]",0.138,-0.386,0.597,0,sensible al modelo,humano_20,luis | gemini,0.083,0.138
+C06,20,30.0,"[0.85, 0.15]",-0.4,-0.782,0.038,0,sensible al modelo,humano_20,luis | gemini,0.06,-0.4
+C08,20,45.0,"[0.95, 0.4]",0.02,-0.467,0.508,0,sensible al modelo,humano_20,luis | gemini,0.068,0.02
+total,60,41.7,"[0.917, 0.333]",-0.098,-0.387,0.214,0,sensible al modelo,humano_20,luis | gemini,0.087,-0.098

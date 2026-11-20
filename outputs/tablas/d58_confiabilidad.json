@@ -1,0 +1,1679 @@
+{
+  "decision": "D58",
+  "fecha": "2026-11-20T08:37:23-05:00",
+  "remuestreos": 5000,
+  "semilla": 20261101,
+  "umbrales": {
+    "robusto": 0.6,
+    "moderado": 0.4
+  },
+  "modelos": [
+    {
+      "codificador": "claude-sonnet",
+      "modelo": "claude-sonnet-5-5"
+    },
+    {
+      "codificador": "codex",
+      "modelo": "codex"
+    },
+    {
+      "codificador": "gemini",
+      "modelo": "Gemini 3.8 Flash (High)"
+    }
+  ],
+  "entradas_sha256": {
+    "logs/codificacion_d58.jsonl": "6ef563512699071d7349ed13f9e4b21a1ec5b54e1de8c871eb2da95e423506f2",
+    "outputs/semantico/d58_correspondencia.csv": "a725d3c47420d8fd88e6e519fdc0a1b6ea2149670c62007ecd84fd2274722d88",
+    "outputs/semantico/codigos_claude_196_v3.csv": "e068fc0f9ec6530ef86c5a20ad305a6cb404d24c784edc414d136d3c198e0108",
+    "outputs/semantico/codigos_luisfer_40.csv": "aaf5ecc572d94fc105d2d945f9398c4aba52293cfae19b25207ed4f281102e80",
+    "outputs/semantico/codigos_luisfer_presencia_20.csv": "eb9314c1a360fb94298b8b286a06597ba5c89feb2d368a71a154fc26ffce6b96"
+  },
+  "filas": [
+    {
+      "criterio": "C01",
+      "n": 60,
+      "pct_acuerdo_todos": 85.0,
+      "prevalencias": [
+        0.933,
+        0.867,
+        0.783
+      ],
+      "ac1_gwet": 0.869,
+      "ac1_ic_bajo": 0.765,
+      "ac1_ic_alto": 0.946,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "comparacion": "entre_modelos",
+      "codificadores": "claude-sonnet | codex | gemini"
+    },
+    {
+      "criterio": "C02",
+      "n": 60,
+      "pct_acuerdo_todos": 93.3,
+      "prevalencias": [
+        0.817,
+        0.883,
+        0.85
+      ],
+      "ac1_gwet": 0.94,
+      "ac1_ic_bajo": 0.869,
+      "ac1_ic_alto": 0.987,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "comparacion": "entre_modelos",
+      "codificadores": "claude-sonnet | codex | gemini"
+    },
+    {
+      "criterio": "C03",
+      "n": 60,
+      "pct_acuerdo_todos": 95.0,
+      "prevalencias": [
+        0.833,
+        0.85,
+        0.833
+      ],
+      "ac1_gwet": 0.954,
+      "ac1_ic_bajo": 0.892,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "comparacion": "entre_modelos",
+      "codificadores": "claude-sonnet | codex | gemini"
+    },
+    {
+      "criterio": "C04",
+      "n": 60,
+      "pct_acuerdo_todos": 86.7,
+      "prevalencias": [
+        0.75,
+        0.783,
+        0.717
+      ],
+      "ac1_gwet": 0.858,
+      "ac1_ic_bajo": 0.749,
+      "ac1_ic_alto": 0.948,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "comparacion": "entre_modelos",
+      "codificadores": "claude-sonnet | codex | gemini"
+    },
+    {
+      "criterio": "C05",
+      "n": 60,
+      "pct_acuerdo_todos": 88.3,
+      "prevalencias": [
+        0.45,
+        0.567,
+        0.45
+      ],
+      "ac1_gwet": 0.845,
+      "ac1_ic_bajo": 0.736,
+      "ac1_ic_alto": 0.937,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "comparacion": "entre_modelos",
+      "codificadores": "claude-sonnet | codex | gemini"
+    },
+    {
+      "criterio": "C06",
+      "n": 60,
+      "pct_acuerdo_todos": 90.0,
+      "prevalencias": [
+        0.117,
+        0.2,
+        0.167
+      ],
+      "ac1_gwet": 0.909,
+      "ac1_ic_bajo": 0.821,
+      "ac1_ic_alto": 0.972,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "comparacion": "entre_modelos",
+      "codificadores": "claude-sonnet | codex | gemini"
+    },
+    {
+      "criterio": "C07",
+      "n": 60,
+      "pct_acuerdo_todos": 58.3,
+      "prevalencias": [
+        0.6,
+        0.8,
+        0.4
+      ],
+      "ac1_gwet": 0.466,
+      "ac1_ic_bajo": 0.295,
+      "ac1_ic_alto": 0.64,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "moderado",
+      "comparacion": "entre_modelos",
+      "codificadores": "claude-sonnet | codex | gemini"
+    },
+    {
+      "criterio": "C08",
+      "n": 60,
+      "pct_acuerdo_todos": 91.7,
+      "prevalencias": [
+        0.233,
+        0.283,
+        0.3
+      ],
+      "ac1_gwet": 0.908,
+      "ac1_ic_bajo": 0.822,
+      "ac1_ic_alto": 0.981,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "comparacion": "entre_modelos",
+      "codificadores": "claude-sonnet | codex | gemini"
+    },
+    {
+      "criterio": "C09",
+      "n": 60,
+      "pct_acuerdo_todos": 73.3,
+      "prevalencias": [
+        0.883,
+        0.983,
+        0.717
+      ],
+      "ac1_gwet": 0.766,
+      "ac1_ic_bajo": 0.632,
+      "ac1_ic_alto": 0.875,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "comparacion": "entre_modelos",
+      "codificadores": "claude-sonnet | codex | gemini"
+    },
+    {
+      "criterio": "total",
+      "n": 540,
+      "pct_acuerdo_todos": 84.6,
+      "prevalencias": [
+        0.624,
+        0.691,
+        0.58
+      ],
+      "ac1_gwet": 0.808,
+      "ac1_ic_bajo": 0.766,
+      "ac1_ic_alto": 0.849,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "comparacion": "entre_modelos",
+      "codificadores": "claude-sonnet | codex | gemini"
+    },
+    {
+      "criterio": "C01",
+      "n": 60,
+      "pct_acuerdo_todos": 93.3,
+      "prevalencias": [
+        0.933,
+        0.867
+      ],
+      "ac1_gwet": 0.919,
+      "ac1_ic_bajo": 0.826,
+      "ac1_ic_alto": 0.982,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.634,
+      "ac1_dos": 0.919,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | codex"
+    },
+    {
+      "criterio": "C02",
+      "n": 60,
+      "pct_acuerdo_todos": 93.3,
+      "prevalencias": [
+        0.817,
+        0.883
+      ],
+      "ac1_gwet": 0.911,
+      "ac1_ic_bajo": 0.804,
+      "ac1_ic_alto": 0.98,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.741,
+      "ac1_dos": 0.911,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | codex"
+    },
+    {
+      "criterio": "C03",
+      "n": 60,
+      "pct_acuerdo_todos": 98.3,
+      "prevalencias": [
+        0.833,
+        0.85
+      ],
+      "ac1_gwet": 0.977,
+      "ac1_ic_bajo": 0.921,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.937,
+      "ac1_dos": 0.977,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | codex"
+    },
+    {
+      "criterio": "C04",
+      "n": 60,
+      "pct_acuerdo_todos": 90.0,
+      "prevalencias": [
+        0.75,
+        0.783
+      ],
+      "ac1_gwet": 0.844,
+      "ac1_ic_bajo": 0.703,
+      "ac1_ic_alto": 0.952,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.721,
+      "ac1_dos": 0.844,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | codex"
+    },
+    {
+      "criterio": "C05",
+      "n": 60,
+      "pct_acuerdo_todos": 88.3,
+      "prevalencias": [
+        0.45,
+        0.567
+      ],
+      "ac1_gwet": 0.767,
+      "ac1_ic_bajo": 0.602,
+      "ac1_ic_alto": 0.906,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.77,
+      "ac1_dos": 0.767,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | codex"
+    },
+    {
+      "criterio": "C06",
+      "n": 60,
+      "pct_acuerdo_todos": 91.7,
+      "prevalencias": [
+        0.117,
+        0.2
+      ],
+      "ac1_gwet": 0.886,
+      "ac1_ic_bajo": 0.763,
+      "ac1_ic_alto": 0.977,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.691,
+      "ac1_dos": 0.886,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | codex"
+    },
+    {
+      "criterio": "C07",
+      "n": 60,
+      "pct_acuerdo_todos": 80.0,
+      "prevalencias": [
+        0.6,
+        0.8
+      ],
+      "ac1_gwet": 0.655,
+      "ac1_ic_bajo": 0.448,
+      "ac1_ic_alto": 0.832,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.545,
+      "ac1_dos": 0.655,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | codex"
+    },
+    {
+      "criterio": "C08",
+      "n": 60,
+      "pct_acuerdo_todos": 95.0,
+      "prevalencias": [
+        0.233,
+        0.283
+      ],
+      "ac1_gwet": 0.919,
+      "ac1_ic_bajo": 0.816,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.87,
+      "ac1_dos": 0.919,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | codex"
+    },
+    {
+      "criterio": "C09",
+      "n": 60,
+      "pct_acuerdo_todos": 90.0,
+      "prevalencias": [
+        0.883,
+        0.983
+      ],
+      "ac1_gwet": 0.886,
+      "ac1_ic_bajo": 0.78,
+      "ac1_ic_alto": 0.966,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.227,
+      "ac1_dos": 0.886,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | codex"
+    },
+    {
+      "criterio": "total",
+      "n": 540,
+      "pct_acuerdo_todos": 91.1,
+      "prevalencias": [
+        0.624,
+        0.691
+      ],
+      "ac1_gwet": 0.838,
+      "ac1_ic_bajo": 0.792,
+      "ac1_ic_alto": 0.882,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.804,
+      "ac1_dos": 0.838,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | codex"
+    },
+    {
+      "criterio": "C01",
+      "n": 60,
+      "pct_acuerdo_todos": 85.0,
+      "prevalencias": [
+        0.933,
+        0.783
+      ],
+      "ac1_gwet": 0.802,
+      "ac1_ic_bajo": 0.647,
+      "ac1_ic_alto": 0.921,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.41,
+      "ac1_dos": 0.802,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | gemini"
+    },
+    {
+      "criterio": "C02",
+      "n": 60,
+      "pct_acuerdo_todos": 96.7,
+      "prevalencias": [
+        0.817,
+        0.85
+      ],
+      "ac1_gwet": 0.954,
+      "ac1_ic_bajo": 0.872,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.88,
+      "ac1_dos": 0.954,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | gemini"
+    },
+    {
+      "criterio": "C03",
+      "n": 60,
+      "pct_acuerdo_todos": 96.7,
+      "prevalencias": [
+        0.833,
+        0.833
+      ],
+      "ac1_gwet": 0.954,
+      "ac1_ic_bajo": 0.874,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.88,
+      "ac1_dos": 0.954,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | gemini"
+    },
+    {
+      "criterio": "C04",
+      "n": 60,
+      "pct_acuerdo_todos": 93.3,
+      "prevalencias": [
+        0.75,
+        0.717
+      ],
+      "ac1_gwet": 0.891,
+      "ac1_ic_bajo": 0.77,
+      "ac1_ic_alto": 0.976,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.83,
+      "ac1_dos": 0.891,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | gemini"
+    },
+    {
+      "criterio": "C05",
+      "n": 60,
+      "pct_acuerdo_todos": 100.0,
+      "prevalencias": [
+        0.45,
+        0.45
+      ],
+      "ac1_gwet": 1.0,
+      "ac1_ic_bajo": 1.0,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 1.0,
+      "ac1_dos": 1.0,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | gemini"
+    },
+    {
+      "criterio": "C06",
+      "n": 60,
+      "pct_acuerdo_todos": 95.0,
+      "prevalencias": [
+        0.117,
+        0.167
+      ],
+      "ac1_gwet": 0.934,
+      "ac1_ic_bajo": 0.844,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.795,
+      "ac1_dos": 0.934,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | gemini"
+    },
+    {
+      "criterio": "C07",
+      "n": 60,
+      "pct_acuerdo_todos": 76.7,
+      "prevalencias": [
+        0.6,
+        0.4
+      ],
+      "ac1_gwet": 0.533,
+      "ac1_ic_bajo": 0.315,
+      "ac1_ic_alto": 0.738,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "moderado",
+      "kappa_cohen": 0.551,
+      "ac1_dos": 0.533,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | gemini"
+    },
+    {
+      "criterio": "C08",
+      "n": 60,
+      "pct_acuerdo_todos": 93.3,
+      "prevalencias": [
+        0.233,
+        0.3
+      ],
+      "ac1_gwet": 0.891,
+      "ac1_ic_bajo": 0.775,
+      "ac1_ic_alto": 0.976,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.831,
+      "ac1_dos": 0.891,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | gemini"
+    },
+    {
+      "criterio": "C09",
+      "n": 60,
+      "pct_acuerdo_todos": 83.3,
+      "prevalencias": [
+        0.883,
+        0.717
+      ],
+      "ac1_gwet": 0.755,
+      "ac1_ic_bajo": 0.58,
+      "ac1_ic_alto": 0.893,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.501,
+      "ac1_dos": 0.755,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | gemini"
+    },
+    {
+      "criterio": "total",
+      "n": 540,
+      "pct_acuerdo_todos": 91.1,
+      "prevalencias": [
+        0.624,
+        0.58
+      ],
+      "ac1_gwet": 0.829,
+      "ac1_ic_bajo": 0.781,
+      "ac1_ic_alto": 0.875,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.815,
+      "ac1_dos": 0.829,
+      "comparacion": "par",
+      "codificadores": "claude-sonnet | gemini"
+    },
+    {
+      "criterio": "C01",
+      "n": 60,
+      "pct_acuerdo_todos": 91.7,
+      "prevalencias": [
+        0.867,
+        0.783
+      ],
+      "ac1_gwet": 0.883,
+      "ac1_ic_bajo": 0.762,
+      "ac1_ic_alto": 0.977,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.715,
+      "ac1_dos": 0.883,
+      "comparacion": "par",
+      "codificadores": "codex | gemini"
+    },
+    {
+      "criterio": "C02",
+      "n": 60,
+      "pct_acuerdo_todos": 96.7,
+      "prevalencias": [
+        0.883,
+        0.85
+      ],
+      "ac1_gwet": 0.957,
+      "ac1_ic_bajo": 0.883,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.856,
+      "ac1_dos": 0.957,
+      "comparacion": "par",
+      "codificadores": "codex | gemini"
+    },
+    {
+      "criterio": "C03",
+      "n": 60,
+      "pct_acuerdo_todos": 95.0,
+      "prevalencias": [
+        0.85,
+        0.833
+      ],
+      "ac1_gwet": 0.932,
+      "ac1_ic_bajo": 0.84,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.812,
+      "ac1_dos": 0.932,
+      "comparacion": "par",
+      "codificadores": "codex | gemini"
+    },
+    {
+      "criterio": "C04",
+      "n": 60,
+      "pct_acuerdo_todos": 90.0,
+      "prevalencias": [
+        0.783,
+        0.717
+      ],
+      "ac1_gwet": 0.84,
+      "ac1_ic_bajo": 0.695,
+      "ac1_ic_alto": 0.951,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.735,
+      "ac1_dos": 0.84,
+      "comparacion": "par",
+      "codificadores": "codex | gemini"
+    },
+    {
+      "criterio": "C05",
+      "n": 60,
+      "pct_acuerdo_todos": 88.3,
+      "prevalencias": [
+        0.567,
+        0.45
+      ],
+      "ac1_gwet": 0.767,
+      "ac1_ic_bajo": 0.602,
+      "ac1_ic_alto": 0.906,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.77,
+      "ac1_dos": 0.767,
+      "comparacion": "par",
+      "codificadores": "codex | gemini"
+    },
+    {
+      "criterio": "C06",
+      "n": 60,
+      "pct_acuerdo_todos": 93.3,
+      "prevalencias": [
+        0.2,
+        0.167
+      ],
+      "ac1_gwet": 0.905,
+      "ac1_ic_bajo": 0.795,
+      "ac1_ic_alto": 0.979,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.778,
+      "ac1_dos": 0.905,
+      "comparacion": "par",
+      "codificadores": "codex | gemini"
+    },
+    {
+      "criterio": "C07",
+      "n": 60,
+      "pct_acuerdo_todos": 60.0,
+      "prevalencias": [
+        0.8,
+        0.4
+      ],
+      "ac1_gwet": 0.231,
+      "ac1_ic_bajo": -0.026,
+      "ac1_ic_alto": 0.487,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.286,
+      "ac1_dos": 0.231,
+      "comparacion": "par",
+      "codificadores": "codex | gemini"
+    },
+    {
+      "criterio": "C08",
+      "n": 60,
+      "pct_acuerdo_todos": 95.0,
+      "prevalencias": [
+        0.283,
+        0.3
+      ],
+      "ac1_gwet": 0.915,
+      "ac1_ic_bajo": 0.808,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.879,
+      "ac1_dos": 0.915,
+      "comparacion": "par",
+      "codificadores": "codex | gemini"
+    },
+    {
+      "criterio": "C09",
+      "n": 60,
+      "pct_acuerdo_todos": 73.3,
+      "prevalencias": [
+        0.983,
+        0.717
+      ],
+      "ac1_gwet": 0.642,
+      "ac1_ic_bajo": 0.428,
+      "ac1_ic_alto": 0.814,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.082,
+      "ac1_dos": 0.642,
+      "comparacion": "par",
+      "codificadores": "codex | gemini"
+    },
+    {
+      "criterio": "total",
+      "n": 540,
+      "pct_acuerdo_todos": 87.0,
+      "prevalencias": [
+        0.691,
+        0.58
+      ],
+      "ac1_gwet": 0.758,
+      "ac1_ic_bajo": 0.7,
+      "ac1_ic_alto": 0.814,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.724,
+      "ac1_dos": 0.758,
+      "comparacion": "par",
+      "codificadores": "codex | gemini"
+    },
+    {
+      "criterio": "C01",
+      "n": 60,
+      "pct_acuerdo_todos": 98.3,
+      "prevalencias": [
+        0.933,
+        0.95
+      ],
+      "ac1_gwet": 0.981,
+      "ac1_ic_bajo": 0.938,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.848,
+      "ac1_dos": 0.981,
+      "comparacion": "repeticion",
+      "codificadores": "claude-sonnet | original"
+    },
+    {
+      "criterio": "C02",
+      "n": 60,
+      "pct_acuerdo_todos": 96.7,
+      "prevalencias": [
+        0.817,
+        0.85
+      ],
+      "ac1_gwet": 0.954,
+      "ac1_ic_bajo": 0.876,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.88,
+      "ac1_dos": 0.954,
+      "comparacion": "repeticion",
+      "codificadores": "claude-sonnet | original"
+    },
+    {
+      "criterio": "C03",
+      "n": 60,
+      "pct_acuerdo_todos": 96.7,
+      "prevalencias": [
+        0.833,
+        0.8
+      ],
+      "ac1_gwet": 0.952,
+      "ac1_ic_bajo": 0.872,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.889,
+      "ac1_dos": 0.952,
+      "comparacion": "repeticion",
+      "codificadores": "claude-sonnet | original"
+    },
+    {
+      "criterio": "C04",
+      "n": 60,
+      "pct_acuerdo_todos": 91.7,
+      "prevalencias": [
+        0.75,
+        0.733
+      ],
+      "ac1_gwet": 0.865,
+      "ac1_ic_bajo": 0.733,
+      "ac1_ic_alto": 0.974,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.783,
+      "ac1_dos": 0.865,
+      "comparacion": "repeticion",
+      "codificadores": "claude-sonnet | original"
+    },
+    {
+      "criterio": "C05",
+      "n": 60,
+      "pct_acuerdo_todos": 96.7,
+      "prevalencias": [
+        0.45,
+        0.45
+      ],
+      "ac1_gwet": 0.934,
+      "ac1_ic_bajo": 0.834,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.933,
+      "ac1_dos": 0.934,
+      "comparacion": "repeticion",
+      "codificadores": "claude-sonnet | original"
+    },
+    {
+      "criterio": "C06",
+      "n": 60,
+      "pct_acuerdo_todos": 98.3,
+      "prevalencias": [
+        0.117,
+        0.1
+      ],
+      "ac1_gwet": 0.979,
+      "ac1_ic_bajo": 0.932,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.914,
+      "ac1_dos": 0.979,
+      "comparacion": "repeticion",
+      "codificadores": "claude-sonnet | original"
+    },
+    {
+      "criterio": "C07",
+      "n": 60,
+      "pct_acuerdo_todos": 91.7,
+      "prevalencias": [
+        0.6,
+        0.683
+      ],
+      "ac1_gwet": 0.846,
+      "ac1_ic_bajo": 0.704,
+      "ac1_ic_alto": 0.969,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.82,
+      "ac1_dos": 0.846,
+      "comparacion": "repeticion",
+      "codificadores": "claude-sonnet | original"
+    },
+    {
+      "criterio": "C08",
+      "n": 60,
+      "pct_acuerdo_todos": 98.3,
+      "prevalencias": [
+        0.233,
+        0.217
+      ],
+      "ac1_gwet": 0.974,
+      "ac1_ic_bajo": 0.915,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.952,
+      "ac1_dos": 0.974,
+      "comparacion": "repeticion",
+      "codificadores": "claude-sonnet | original"
+    },
+    {
+      "criterio": "C09",
+      "n": 60,
+      "pct_acuerdo_todos": 85.0,
+      "prevalencias": [
+        0.883,
+        0.733
+      ],
+      "ac1_gwet": 0.783,
+      "ac1_ic_bajo": 0.617,
+      "ac1_ic_alto": 0.911,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.533,
+      "ac1_dos": 0.783,
+      "comparacion": "repeticion",
+      "codificadores": "claude-sonnet | original"
+    },
+    {
+      "criterio": "total",
+      "n": 540,
+      "pct_acuerdo_todos": 94.8,
+      "prevalencias": [
+        0.624,
+        0.613
+      ],
+      "ac1_gwet": 0.902,
+      "ac1_ic_bajo": 0.864,
+      "ac1_ic_alto": 0.936,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.89,
+      "ac1_dos": 0.902,
+      "comparacion": "repeticion",
+      "codificadores": "claude-sonnet | original"
+    },
+    {
+      "criterio": "C01",
+      "n": 40,
+      "pct_acuerdo_todos": 92.5,
+      "prevalencias": [
+        1.0,
+        0.925
+      ],
+      "ac1_gwet": 0.919,
+      "ac1_ic_bajo": 0.792,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.0,
+      "ac1_dos": 0.919,
+      "comparacion": "humano_40",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C02",
+      "n": 40,
+      "pct_acuerdo_todos": 80.0,
+      "prevalencias": [
+        1.0,
+        0.8
+      ],
+      "ac1_gwet": 0.756,
+      "ac1_ic_bajo": 0.553,
+      "ac1_ic_alto": 0.919,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.0,
+      "ac1_dos": 0.756,
+      "comparacion": "humano_40",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C03",
+      "n": 40,
+      "pct_acuerdo_todos": 90.0,
+      "prevalencias": [
+        0.975,
+        0.875
+      ],
+      "ac1_gwet": 0.884,
+      "ac1_ic_bajo": 0.744,
+      "ac1_ic_alto": 0.974,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.304,
+      "ac1_dos": 0.884,
+      "comparacion": "humano_40",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C04",
+      "n": 40,
+      "pct_acuerdo_todos": 87.5,
+      "prevalencias": [
+        0.875,
+        0.75
+      ],
+      "ac1_gwet": 0.82,
+      "ac1_ic_bajo": 0.633,
+      "ac1_ic_alto": 0.964,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.6,
+      "ac1_dos": 0.82,
+      "comparacion": "humano_40",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C05",
+      "n": 40,
+      "pct_acuerdo_todos": 47.5,
+      "prevalencias": [
+        0.975,
+        0.45
+      ],
+      "ac1_gwet": 0.111,
+      "ac1_ic_bajo": -0.255,
+      "ac1_ic_alto": 0.436,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.041,
+      "ac1_dos": 0.111,
+      "comparacion": "humano_40",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C06",
+      "n": 40,
+      "pct_acuerdo_todos": 10.0,
+      "prevalencias": [
+        1.0,
+        0.1
+      ],
+      "ac1_gwet": -0.782,
+      "ac1_ic_bajo": -0.949,
+      "ac1_ic_alto": -0.538,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.0,
+      "ac1_dos": -0.782,
+      "comparacion": "humano_40",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C07",
+      "n": 40,
+      "pct_acuerdo_todos": 72.5,
+      "prevalencias": [
+        0.9,
+        0.625
+      ],
+      "ac1_gwet": 0.569,
+      "ac1_ic_bajo": 0.28,
+      "ac1_ic_alto": 0.799,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "moderado",
+      "kappa_cohen": 0.312,
+      "ac1_dos": 0.569,
+      "comparacion": "humano_40",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C08",
+      "n": 40,
+      "pct_acuerdo_todos": 25.0,
+      "prevalencias": [
+        0.925,
+        0.175
+      ],
+      "ac1_gwet": -0.485,
+      "ac1_ic_bajo": -0.74,
+      "ac1_ic_alto": -0.162,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.034,
+      "ac1_dos": -0.485,
+      "comparacion": "humano_40",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C09",
+      "n": 40,
+      "pct_acuerdo_todos": 85.0,
+      "prevalencias": [
+        0.8,
+        0.9
+      ],
+      "ac1_gwet": 0.799,
+      "ac1_ic_bajo": 0.604,
+      "ac1_ic_alto": 0.942,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.423,
+      "ac1_dos": 0.799,
+      "comparacion": "humano_40",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "total",
+      "n": 360,
+      "pct_acuerdo_todos": 65.6,
+      "prevalencias": [
+        0.939,
+        0.622
+      ],
+      "ac1_gwet": 0.476,
+      "ac1_ic_bajo": 0.366,
+      "ac1_ic_alto": 0.578,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "moderado",
+      "kappa_cohen": 0.123,
+      "ac1_dos": 0.476,
+      "comparacion": "humano_40",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C05",
+      "n": 20,
+      "pct_acuerdo_todos": 50.0,
+      "prevalencias": [
+        0.95,
+        0.45
+      ],
+      "ac1_gwet": 0.138,
+      "ac1_ic_bajo": -0.386,
+      "ac1_ic_alto": 0.597,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.083,
+      "ac1_dos": 0.138,
+      "comparacion": "humano_20",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C06",
+      "n": 20,
+      "pct_acuerdo_todos": 30.0,
+      "prevalencias": [
+        0.85,
+        0.15
+      ],
+      "ac1_gwet": -0.4,
+      "ac1_ic_bajo": -0.782,
+      "ac1_ic_alto": 0.038,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.06,
+      "ac1_dos": -0.4,
+      "comparacion": "humano_20",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C08",
+      "n": 20,
+      "pct_acuerdo_todos": 40.0,
+      "prevalencias": [
+        0.95,
+        0.35
+      ],
+      "ac1_gwet": -0.101,
+      "ac1_ic_bajo": -0.584,
+      "ac1_ic_alto": 0.36,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.055,
+      "ac1_dos": -0.101,
+      "comparacion": "humano_20",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "total",
+      "n": 60,
+      "pct_acuerdo_todos": 40.0,
+      "prevalencias": [
+        0.917,
+        0.317
+      ],
+      "ac1_gwet": -0.138,
+      "ac1_ic_bajo": -0.398,
+      "ac1_ic_alto": 0.141,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.081,
+      "ac1_dos": -0.138,
+      "comparacion": "humano_20",
+      "codificadores": "luis | claude-sonnet"
+    },
+    {
+      "criterio": "C01",
+      "n": 40,
+      "pct_acuerdo_todos": 85.0,
+      "prevalencias": [
+        1.0,
+        0.85
+      ],
+      "ac1_gwet": 0.826,
+      "ac1_ic_bajo": 0.639,
+      "ac1_ic_alto": 0.947,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.0,
+      "ac1_dos": 0.826,
+      "comparacion": "humano_40",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C02",
+      "n": 40,
+      "pct_acuerdo_todos": 87.5,
+      "prevalencias": [
+        1.0,
+        0.875
+      ],
+      "ac1_gwet": 0.858,
+      "ac1_ic_bajo": 0.719,
+      "ac1_ic_alto": 0.974,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.0,
+      "ac1_dos": 0.858,
+      "comparacion": "humano_40",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C03",
+      "n": 40,
+      "pct_acuerdo_todos": 90.0,
+      "prevalencias": [
+        0.975,
+        0.875
+      ],
+      "ac1_gwet": 0.884,
+      "ac1_ic_bajo": 0.744,
+      "ac1_ic_alto": 0.974,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.304,
+      "ac1_dos": 0.884,
+      "comparacion": "humano_40",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C04",
+      "n": 40,
+      "pct_acuerdo_todos": 95.0,
+      "prevalencias": [
+        0.875,
+        0.825
+      ],
+      "ac1_gwet": 0.933,
+      "ac1_ic_bajo": 0.82,
+      "ac1_ic_alto": 1.0,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.805,
+      "ac1_dos": 0.933,
+      "comparacion": "humano_40",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C05",
+      "n": 40,
+      "pct_acuerdo_todos": 60.0,
+      "prevalencias": [
+        0.975,
+        0.575
+      ],
+      "ac1_gwet": 0.386,
+      "ac1_ic_bajo": 0.052,
+      "ac1_ic_alto": 0.664,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.067,
+      "ac1_dos": 0.386,
+      "comparacion": "humano_40",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C06",
+      "n": 40,
+      "pct_acuerdo_todos": 17.5,
+      "prevalencias": [
+        1.0,
+        0.175
+      ],
+      "ac1_gwet": -0.601,
+      "ac1_ic_bajo": -0.84,
+      "ac1_ic_alto": -0.284,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.0,
+      "ac1_dos": -0.601,
+      "comparacion": "humano_40",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C07",
+      "n": 40,
+      "pct_acuerdo_todos": 87.5,
+      "prevalencias": [
+        0.9,
+        0.825
+      ],
+      "ac1_gwet": 0.836,
+      "ac1_ic_bajo": 0.662,
+      "ac1_ic_alto": 0.967,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.479,
+      "ac1_dos": 0.836,
+      "comparacion": "humano_40",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C08",
+      "n": 40,
+      "pct_acuerdo_todos": 30.0,
+      "prevalencias": [
+        0.925,
+        0.225
+      ],
+      "ac1_gwet": -0.369,
+      "ac1_ic_bajo": -0.649,
+      "ac1_ic_alto": -0.035,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.046,
+      "ac1_dos": -0.369,
+      "comparacion": "humano_40",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C09",
+      "n": 40,
+      "pct_acuerdo_todos": 82.5,
+      "prevalencias": [
+        0.8,
+        0.975
+      ],
+      "ac1_gwet": 0.781,
+      "ac1_ic_bajo": 0.578,
+      "ac1_ic_alto": 0.919,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.186,
+      "ac1_dos": 0.781,
+      "comparacion": "humano_40",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "total",
+      "n": 360,
+      "pct_acuerdo_todos": 70.6,
+      "prevalencias": [
+        0.939,
+        0.689
+      ],
+      "ac1_gwet": 0.578,
+      "ac1_ic_bajo": 0.473,
+      "ac1_ic_alto": 0.671,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "moderado",
+      "kappa_cohen": 0.119,
+      "ac1_dos": 0.578,
+      "comparacion": "humano_40",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C05",
+      "n": 20,
+      "pct_acuerdo_todos": 60.0,
+      "prevalencias": [
+        0.95,
+        0.55
+      ],
+      "ac1_gwet": 0.36,
+      "ac1_ic_bajo": -0.154,
+      "ac1_ic_alto": 0.756,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.121,
+      "ac1_dos": 0.36,
+      "comparacion": "humano_20",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C06",
+      "n": 20,
+      "pct_acuerdo_todos": 40.0,
+      "prevalencias": [
+        0.85,
+        0.25
+      ],
+      "ac1_gwet": -0.188,
+      "ac1_ic_bajo": -0.6,
+      "ac1_ic_alto": 0.302,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.111,
+      "ac1_dos": -0.188,
+      "comparacion": "humano_20",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C08",
+      "n": 20,
+      "pct_acuerdo_todos": 35.0,
+      "prevalencias": [
+        0.95,
+        0.4
+      ],
+      "ac1_gwet": -0.158,
+      "ac1_ic_bajo": -0.663,
+      "ac1_ic_alto": 0.309,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": -0.102,
+      "ac1_dos": -0.158,
+      "comparacion": "humano_20",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "total",
+      "n": 60,
+      "pct_acuerdo_todos": 45.0,
+      "prevalencias": [
+        0.917,
+        0.4
+      ],
+      "ac1_gwet": 0.0,
+      "ac1_ic_bajo": -0.286,
+      "ac1_ic_alto": 0.29,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.057,
+      "ac1_dos": 0.0,
+      "comparacion": "humano_20",
+      "codificadores": "luis | codex"
+    },
+    {
+      "criterio": "C01",
+      "n": 40,
+      "pct_acuerdo_todos": 77.5,
+      "prevalencias": [
+        1.0,
+        0.775
+      ],
+      "ac1_gwet": 0.719,
+      "ac1_ic_bajo": 0.508,
+      "ac1_ic_alto": 0.89,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.0,
+      "ac1_dos": 0.719,
+      "comparacion": "humano_40",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "C02",
+      "n": 40,
+      "pct_acuerdo_todos": 85.0,
+      "prevalencias": [
+        1.0,
+        0.85
+      ],
+      "ac1_gwet": 0.826,
+      "ac1_ic_bajo": 0.639,
+      "ac1_ic_alto": 0.947,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.0,
+      "ac1_dos": 0.826,
+      "comparacion": "humano_40",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "C03",
+      "n": 40,
+      "pct_acuerdo_todos": 90.0,
+      "prevalencias": [
+        0.975,
+        0.875
+      ],
+      "ac1_gwet": 0.884,
+      "ac1_ic_bajo": 0.744,
+      "ac1_ic_alto": 0.974,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.304,
+      "ac1_dos": 0.884,
+      "comparacion": "humano_40",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "C04",
+      "n": 40,
+      "pct_acuerdo_todos": 85.0,
+      "prevalencias": [
+        0.875,
+        0.725
+      ],
+      "ac1_gwet": 0.779,
+      "ac1_ic_bajo": 0.578,
+      "ac1_ic_alto": 0.933,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.547,
+      "ac1_dos": 0.779,
+      "comparacion": "humano_40",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "C05",
+      "n": 40,
+      "pct_acuerdo_todos": 47.5,
+      "prevalencias": [
+        0.975,
+        0.45
+      ],
+      "ac1_gwet": 0.111,
+      "ac1_ic_bajo": -0.255,
+      "ac1_ic_alto": 0.436,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.041,
+      "ac1_dos": 0.111,
+      "comparacion": "humano_40",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "C06",
+      "n": 40,
+      "pct_acuerdo_todos": 17.5,
+      "prevalencias": [
+        1.0,
+        0.175
+      ],
+      "ac1_gwet": -0.601,
+      "ac1_ic_bajo": -0.84,
+      "ac1_ic_alto": -0.284,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.0,
+      "ac1_dos": -0.601,
+      "comparacion": "humano_40",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "C07",
+      "n": 40,
+      "pct_acuerdo_todos": 57.5,
+      "prevalencias": [
+        0.9,
+        0.475
+      ],
+      "ac1_gwet": 0.255,
+      "ac1_ic_bajo": -0.095,
+      "ac1_ic_alto": 0.559,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.183,
+      "ac1_dos": 0.255,
+      "comparacion": "humano_40",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "C08",
+      "n": 40,
+      "pct_acuerdo_todos": 32.5,
+      "prevalencias": [
+        0.925,
+        0.25
+      ],
+      "ac1_gwet": -0.31,
+      "ac1_ic_bajo": -0.6,
+      "ac1_ic_alto": 0.038,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.053,
+      "ac1_dos": -0.31,
+      "comparacion": "humano_40",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "C09",
+      "n": 40,
+      "pct_acuerdo_todos": 90.0,
+      "prevalencias": [
+        0.8,
+        0.75
+      ],
+      "ac1_gwet": 0.846,
+      "ac1_ic_bajo": 0.68,
+      "ac1_ic_alto": 0.969,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "robusto",
+      "kappa_cohen": 0.714,
+      "ac1_dos": 0.846,
+      "comparacion": "humano_40",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "total",
+      "n": 360,
+      "pct_acuerdo_todos": 64.7,
+      "prevalencias": [
+        0.939,
+        0.592
+      ],
+      "ac1_gwet": 0.449,
+      "ac1_ic_bajo": 0.331,
+      "ac1_ic_alto": 0.558,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "moderado",
+      "kappa_cohen": 0.159,
+      "ac1_dos": 0.449,
+      "comparacion": "humano_40",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "C05",
+      "n": 20,
+      "pct_acuerdo_todos": 50.0,
+      "prevalencias": [
+        0.95,
+        0.45
+      ],
+      "ac1_gwet": 0.138,
+      "ac1_ic_bajo": -0.386,
+      "ac1_ic_alto": 0.597,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.083,
+      "ac1_dos": 0.138,
+      "comparacion": "humano_20",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "C06",
+      "n": 20,
+      "pct_acuerdo_todos": 30.0,
+      "prevalencias": [
+        0.85,
+        0.15
+      ],
+      "ac1_gwet": -0.4,
+      "ac1_ic_bajo": -0.782,
+      "ac1_ic_alto": 0.038,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.06,
+      "ac1_dos": -0.4,
+      "comparacion": "humano_20",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "C08",
+      "n": 20,
+      "pct_acuerdo_todos": 45.0,
+      "prevalencias": [
+        0.95,
+        0.4
+      ],
+      "ac1_gwet": 0.02,
+      "ac1_ic_bajo": -0.467,
+      "ac1_ic_alto": 0.508,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.068,
+      "ac1_dos": 0.02,
+      "comparacion": "humano_20",
+      "codificadores": "luis | gemini"
+    },
+    {
+      "criterio": "total",
+      "n": 60,
+      "pct_acuerdo_todos": 41.7,
+      "prevalencias": [
+        0.917,
+        0.333
+      ],
+      "ac1_gwet": -0.098,
+      "ac1_ic_bajo": -0.387,
+      "ac1_ic_alto": 0.214,
+      "ac1_remuestreos_descartados": 0,
+      "veredicto": "sensible al modelo",
+      "kappa_cohen": 0.087,
+      "ac1_dos": -0.098,
+      "comparacion": "humano_20",
+      "codificadores": "luis | gemini"
+    }
+  ]
+}

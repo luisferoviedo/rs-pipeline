@@ -21,3 +21,11 @@ protocolo: docs/protocolo_d58.md
 salidas:
   correspondencia: outputs/semantico/d58_correspondencia.csv   # privada (ignorada por git)
   manifiesto: outputs/tablas/d58_paquete.json                  # en git: solo ids y hashes
+# Paso C (registro y confiabilidad); codificadores según la adenda a D58
+codificadores: [claude-sonnet, codex, gemini]
+retest: claude-sonnet            # se compara con la corrida original (libro v3)
+registro_d58: logs/codificacion_d58.jsonl                     # privado (ignorado)
+codigos_originales: outputs/semantico/codigos_claude_196_v3.csv
+codigos_luis_40: outputs/semantico/codigos_luisfer_40.csv
+codigos_luis_20: outputs/semantico/codigos_luisfer_presencia_20.csv
+resultados: outputs/tablas/d58_confiabilidad                  # .csv y .json (git)

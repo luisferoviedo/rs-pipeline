@@ -598,3 +598,52 @@ Falla si v1 no tiene C01 a C09 en orden y aprobados, si algún nivel no tiene ex
 | Archivo | Contenido | Dónde |
 |---|---|---|
 | `config/criterios_v1.yaml` | marco v1: 9 criterios aprobados, 3 niveles, DUA como extensión de C09 | git |
+
+## Bloque 8.2 · Sensibilidad de la codificación con varios modelos (`multimodelo_58.py`, `confiabilidad_58.py`)
+
+Cierre: 20 nov 2026. Flujograma: pendiente (se actualiza al cierre del Bloque 9).
+
+### Objetivo del paso
+Comprobar si los códigos de presencia de los nueve criterios dependen del modelo que codifica y si se repiten con el mismo modelo, con una regla fijada antes de correr (D58). No cambia ningún código de los 196 informes.
+
+### Entradas
+| Archivo | Versión | SHA-256 |
+|---|---|---|
+| `outputs/semantico/hoja_codificacion_196.csv` | hoja de la corrida original (D50) | `bf071639cc50af1f057775374dd9f741893b64a6d5064007747ff1d2a54a46fb` |
+| `outputs/semantico/hoja_codificacion_196_correspondencia.csv` | T → id real | `cf38e882e7535bca0be34f8e7cd41dd251f39152a7f91032bae27f0774785a5e` |
+| `outputs/semantico/hoja_codificacion_40_correspondencia.csv` | M → id real (D47) | `6eb9eb011015d48731f0f9973376bfb6d14ee4d455de752e6730ffcde17aa4a0` |
+| `outputs/semantico/hoja_codificacion_presencia_20_correspondencia.csv` | V → id real (D50) | `f39a6de674dee4ba07f2abce0f7c6fcaec5421dbda1c1c6f9ee4048c3a7e78fc` |
+| `logs/codificacion_claude.jsonl` | registro de la corrida original | `f930eede6fcb71099af34ef320adb7afcd26791ebd6ce948e739ac89086f4ea5` |
+| `docs/libro_codigos_v3.md` / `config/libro_codigos_v3.yaml` | libro v3 (D50) | `0b9bb5991647…` / `c1f7eeb671c4…` |
+| `outputs/semantico/codigos_claude_196_v3.csv` | códigos originales | `e068fc0f9ec6530ef86c5a20ad305a6cb404d24c784edc414d136d3c198e0108` |
+| `outputs/semantico/codigos_luisfer_40.csv` / `codigos_luisfer_presencia_20.csv` | códigos humanos | `aaf5ecc572d9…` / `eb9314c1a360…` |
+
+### Proceso
+1. **Paquete ciego.** `multimodelo_58.py` une los 40 informes de calibración y los 20 de verificación, los ordena al azar (semilla 20261031 + 8), les pone códigos X01–X60, toma sus 19 campos de la hoja de 196 y comprueba que cada ficha tiene el mismo hash que la leída en la corrida original. Escribe en una carpeta fuera del repositorio el protocolo, el libro v3 y 3 lotes de 20:
+```
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.multimodelo_58 --destino ~/d58-corridas
+```
+2. **Corridas.** `~/d58-corridas` se convierte en repositorio local (sin remoto) y se abre en Orca; cada codificador trabaja en su propio worktree con el mismo prompt y deja `salidas/<nombre>_lote1..3.json`.
+3. **Registro.** Valida y agrega los tres JSON de cada codificador al registro privado (uno por codificador, sin reescribir):
+```
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.confiabilidad_58 --registrar RUTA/salidas --nombre claude-sonnet|codex|gemini
+```
+4. **Cálculo.** AC1 de Gwet para varios codificadores (entre los tres modelos), AC1 y kappa por pares, repetición frente a la corrida original y cada modelo frente a los códigos humanos, con IC 95 % por bootstrap de informes (5000, semilla 20261101):
+```
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.confiabilidad_58 --calcular
+```
+
+### Decisiones aplicadas
+[D58](decisiones.md#d58-análisis-de-sensibilidad-de-la-codificación-con-varios-modelos-regla-fijada-antes-de-correr) y su adenda (Fable fuera por créditos, antes de ver resultados) · [D50](decisiones.md) (libro v3) · [D52](decisiones.md) y [D53](decisiones.md) (definición estricta y terminología).
+
+### Controles
+`multimodelo_58` falla si el libro no tiene el hash esperado, si la muestra no son 60 informes distintos (40 + 20) entre los 196, si una ficha no coincide con la de la corrida original o si el destino ya trae lotes o salidas. `confiabilidad_58` falla si un JSON no trae exactamente los 20 informes de su lote, los nueve criterios en orden, códigos 0/1, justificaciones de una línea y el modelo; si un codificador ya está registrado; si falta un codificador o un informe; o si los códigos humanos no son 0, 1 o 2. Tests: `tests/test_multimodelo_58.py` (6) y `tests/test_confiabilidad_58.py` (6: AC1 de varios codificadores igual al de dos con r = 2 y con cuenta a mano, umbrales, validación de lotes, registro sin reescritura, resultados publicados contra los códigos fuente).
+
+### Salidas
+| Archivo | Contenido | Dónde |
+|---|---|---|
+| `outputs/tablas/d58_paquete.json` | manifiesto del paquete: ids X por lote y hashes, sin texto | git |
+| `outputs/tablas/d58_confiabilidad.csv` / `.json` | 92 filas de confiabilidad, modelos y hashes de entrada | git |
+| `outputs/semantico/d58_correspondencia.csv` | X → id real, T y origen | local (ignorado) |
+| `logs/codificacion_d58.jsonl` | códigos y justificaciones de los tres modelos | local (ignorado) |
+| `~/d58-corridas` | paquete ciego y worktrees con las salidas | fuera del repositorio |
