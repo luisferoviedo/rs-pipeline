@@ -1,0 +1,23 @@
+# D58: análisis de sensibilidad de la codificación con varios modelos.
+# Paso A: armar el paquete ciego que leen los agentes (fuera del repositorio).
+semilla: 20261031          # la misma semilla de codificacion (params.yaml)
+desplazamiento: 8          # 3 = muestra de 40, 4-5 = verificación de 20, 6 = hoja de 196
+prefijo: X
+n_informes: 60             # 40 de calibración + 20 de verificación humana
+n_lotes: 3
+max_por_lote: 20
+entradas:
+  correspondencia_40: outputs/semantico/hoja_codificacion_40_correspondencia.csv
+  correspondencia_20: outputs/semantico/hoja_codificacion_presencia_20_correspondencia.csv
+  hoja_196: outputs/semantico/hoja_codificacion_196.csv
+  correspondencia_196: outputs/semantico/hoja_codificacion_196_correspondencia.csv
+  registro: logs/codificacion_claude.jsonl
+libro:
+  markdown: docs/libro_codigos_v3.md
+  markdown_sha256: 0b9bb5991647ccca363b2c5eb21b85ddf9df17136796dab0fc779f85ae6f1033
+  yaml: config/libro_codigos_v3.yaml
+  yaml_sha256: c1f7eeb671c474d8b642b261e079b29b3901bb4cdf689b45f087c33942d49bd0
+protocolo: docs/protocolo_d58.md
+salidas:
+  correspondencia: outputs/semantico/d58_correspondencia.csv   # privada (ignorada por git)
+  manifiesto: outputs/tablas/d58_paquete.json                  # en git: solo ids y hashes

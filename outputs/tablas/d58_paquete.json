@@ -1,0 +1,103 @@
+{
+  "decision": "D58",
+  "fecha": "2026-11-20T07:30:50-05:00",
+  "semilla": 20261039,
+  "n_informes": 60,
+  "por_origen": {
+    "calibracion_40": 40,
+    "verificacion_20": 20
+  },
+  "entradas_sha256": {
+    "outputs/semantico/hoja_codificacion_40_correspondencia.csv": "6eb9eb011015d48731f0f9973376bfb6d14ee4d455de752e6730ffcde17aa4a0",
+    "outputs/semantico/hoja_codificacion_presencia_20_correspondencia.csv": "f39a6de674dee4ba07f2abce0f7c6fcaec5421dbda1c1c6f9ee4048c3a7e78fc",
+    "outputs/semantico/hoja_codificacion_196.csv": "bf071639cc50af1f057775374dd9f741893b64a6d5064007747ff1d2a54a46fb",
+    "outputs/semantico/hoja_codificacion_196_correspondencia.csv": "cf38e882e7535bca0be34f8e7cd41dd251f39152a7f91032bae27f0774785a5e",
+    "logs/codificacion_claude.jsonl": "f930eede6fcb71099af34ef320adb7afcd26791ebd6ce948e739ac89086f4ea5"
+  },
+  "paquete": {
+    "carpeta": "d58-corridas",
+    "libro_codigos_v3.md": "0b9bb5991647ccca363b2c5eb21b85ddf9df17136796dab0fc779f85ae6f1033",
+    "LEEME_CODIFICADOR.md": "d8a78fddcfb171841ccb35d5c38e0167ccf86cbb89a92352d863f7384e1670a3",
+    "lotes": [
+      {
+        "lote": 1,
+        "ids": [
+          "X01",
+          "X02",
+          "X03",
+          "X04",
+          "X05",
+          "X06",
+          "X07",
+          "X08",
+          "X09",
+          "X10",
+          "X11",
+          "X12",
+          "X13",
+          "X14",
+          "X15",
+          "X16",
+          "X17",
+          "X18",
+          "X19",
+          "X20"
+        ],
+        "sha256": "2ff92055b88f04a606b0610be1120829b1ac10de54bdb82509f95e9db4b06d78"
+      },
+      {
+        "lote": 2,
+        "ids": [
+          "X21",
+          "X22",
+          "X23",
+          "X24",
+          "X25",
+          "X26",
+          "X27",
+          "X28",
+          "X29",
+          "X30",
+          "X31",
+          "X32",
+          "X33",
+          "X34",
+          "X35",
+          "X36",
+          "X37",
+          "X38",
+          "X39",
+          "X40"
+        ],
+        "sha256": "d8d0d94b947df7d99f20832896f0e473acdb3c69c29585e809a322e2e60c3673"
+      },
+      {
+        "lote": 3,
+        "ids": [
+          "X41",
+          "X42",
+          "X43",
+          "X44",
+          "X45",
+          "X46",
+          "X47",
+          "X48",
+          "X49",
+          "X50",
+          "X51",
+          "X52",
+          "X53",
+          "X54",
+          "X55",
+          "X56",
+          "X57",
+          "X58",
+          "X59",
+          "X60"
+        ],
+        "sha256": "0c4e48d08a44b745265796e27058cf630194d32120520b6ee6024a55ea051983"
+      }
+    ]
+  },
+  "fichas_identicas_a_la_corrida_original": true
+}
