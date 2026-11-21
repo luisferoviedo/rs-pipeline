@@ -27,9 +27,10 @@ El detalle de cada bloque (entradas, proceso, comandos, controles y salidas) est
 La clasificación preliminar de registros en el cribado, el diligenciamiento de las fichas de extracción y la codificación deductiva se apoyaron en un modelo de lenguaje generativo de gran escala (Claude, Anthropic), ejecutado mediante Claude Code y bajo control humano: los investigadores fijaron las reglas (libro de códigos cerrado), la herramienta codificó en sesiones sin acceso a la codificación humana (`docs/protocolo_codificacion_ciega.md`) y los resultados se verificaron con muestras codificadas a ciegas por el investigador. Cada código asignado quedó registrado con la fecha, el identificador exacto del modelo, el hash del libro de códigos y una justificación (el registro no se publica porque contiene fragmentos de las fichas). Las medidas de confiabilidad y sus límites están en las decisiones D48 a D53.
 
 ## Cómo citar
-Oviedo Berrocal, L. F. (2026). *rs-pipeline: Pipeline reproducible para revisiones sistemáticas con codificación asistida por IA, aplicado a laboratorios virtuales de ciencias naturales* (Versión 1.0-eje3) [Software]. Zenodo. https://doi.org/10.5281/zenodo.24377704
+Oviedo Berrocal, L. F. (2026). *rs-pipeline: Pipeline reproducible para revisiones sistemáticas con codificación asistida por IA, aplicado a laboratorios virtuales de ciencias naturales* (Versión 1.1-eje3) [Software]. Zenodo. https://doi.org/10.5281/zenodo.24399152
 
-- DOI de la versión 1.0-eje3 (la que acompaña el Eje 3 de la tesis): [10.5281/zenodo.24377704](https://doi.org/10.5281/zenodo.24377704)
+- DOI de la versión 1.1-eje3 (la que acompaña el Eje 3 de la tesis; incluye el análisis de sensibilidad con tres modelos, D58): [10.5281/zenodo.24399152](https://doi.org/10.5281/zenodo.24399152)
+- DOI de la versión 1.0-eje3 (anterior): [10.5281/zenodo.24377704](https://doi.org/10.5281/zenodo.24377704)
 - DOI del proyecto (todas las versiones; lleva siempre a la más reciente): [10.5281/zenodo.24377703](https://doi.org/10.5281/zenodo.24377703)
 - También puede usar el botón «Cite this repository» de GitHub (archivo `CITATION.cff`).
 
