@@ -1,0 +1,80 @@
+# Comparador por estudio: decisiones manuales de Luis Fer (adenda a D59, 21 nov 2026).
+# Se tomaron ANTES de calcular las pruebas de D59, al revisar la hoja de comparadores
+# ambiguos (outputs/semantico/d59_revision_comparador.csv, ignorada). heterogeneidad_59.py
+# las aplica encima de las reglas de texto del protocolo (sección 6) y falla si un
+# estudio no está en la base comparativa o si la regla no lo había dejado en «varios»
+# u «otra». Los estudios de la hoja que no aparecen aquí conservan la categoría de la regla.
+# Categorías válidas: clase tradicional, laboratorio real, otra simulación, otra, varios, ninguna.
+decisiones:
+  # Cambios claros
+  - estudio: R0154
+    categoria: laboratorio real
+    motivo: "laboratorio tradicional con instrucciones escritas; la regla leyó «tradicional»"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R0867
+    categoria: laboratorio real
+    motivo: "laboratorio tradicional guiado por el currículo, sin simulación"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R0919
+    categoria: laboratorio real
+    motivo: "laboratorio real con equipos tradicionales"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R0748
+    categoria: clase tradicional
+    motivo: "plan de estudios habitual, sin laboratorios virtuales"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R0951
+    categoria: clase tradicional
+    motivo: "instrucción convencional expositiva"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R1015
+    categoria: clase tradicional
+    motivo: "enseñanza expositiva sin la simulación en el grupo control"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R0341
+    categoria: otra
+    motivo: "el texto niega ambos comparadores («no hay laboratorio real ni clase tradicional»)"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  # Casos con criterio del investigador
+  - estudio: R0101
+    categoria: clase tradicional
+    motivo: "clase convencional; el docente demuestra los experimentos del libro de texto"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R0130
+    categoria: clase tradicional
+    motivo: "modelos del libro de texto, sin modelado computacional"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R0617
+    categoria: clase tradicional
+    motivo: "demostración del docente con video y libro de texto"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R0416
+    categoria: laboratorio real
+    motivo: "kits de laboratorio caseros (práctica física)"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R0594
+    categoria: laboratorio real
+    motivo: "experimentos prácticos (hands-on) con el mismo contenido y guion"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R0598
+    categoria: laboratorio real
+    motivo: "manipulativo físico frente al manipulativo virtual"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"
+  - estudio: R0868
+    categoria: laboratorio real
+    motivo: "enseñanza directa con práctica de laboratorio"
+    decidido_por: Luis Fer
+    fecha: "2026-11-21"

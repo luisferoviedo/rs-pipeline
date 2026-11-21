@@ -647,3 +647,40 @@ PYTHONPATH=src .venv/bin/python -m rs_pipeline.confiabilidad_58 --calcular
 | `outputs/semantico/d58_correspondencia.csv` | X → id real, T y origen | local (ignorado) |
 | `logs/codificacion_d58.jsonl` | códigos y justificaciones de los tres modelos | local (ignorado) |
 | `~/d58-corridas` | paquete ciego y worktrees con las salidas | fuera del repositorio |
+
+## Bloque 8.3 · Heterogeneidad de la dirección del efecto (`heterogeneidad_59.py`)
+
+Cierre: 21 nov 2026. Flujograma: pendiente (se actualiza al cierre del Bloque 9).
+
+### Objetivo del paso
+Explorar si la proporción de resultados favorables a la simulación cambia según el nivel, el peso de la evidencia o el comparador, con reglas fijadas antes de calcular (D59), y dejar trazable la corrección de Holm de las 45 pruebas de D54. No cambia ningún código ni ninguna tabla anterior.
+
+### Entradas
+| Archivo | Versión | SHA-256 |
+|---|---|---|
+| `data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv` | salida del bloque 2 | `047840986e236173c915a1ce80a8d7decf690f49f64c3cbae7514b87d7b6bc85` |
+| `config/comparador_d59.yaml` | 14 decisiones de Luis Fer (adenda a D59) | `daad85f8b22daf9edcbafa042bd31afe95307d873f60599795737bd7ad34ae14` |
+| `outputs/tablas/marco_evidencia_v0.csv` | salida del Bloque 8 (D54) | `06b447c4832e7bfcaf9273c0a7c2f9111949c201bb36b5e04efef538610f6364` |
+
+### Proceso
+1. **Revisión del comparador (sin pruebas).** Clasifica el comparador de cada estudio con las reglas de texto del protocolo, aplica las decisiones del YAML y escribe la hoja de casos «varios» u «otra» para revisarla a ojo:
+```
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.heterogeneidad_59 --revision
+```
+2. **Cálculo.** Toma los estudios (atributos del informe de más puntos, D43), deja solo los comparativos y arma tres tablas 2 × 2 (favorable frente a no favorable): nivel, peso (regla de la suma) y comparador. Aplica Fisher exacta bilateral (`fisher_dos_colas`, D54) y Holm entre las tres. Calcula también Holm sobre las 45 pruebas de D54:
+```
+PYTHONPATH=src .venv/bin/python -m rs_pipeline.heterogeneidad_59
+```
+
+### Decisiones aplicadas
+[D59](decisiones.md#d59-exploración-de-la-heterogeneidad-de-la-dirección-del-efecto-regla-fijada-antes-de-calcular) con su adenda · [D43](decisiones.md) (peso y atributos del estudio) · [D54](decisiones.md) (Fisher).
+
+### Controles
+Falla si la matriz cambió desde que se normalizó, si las bases no son 196 informes y 193 estudios, si falta la columna `comparacion`, si no hay estudios comparativos, si un grupo de la prueba queda vacío o los grupos no suman la base, si una decisión del YAML apunta a un estudio fuera de la base o que la regla no dejó ambiguo, si un estudio se repite o una categoría no existe, o si no hay 45 pruebas de D54. Tests: `tests/test_heterogeneidad_59.py` (19: reglas del comparador con textos inventados, Holm y Fisher con cuentas a mano, base solo comparativa, grupos que suman, decisiones fuera de alcance, archivo real de decisiones, salidas contra la matriz, Holm de C01 > 0,05 y hashes).
+
+### Salidas
+| Archivo | Contenido | Dónde |
+|---|---|---|
+| `outputs/tablas/heterogeneidad_59.csv` / `.json` | tres cruces: conteos, porcentajes, p y p de Holm; hashes de entradas y salidas | git |
+| `outputs/tablas/holm_d54.csv` | 45 pruebas de D54 con su p de Holm | git |
+| `outputs/semantico/d59_revision_comparador.csv` | casos «varios» u «otra» con el texto del comparador | ignorado |

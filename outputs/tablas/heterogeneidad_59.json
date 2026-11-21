@@ -1,0 +1,41 @@
+{
+  "decision": "D59",
+  "protocolo": "docs/protocolo_d59.md",
+  "unidad": "estudio; atributos del informe de más puntos (D43)",
+  "base": "estudios comparativos (favorable, mixto, sin diferencia)",
+  "resultado": "favorable frente a no favorable (mixto + sin diferencia)",
+  "prueba": "Fisher exacta bilateral (D54), Holm (1979) entre las tres",
+  "comparador": "reglas de texto del protocolo + decisiones de Luis Fer (config/comparador_d59.yaml) en los casos «varios» u «otra»",
+  "comparadores_en_la_base": {
+    "clase tradicional": 54,
+    "laboratorio real": 34,
+    "otra": 15,
+    "ninguna": 6,
+    "otra simulación": 5,
+    "varios": 3
+  },
+  "holm_d54": {
+    "pruebas": 45,
+    "bajo_alfa_sin_corregir": 1,
+    "bajo_alfa_holm": 0
+  },
+  "entradas": {
+    "matriz_normalizada": {
+      "archivo": "data/processed/Extraccion_datos_v2_2026-10-18_normalizada.csv",
+      "sha256": "047840986e236173c915a1ce80a8d7decf690f49f64c3cbae7514b87d7b6bc85"
+    },
+    "decisiones_comparador": {
+      "archivo": "config/comparador_d59.yaml",
+      "sha256": "daad85f8b22daf9edcbafa042bd31afe95307d873f60599795737bd7ad34ae14",
+      "n_decisiones": 14
+    },
+    "pruebas_d54": {
+      "archivo": "outputs/tablas/marco_evidencia_v0.csv",
+      "sha256": "06b447c4832e7bfcaf9273c0a7c2f9111949c201bb36b5e04efef538610f6364"
+    }
+  },
+  "salidas": {
+    "heterogeneidad_59.csv": "e8b3717288cd0444611f2f0471ebce5f33238a598612aca80051b6e5348cfea9",
+    "holm_d54.csv": "56dd4c52057323a9b240b4535a0604190eaba0ae00d79cd71ef2fb4f14a82905"
+  }
+}
