@@ -1,0 +1,277 @@
+id: PE-PCS-2016
+decision: D57
+entrada: {archivo: data/raw/curriculo/PE-PCS-2016.pdf, sha256: 3f4443dd1273f287c1ae069eed1cb314cb0574f9f0794495716415be2ec8075b}
+ocr: {archivo: outputs/ocr/PE-PCS-2016_ocr_p177-194_v2.json, sha256: f78e982e6752047383618ef409298a053c29fdcf0c2e28d656c0bddb064a6cf9}
+unidades: píxeles de la imagen recortada del OCR, a 300 dpi
+vineta: caja [x0, y0, x1, y1] del punto redondo que abre un desempeño
+metodo: detección de puntos redondos en la imagen del OCR, verificada a ojo
+paginas:
+- pagina: 181
+  competencia: indaga
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-27'
+  tabla: [44, 132, 2333, 2716]
+  columnas:
+  - grado: 1
+    x_izquierda: 44
+    x_derecha: 1188
+    y_superior: 1114
+    y_inferior: 2716
+    vinetas:
+    - [73, 1145, 88, 1160]
+    - [74, 1402, 89, 1418]
+    - [75, 1710, 91, 1726]
+    - [77, 2018, 92, 2034]
+    - [78, 2327, 94, 2342]
+  - grado: 2
+    x_izquierda: 1188
+    x_derecha: 2333
+    y_superior: 1108
+    y_inferior: 2716
+    vinetas:
+    - [1214, 1138, 1229, 1154]
+    - [1216, 1445, 1231, 1462]
+    - [1218, 1753, 1233, 1769]
+    - [1220, 2112, 1235, 2127]
+    - [1222, 2419, 1237, 2435]
+- pagina: 182
+  competencia: indaga
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-27'
+  tabla: [22, 126, 2293, 2948]
+  columnas:
+  - grado: 3
+    x_izquierda: 22
+    x_derecha: 1157
+    y_superior: 1062
+    y_inferior: 2948
+    vinetas:
+    - [48, 1090, 62, 1105]
+    - [48, 1499, 62, 1516]
+    - [48, 1858, 63, 1873]
+    - [49, 2216, 63, 2232]
+    - [49, 2523, 64, 2539]
+  - grado: 4
+    x_izquierda: 1157
+    x_derecha: 2293
+    y_superior: 1061
+    y_inferior: 2948
+    vinetas:
+    - [1180, 1088, 1195, 1103]
+    - [1180, 1446, 1195, 1463]
+    - [1180, 1856, 1195, 1871]
+    - [1179, 2214, 1194, 2230]
+    - [1179, 2521, 1194, 2537]
+- pagina: 183
+  competencia: indaga
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-27'
+  tabla: [167, 85, 2263, 2172]
+  columnas:
+  - grado: 5
+    x_izquierda: 167
+    x_derecha: 2263
+    y_superior: 1030
+    y_inferior: 2172
+    vinetas:
+    - [194, 1058, 209, 1074]
+    - [194, 1264, 209, 1280]
+    - [194, 1470, 209, 1486]
+    - [195, 1677, 210, 1693]
+    - [196, 1883, 211, 1898]
+- pagina: 186
+  competencia: explica
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-27'
+  tabla: [60, 34, 2251, 2847]
+  columnas:
+  - grado: 1
+    x_izquierda: 60
+    x_derecha: 1155
+    y_superior: 1018
+    y_inferior: 2847
+    vinetas:
+    - [86, 1044, 101, 1060]
+    - [86, 1200, 101, 1216]
+    - [86, 1355, 101, 1371]
+    - [86, 1560, 101, 1577]
+    - [87, 1919, 102, 1935]
+    - [88, 2379, 103, 2395]
+    - [88, 2534, 103, 2549]
+    - [89, 2751, 103, 2766]
+  - grado: 2
+    x_izquierda: 1155
+    x_derecha: 2251
+    y_superior: 963
+    y_inferior: 2847
+    vinetas:
+    - [1181, 990, 1196, 1005]
+    - [1181, 1145, 1196, 1161]
+    - [1181, 1554, 1197, 1570]
+    - [1181, 1659, 1197, 1674]
+    - [1182, 2068, 1197, 2084]
+    - [1182, 2172, 1197, 2187]
+    - [1182, 2428, 1198, 2443]
+    - [1183, 2583, 1198, 2598]
+    - [1183, 2737, 1198, 2753]
+- pagina: 187
+  competencia: explica
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-27'
+  tabla: [86, 84, 2286, 1583]
+  columnas:
+  - grado: 1
+    x_izquierda: 86
+    x_derecha: 1186
+    y_superior: 84
+    y_inferior: 1583
+    vinetas:
+    - [113, 170, 128, 185]
+    - [113, 888, 128, 903]
+    - [113, 1043, 129, 1058]
+    - [114, 1199, 129, 1214]
+  - grado: 2
+    x_izquierda: 1186
+    x_derecha: 2286
+    y_superior: 84
+    y_inferior: 1583
+    vinetas:
+    - [1208, 168, 1224, 184]
+    - [1209, 375, 1225, 391]
+    - [1210, 581, 1225, 596]
+    - [1211, 960, 1227, 975]
+    - [1212, 1124, 1228, 1139]
+    - [1213, 1288, 1229, 1304]
+- pagina: 188
+  competencia: explica
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-27'
+  tabla: [60, 36, 2251, 2908]
+  columnas:
+  - grado: 3
+    x_izquierda: 60
+    x_derecha: 1155
+    y_superior: 942
+    y_inferior: 2908
+    vinetas:
+    - [86, 968, 101, 984]
+    - [86, 1225, 101, 1241]
+    - [86, 1379, 101, 1396]
+    - [86, 1585, 101, 1602]
+    - [86, 1842, 101, 1858]
+    - [86, 1946, 101, 1962]
+    - [86, 2050, 101, 2066]
+    - [86, 2204, 101, 2220]
+    - [86, 2308, 101, 2324]
+    - [87, 2412, 101, 2428]
+    - [87, 2566, 102, 2582]
+    - [87, 2721, 102, 2736]
+  - grado: 4
+    x_izquierda: 1155
+    x_derecha: 2251
+    y_superior: 941
+    y_inferior: 2908
+    vinetas:
+    - [1179, 966, 1195, 982]
+    - [1179, 1223, 1194, 1238]
+    - [1179, 1377, 1194, 1393]
+    - [1179, 1532, 1194, 1549]
+    - [1179, 1739, 1194, 1754]
+    - [1179, 1944, 1194, 1960]
+    - [1179, 2200, 1194, 2216]
+    - [1179, 2304, 1194, 2319]
+    - [1179, 2458, 1194, 2474]
+    - [1179, 2663, 1194, 2679]
+- pagina: 189
+  competencia: explica
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-27'
+  tabla: [82, 28, 2292, 2394]
+  columnas:
+  - grado: 5
+    x_izquierda: 82
+    x_derecha: 2292
+    y_superior: 807
+    y_inferior: 2394
+    vinetas:
+    - [110, 845, 125, 861]
+    - [111, 1001, 126, 1016]
+    - [111, 1105, 127, 1121]
+    - [112, 1210, 127, 1226]
+    - [113, 1313, 128, 1330]
+    - [113, 1418, 128, 1434]
+    - [114, 1523, 129, 1539]
+    - [114, 1628, 129, 1643]
+    - [115, 1731, 130, 1747]
+    - [115, 1835, 130, 1851]
+    - [116, 1999, 131, 2015]
+    - [117, 2155, 132, 2170]
+    - [118, 2260, 133, 2275]
+- pagina: 192
+  competencia: disena
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-27'
+  tabla: [62, 30, 2251, 2478]
+  columnas:
+  - grado: 1
+    x_izquierda: 62
+    x_derecha: 1156
+    y_superior: 1139
+    y_inferior: 2478
+    vinetas:
+    - [88, 1166, 102, 1182]
+    - [88, 1474, 102, 1490]
+    - [88, 1781, 102, 1797]
+    - [87, 2139, 102, 2155]
+  - grado: 2
+    x_izquierda: 1156
+    x_derecha: 2251
+    y_superior: 1142
+    y_inferior: 2478
+    vinetas:
+    - [1181, 1164, 1197, 1180]
+    - [1181, 1472, 1197, 1488]
+    - [1182, 1780, 1197, 1795]
+    - [1181, 2137, 1197, 2153]
+- pagina: 193
+  competencia: disena
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-27'
+  tabla: [86, 68, 2324, 2708]
+  columnas:
+  - grado: 3
+    x_izquierda: 86
+    x_derecha: 1205
+    y_superior: 1163
+    y_inferior: 2708
+    vinetas:
+    - [114, 1190, 130, 1206]
+    - [115, 1498, 131, 1515]
+    - [117, 1909, 132, 1925]
+    - [118, 2268, 133, 2284]
+  - grado: 4
+    x_izquierda: 1205
+    x_derecha: 2324
+    y_superior: 1160
+    y_inferior: 2708
+    vinetas:
+    - [1214, 1186, 1230, 1202]
+    - [1215, 1493, 1231, 1510]
+    - [1217, 2006, 1232, 2021]
+    - [1218, 2364, 1234, 2379]
+- pagina: 194
+  competencia: disena
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-27'
+  tabla: [61, 49, 2254, 1817]
+  columnas:
+  - grado: 5
+    x_izquierda: 61
+    x_derecha: 2254
+    y_superior: 1035
+    y_inferior: 1817
+    vinetas:
+    - [87, 1063, 103, 1078]
+    - [88, 1269, 103, 1285]
+    - [88, 1474, 103, 1491]
+    - [88, 1681, 103, 1697]

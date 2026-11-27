@@ -490,6 +490,16 @@ Decisión de Luis Fer: ni recorte 0 con filtro del encabezado por patrón (1b) n
 - **Referencia de ciclos verificada a ojo** (para la regla de consistencia de ciclo y su prueba; la regla aún NO está implementada): p181 VI · p182 VII · p183 VII · p186 VI · p188 VII · p189 VII · p192 VI · p193 VII · p194 VII. El archivo de referencia (fixture) se crea junto con la regla y su prueba, en ese paso.
 - **Tabla antes/después aprobada** por Luis Fer (9701 → 9784 palabras; ninguna página bajo el umbral de 85).
 
+### Cuarta adenda a D57 (27 nov 2026): reglas de extracción tras el piloto
+Decisiones de Luis Fer sobre el piloto de extracción de Perú. El extractor aún no está escrito.
+- **Columnas.** Se arman con las coordenadas del OCR (TSV), no con el orden del `.txt`: en la pág. 193 el `.txt` mezcla 3.º y 4.º en las mismas líneas. Páginas con desempeños: 181–183, 186–189 y 192–194. La zona de cada columna va desde «…siguientes:» hasta el borde inferior de la tabla; la 187 continúa la 186, columna con columna.
+- **Inicio de un desempeño: la viñeta detectada en la imagen.** Reemplaza la regla de «verbo en tercera persona con mayúscula» (adenda a D57, punto 3). Medido en el piloto sobre 107 desempeños: con la lista de verbos de D57, 69 aciertos, 5 cortes falsos y 38 sin detectar; con los 14 verbos que aparecen, 107 aciertos y 4 cortes falsos; con la viñeta, 107 y ninguno falso. El verbo queda como control: cada viñeta debe estar junto a uno de los 14 (Compara, Comprueba, Describe, Ejecuta, Establece, Explica, Formula, Fundamenta, Justifica, Obtiene, Propone, Realiza, Representa, Sustenta).
+- **Posiciones congeladas.** `src/rs_pipeline/vinetas_pe_09.py` las mide sobre la misma imagen que leyó el OCR v2 (comprueba su sha256) y las guarda en `config/vinetas_pe_pcs_2016.yaml`. **Aprobadas por Luis Fer** tras revisar las imágenes de `data/processed/curriculo/PE-PCS-2016_ocr/revision_vinetas/` (fuera de git), con `verificado_por`: «Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27».
+- **Ciclo.** Se toman todas las menciones del texto («nivel esperado del ciclo» y «al final del ciclo»), sin distinguir mayúsculas. Si no coinciden, la página va a revisión manual y se resuelve con la referencia verificada a ojo (tercera adenda). Además, el ciclo debe cuadrar con el grado: 1.º–2.º, VI; 3.º–5.º, VII. La 187 hereda el de la 186. En el piloto fallan «al final del ciclo» de la 188 (VI en vez de VII), la 189 («vil») y la 193 («Vii», que se acepta al ignorar mayúsculas).
+- **Correcciones.** Se aplican al texto de cada desempeño ya armado (palabras separadas por un espacio, sin las viñetas). El patrón `texto_antes` + `texto_ocr` + `texto_despues` debe aparecer una sola vez entre los desempeños que empiezan en esa página; con `texto_despues` vacío, al final del desempeño. Se aprobaron 5 correcciones nuevas (págs. 183, 186 dos, 188 y 194) y el ajuste de la de «la sociedad.», cuyo contexto incluía el desempeño siguiente. **Aprobadas por Luis Fer**, que revisó en la imagen el desempeño 8 de 1.º (`revision_vinetas/p186_desempeno8_ampliado.png`): las 6 quedan con `verificado_por`: «Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27». La de «impacto en la sociedad» (pág. 188) no cambió y conserva su verificación del 5 nov 2026. En total, 7. La versión anterior se conserva en `correcciones_antes_2026-11-27.csv` (sha256 `b8febfbe9de372d5cef162311541963a189ca0b8e46c5c86d51a2163692cca97`); la vigente tiene sha256 `de3a56e0ea0fcaa7fe8f560e14fd7fc777b486fdb25b92b320ce7e75fca3f960`.
+- **Bordes de tabla (aprobado por Luis Fer).** Los «|» y «]» sueltos que el OCR lee de las líneas de la tabla se quitan.
+- **El original no se corrige.** Se conservan sus errores («SEGUNDO GRADO DE PRIMARIA» en la pág. 186; «similitud diferencia» sin coma).
+
 ## D58. Análisis de sensibilidad de la codificación con varios modelos (regla fijada antes de correr)
 Decisión de Luis Fer (20 nov 2026), tomada **antes** de ver cualquier resultado. Propósito: probar si los códigos de presencia de los nueve criterios dependen del modelo que codifica y si se repiten con el mismo modelo, para reforzar la confiabilidad de la revisión de cara a su publicación.
 - **Muestra (sin codificación nueva de humanos):** los 60 informes que ya tienen codificación humana: los 40 de la calibración (D47–D49) y los 20 de la verificación humana (D50–D53). Las fichas salen de la hoja de 196 y el script comprueba que son idénticas (mismo `sha256_ficha`) a las que leyó Claude en la corrida original con el libro v3.
@@ -593,3 +603,17 @@ Decisión de Luis Fer, después del commit `df11065` (extracción de los EBC).
 - **Orden nuevo.** Se extraen primero Perú, Argentina, México y Brasil, y luego se codifica todo junto (el mismo modelo, en las mismas sesiones). Reemplaza la «Ruta A» de D60, que codificaba primero los cuatro referentes del OE3. Las reglas de extracción y de codificación no cambian.
 - **Estado de la ruta A al cambiar.** Extraídos los cuatro documentos: ICFES 43, PISA 15, DBA 99 y EBC 231 unidades (388). Ninguno está codificado.
 - **ICFES y PISA, salida v2.** `enunciados_09_v2.jsonl` y `outputs/tablas/extraccion_09_v2.json`, con PISA en `nivel_cine: [2, 3]` según el inventario. La v1 no se toca y deja de usarse.
+
+### Sexta adenda a D60 (27 nov 2026): piloto de extracción de Perú
+- **Unidad.** Cada desempeño (una viñeta) de `PE-PCS-2016`, con su grado y su competencia. Reglas de lectura en la cuarta adenda a D57.
+- **Resultado del piloto: 107 desempeños** (100 textos distintos). CINE (D56): 66 en 1.º–3.º (CINE 2) y 41 en 4.º–5.º (CINE 3).
+
+| Competencia | 1.º | 2.º | 3.º | 4.º | 5.º | Total |
+|---|---|---|---|---|---|---|
+| Indaga mediante métodos científicos | 5 | 5 | 5 | 5 | 5 | 25 |
+| Explica el mundo físico | 12 | 15 | 12 | 10 | 13 | 62 |
+| Diseña y construye soluciones tecnológicas | 4 | 4 | 4 | 4 | 4 | 20 |
+| **Total** | **21** | **24** | **21** | **19** | **22** | **107** |
+
+- **«Ejemplo:» va como contexto.** En 7 desempeños (Explica: 3 de 1.º y 4 de 2.º) el texto desde «Ejemplo:» se guarda aparte, como contexto del desempeño, igual que en los DBA.
+- **PE-CNEB-2016: solo contexto, ninguna unidad.** No trae desempeños por grado. Se usan los estándares por ciclo de las tres competencias (niveles 6 y 7, ciclos VI y VII; págs. PDF 125, 129 y 133): 6 en total, tomados de su capa de texto (sin OCR) y asociados por competencia y ciclo. En el piloto coinciden con las descripciones de nivel del Programa curricular (similitud 0,99–1,00).
