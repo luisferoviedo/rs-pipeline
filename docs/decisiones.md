@@ -551,3 +551,22 @@ Decisiones de Luis Fer (25 nov 2026), tomadas sobre el piloto de inspección de 
 - **Regla de juicio del instrumento.** Cumple / parcial / no cumple, con evidencia citada del laboratorio (Fulmer et al., 2018).
 - **Piloto (estimado).** EBC págs. 18–23, unas 231 viñetas; DBA págs. 21–39, 28 DBA y unas 99 evidencias; ICFES tabla 5, págs. 38–45, 3 competencias y 9 afirmaciones; PISA recuadros 2.3–2.5, págs. 34–36, 3 competencias. Cierra el pendiente de D56: **PISA 2025 tiene 3 competencias** (explicar fenómenos científicamente; construir y evaluar diseños de indagación e interpretar datos y evidencias críticamente; investigar, evaluar y usar información científica para tomar decisiones y actuar).
 - **Orden de implementación.** Primero ICFES y PISA (tabla y recuadros limpios); después DBA y EBC, que necesitan recorte por columnas medido una vez y congelado en un YAML (como los recortes de Perú, D57).
+
+### Adenda a D60 (26 nov 2026): nivel CINE de PISA y archivos de salida
+Decisiones de Luis Fer, después del commit `4e4a97c` (extracción de ICFES y PISA).
+- **PISA 2025.** En el inventario, `OCDE-PISA2025-MARCO` pasa de `nivel_cine: []` a `[2, 3]`, de acuerdo con su campo `grados_originales` (estudiantes de 15 años, CINE 2 y 3). La extracción `enunciados_09_v1.jsonl` y su resumen se hicieron con el inventario anterior (sha256 `31fa00b60917ddb2660008a237dcc3a870beef0561500dced29c408026a093ba`): en ese archivo las 15 unidades de PISA siguen con `nivel_cine: []`. No se sobrescribe.
+- **Un archivo de salida por currículo.** DBA: `enunciados_09_dba_v1.jsonl`. EBC: `enunciados_09_ebc_v1.jsonl`. Ambos en `data/processed/curriculo/` (fuera de git), cada uno con su propio resumen en `outputs/tablas/`.
+
+### Segunda adenda a D60 (26 nov 2026): recortes de los DBA aprobados y resultado del piloto
+- **Resultado del piloto de columnas.** Los DBA de 6.º a 11.º (págs. 21–39) son **29 DBA y 99 evidencias**; el piloto inicial estimaba 28 DBA. Por grado (DBA / evidencias): 6.º 5/16 · 7.º 4/13 · 8.º 5/19 · 9.º 6/21 · 10.º 4/12 · 11.º 5/18.
+- **Orden de lectura.** Columna izquierda, columna derecha y página siguiente. Así se repite siempre: número de DBA, «Evidencias de aprendizaje», viñetas y «Ejemplo».
+- **Recortes aprobados por Luis Fer.** En puntos PDF sobre la MediaBox: columnas x = 327, superior y = 132, inferior y = 778, iguales en las 19 páginas. Quedan en `config/recortes_dba_cn.yaml` (medidos por `recortes_dba_09.py`), con `verificado_por`: «Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26».
+
+### Tercera adenda a D60 (26 nov 2026): extracción de los DBA
+Decisiones de Luis Fer sobre `extraccion_dba_09.py`. Salida: `enunciados_09_dba_v1.jsonl` (99 unidades, fuera de git) y `outputs/tablas/extraccion_09_dba_v1.json`. La v1 se regeneró antes de su primer commit para agregar el nivel CINE por grado.
+- **Nivel CINE por unidad (D56).** Cada evidencia lleva el nivel de su grado: 6.º–9.º, CINE 2 (69 unidades); 10.º–11.º, CINE 3 (30). En ICFES y PISA cada unidad sigue con el nivel de su documento en el inventario.
+- **Subíndices.** Una palabra de menos de 9 pt de alto va en la línea que la contiene y se pega sin espacio a la letra que está a menos de 1 pt. Hay un solo caso: «H2O» (pág. 22).
+- **Guiones al final de línea.** Un guion pegado a la palabra se conserva y no se mete espacio: en estas páginas es parte de ella («Boyle-Mariotte», pág. 28; tres cortes de una dirección web, pág. 39). No se usa la reparación de cortes de ICFES y PISA, que quita el guion. Una raya suelta conserva los espacios («Brönsted – Lowry», pág. 30).
+- **Barras al final de línea.** Se unen sin espacio (aceptado por Luis Fer): «inflar/explotar» (pág. 28) y una dirección web (pág. 25).
+- **«Ejemplo» solo figura.** En 9 DBA el «Ejemplo» no tiene texto y sus unidades quedan con `ejemplo: null`: G6.D1, G6.D3, G7.D1, G7.D2, G8.D1, G9.D1, G10.D1, G10.D2 y G11.D2 (27 evidencias). El script falla si la lista cambia. En los demás, el contexto guarda solo el texto: lo que dice una figura no entra.
+- **El original no se corrige.** Tildes, erratas y puntuación quedan como en el PDF.

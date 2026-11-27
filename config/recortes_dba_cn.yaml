@@ -1,0 +1,256 @@
+id: CO-DBA-CN
+decision: D60
+entrada:
+  archivo: data/raw/curriculo/CO-DBA-CN.pdf
+  sha256: 3156475f8a0cc988080dc71c49b722f9f125726591adafd66f45a78d5e8a3f4d
+pdftotext: pdftotext version 26.08.0
+unidades: puntos PDF sobre la MediaBox, como los da pdftotext -bbox
+metodo: propuesto por medición de coordenadas (pdftotext -bbox), verificado a ojo
+paginas:
+- pagina: 21
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 161.2055
+    fin_texto_y: 768.7807
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.1621
+    inicio_derecha_x: 337.0635
+- pagina: 22
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 161.4088
+    fin_texto_y: 749.5759
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 317.2953
+    inicio_derecha_x: 339.189
+- pagina: 23
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.0796
+    fin_texto_y: 754.3278
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.1865
+    inicio_derecha_x: 339.189
+- pagina: 24
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 158.4969
+    fin_texto_y: 423.6859
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.1691
+    inicio_derecha_x: 336.9375
+- pagina: 25
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.9142
+    fin_texto_y: 764.7019
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.2001
+    inicio_derecha_x: 337.3766
+- pagina: 26
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.9034
+    fin_texto_y: 299.4304
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.843
+    inicio_derecha_x: null
+- pagina: 27
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.4969
+    fin_texto_y: 764.5287
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 316.5914
+    inicio_derecha_x: 337.536
+- pagina: 28
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.7002
+    fin_texto_y: 763.7216
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 316.5202
+    inicio_derecha_x: 336.8765
+- pagina: 29
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 159.3709
+    fin_texto_y: 765.6231
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.2796
+    inicio_derecha_x: 339.189
+- pagina: 30
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.4969
+    fin_texto_y: 761.4499
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 316.5941
+    inicio_derecha_x: 337.6462
+- pagina: 31
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.7002
+    fin_texto_y: 762.6114
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.1989
+    inicio_derecha_x: 336.8136
+- pagina: 32
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.4969
+    fin_texto_y: 757.5087
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.6141
+    inicio_derecha_x: 338.726
+- pagina: 33
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 161.2871
+    fin_texto_y: 760.2412
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.5644
+    inicio_derecha_x: 339.189
+- pagina: 34
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.4969
+    fin_texto_y: 479.6859
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.7468
+    inicio_derecha_x: 337.0753
+- pagina: 35
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.4969
+    fin_texto_y: 764.0349
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.7762
+    inicio_derecha_x: 337.5143
+- pagina: 36
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 161.1609
+    fin_texto_y: 321.6509
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.7662
+    inicio_derecha_x: null
+- pagina: 37
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.4969
+    fin_texto_y: 559.4499
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 314.1741
+    inicio_derecha_x: 336.9376
+- pagina: 38
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 159.4969
+    fin_texto_y: 725.1192
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.4698
+    inicio_derecha_x: 337.3765
+- pagina: 39
+  x_columnas: 327
+  y_superior: 132
+  y_inferior: 778
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-26'
+  fecha: '2026-11-26'
+  medido:
+    fin_encabezado_y: 104.6628
+    inicio_texto_y: 160.4969
+    fin_texto_y: 722.4499
+    inicio_pie_y: 787.0269
+    fin_izquierda_x: 315.9154
+    inicio_derecha_x: 360.189

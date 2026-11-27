@@ -319,7 +319,9 @@ documentos:
   acto_de_adopcion: No aplica (marco de evaluación)
   url_oficial: https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/05/pisa-2025-assessment-and-analytical-framework_3abce6d6/86c36975-en.pdf
   idioma: en
-  nivel_cine: []
+  nivel_cine:
+  - 2
+  - 3
   grados_originales: Estudiantes de 15 años (CINE 2 y 3)
   area: Ciencias (competencia científica)
   estado: aprobado_manual
