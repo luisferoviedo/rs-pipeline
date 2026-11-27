@@ -570,3 +570,20 @@ Decisiones de Luis Fer sobre `extraccion_dba_09.py`. Salida: `enunciados_09_dba_
 - **Barras al final de línea.** Se unen sin espacio (aceptado por Luis Fer): «inflar/explotar» (pág. 28) y una dirección web (pág. 25).
 - **«Ejemplo» solo figura.** En 9 DBA el «Ejemplo» no tiene texto y sus unidades quedan con `ejemplo: null`: G6.D1, G6.D3, G7.D1, G7.D2, G8.D1, G9.D1, G10.D1, G10.D2 y G11.D2 (27 evidencias). El script falla si la lista cambia. En los demás, el contexto guarda solo el texto: lo que dice una figura no entra.
 - **El original no se corrige.** Tildes, erratas y puntuación quedan como en el PDF.
+
+### Cuarta adenda a D60 (27 nov 2026): piloto de columnas de los EBC aprobado
+- **Resultado.** Los EBC de Ciencias Naturales (págs. 18–23) tienen **231 viñetas**: 78 en 6.º–7.º, 75 en 8.º–9.º y 78 en 10.º–11.º. Coincide con el piloto inicial.
+
+| Columna | 6.º–7.º | 8.º–9.º | 10.º–11.º |
+|---|---|---|---|
+| Me aproximo al conocimiento como científico-a natural | 22 | 21 | 19 |
+| Entorno vivo | 16 | 15 | 12 |
+| Entorno físico | 16 | 12 | 24 |
+| Ciencia, tecnología y sociedad | 13 | 15 | 11 |
+| Desarrollo compromisos personales y sociales | 11 | 12 | 12 |
+| **Total** | **78** | **75** | **78** |
+
+- **Seis columnas en 10.º–11.º.** «Entorno físico» está partido en «Procesos químicos» (pág. 22, 13 viñetas) y «Procesos físicos» (pág. 23, 11), y «Entorno vivo» lleva «Procesos biológicos». Decisión de Luis Fer: se cuentan como una sola columna y el subtítulo se guarda en `subcolumna`.
+- **Estándares generales (contexto, no unidades).** Son **12**: 3 en 6.º–7.º, 4 en 8.º–9.º y 5 en 10.º–11.º. Las frases «Al final de … grado…» quedan fuera del contexto: solo sirven para comprobar que cada tabla es del grupo que dice.
+- **Nivel CINE (D56).** 6.º–7.º y 8.º–9.º, CINE 2 (el grupo 8.º–9.º cae completo en CINE 2); 10.º–11.º, CINE 3.
+- **Recortes aprobados por Luis Fer.** Uno por columna y por globo en cada página, porque cambian los anchos y la altura de los encabezados. Una palabra es de un recorte si cabe a lo ancho y el centro de su alto está entre sus límites: en las págs. 19, 21 y 23 la caja del rótulo «CIENCIAS NATURALES» del pie se monta sobre la última línea. Quedan en `config/recortes_ebc_2004.yaml` (medidos por `recortes_ebc_09.py`), con `verificado_por`: «Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27».

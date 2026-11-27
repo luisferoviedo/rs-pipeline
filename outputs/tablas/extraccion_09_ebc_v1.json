@@ -1,0 +1,72 @@
+{
+  "decision": "D60",
+  "fecha": "2026-11-27",
+  "pdftotext": "pdftotext version 26.08.0",
+  "inventario": {
+    "archivo": "config/referentes_curriculares.yaml",
+    "sha256": "0cbdf4a0fbb179f3835d6297bc4c9682a60e6c19f4d21f396f3824a298d6be40"
+  },
+  "recortes": {
+    "archivo": "config/recortes_ebc_2004.yaml",
+    "sha256": "bfd6033f86a0bc3e17488dd60cbaa8da8742e09a3b014546dbd317eea40e6453"
+  },
+  "documentos": {
+    "CO-EBC-2004": {
+      "archivo": "data/raw/curriculo/CO-EBC-2004.pdf",
+      "sha256": "d21ff298c2608dfe4912a0ae3fb3c5c956fe4aa46965dcc15586357356d23789",
+      "paginas": [
+        18,
+        23
+      ],
+      "vinetas": 231,
+      "por_grupo": {
+        "6-7": {
+          "nivel_cine": 2,
+          "vinetas": 78,
+          "estandares_generales": 3,
+          "por_columna": {
+            "me_aproximo": 22,
+            "entorno_vivo": 16,
+            "entorno_fisico": 16,
+            "ciencia_tecnologia_sociedad": 13,
+            "desarrollo_compromisos": 11
+          },
+          "por_subcolumna": {}
+        },
+        "8-9": {
+          "nivel_cine": 2,
+          "vinetas": 75,
+          "estandares_generales": 4,
+          "por_columna": {
+            "me_aproximo": 21,
+            "entorno_vivo": 15,
+            "entorno_fisico": 12,
+            "ciencia_tecnologia_sociedad": 15,
+            "desarrollo_compromisos": 12
+          },
+          "por_subcolumna": {}
+        },
+        "10-11": {
+          "nivel_cine": 3,
+          "vinetas": 78,
+          "estandares_generales": 5,
+          "por_columna": {
+            "me_aproximo": 19,
+            "entorno_vivo": 12,
+            "entorno_fisico": 24,
+            "ciencia_tecnologia_sociedad": 11,
+            "desarrollo_compromisos": 12
+          },
+          "por_subcolumna": {
+            "Procesos biológicos": 12,
+            "Procesos químicos": 13,
+            "Procesos físicos": 11
+          }
+        }
+      }
+    }
+  },
+  "unidades": 231,
+  "salida_datos": "data/processed/curriculo/enunciados_09_ebc_v1.jsonl",
+  "salida_datos_sha256": "38e57f2972d05a08a607f61b7491935d5e5bf4d1b69498624299ea0c9734fd32"
+}

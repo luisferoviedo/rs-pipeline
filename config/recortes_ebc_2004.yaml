@@ -1,0 +1,330 @@
+id: CO-EBC-2004
+decision: D60
+entrada:
+  archivo: data/raw/curriculo/CO-EBC-2004.pdf
+  sha256: d21ff298c2608dfe4912a0ae3fb3c5c956fe4aa46965dcc15586357356d23789
+pdftotext: pdftotext version 26.08.0
+unidades: puntos PDF, como los da pdftotext -bbox
+criterio: una palabra es del recorte si cabe entre x_izquierda y x_derecha y el centro
+  de su alto está entre y_superior e y_inferior
+metodo: propuesto por medición de coordenadas (pdftotext -bbox), verificado a ojo
+paginas:
+- pagina: 18
+  grupo: 6-7
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-26'
+  columnas:
+  - columna: me_aproximo
+    subcolumna: null
+    x_izquierda: 51
+    x_derecha: 374
+    y_superior: 196
+    y_inferior: 674
+    vinetas: 22
+    medido:
+      fin_encabezado_y: 190.0998
+      inicio_texto_y: 201.0909
+      fin_texto_y: 650.3624
+      texto_x0: 54.14
+      texto_x1: 362.6651
+  - columna: entorno_vivo
+    subcolumna: null
+    x_izquierda: 374
+    x_derecha: 559
+    y_superior: 198
+    y_inferior: 674
+    vinetas: 16
+    medido:
+      fin_encabezado_y: 195.1
+      inicio_texto_y: 201.2109
+      fin_texto_y: 672.61995
+      texto_x0: 384.68
+      texto_x1: 555.0632
+  contexto:
+  - tipo: introduccion
+    x_izquierda: 213
+    x_derecha: 282
+    y_superior: 48
+    y_inferior: 74
+  - tipo: estandar_general
+    x_izquierda: 326
+    x_derecha: 464
+    y_superior: 48
+    y_inferior: 84
+- pagina: 19
+  grupo: 6-7
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-26'
+  columnas:
+  - columna: entorno_fisico
+    subcolumna: null
+    x_izquierda: 35
+    x_derecha: 207
+    y_superior: 198
+    y_inferior: 680
+    vinetas: 16
+    medido:
+      fin_encabezado_y: 193.736
+      inicio_texto_y: 201.3309
+      fin_texto_y: 678.3199
+      texto_x0: 38.3
+      texto_x1: 202.1285
+  - columna: ciencia_tecnologia_sociedad
+    subcolumna: null
+    x_izquierda: 207
+    x_derecha: 386
+    y_superior: 197
+    y_inferior: 680
+    vinetas: 13
+    medido:
+      fin_encabezado_y: 193.736
+      inicio_texto_y: 201.094
+      fin_texto_y: 669.5031
+      texto_x0: 212.061
+      texto_x1: 377.6169
+  - columna: desarrollo_compromisos
+    subcolumna: null
+    x_izquierda: 386
+    x_derecha: 546
+    y_superior: 196
+    y_inferior: 680
+    vinetas: 11
+    medido:
+      fin_encabezado_y: 188.375
+      inicio_texto_y: 203.017
+      fin_texto_y: 620.96545
+      texto_x0: 394.041
+      texto_x1: 542.98995
+  contexto:
+  - tipo: estandar_general
+    x_izquierda: 107
+    x_derecha: 245
+    y_superior: 40
+    y_inferior: 108
+  - tipo: estandar_general
+    x_izquierda: 375
+    x_derecha: 526
+    y_superior: 42
+    y_inferior: 108
+- pagina: 20
+  grupo: 8-9
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-26'
+  columnas:
+  - columna: me_aproximo
+    subcolumna: null
+    x_izquierda: 51
+    x_derecha: 373
+    y_superior: 196
+    y_inferior: 666
+    vinetas: 21
+    medido:
+      fin_encabezado_y: 190.0998
+      inicio_texto_y: 201.4509
+      fin_texto_y: 618.31845
+      texto_x0: 54.14
+      texto_x1: 361.3909
+  - columna: entorno_vivo
+    subcolumna: null
+    x_izquierda: 373
+    x_derecha: 560
+    y_superior: 198
+    y_inferior: 666
+    vinetas: 15
+    medido:
+      fin_encabezado_y: 195.1
+      inicio_texto_y: 201.3309
+      fin_texto_y: 664.21965
+      texto_x0: 384.68
+      texto_x1: 556.68645
+  contexto:
+  - tipo: introduccion
+    x_izquierda: 193
+    x_derecha: 260
+    y_superior: 44
+    y_inferior: 69
+  - tipo: estandar_general
+    x_izquierda: 329
+    x_derecha: 451
+    y_superior: 38
+    y_inferior: 105
+- pagina: 21
+  grupo: 8-9
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-26'
+  columnas:
+  - columna: entorno_fisico
+    subcolumna: null
+    x_izquierda: 35
+    x_derecha: 206
+    y_superior: 198
+    y_inferior: 676
+    vinetas: 12
+    medido:
+      fin_encabezado_y: 193.736
+      inicio_texto_y: 201.3309
+      fin_texto_y: 633.32085
+      texto_x0: 38.3
+      texto_x1: 200.6778
+  - columna: ciencia_tecnologia_sociedad
+    subcolumna: null
+    x_izquierda: 206
+    x_derecha: 384
+    y_superior: 197
+    y_inferior: 676
+    vinetas: 15
+    medido:
+      fin_encabezado_y: 193.736
+      inicio_texto_y: 201.215
+      fin_texto_y: 674.5471
+      texto_x0: 211.82
+      texto_x1: 373.03275
+  - columna: desarrollo_compromisos
+    subcolumna: null
+    x_izquierda: 384
+    x_derecha: 546
+    y_superior: 195
+    y_inferior: 676
+    vinetas: 12
+    medido:
+      fin_encabezado_y: 188.375
+      inicio_texto_y: 201.3399
+      fin_texto_y: 655.7094
+      texto_x0: 393.981
+      texto_x1: 542.92995
+  contexto:
+  - tipo: estandar_general
+    x_izquierda: 35
+    x_derecha: 163
+    y_superior: 45
+    y_inferior: 113
+  - tipo: estandar_general
+    x_izquierda: 234
+    x_derecha: 360
+    y_superior: 46
+    y_inferior: 103
+  - tipo: estandar_general
+    x_izquierda: 419
+    x_derecha: 540
+    y_superior: 41
+    y_inferior: 88
+- pagina: 22
+  grupo: 10-11
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-26'
+  columnas:
+  - columna: me_aproximo
+    subcolumna: null
+    x_izquierda: 48
+    x_derecha: 278
+    y_superior: 191
+    y_inferior: 675
+    vinetas: 19
+    medido:
+      fin_encabezado_y: 185.6678
+      inicio_texto_y: 197.251
+      fin_texto_y: 673.6938
+      texto_x0: 51.92
+      texto_x1: 271.5201
+  - columna: entorno_vivo
+    subcolumna: Procesos biológicos
+    x_izquierda: 278
+    x_derecha: 422
+    y_superior: 209
+    y_inferior: 675
+    vinetas: 12
+    medido:
+      fin_encabezado_y: 204.504
+      inicio_texto_y: 213.4509
+      fin_texto_y: 670.0404
+      texto_x0: 284.06
+      texto_x1: 415.7399
+  - columna: entorno_fisico
+    subcolumna: Procesos químicos
+    x_izquierda: 422
+    x_derecha: 559
+    y_superior: 209
+    y_inferior: 675
+    vinetas: 13
+    medido:
+      fin_encabezado_y: 204.624
+      inicio_texto_y: 213.4509
+      fin_texto_y: 639.49685
+      texto_x0: 427.34
+      texto_x1: 555.68445
+  contexto:
+  - tipo: introduccion
+    x_izquierda: 220
+    x_derecha: 265
+    y_superior: 45
+    y_inferior: 82
+  - tipo: estandar_general
+    x_izquierda: 272
+    x_derecha: 380
+    y_superior: 49
+    y_inferior: 117
+  - tipo: estandar_general
+    x_izquierda: 440
+    x_derecha: 537
+    y_superior: 41
+    y_inferior: 118
+- pagina: 23
+  grupo: 10-11
+  verificado_por: 'Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27'
+  fecha: '2026-11-26'
+  columnas:
+  - columna: entorno_fisico
+    subcolumna: Procesos físicos
+    x_izquierda: 33
+    x_derecha: 186
+    y_superior: 209
+    y_inferior: 646
+    vinetas: 11
+    medido:
+      fin_encabezado_y: 204.0839
+      inicio_texto_y: 213.4509
+      fin_texto_y: 644.6004
+      texto_x0: 36.62
+      texto_x1: 180.7274
+  - columna: ciencia_tecnologia_sociedad
+    subcolumna: null
+    x_izquierda: 186
+    x_derecha: 334
+    y_superior: 208
+    y_inferior: 646
+    vinetas: 11
+    medido:
+      fin_encabezado_y: 202.9159
+      inicio_texto_y: 213.4509
+      fin_texto_y: 644.6003
+      texto_x0: 191.48
+      texto_x1: 323.16275
+  - columna: desarrollo_compromisos
+    subcolumna: null
+    x_izquierda: 334
+    x_derecha: 542
+    y_superior: 204
+    y_inferior: 646
+    vinetas: 12
+    medido:
+      fin_encabezado_y: 194.6149
+      inicio_texto_y: 213.4509
+      fin_texto_y: 580.45885
+      texto_x0: 344.3
+      texto_x1: 538.46805
+  contexto:
+  - tipo: estandar_general
+    x_izquierda: 95
+    x_derecha: 190
+    y_superior: 40
+    y_inferior: 97
+  - tipo: estandar_general
+    x_izquierda: 276
+    x_derecha: 365
+    y_superior: 41
+    y_inferior: 106
+  - tipo: estandar_general
+    x_izquierda: 422
+    x_derecha: 546
+    y_superior: 42
+    y_inferior: 128
