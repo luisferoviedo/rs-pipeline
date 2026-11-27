@@ -322,3 +322,10 @@ def test_conteos_reales_contra_los_pdf(corrida_real):
     assert len({f["id_unidad"] for f in filas}) == 58  # ids únicos
     e46 = next(f for f in filas if f["id_unidad"] == "CO-ICFES-MR-CN-S11:E9.5")
     assert e46["texto"] == "Usa información adicional para evaluar una predicción."
+
+
+def test_nivel_cine_de_cada_documento(corrida_real):
+    _, filas, _ = corrida_real
+    niveles = {(f["documento"], tuple(f["nivel_cine"])) for f in filas}
+    # ICFES es de 11.º (CINE 3); PISA evalúa a los 15 años (CINE 2 y 3; adenda a D60)
+    assert niveles == {(X.ID_ICFES, (3,)), (X.ID_PISA, (2, 3))}

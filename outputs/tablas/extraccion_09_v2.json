@@ -1,0 +1,35 @@
+{
+  "decision": "D60",
+  "fecha": "2026-11-27",
+  "pdftotext": "pdftotext version 26.08.0",
+  "inventario": {
+    "archivo": "config/referentes_curriculares.yaml",
+    "sha256": "0cbdf4a0fbb179f3835d6297bc4c9682a60e6c19f4d21f396f3824a298d6be40"
+  },
+  "documentos": {
+    "CO-ICFES-MR-CN-S11": {
+      "archivo": "data/raw/curriculo/CO-ICFES-MR-CN-S11.pdf",
+      "sha256": "43d2fa40ece6c486fe18a8139d0b0c506fef37294eaa63d024ea12948c9ab367",
+      "paginas": [
+        38,
+        45
+      ],
+      "competencias": 3,
+      "afirmaciones": 9,
+      "evidencias": 43
+    },
+    "OCDE-PISA2025-MARCO": {
+      "archivo": "data/raw/curriculo/86c36975-en.pdf",
+      "sha256": "5b50212929d3fe97c7226e9180a7349a3b619d416e3a5424c327a59e2d33898f",
+      "paginas": [
+        34,
+        36
+      ],
+      "competencias": 3,
+      "descriptores": 15
+    }
+  },
+  "unidades": 58,
+  "salida_datos": "data/processed/curriculo/enunciados_09_v2.jsonl",
+  "salida_datos_sha256": "71dfefe7351123926f49b00f60eb86a86e365fe435d7859816d02f0fa44dc881"
+}

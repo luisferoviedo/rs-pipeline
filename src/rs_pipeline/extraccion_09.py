@@ -34,8 +34,8 @@ from rs_pipeline.semantico_texto import fallar
 
 RAIZ_REPO = Path(__file__).resolve().parents[2]
 INVENTARIO = RAIZ_REPO / "config" / "referentes_curriculares.yaml"
-SALIDA_DATOS = RAIZ_REPO / "data" / "processed" / "curriculo" / "enunciados_09_v1.jsonl"
-SALIDA_RESUMEN = RAIZ_REPO / "outputs" / "tablas" / "extraccion_09_v1.json"
+SALIDA_DATOS = RAIZ_REPO / "data" / "processed" / "curriculo" / "enunciados_09_v2.jsonl"
+SALIDA_RESUMEN = RAIZ_REPO / "outputs" / "tablas" / "extraccion_09_v2.json"
 
 # --- ICFES ------------------------------------------------------------------
 ID_ICFES = "CO-ICFES-MR-CN-S11"

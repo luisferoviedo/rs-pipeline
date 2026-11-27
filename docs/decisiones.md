@@ -587,3 +587,9 @@ Decisiones de Luis Fer sobre `extraccion_dba_09.py`. Salida: `enunciados_09_dba_
 - **Estándares generales (contexto, no unidades).** Son **12**: 3 en 6.º–7.º, 4 en 8.º–9.º y 5 en 10.º–11.º. Las frases «Al final de … grado…» quedan fuera del contexto: solo sirven para comprobar que cada tabla es del grupo que dice.
 - **Nivel CINE (D56).** 6.º–7.º y 8.º–9.º, CINE 2 (el grupo 8.º–9.º cae completo en CINE 2); 10.º–11.º, CINE 3.
 - **Recortes aprobados por Luis Fer.** Uno por columna y por globo en cada página, porque cambian los anchos y la altura de los encabezados. Una palabra es de un recorte si cabe a lo ancho y el centro de su alto está entre sus límites: en las págs. 19, 21 y 23 la caja del rótulo «CIENCIAS NATURALES» del pie se monta sobre la última línea. Quedan en `config/recortes_ebc_2004.yaml` (medidos por `recortes_ebc_09.py`), con `verificado_por`: «Luis Fer Oviedo — revisión visual asistida por Claude, 2026-11-27».
+
+### Quinta adenda a D60 (27 nov 2026): cambio de la ruta A a la ruta B
+Decisión de Luis Fer, después del commit `df11065` (extracción de los EBC).
+- **Orden nuevo.** Se extraen primero Perú, Argentina, México y Brasil, y luego se codifica todo junto (el mismo modelo, en las mismas sesiones). Reemplaza la «Ruta A» de D60, que codificaba primero los cuatro referentes del OE3. Las reglas de extracción y de codificación no cambian.
+- **Estado de la ruta A al cambiar.** Extraídos los cuatro documentos: ICFES 43, PISA 15, DBA 99 y EBC 231 unidades (388). Ninguno está codificado.
+- **ICFES y PISA, salida v2.** `enunciados_09_v2.jsonl` y `outputs/tablas/extraccion_09_v2.json`, con PISA en `nivel_cine: [2, 3]` según el inventario. La v1 no se toca y deja de usarse.
