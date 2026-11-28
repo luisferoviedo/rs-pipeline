@@ -1,0 +1,67 @@
+{
+  "decision": "D60",
+  "fecha": "2026-11-27",
+  "pdftotext": "pdftotext version 26.08.0",
+  "inventario": {
+    "archivo": "config/referentes_curriculares.yaml",
+    "sha256": "b7b095fc0303ce6429632770f0b1120c705a6c36ed93b9a6eee0f19a72d5a85f"
+  },
+  "documentos": {
+    "AR-NAP-CB": {
+      "archivo": "data/raw/curriculo/AR-NAP-CB-CN.pdf",
+      "sha256": "2dc068c5614ee804d6c8a0f9ecce8e110cbd28507df78eecfa177dc332668f61",
+      "paginas": [
+        1,
+        11
+      ],
+      "unidades": 74,
+      "generales": 14,
+      "por_grupo": {
+        "general": 14,
+        "G7.seres_vivos": 9,
+        "G7.materiales": 5,
+        "G7.fisicos": 3,
+        "G7.tierra_universo": 1,
+        "G8.seres_vivos": 7,
+        "G8.materiales": 6,
+        "G8.fisicos": 4,
+        "G8.tierra_universo": 2,
+        "G9.seres_vivos": 6,
+        "G9.materiales": 7,
+        "G9.fisicos": 5,
+        "G9.tierra_universo": 5
+      },
+      "con_marca_de_nivel": 18,
+      "llamadas_a_nota_quitadas": 2,
+      "unidades_en_dos_paginas": [
+        "AR-NAP-CB:general.4"
+      ]
+    },
+    "AR-NAP-CO": {
+      "archivo": "data/raw/curriculo/AR-NAP-CO-CN.pdf",
+      "sha256": "9476eb6b33a1300c3e3b01fde88ef34793afda22c8f0359c9fa19aba724dbf5d",
+      "paginas": [
+        1,
+        10
+      ],
+      "unidades": 25,
+      "generales": 6,
+      "por_grupo": {
+        "general": 6,
+        "biologia.informacion_genetica": 5,
+        "biologia.procesos_evolutivos": 3,
+        "fisica": 4,
+        "quimica.propiedades_materiales": 3,
+        "quimica.transformaciones_quimicas": 4
+      },
+      "con_marca_de_nivel": 0,
+      "llamadas_a_nota_quitadas": 10,
+      "unidades_en_dos_paginas": [
+        "AR-NAP-CO:biologia.informacion_genetica.5"
+      ]
+    }
+  },
+  "unidades": 99,
+  "salida_datos": "data/processed/curriculo/enunciados_09_ar_v1.jsonl",
+  "salida_datos_sha256": "897d38fd1fb9515d15bea540e761d1b30ed7db4a8199e0dfe1604cb9999e48bf"
+}

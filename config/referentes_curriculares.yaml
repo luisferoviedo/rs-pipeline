@@ -280,6 +280,9 @@ documentos:
   notas: La denominación es la de la estructura anterior (Tercer Ciclo EGB / Nivel Medio); equivale al
     ciclo básico (CINE 2). Luis Fer lo descargó a mano el 4 nov 2026 desde la resolución del CFE (no desde
     educ.ar); 11 páginas. Ingesta manual registrada el 2026-11-04.
+    URL alterna https://backend.educ.ar/refactor_resource/get-attachment/22986 (misma estructura y conteos
+    por eje, verificado por Claude el 27 nov 2026 por lectura del contenido, sin descarga; no comparado
+    palabra por palabra).
   ruta_local: data/raw/curriculo/AR-NAP-CB-CN.pdf
   fecha_descarga: '2026-11-04'
   tamano_bytes: 40845
