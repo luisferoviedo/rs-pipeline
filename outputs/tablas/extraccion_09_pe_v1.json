@@ -1,0 +1,135 @@
+{
+  "decision": "D60",
+  "fecha": "2026-11-27",
+  "pdftotext": "pdftotext version 26.08.0",
+  "origen": "OCR",
+  "entradas": {
+    "inventario": {
+      "archivo": "config/referentes_curriculares.yaml",
+      "sha256": "0cbdf4a0fbb179f3835d6297bc4c9682a60e6c19f4d21f396f3824a298d6be40"
+    },
+    "ocr": {
+      "archivo": "outputs/ocr/PE-PCS-2016_ocr_p177-194_v2.json",
+      "sha256": "f78e982e6752047383618ef409298a053c29fdcf0c2e28d656c0bddb064a6cf9"
+    },
+    "vinetas": {
+      "archivo": "config/vinetas_pe_pcs_2016.yaml",
+      "sha256": "f80770d6b8f3860b907590a703d7ac875ce95fa69c201046c362b973087bd991"
+    },
+    "referencia_ciclos": {
+      "archivo": "config/ciclos_pe_pcs_2016.yaml",
+      "sha256": "ee12fbc7109e497933742b63691966032249477c287c77f6adac690a5b92012f"
+    },
+    "correcciones": {
+      "archivo": "data/processed/curriculo/PE-PCS-2016_ocr/correcciones.csv",
+      "sha256": "de3a56e0ea0fcaa7fe8f560e14fd7fc777b486fdb25b92b320ce7e75fca3f960"
+    }
+  },
+  "documentos": {
+    "PE-PCS-2016": {
+      "archivo": "data/raw/curriculo/PE-PCS-2016.pdf",
+      "sha256": "3f4443dd1273f287c1ae069eed1cb314cb0574f9f0794495716415be2ec8075b",
+      "paginas": [
+        181,
+        194
+      ],
+      "desempenos": 107,
+      "por_competencia_y_grado": {
+        "indaga": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "explica": [
+          12,
+          15,
+          12,
+          10,
+          13
+        ],
+        "disena": [
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      "por_ciclo": {
+        "VI": 45,
+        "VII": 62
+      },
+      "por_nivel_cine": {
+        "2": 66,
+        "3": 41
+      },
+      "con_ejemplo": 7,
+      "ciclo_por_pagina": {
+        "181": {
+          "ciclo": "VI",
+          "origen": "texto"
+        },
+        "182": {
+          "ciclo": "VII",
+          "origen": "texto"
+        },
+        "183": {
+          "ciclo": "VII",
+          "origen": "texto"
+        },
+        "186": {
+          "ciclo": "VI",
+          "origen": "texto"
+        },
+        "187": {
+          "ciclo": "VI",
+          "origen": "hereda de la 186"
+        },
+        "188": {
+          "ciclo": "VII",
+          "origen": "referencia"
+        },
+        "189": {
+          "ciclo": "VII",
+          "origen": "referencia"
+        },
+        "192": {
+          "ciclo": "VI",
+          "origen": "texto"
+        },
+        "193": {
+          "ciclo": "VII",
+          "origen": "texto"
+        },
+        "194": {
+          "ciclo": "VII",
+          "origen": "texto"
+        }
+      }
+    },
+    "PE-CNEB-2016": {
+      "archivo": "data/raw/curriculo/PE-CNEB-2016.pdf",
+      "sha256": "a745ca842113f53609c435df9a13eda67371164b22ccb8492b2b02167dc2299b",
+      "paginas": [
+        125,
+        133
+      ],
+      "estandares": 6,
+      "unidades": 0
+    }
+  },
+  "unidades_corregidas": [
+    "PE-PCS-2016:S5.indaga.5",
+    "PE-PCS-2016:S1.explica.7",
+    "PE-PCS-2016:S1.explica.8",
+    "PE-PCS-2016:S2.explica.4",
+    "PE-PCS-2016:S3.explica.8",
+    "PE-PCS-2016:S3.explica.12",
+    "PE-PCS-2016:S5.disena.3"
+  ],
+  "unidades": 107,
+  "salida_datos": "data/processed/curriculo/enunciados_09_pe_v1.jsonl",
+  "salida_datos_sha256": "ab5578798d2a62946d4352da0472b558f252e43b60de8fb64133267b835fcfff"
+}

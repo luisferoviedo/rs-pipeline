@@ -617,3 +617,9 @@ Decisión de Luis Fer, después del commit `df11065` (extracción de los EBC).
 
 - **«Ejemplo:» va como contexto.** En 7 desempeños (Explica: 3 de 1.º y 4 de 2.º) el texto desde «Ejemplo:» se guarda aparte, como contexto del desempeño, igual que en los DBA.
 - **PE-CNEB-2016: solo contexto, ninguna unidad.** No trae desempeños por grado. Se usan los estándares por ciclo de las tres competencias (niveles 6 y 7, ciclos VI y VII; págs. PDF 125, 129 y 133): 6 en total, tomados de su capa de texto (sin OCR) y asociados por competencia y ciclo. En el piloto coinciden con las descripciones de nivel del Programa curricular (similitud 0,99–1,00).
+
+### Séptima adenda a D60 (27 nov 2026): corrección sobre los estándares de Perú
+- **Qué se corrige.** La sexta adenda dice que los estándares del CNEB coinciden con las descripciones de nivel del Programa curricular. La comparación del piloto no verificó a qué nivel correspondía cada coincidencia. Coinciden con el nivel de su ciclo en 7 de las 9 páginas. En las págs. 193 y 194 (Diseña, ciclo VII), el Programa repite la descripción del ciclo VI: se parece 0,99 al nivel 6 del CNEB y 0,67 al nivel 7.
+- **Es un error del documento original.** La tabla de estándares del mismo Programa (pág. 191) sí da para el ciclo VII el texto del nivel 7, revisado en la imagen.
+- **Efecto.** La decisión no cambia: el contexto se toma del CNEB, así que los 12 desempeños de Diseña de 3.º a 5.º llevan el estándar del nivel 7. La descripción impresa en las págs. 193 y 194 no se usa. Lo comprueba `tests/test_extraccion_pe_09.py`.
+- **Textos distintos.** Son 99 y no 100 (sexta adenda): en el piloto, un «|» de borde hacía que el primer desempeño de Diseña de 3.º pareciera distinto del de 2.º y 4.º.

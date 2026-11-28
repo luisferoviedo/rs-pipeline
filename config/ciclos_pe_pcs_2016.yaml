@@ -1,0 +1,16 @@
+# Ciclo de cada página con desempeños de PE-PCS-2016 (D57).
+# Sirve de control del ciclo leído en el texto y resuelve las páginas cuyas menciones
+# no coinciden. La 187 no está: es continuación y hereda el ciclo de la 186.
+id: PE-PCS-2016
+decision: D57
+fuente: 'Tercera adenda a D57 (5 nov 2026): referencia de ciclos verificada a ojo'
+ciclos:
+  181: VI
+  182: VII
+  183: VII
+  186: VI
+  188: VII
+  189: VII
+  192: VI
+  193: VII
+  194: VII
